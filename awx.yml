@@ -1,0 +1,23 @@
+# 服务器前置任务(ubuntu使用 Centos项目注释或删掉)
+- name: awx
+  hosts: all
+  become: yes
+  become_method: sudo
+  gather_facts: False
+  pre_tasks:
+    - name: Install Python
+      raw: sudo apt update && sudo apt-get -y install python
+      ignore_errors: yes
+  
+# 核心任务
+
+- name: awx
+  hosts: all
+  become: yes
+  become_method: sudo
+
+  roles:
+    - {role: common, tags: "common"}
+    - {role: docker, tags: "docker"}
+    - {role: nodejs, tags: "nodejs"}
+    - {role: awx, tags: "awx"}

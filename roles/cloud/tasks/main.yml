@@ -1,0 +1,58 @@
+##
+- name: Check Cloud
+  shell: echo "{{ansible_kernel}}" | awk -F '-' '{print $3}'
+  register: cloud
+
+- block:
+  - name: Create swap Space
+    command: dd if=/dev/zero of=/mnt/swap bs=256M count=8
+
+  - name: Make swap
+    command: mkswap /mnt/swap
+
+  - name: Action swap
+    command: swapon /mnt/swap
+  
+  - name: Add to fstab
+    lineinfile:
+        dest: /etc/fstab
+        regexp: '/mnt/swap'
+        line: "/mnt/swap swap swap defaults 0 0"
+        state: present
+
+  when: (ansible_swaptotal_mb == 0) and (cloud.stdout != 'azure')
+
+- block:
+  - name: ResourceDisk EnableSwap
+    lineinfile:
+      dest: /etc/waagent.conf
+      regexp: 'ResourceDisk.EnableSwap=n'
+      line: "ResourceDisk.EnableSwap=y"
+      state: present
+
+  - name: ResourceDisk SwapSizeMB
+    lineinfile:
+      dest: /etc/waagent.conf
+      regexp: 'ResourceDisk.SwapSizeMB=0'
+      line: "ResourceDisk.SwapSizeMB=2048"
+      state: present
+  when: cloud.stdout == 'azure'
+
+- block:
+  - name: AWS Configure
+    apt:
+      name: ec2-instance-connect
+      update_cache: yes
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: AWS Configure
+    yum:
+      name: ec2-instance-connect
+    when: ansible_distribution == 'Centos'
+  
+  - name: Start ec2-instance-connect
+    service:
+      name: ec2-instance-connect
+      state: started
+      enabled: yes
+  when: cloud.stdout == 'aws'
