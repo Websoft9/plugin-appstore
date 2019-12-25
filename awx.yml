@@ -20,6 +20,6 @@
     - {role: cloud, tags: "cloud"}
     - {role: common, tags: "common"}
     - {role: docker, tags: "docker"}
-    - {role: nodejs, tags: "nodejs"}
+    - {role: node.js, tags: "node.js"}
     - {role: awx, tags: "awx"}
     - {role: end, tags: "end"}

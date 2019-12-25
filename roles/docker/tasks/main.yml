@@ -47,6 +47,11 @@
     name: docker 
     enabled: yes
     state: restarted
+
+- name: install docker-compose used by pip3
+  pip:
+    name: [docker-compose]
+    executable: pip3
       
 - name: Check Docker Version
   shell: docker -v
