@@ -17,7 +17,9 @@
   become_method: sudo
 
   roles:
+    - {role: cloud, tags: "cloud"}
     - {role: common, tags: "common"}
     - {role: docker, tags: "docker"}
     - {role: nodejs, tags: "nodejs"}
     - {role: awx, tags: "awx"}
+    - {role: end, tags: "end"}
