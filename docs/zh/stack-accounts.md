@@ -5,7 +5,7 @@
 ## AWX
 
 管理员用户名：`admin`  
-管理员密码： `admin`
+管理员密码： `password` or `admin` 
 
 ## PostgreSQL
 
@@ -24,5 +24,6 @@
    |  云平台   |  管理员账号   |
    | --- | --- |
    |  Azure   |  创建服务器的时候自行设置   |
-   |  AWS   |  ubuntu   |
+   |  Ubuntu of AWS   |  ubuntu   |
+   |  CentOS of AWS   |  centos   |
    |  阿里云，华为云，腾讯云   |  root   |

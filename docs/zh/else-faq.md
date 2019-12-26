@@ -8,25 +8,25 @@
 
 AWX是采用peer认证方法与本地PostgreSQL连接
 
+#### AWX API 地址是多少？
+
+http://AWX Server Internet IP/api/
+
 #### 如果没有域名是否可以部署 AWX？
 
 可以，访问`http://服务器公网IP` 即可
 
-#### 数据库 postgres 用户对应的密码是多少？
+#### 数据库 Postgres 用户对应的密码是多少？
 
 密码存放在服务器相关文件中：`/credentials/password.txt`
 
 #### 是否有可视化的数据库管理工具？
 
-有，内置phpPgAdmin，访问地址：http://服务器公网IP:9090
-
-#### 如何禁止phpPgAdmin访问？
-
-关闭服务器安全组的9090端口即可禁止
+为了安全考虑，没有提供可视化的数据库管理工具
 
 #### 是否可以修改AWX的源码路径？
 
-不可以修改
+采用Docker安装，不可以修改
 
 #### 如何修改上传的文件权限?
 

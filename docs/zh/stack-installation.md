@@ -11,14 +11,25 @@
 ## AWX 安装向导
 
 1. 使用本地电脑的 Chrome 或 Firefox 浏览器访问网址：*http://域名* 或 *http://公网IP*, 进入AWX登录页面
-![AWX登录页面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
+   ![AWX登录页面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
 
 2. 输入用户名和密码[（查看）](/zh/stack-accounts.md)，登录到AWX后台管理界面
-![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
+   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
 
-3. 分别创建：Credentials,Inventories,Project分项，然后创建一个Template关联它们，就完成了一个自动化项目的配置
+3. 分别创建运行一个安装模板（Template）所需的准备条件：
 
-4. 启动Template，开始安装Ansible项目
+   - ORGANIZATIONS
+   - Credentials
+   - Inventories
+   - Project
+
+   最后创建 Template 关联它们，就完成了一个自动化项目的配置
+
+   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-template-websoft9.png)
+
+
+4. 启动Template，进入 Job 页面，开始安装所需的应用程序
+   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-job-websoft9.png)
 
 > 需要了解更多AWX的使用，请参考：[Ansible Tower Documentation](https://docs.ansible.com/ansible-tower/)
 
@@ -30,7 +41,7 @@
 
 #### 本部署包采用的哪个数据库来存储 AWX 数据？
 
-PostgreSQL
+PostgreSQL Docker
 
 #### 第一次加载速度很慢？
 
