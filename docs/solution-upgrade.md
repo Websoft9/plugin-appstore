@@ -22,8 +22,18 @@ apt update && apt upgrade -y
 #For Centos&Redhat
 yum update -y
 ```
-> This deployment package is preconfigured with a scheduled task for automatic updates. If you want to remove the automatic update, please delete the corresponding Cron
+> This deployment package is pre-configured with a scheduled task for automatic updates. If you want to remove the automatic update, please delete the corresponding Cron
 
 ## AWX Upgrade
 
-Coming soon...
+Upgrading AWX involves rerunning the install playbook. Download a newer release from https://github.com/ansible/awx/releases and re-populate the inventory file with your customized variables.
+
+For convenience, you can create a file called vars.yml:
+
+admin_password: 'adminpass'
+pg_password: 'pgpass'
+rabbitmq_password: 'rabbitpass'
+secret_key: 'mysupersecret'
+And pass it to the installer:
+
+$ ansible-playbook -i inventory install.yml -e @vars.yml

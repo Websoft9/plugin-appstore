@@ -24,4 +24,19 @@ yum update -y
 
 ## AWX升级
 
-待续...
+升级AWX通过重新安装来完成。
+
+1. 使用SSH登录服务器
+2. 进入到 */data/awx/* 目录，从Github更新AWX源码
+3. 进入到 */data/awx/installer* 目录
+4. 增加一个 update-vars.yml 文件，其中的内容如下（其中的密码为真实值）：
+   ```
+   admin_password: 'adminpass'
+   pg_password: 'pgpass'
+   rabbitmq_password: 'rabbitpass'
+   secret_key: 'mysupersecret'
+   ```
+5. 运行如下命令，开始升级
+   ```
+   ansible-playbook -i inventory install.yml -e @update-vars.yml
+   ```
