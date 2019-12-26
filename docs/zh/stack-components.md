@@ -41,8 +41,7 @@ Docker daemon.json 文件：默认没有创建，请到 */etc/docker* 目录下�
 本环境使用 Docker Compose 作为容器编排（调度）工具，用于管理多个容器的启动和服务连接。
 
 Docker Compose 命令位置：*/usr/local/bin/docker-compose*  
-Docker Compose 配置目录 */root/.awx/awxcompose*  
-> 其中*root*服务器用户名，即可能是ubuntu等
+Docker Compose 配置目录 */data/awx/awxcompose*  
 
 ## 端口号
 
