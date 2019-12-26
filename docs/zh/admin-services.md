@@ -2,7 +2,25 @@
 
 使用由Websoft9提供的AWX部署方案，可能需要用到的服务如下：
 
-### AWX
+
+### Docker
+
+```shell
+sudo systemctl start docker
+sudo systemctl restart docker
+sudo systemctl stop docker
+sudo systemctl status docker
+```
+
+### Docker Compose
+```shell
+sudo systemctl start docker
+sudo systemctl restart docker
+sudo systemctl stop docker
+sudo systemctl status docker
+```
+
+### Docker AWX
 
 ```shell
 sudo systemctl start awx-web

@@ -29,8 +29,8 @@ module.exports = [
     collapsable: false,
     children: [
       '/zh/admin-services',
+      '/zh/admin-cli',
       '/zh/admin-postgresql',
-      ['https://support.websoft9.com/docs/linux/zh/webs-nginx.html','Nginx'],
       ['https://support.websoft9.com/docs/linux/zh/admin-practices.html','Linux'],
     ]
   },
