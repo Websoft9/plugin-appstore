@@ -2,8 +2,6 @@
 
 AWX 预装包包含 AWX 运行所需一序列支撑软件（简称为“组件”），下面列出主要组件名称、安装路径、配置文件地址、端口、版本等重要的信息。
 
-> 如果你使用的非Docker部署方式，请参考 [AWX 旧版镜像-参数](stack-components-nodocker)
-
 ## 路径
 
 ### AWX
@@ -52,24 +50,6 @@ PostgreSQL 配置文件: */data/pgsql/postgresql.conf*
 PostgreSQL 日志文件：*/data/pgsql/pg_log*  
 PostgreSQL 可视化管理地址: *http://服务器公网IP:9090*，用户名和密码请见 [账号密码](/zh/stack-accounts.md) 章节。
 
-### Docker
-
-Docker 根目录: */var/lib/docker*  
-Docker 镜像目录: */var/lib/docker/image*   
-Docker daemon.json 文件：默认没有创建，请到 */etc/docker* 目录下根据需要自行创建
-
-### Container
-
-通过运行`docker ps`，可以查看到AWX运行时所有的Container：
-
-```bash
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                NAMES
-e240ed8209cd        awx_task:1.0.0.8    "/tini -- /bin/sh ..."   2 minutes ago       Up About a minute   8052/tcp                             awx_task
-1cfd02601690        awx_web:1.0.0.8     "/tini -- /bin/sh ..."   2 minutes ago       Up About a minute   0.0.0.0:443->8052/tcp                 awx_web
-55a552142bcd        memcached:alpine    "docker-entrypoint..."   2 minutes ago       Up 2 minutes        11211/tcp                            memcached
-84011c072aad        rabbitmq:3          "docker-entrypoint..."   2 minutes ago       Up 2 minutes        4369/tcp, 5671-5672/tcp, 25672/tcp   rabbitmq
-97e196120ab3        postgres:9.6        "docker-entrypoint..."   2 minutes ago       Up 2 minutes        5432/tcp                             postgres
-```
 
 ## 端口号
 
@@ -98,8 +78,5 @@ psql --version
 
 # Dokcer:
 docker --version
-
-# Docker Version
-docker -v
 
 ```

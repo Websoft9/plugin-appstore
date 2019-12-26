@@ -1,5 +1,5 @@
 # 服务器前置任务(ubuntu使用 Centos项目注释或删掉)
-- name: awx
+- name: Pre_awx
   hosts: all
   become: yes
   become_method: sudo
@@ -15,6 +15,7 @@
   hosts: all
   become: yes
   become_method: sudo
+  gather_facts: True
 
   roles:
     - {role: cloud, tags: "cloud"}
