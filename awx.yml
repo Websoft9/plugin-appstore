@@ -18,8 +18,8 @@
   gather_facts: True
 
   roles:
-    - {role: cloud, tags: "cloud"}
     - {role: common, tags: "common"}
+    - {role: cloud, tags: "cloud"}
     - {role: docker, tags: "docker"}
     - {role: node.js, tags: "node.js"}
     - {role: awx, tags: "awx"}
