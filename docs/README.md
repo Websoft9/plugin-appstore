@@ -6,7 +6,7 @@ home: false
 
 This documentation is provided by [Websoft9](https://www.websoft9.com/), it can help users to acquire skills of AWX Deployment, Installation, Configuration, HTTPS, SMTP, Backup, Upgrade, Connect Instance and more.
 
-[AWX](https://github.com/ansible/awx) the Ansible Tower's opensource edition,AWX provides a web-based user interface, REST API, and task engine built on top of Ansible. It is the upstream project for Tower, a commercial derivative of AWX.
+[AWX](https://github.com/ansible/awx) is the Ansible Tower's open source edition,AWX provides a web-based user interface, REST API, and task engine built on top of Ansible. It is the upstream project for Tower, a commercial derivative of AWX.
 
 ![](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
 

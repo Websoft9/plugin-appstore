@@ -2,7 +2,6 @@
 
 使用由Websoft9提供的AWX部署方案，可能需要用到的服务如下：
 
-
 ## Docker Compose
 
 ```shell
@@ -29,20 +28,25 @@ sudo systemctl status docker
 #AWX-主程序
 sudo docker pause awx_task
 sudo docker stop awx_task
+sudo docker restart awx_task
 
 #AWX-Web界面
 sudo docker pause awx_web
 sudo docker stop awx_web
+sudo docker restart awx_web
 
 #RabbitMQ
 sudo docker pause awx_rabbitmq
 sudo docker stop awx_rabbitmq
+sudo docker restart awx_rabbitmq
 
 #PostgreSQL
 sudo docker pause awx_postgres
 sudo docker stop awx_postgres
+sudo docker restart awx_postgres
 
 #PostgreSQL
 sudo docker pause awx_Memcached
 sudo docker stop awx_Memcached
+sudo docker restart awx_Memcached
 ```

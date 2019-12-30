@@ -11,16 +11,29 @@ If you have completed the AWX deployment on Cloud Platform, the following steps 
 ## AWX Installation Wizard
 
 1. Using local Chrome or Firefox to visit the URL *http://domain name* or *http://Internet IP*, you will log in interface of AWX
-   ![AWX login](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
+   ![AWX登录页面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
 
-2. The Adminitrator console of AWX... 
-   ![Start AWX](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
+2. 输入用户名和密码[（查看）](/zh/stack-accounts.md)，登录到AWX后台管理界面
+   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
 
-3. Then start to create: Credentials, Inventories, Project for one Template, use the Template for deployment job
+3. 分别创建运行一个安装模板（Template）所需的准备条件：
+
+   - ORGANIZATIONS
+   - Credentials
+   - Inventories
+   - Project
+
+   最后创建 Template 关联它们，就完成了一个自动化项目的配置
+
+   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-template-websoft9.png)
+
+
+4. 启动Template，进入 Job 页面，开始安装所需的应用程序
+   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-job-websoft9.png)
 
 > More useful AWX guide, please refer to [Ansible Tower Documentation](https://docs.ansible.com/ansible-tower/)
 
-## Q&A
+## Q&A 
 
 #### I can't visit the start page of AWX?
 
@@ -28,8 +41,4 @@ Your TCP:80 of Security Group Rules is not allowed so there no response from Chr
 
 #### Which database does this AWX use?
 
-PostgreSQL
-
-#### The first time loading is slow?
-
-Yes, AWX takes nearly a minute to load and runs smoothly after loading
+PostgreSQL on Docker

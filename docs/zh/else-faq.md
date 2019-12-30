@@ -2,7 +2,7 @@
 
 #### AWX支持多语言吗？
 
-仅支持英文 
+仅支持英文  
 
 #### AWX是如何与PostgreSQL连接的？
 
@@ -18,7 +18,7 @@ http://AWX Server Internet IP/api/
 
 #### 数据库 Postgres 用户对应的密码是多少？
 
-密码存放在服务器相关文件中：`/data/.awx/awxcompose/credentials.py`
+密码存放在服务器相关文件中：`/credentials/password.txt`
 
 #### 是否有可视化的数据库管理工具？
 

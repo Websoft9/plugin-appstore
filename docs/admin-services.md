@@ -2,45 +2,51 @@
 
 These commands you must know when you using the AWX of Websoft9
 
-### AWX
+## Docker Compose
 
 ```shell
-sudo systemctl start awx-web
-sudo systemctl stop awx-web
-sudo systemctl restart awx-web
-sudo systemctl status awx-web
-
-sudo systemctl start awx-daphne
-sudo systemctl stop awx-daphne
-sudo systemctl restart awx-daphne
-sudo systemctl status awx-daphne
-
-sudo systemctl start awx-channels-worker 
-sudo systemctl stop awx-channels-worker 
-sudo systemctl restart awx-channels-worker 
-sudo systemctl status awx-channels-worker 
-
-sudo systemctl start awx-cbreceiver 
-sudo systemctl stop awx-cbreceiver 
-sudo systemctl restart awx-cbreceiver
-sudo systemctl status awx-cbreceiver
+#创建容器
+sudo docker-compose up
+#创建容器并重建有变化的容器
+sudo docker-compose up -d
 ```
 
-### Nginx
+## Docker
 
 ```shell
-sudo systemctl start nginx
-sudo systemctl stop nginx
-sudo systemctl restart nginx
-sudo systemctl status nginx
+sudo systemctl start docker
+sudo systemctl restart docker
+sudo systemctl stop docker
+sudo systemctl status docker
 ```
 
-### PostgreSQL
+### AWX 容器
+
+> 终止命令 `stop` 会从进程中释放容器的资源，但不会删除容器
 
 ```shell
-# 11 is version number of PostgreSQL
-sudo systemctl start postgresql-11
-sudo systemctl stop postgresql-11
-sudo systemctl restart postgresql-11
-sudo systemctl status postgresql-11
+#AWX-主程序
+sudo docker pause awx_task
+sudo docker stop awx_task
+sudo docker restart awx_task
+
+#AWX-Web界面
+sudo docker pause awx_web
+sudo docker stop awx_web
+sudo docker restart awx_web
+
+#RabbitMQ
+sudo docker pause awx_rabbitmq
+sudo docker stop awx_rabbitmq
+sudo docker restart awx_rabbitmq
+
+#PostgreSQL
+sudo docker pause awx_postgres
+sudo docker stop awx_postgres
+sudo docker restart awx_postgres
+
+#PostgreSQL
+sudo docker pause awx_Memcached
+sudo docker stop awx_Memcached
+sudo docker restart awx_Memcached
 ```

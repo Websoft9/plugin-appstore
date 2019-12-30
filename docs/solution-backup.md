@@ -49,8 +49,8 @@ Manual backup for application is based on the **Exporting source code and databa
 ```
 The general manual backup operation steps are as follows:
 
-1. Just compression and download the entire **[AWX installation directory](/stack-components.md#awx)** by SFTP 
-2. Export AWX's database by [phpPgAdmin](/zh/admin-postgresql.md)
+1. Just compression and download the entire **[AWX storage directory](/stack-components.md#awx)** by SFTP 
+2. Export AWX's database
 3. Put the source code file and database file in the same folder, named according to the date
 4. Backup completed
 

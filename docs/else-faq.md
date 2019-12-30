@@ -6,7 +6,11 @@ No, only English
 
 #### How is AWX connected to PostgreSQL?
 
-AWX uses **peer** authentication to connect to native PostgreSQL
+容器内部连接，即容器编排
+
+#### AWX API 地址是多少？
+
+http://AWX Server Internet IP/api/
 
 #### If there is no domain name, can I deploy AWX?
 
@@ -18,25 +22,12 @@ The password is stored in the server related file: `/credentials/password.txt`
 
 #### Is there a web-base GUI database management tools?
 
-Yes, phpPgAdmin is on it, visit by http://Internet IP:9090
-
-#### How to disable phpPgAdmin access?
-
-Disable port 9090 of the server security group
+No
 
 #### Is it possible to modify the source path of AWX?
 
-You can't modify it
+采用 Docker 安装，不可以修改
 
-#### How to change the permissions of filesytem?
-
-Change owner(group) or permissions like below:
-
-```shell
-chown -R nginx.nginx /opt/awx
-find /opt/awx -type d -exec chmod 750 {} \;
-find /opt/awx -type f -exec chmod 640 {} \;
-```
 #### What's the difference between Deployment and Installation?
 
 - Deployment is a process of installing and configuring a sequence of software in sequence in a different order, which is a complex system engineering.  

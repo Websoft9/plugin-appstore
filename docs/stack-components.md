@@ -4,51 +4,46 @@ The AWX deployment package contains a sequence software (referred to as "compone
 
 ## Path
 
-### AWX
+### Docker Container
 
-AWX installation directory: */opt/awx*  
-AWX configuration file: */etc/awx/settings.py*  
-Ansible Python packages: */opt/awx/embedded/lib/python2.7/site-packages*
+通过运行`docker ps`，可以查看到AWX运行时所有的Container：
 
-```python
-# The important items in the configuration file
-TATIC_ROOT = '/opt/awx/static'
-PROJECTS_ROOT = '/var/lib/awx/projects'
-JOBOUTPUT_ROOT = '/var/lib/awx/job_status'
+```bash
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                NAMES
+e240ed8209cd        awx_task:1.0.0.8    "/tini -- /bin/sh ..."   2 minutes ago       Up About a minute   8052/tcp                             awx_task
+1cfd02601690        awx_web:1.0.0.8     "/tini -- /bin/sh ..."   2 minutes ago       Up About a minute   0.0.0.0:443->8052/tcp                 awx_web
+55a552142bcd        memcached:alpine    "docker-entrypoint..."   2 minutes ago       Up 2 minutes        11211/tcp                            memcached
+84011c072aad        rabbitmq:3          "docker-entrypoint..."   2 minutes ago       Up 2 minutes        4369/tcp, 5671-5672/tcp, 25672/tcp   rabbitmq
+97e196120ab3        postgres:9.6        "docker-entrypoint..."   2 minutes ago       Up 2 minutes        5432/tcp                             postgres
 ```
 
-### Nginx
+### Docker Volume
 
-Nginx vhost configuration file: */etc/nginx/conf.d/default.conf*  
-Nginx main configuration file: */etc/nginx/nginx.conf*  
-Nginx logs file: */var/log/nginx/*  
-Nginx & uWSGI configuration file: */etc/nginx/uwsgi_params*  
+使用 *sudo docker volume ls* 查询所有 volumes，其中：
 
-### uWSGI
+awx_postgres 挂载的目录：*/var/lib/postgresql/data*  
+awx_rabbitmq 挂载的目录：*/var/lib/rabbitmq*  
+awx_web 挂载的目录：*/var/lib/nginx*   
+awx_task 挂载的目录：*/var/lib/nginx* 	
 
-uWSGI installation directory: */opt/awx/bin/uwsgi*  
 
-### Python
+### Docker
 
-Python installation directory: */usr/lib/python2.7* and */usr/lib/python*  
-Python VM directory: */usr/bin/python2.7*  and */usr/bin/python*  
+Docker 根目录: */var/lib/docker*  
+Docker 镜像目录: */var/lib/docker/image*   
+Docker 存储卷：*/var/lib/docker/volumes*  
+Docker daemon.json 文件：默认没有创建，请到 */etc/docker* 目录下根据需要自行创建
 
-### Ansible
+### Docker Compose
 
-Ansible installation directory: */opt/awx/embedded/lib/python2.7/site-packages/ansible-2.7.4.dist-info*
+本环境使用 Docker Compose 作为容器编排（调度）工具，用于管理多个容器的启动和服务连接。
 
-### RabbitMQ
-
-RabbitMQ installation & configuration directory: */usr/lib/rabbitmq*  
-RabbitMQ logs file: */var/log/rabbitmq*
+Docker Compose 命令位置：*/usr/local/bin/docker-compose*  
+Docker Compose 配置目录 */data/awx/awxcompose*  
 
 ### PostgreSQL
 
-PostgreSQL installation directory: */usr/pgsql-v*  # v是版本号  
-PostgreSQL data file: */data/pgsql/base*  
-PostgreSQL configuration file: */data/pgsql/postgresql.conf*    
-PostgreSQL logs file: */data/pgsql/pg_log*  
-PostgreSQL Web Management URL: *http://Internet IP:9090*, get credential from [Username and Password](/stack-accounts.md)
+PostgreSQL 数据持久存储：*/data/pgdocker*
 
 ## Ports
 
@@ -59,22 +54,24 @@ These Ports is need when use AWX, refer to [Safe Group Setting on Cloud Console]
 | PostgreSQL | 5432 | Remote connect PostgreSQL | Optional |
 | HTTP | 80 | HTTP requests for AWX | Required |
 | HTTPS | 443 | HTTPS requests AWX | Optional |
-| phpPgAdmin on Docker | 9090 | Web managment GUI for PostgreSQL | Optional |
 
 ## Version
 
 You can see the version from product page of Marketplace. However, after being deployed to your server, the components will be automatically updated, resulting in a certain change in the version number. Therefore, the exact version number should be viewed by running the command on the server:
 
 ```shell
+# Linux Version
+lsb_release -a
+
 # Python Version
 python --version
 
-# Nginx version:
-nginx -v
+# Docker Version
+docker -v
 
-# PostgreSQL version:
-psql --version
+# Docker image lists(includes version)
+sudo docker images
 
-# Dokcer:
-docker --version
+# Docker Compose Version
+docker-compose --version
 ```
