@@ -27,7 +27,10 @@ yum update -y
 升级AWX通过重新安装来完成。
 
 1. 使用SSH登录服务器
-2. 进入到 */data/awx/* 目录，从Github更新AWX源码
+2. 进入到 */data/awx/* 目录，从 Github 更新AWX源码
+   ```
+   git pull
+   ```
 3. 进入到 */data/awx/installer* 目录
 4. 增加一个 update-vars.yml 文件，其中的内容如下（其中的密码为真实值）：
    ```

@@ -1,11 +1,17 @@
 # PostgreSQL
 
-AWX 预装包中内置 PostgreSQL 及可视化数据库管理工具 `phpPgAdmin` ，使用请参考如下步骤：
+AWX 预装包中内置 PostgreSQL 容器，需要登录容器后使用命令对 PostgreSQL 进行操作。
 
-1. 登录云控制台，[开启服务器安全组9090端口](https://support.websoft9.com/docs/faq/zh/tech-instance.html)
-2. 本地浏览器 Chrome 或 Firefox 访问：*http://服务器公网IP:9090*，进入phpPgAdmin
-  ![登录phpPgAdmin](https://libs.websoft9.com/Websoft9/DocsPicture/en/pgsql/pg02.png)
-3. 输入数据库用户名和密码([不知道密码？](/zh/stack-accounts.md))
-  ![登录phpPgAdmin](https://libs.websoft9.com/Websoft9/DocsPicture/en/pgsql/pg03.png)
+1. 使用 SSH 登录服务器后，运行`docker ps`命令获取 awx-postresql 容器ID
+  ![](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-getcontainerid-websoft9.png)
 
-> 阅读Websoft9提供的 [《PostgreSQL教程》](https://support.websoft9.com/docs/postgresql/zh/admin-phppgadmin.html) ，掌握更多的 PostgreSQL 实用技能：修改密码、导入/导出数据、创建用户、开启或关闭远程访问、日志配置等
+2. 进入 awx-postgresql 容器
+
+   ```
+   docker exec -it true 2ca9ad211678 /bin/bash
+   ```
+4. 运行上面的命令后，就进入了容器命令操作界面
+
+5. 接下来可以使用命令操作 PostgreSQL 
+
+> 阅读Websoft9提供的 [《PostgreSQL教程》](https://support.websoft9.com/docs/postgresql/zh/) ，掌握更多的PostgreSQL实用技能：修改密码、导入/导出数据、创建用户、开启或关闭远程访问、日志配置等

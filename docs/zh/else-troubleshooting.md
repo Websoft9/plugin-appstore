@@ -1,8 +1,12 @@
 # 故障处理
 
-我们收集使用AWX过程中最常见的故障，供您参考：
+此处收集使用 AWX 过程中最常见的故障，供您参考
 
-## 数据库相关
+> 大部分故障与云平台密切相关，如果你可以确认故障的原因是云平台造成的，请参考[云平台文档](https://support.websoft9.com/docs/faq/zh/tech-instance.html)
+
+#### 已经通过AWX安装了环境的受控端主机，更换镜像后，再次连接会报错？
+
+找到主机缓存文件：*/var/lib/awx/.ssh/known_hosts*，删除其中的历史记录即可
 
 #### 数据库服务无法启动
 
@@ -16,10 +20,3 @@ df -lh
 # 查看内存使用
 free -lh
 ```
-## 服务器相关
-
-服务器相关故障的诊断和解决，与云平台密切相关，请参考[云平台文档](https://support.websoft9.com/docs/faq/zh/tech-instance.html)
-
-## 网络相关
-
-## 其他

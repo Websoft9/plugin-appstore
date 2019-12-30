@@ -3,7 +3,16 @@
 使用由Websoft9提供的AWX部署方案，可能需要用到的服务如下：
 
 
-### Docker
+## Docker Compose
+
+```shell
+#创建容器
+sudo docker-compose up
+#创建容器并重建有变化的容器
+sudo docker-compose up -d
+```
+
+## Docker
 
 ```shell
 sudo systemctl start docker
@@ -12,54 +21,28 @@ sudo systemctl stop docker
 sudo systemctl status docker
 ```
 
-### Docker Compose
-```shell
-sudo systemctl start docker
-sudo systemctl restart docker
-sudo systemctl stop docker
-sudo systemctl status docker
-```
+### AWX 容器
 
-### Docker AWX
+> 终止命令 `stop` 会从进程中释放容器的资源，但不会删除容器
 
 ```shell
-sudo systemctl start awx-web
-sudo systemctl stop awx-web
-sudo systemctl restart awx-web
-sudo systemctl status awx-web
+#AWX-主程序
+sudo docker pause awx_task
+sudo docker stop awx_task
 
-sudo systemctl start awx-daphne
-sudo systemctl stop awx-daphne
-sudo systemctl restart awx-daphne
-sudo systemctl status awx-daphne
+#AWX-Web界面
+sudo docker pause awx_web
+sudo docker stop awx_web
 
-sudo systemctl start awx-channels-worker 
-sudo systemctl stop awx-channels-worker 
-sudo systemctl restart awx-channels-worker 
-sudo systemctl status awx-channels-worker 
+#RabbitMQ
+sudo docker pause awx_rabbitmq
+sudo docker stop awx_rabbitmq
 
-sudo systemctl start awx-cbreceiver 
-sudo systemctl stop awx-cbreceiver 
-sudo systemctl restart awx-cbreceiver
-sudo systemctl status awx-cbreceiver
+#PostgreSQL
+sudo docker pause awx_postgres
+sudo docker stop awx_postgres
+
+#PostgreSQL
+sudo docker pause awx_Memcached
+sudo docker stop awx_Memcached
 ```
-
-### Nginx
-
-```shell
-sudo systemctl start nginx
-sudo systemctl stop nginx
-sudo systemctl restart nginx
-sudo systemctl status nginx
-```
-
-### PostgreSQL
-
-```shell
-# 11 is version number of PostgreSQL
-sudo systemctl start postgresql-11
-sudo systemctl stop postgresql-11
-sudo systemctl restart postgresql-11
-sudo systemctl status postgresql-11
-```
-

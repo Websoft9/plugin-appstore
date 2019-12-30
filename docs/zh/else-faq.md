@@ -6,7 +6,7 @@
 
 #### AWX是如何与PostgreSQL连接的？
 
-AWX是采用peer认证方法与本地PostgreSQL连接
+容器内部连接，即容器编排
 
 #### AWX API 地址是多少？
 
@@ -18,7 +18,7 @@ http://AWX Server Internet IP/api/
 
 #### 数据库 Postgres 用户对应的密码是多少？
 
-密码存放在服务器相关文件中：`/credentials/password.txt`
+密码存放在服务器相关文件中：`/data/.awx/awxcompose/credentials.py`
 
 #### 是否有可视化的数据库管理工具？
 
@@ -26,15 +26,8 @@ http://AWX Server Internet IP/api/
 
 #### 是否可以修改AWX的源码路径？
 
-采用Docker安装，不可以修改
+采用 Docker 安装，不可以修改
 
-#### 如何修改上传的文件权限?
-
-```shell
-chown -R nginx.nginx /opt/awx
-find /opt/awx -type d -exec chmod 750 {} \;
-find /opt/awx -type f -exec chmod 640 {} \;
-```
 #### 部署和安装有什么区别？
 
 部署是将一序列软件按照不同顺序，先后安装并配置到服务器的过程，是一个复杂的系统工程。  

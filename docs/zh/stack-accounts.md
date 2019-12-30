@@ -9,11 +9,10 @@
 
 ## PostgreSQL
 
-* 管理员账号：*`postgres`*
-* 管理员密码：存储在您的服务器指定文件中：*/credentials/password.txt*。建议通过云控制台直接连接服务器，进入命令终端，运行`cat /credentials/password.txt` 命令获取数据库密码：
-   ![运行cat命令](https://libs.websoft9.com/Websoft9/DocsPicture/zh/common/catdbpasswordps-websoft9.png)
+本部署方案中，PostgreSQL 采用 Docker 部署：
 
-> 需要登录PostgreSQL，请参考 [PostgreSQL可视化管理](/zh/admin-postgresql.md)
+* 管理员账号：*`postgres`*
+* 管理员密码：存储在您的服务器指定文件中：*/data/.awx/awxcompose/credentials.py*。
 
 ## Linux
 

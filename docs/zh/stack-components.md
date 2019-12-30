@@ -43,6 +43,10 @@ Docker daemon.json 文件：默认没有创建，请到 */etc/docker* 目录下�
 Docker Compose 命令位置：*/usr/local/bin/docker-compose*  
 Docker Compose 配置目录 */data/awx/awxcompose*  
 
+### PostgreSQL
+
+PostgreSQL 数据持久存储：*/data/pgdocker*
+
 ## 端口号
 
 下面是您在使用本镜像过程中，需要用到的端口号，请通过 [云控制台安全组](https://support.websoft9.com/docs/faq/zh/tech-instance.html)进行设置
