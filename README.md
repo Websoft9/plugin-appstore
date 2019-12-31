@@ -6,7 +6,7 @@
 
 ## 配置要求
 
-操作系统：目支持 CentOS7 以上部署此脚本，确保是干净的操作系统  
+操作系统：目支持 CentOS7,Ubuntu16 以上部署此脚本，确保是干净的操作系统  
 硬件配置：最低2核4G，20G系统盘空间，否则无法运行  
 
 更为精准的配置要求，请官方文档：[System Requirements](https://github.com/ansible/awx/blob/devel/INSTALL.md#system-requirements)
