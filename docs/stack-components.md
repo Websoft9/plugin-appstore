@@ -2,11 +2,7 @@
 
 The AWX deployment package contains a sequence software (referred to as "components") required for AWX to run. The important information such as the component name, installation directory path, configuration file path, port, version, etc. are listed below.
 
-## Path
-
-### Docker Container
-
-通过运行`docker ps`，可以查看到AWX运行时所有的Container：
+Use **SSH** to connect Server and run the command `docker ps`, you can list all containers that need for AWX: 
 
 ```bash
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                NAMES
@@ -17,33 +13,34 @@ e240ed8209cd        awx_task:1.0.0.8    "/tini -- /bin/sh ..."   2 minutes ago  
 97e196120ab3        postgres:9.6        "docker-entrypoint..."   2 minutes ago       Up 2 minutes        5432/tcp                             postgres
 ```
 
-### Docker Volume
+## Path
 
-使用 *sudo docker volume ls* 查询所有 volumes，其中：
+### Docker storage
 
-awx_postgres 挂载的目录：*/var/lib/postgresql/data*  
-awx_rabbitmq 挂载的目录：*/var/lib/rabbitmq*  
-awx_web 挂载的目录：*/var/lib/nginx*   
-awx_task 挂载的目录：*/var/lib/nginx* 	
+Run the command `sudo docker volume ls` to list all volumes: 
 
+awx_postgres volume mount: */var/lib/postgresql/data*  
+awx_rabbitmq volume mount: */var/lib/rabbitmq*  
+awx_web volume mount: */var/lib/nginx*   
+awx_task volume mount: */var/lib/nginx* 	
 
 ### Docker
 
-Docker 根目录: */var/lib/docker*  
-Docker 镜像目录: */var/lib/docker/image*   
-Docker 存储卷：*/var/lib/docker/volumes*  
-Docker daemon.json 文件：默认没有创建，请到 */etc/docker* 目录下根据需要自行创建
+Docker root directory: */var/lib/docker*  
+Docker image directory: */var/lib/docker/image*   
+Docker volumes: */var/lib/docker/volumes*  
+Docker daemon.json: you should create this file in the directory of */etc/docker* by yourself
 
 ### Docker Compose
 
-本环境使用 Docker Compose 作为容器编排（调度）工具，用于管理多个容器的启动和服务连接。
+This environment uses Docker Compose as a container orchestration (scheduling) tool for managing multiple container configurations, launches, and service connections.
 
-Docker Compose 命令位置：*/usr/local/bin/docker-compose*  
-Docker Compose 配置目录 */data/awx/awxcompose*  
+Docker Compose configuration file */usr/local/bin/docker-compose*  
+Docker Compose command directory */data/awx/awxcompose*  
 
 ### PostgreSQL
 
-PostgreSQL 数据持久存储：*/data/pgdocker*
+PostgreSQL data storage: */data/pgdocker*
 
 ## Ports
 

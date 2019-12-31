@@ -11,7 +11,7 @@ Nonetheless, from the perspective of server security and subsequent maintenance 
 AWX domain name binding steps:
 
 1. Use **SFTP** to connect your Cloud Server
-2. Modify [Nginx vhost configuration file](/stack-components.md#nginx), change the **server_name**'s value *localhost* to your domain name
+2. Modify [Nginx configuration file](/stack-components.md#nginx), change the **server_name**'s value *localhost* to your domain name
    ```text
    ...
       server_name    localhost; # Change to a your domain name

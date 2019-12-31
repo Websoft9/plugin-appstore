@@ -5,9 +5,9 @@ These commands you must know when you using the AWX of Websoft9
 ## Docker Compose
 
 ```shell
-#创建容器
+#create containers
 sudo docker-compose up
-#创建容器并重建有变化的容器
+#re-create containers
 sudo docker-compose up -d
 ```
 
@@ -20,33 +20,33 @@ sudo systemctl stop docker
 sudo systemctl status docker
 ```
 
-### AWX 容器
+### AWX
 
-> 终止命令 `stop` 会从进程中释放容器的资源，但不会删除容器
+AWX have five containers: awx_task, awx_web, awx_rabbitmq, awx_postgre, awx_memcached
 
 ```shell
-#AWX-主程序
+#AWX
 sudo docker pause awx_task
 sudo docker stop awx_task
 sudo docker restart awx_task
 
-#AWX-Web界面
+#AWX-Web
 sudo docker pause awx_web
 sudo docker stop awx_web
 sudo docker restart awx_web
 
-#RabbitMQ
+#AWX-RabbitMQ
 sudo docker pause awx_rabbitmq
 sudo docker stop awx_rabbitmq
 sudo docker restart awx_rabbitmq
 
-#PostgreSQL
+#AWX-PostgreSQL
 sudo docker pause awx_postgres
 sudo docker stop awx_postgres
 sudo docker restart awx_postgres
 
-#PostgreSQL
-sudo docker pause awx_Memcached
-sudo docker stop awx_Memcached
-sudo docker restart awx_Memcached
+#AWX-Memcached
+sudo docker pause awx_memcached
+sudo docker stop awx_memcached
+sudo docker restart awx_memcached
 ```

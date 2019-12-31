@@ -11,25 +11,25 @@ If you have completed the AWX deployment on Cloud Platform, the following steps 
 ## AWX Installation Wizard
 
 1. Using local Chrome or Firefox to visit the URL *http://domain name* or *http://Internet IP*, you will log in interface of AWX
-   ![AWX登录页面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
+   ![AWX login page](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
 
-2. 输入用户名和密码[（查看）](/zh/stack-accounts.md)，登录到AWX后台管理界面
-   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
+2. Login it[（不知道账号密码？）](/zh/stack-accounts.md#awx)
+   ![AWX console](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
 
-3. 分别创建运行一个安装模板（Template）所需的准备条件：
+3. Create alls need for one installation Template：
 
    - ORGANIZATIONS
    - Credentials
    - Inventories
    - Project
 
-   最后创建 Template 关联它们，就完成了一个自动化项目的配置
+   Then, create Template and your have completed one automatic installation of AWS now
 
-   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-template-websoft9.png)
+   ![AWX template](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-template-websoft9.png)
 
 
-4. 启动Template，进入 Job 页面，开始安装所需的应用程序
-   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-job-websoft9.png)
+4. Start a job by Template, the deployment is starting
+   ![AWX job](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-job-websoft9.png)
 
 > More useful AWX guide, please refer to [Ansible Tower Documentation](https://docs.ansible.com/ansible-tower/)
 

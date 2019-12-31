@@ -28,22 +28,22 @@ yum update -y
 
 Upgrading AWX involves rerunning the install playbook. Download a newer release from https://github.com/ansible/awx/releases and re-populate the inventory file with your customized variables.
 
-For convenience, you can create a file called vars.yml:
+For convenience, you can create a file called *update-vars.yml*:
 
-1. 使用 SSH 登录服务器
-2. 进入到 */data/awx/* 目录，从 Github 更新AWX源码
+1. Use **SFTP** to connect Server
+2. Go to the directory */data/awx/* and update this repository from Github
    ```
-   git pull
+   sudo cd /data/awx && git pull
    ```
-3. 进入到 */data/awx/installer* 目录
-4. 增加一个 update-vars.yml 文件，其中的内容如下（其中的密码为真实值）：
+3. Go to the directory: */data/awx/installer* 
+4. Create new file named *update-vars.yml* and add the template to it like below(make sure all password is your correct password) 
    ```
    admin_password: 'adminpass'
    pg_password: 'pgpass'
    rabbitmq_password: 'rabbitpass'
    secret_key: 'mysupersecret'
    ```
-5. 运行如下命令，开始升级
+5. Run the update commands like below
    ```
    ansible-playbook -i inventory install.yml -e @update-vars.yml
    ```

@@ -28,8 +28,8 @@ module.exports = [
         collapsable: false,
         children: [
           '/admin-services',
+          '/admin-cli',
           '/admin-postgresql',
-          ['https://support.websoft9.com/docs/linux/webs-nginx.html','Nginx'],
           ['https://support.websoft9.com/docs/linux/admin-practices.html','Linux'],
         ]
       },

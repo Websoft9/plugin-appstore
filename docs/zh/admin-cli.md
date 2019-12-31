@@ -34,4 +34,4 @@ tower-cli config password <pass>
 tower-cli send assets.json
 ```
 
-[Ansible Tower 文档中 AWX CLI 安装部分](https://docs.ansible.com/ansible-tower/latest/html/towercli/usage.html#installation)， [AWX Github 项目 AWX CLI 安装部分](https://github.com/ansible/awx/tree/devel/awxkit/awxkit/cli/docs)
+> 更多请参考官方文档： [Ansible Tower AWX CLI ](https://docs.ansible.com/ansible-tower/latest/html/towercli/usage.html#installation)， [ AWX CLI on AWX Github](https://github.com/ansible/awx/tree/devel/awxkit/awxkit/cli/docs)

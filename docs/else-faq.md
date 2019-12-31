@@ -6,9 +6,9 @@ No, only English
 
 #### How is AWX connected to PostgreSQL?
 
-容器内部连接，即容器编排
+AWX connect PostgreSQL in Docker inner
 
-#### AWX API 地址是多少？
+#### What's URL of AWX API?
 
 http://AWX Server Internet IP/api/
 
@@ -26,7 +26,7 @@ No
 
 #### Is it possible to modify the source path of AWX?
 
-采用 Docker 安装，不可以修改
+No
 
 #### What's the difference between Deployment and Installation?
 
