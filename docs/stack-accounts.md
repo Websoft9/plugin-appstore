@@ -4,7 +4,8 @@ These accounts are required for AWX image installation and configuration
 
 ## AWX
 
-Administrator account is set by yourselft at the time of AWX installation wizard
+administrator username: `admin`  
+administrator username: `password` or `admin`
 
 ## PostgreSQL
 
