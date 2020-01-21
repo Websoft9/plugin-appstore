@@ -6,7 +6,7 @@
 
 ## 配置要求
 
-操作系统：目支持 CentOS7,Ubuntu16 以上部署此脚本，确保是干净的操作系统  
+操作系统：目支持 CentOS7.x,Ubuntu16 以上部署此脚本，确保是干净的操作系统  
 硬件配置：最低2核4G，20G系统盘空间，否则无法运行  
 
 更为精准的配置要求，请官方文档：[System Requirements](https://github.com/ansible/awx/blob/devel/INSTALL.md#system-requirements)
@@ -19,7 +19,7 @@
 
 ## 本项目安装的是 AWX 最新版吗？
 
-本项目采用官方提供Docker安装方式，官方定期发布最新的Docker镜像，因此部署此项目即为 AWX 官方发布的最新稳定版。
+本项目采用官方提供Docker安装方式，官方定期发布最新的Docker镜像，部署此项目即为 AWX 官方发布的最新稳定版。
 
 我们会定期测试本项目，以保证用户可以顺利安装。  
 
