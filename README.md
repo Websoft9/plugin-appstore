@@ -19,11 +19,11 @@
 
 ## 本项目安装的是 AWX 最新版吗？
 
-本项目采用官方提供Docker安装方式，官方定期发布最新的Docker镜像，即每一次安装均可保证为 AWX 官方发布的最新稳定版。
+本项目采用官方提供Docker安装方式，官方定期发布最新的Docker镜像，因此部署此项目即为 AWX 官方发布的最新稳定版。
 
 我们会定期测试本项目，以保证用户可以顺利安装。  
 
-最新版本号[查看地址](https://github.com/ansible/awx/releases)
+AWX 的最新版本号[查看地址](https://github.com/ansible/awx/releases)
 
 ## 安装指南
 
