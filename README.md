@@ -46,7 +46,7 @@ wget -N https://raw.githubusercontent.com/Websoft9/linux/master/ansible_script/i
 
 ## 文档
 
-文档链接：https://support.websoft9.com/docs/awx
+文档链接：https://support.websoft9.com/docs/awx/zh
 
 ## FAQ
 
