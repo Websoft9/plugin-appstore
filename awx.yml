@@ -18,9 +18,9 @@
   gather_facts: True
 
   roles:
-    - {role: common, tags: "common"}
-    - {role: cloud, tags: "cloud"}
-    - {role: docker, tags: "docker"}
-    - {role: node.js, tags: "node.js"}
-    - {role: awx, tags: "awx"}
-    - {role: end, tags: "end"}
+    - role: role_common
+    - role: role_cloud
+    - role: role_docker
+    - role: role_node.js
+    - role: awx
+    - role: role_end

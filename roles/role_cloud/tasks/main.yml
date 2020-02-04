@@ -1,8 +1,14 @@
 ##
 - name: Check Cloud
-  shell: echo "{{ansible_kernel}}" | awk -F '-' '{print $3}'
+  shell : |
+    if [ -f "/etc/waagent.conf" ];then echo "azure";fi
+    if [ -d "/usr/local/aegis" ];then echo "alicloud";fi
+    if [ -f "/snap/bin/amazon-ssm-agent.ssm-cli" ];then echo "aws";fi
+    if [ -f "/usr/bin/amazon-ssm-agent" ];then echo "aws";fi
+    if [ -d "/CloudrResetPwdAgent" ];then echo "huaiwei";fi
   register: cloud
 
+    
 - block:
   - name: Create swap Space
     command: dd if=/dev/zero of=/mnt/swap bs=256M count=8
@@ -48,7 +54,7 @@
   - name: AWS Configure
     yum:
       name: ec2-instance-connect
-    when: ansible_distribution == 'Centos'
+    when: ansible_distribution == 'Centos' or ansible_distribution == 'Amazon'
   
   - name: Start ec2-instance-connect
     service:

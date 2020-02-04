@@ -1,0 +1,11 @@
+---
+- import_tasks: CentOS.yml
+  when: ansible_distribution == 'CentOS'
+
+- import_tasks: Ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Check Node.js Version
+  shell: node -v
+  register: node_ver
+  notify: Node.js Version

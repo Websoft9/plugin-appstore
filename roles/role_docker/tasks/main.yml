@@ -2,7 +2,7 @@
 - block:
   - name: Install required packages
     yum:
-      name: [yum-utils,device-mapper-persistent-data,lvm2]
+      name: [device-mapper-persistent-data,lvm2]
 
   - name: Add repository
     template:
@@ -13,13 +13,13 @@
     yum:
       name: [docker-ce,docker-ce-cli,containerd.io]
     
-  when: ansible_distribution == 'CentOS'
+  when: ansible_os_family == 'RedHat'
 
   # # Ubuntu
 - block:
   - name: Install required packages
     apt:
-      name: [apt-transport-https,ca-certificates,curl,gnupg-agent,software-properties-common,python-pip,python-setuptools]
+      name: [apt-transport-https,ca-certificates,curl,gnupg-agent,software-properties-common]
     
 
   - name:  Add Docker’s official GPG key
@@ -36,11 +36,16 @@
     apt:
       name: [docker-ce,docker-ce-cli,containerd.io]
         
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_os_family == 'Debian'
 
 - name: pip requirements
   pip:
-    name: [docker]
+    name: docker
+
+- name: pip requirements II
+  pip:
+    name: docker-compose
+  when: ansible_python.version.major == 3
 
 - name: Started Docker
   service:
@@ -48,12 +53,20 @@
     enabled: yes
     state: restarted
 
-- name: install docker-compose used by pip3
-  pip:
-    name: [docker-compose]
-    executable: pip3
+
+- name: Pull Images
+  docker_image:
+    name: "{{ item }}"
+    source: pull
+  with_items: "{{docker_images}}"
+  when: docker_images != none
+
       
 - name: Check Docker Version
   shell: docker -v
   register: docker_ver
   notify: Docker Version
+
+
+
+    

@@ -1,3 +1,0 @@
-- name: Node.js Version
-  debug:
-    var: node_ver.stdout
