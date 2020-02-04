@@ -1,19 +1,19 @@
 - src: https://github.com/websoft9dev/role_common
   version: master
-  name: common
+  name: role_common
 
 - src: https://github.com/websoft9dev/role_cloud
   version: master
-  name: cloud
+  name: role_cloud
 
 - src: https://github.com/websoft9dev/role_docker
   version: master
-  name: docker
+  name: role_docker
 
 - src: https://github.com/websoft9dev/role_node.js
   version: master
-  name: node.js
+  name: role_node.js
 
 - src: https://github.com/websoft9dev/role_end
   version: master
-  name: end
+  name: role_end
