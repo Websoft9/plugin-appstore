@@ -52,3 +52,7 @@ wget -N https://raw.githubusercontent.com/Websoft9/linux/master/ansible_script/i
 
 - 命令脚本部署与镜像部署有什么区别？请参考[镜像部署-vs-脚本部署](https://support.websoft9.com/docs/faq/zh/bz-product.html#镜像部署-vs-脚本部署)
 - 本项目支持在 Ansible Tower 上运行吗？支持
+
+## To do
+
+* 随机密码
