@@ -55,4 +55,5 @@ wget -N https://raw.githubusercontent.com/Websoft9/linux/master/ansible_script/i
 
 ## To do
 
-* 随机密码
+* 应用和数据库的随机密码
+* 支持 Amazon Linux 上部署
