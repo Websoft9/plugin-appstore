@@ -2,6 +2,8 @@
 
 本项目是由 [Websoft9](http://www.websoft9.com) 研发的 [AWX](https://github.com/ansible/awx) 自动化安装程序，开发语言是 Ansible。使用本项目，只需要用户在 Linux 上运行一条命令，即可自动化安装 AWX，让原本复杂的安装过程变得没有任何技术门槛。  
 
+![](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
+
 本项目是开源项目，采用 LGPL3.0 开源协议。
 
 ## 配置要求
