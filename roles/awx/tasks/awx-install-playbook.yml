@@ -1,10 +1,6 @@
 ---
 #docker-compose模块只能运行在python3上，因此必须强转为python3
-- name: change ansible_python_interpreter to python3
-  lineinfile:
-    path: "{{ awx_repo_dir }}/installer/inventory"
-    regexp: 'localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python"'
-    line: localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python3"
+#注意：通过修改ansible配置文件或在inventory中修改，是没有作用的，原因是ansible-playbook这条命令本身是由ansible模块发起的
 
 - name: Run the AWX installation playbook.
   shell: "ansible-playbook -i inventory install.yml -e ansible_python_interpreter=/usr/bin/python3 -e postgres_data_dir={{ postgres_data_dir }} -e docker_compose_dir={{ docker_compose_dir }}"
