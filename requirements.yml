@@ -14,6 +14,10 @@
   version: master
   name: role_node.js
 
+- src: https://github.com/websoft9dev/role_preend
+  version: master
+  name: role_preend
+
 - src: https://github.com/websoft9dev/role_end
   version: master
   name: role_end
