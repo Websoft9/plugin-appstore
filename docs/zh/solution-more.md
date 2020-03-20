@@ -25,6 +25,8 @@ AWX 域名绑定操作步骤：
    ![](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-seturl-websoft9.png)
 
 
-## 迁移
+## 负载均衡
 
-待研究
+通过负载均衡处理多台 AWX 并行工作，对于大型企业来说这是一种很常见的部署方案。
+
+AWX是基于Docker部署，处理web的容器名称为：awx_web
