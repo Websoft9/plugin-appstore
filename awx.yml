@@ -11,5 +11,5 @@
     - {role: role_docker, tags: "role_docker"}
     - {role: role_node.js, tags: "role_node.js"}
     - {role: awx, tags: "awx"}
-    - {role: preend, tags: "preend"}
+    - {role: role_preend, tags: "role_preend"}
     - {role: role_end, tags: "role_end"}
