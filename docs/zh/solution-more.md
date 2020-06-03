@@ -25,29 +25,35 @@ AWX 域名绑定操作步骤：
    ![](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-seturl-websoft9.png)
 
 
-## 负载均衡
+## High availability
 
-通过负载均衡处理多台 AWX 并行工作，对于大型企业来说这是一种很常见的部署方案。
+Processing multiple AWXs in parallel through load balancing is a very common deployment solution for large enterprises.
 
-AWX是基于Docker部署，处理web的容器名称为：awx_web
+AWX is based on Docker deployment, the name of the container that handles the web is: awx_web
 
-## 使用外部PostgreSQL
 
-默认安装下，使用的是Docker版本的PostgreSQL数据库，并设置了持久化存储。  
+## Use an external PostgreSQL
 
-如果你想将数据库更换为外部PostgreSQL数据库（自建或云数据库），请参考如下步骤：
+AWX requires access to a PostgreSQL database, and by default, one will be created and deployed in a container, and data will be persisted to a host volume. In this scenario, Websoft9's deployment have set the value of postgres_data_dir to a path that can be mounted to the container. When the container is stopped, the database files will still exist in the specified path.
 
-1. 备份好已有的AWX数据
-2. 进入到AWX的配置文件夹
+If you wish to use an external database (e.g [posgtresql](https://github.com/ansible/awx/blob/devel/INSTALL.md#docker-compose) ), following is the steps:
+
+1. Backup all your data of AWX
+2. Use SFTP to connect you AWX server and cd to AWS configure folder
    ```
    cd /data/.awx
    ```
-2. 删除目前AWX项目的所有容器
+2. Delete all dockers
    ```
-   cd /data/.awx
    docker-compose -f docker-compose.yml down -v
    ```
-3. 修改 *docker-compose.yml* 文件，去掉两处 *depends_on:* 项中的 *- postgres*，并删除 *postgres: ...* 整段，最后文件的内容如下： 
+3. Remove all **postgres** related items in the file *docker-compose.yml*  
+
+   * Remove *- postgres* on the *depends_on:* 
+   * Remove all paragraph of *postgres: ...*
+
+   The following is the example after remove all **postgres** related items of docker-compose.yml
+
    ```
    version: '2'
    services:
@@ -135,7 +141,7 @@ AWX是基于Docker部署，处理web的容器名称为：awx_web
      rsyslog-config:
 
    ```
-4. 修改 */data/.awx/credentials.py* 文件中数据库账号信息，确保为外部PostgreSQL的连接信息
+4. Modify the file */data/.awx/credentials.py* , make sure it is the correct connections for your external PostgreSQL
    ```
       DATABASES = {
        'default': {
@@ -151,7 +157,7 @@ AWX是基于Docker部署，处理web的容器名称为：awx_web
 
    BROADCAST_WEBSOCKET_SECRET = "al9mLS4tWTlmX1owN1FyOElJWDY="
    ```
-5. 修改 */data/.awx/environment.sh* 文件中数据库账号信息，确保为外部PostgreSQL的连接信息
+5. Modify the file */data/.awx/environment.sh* , make sure it is the correct connections for your external PostgreSQL
    ```
    DATABASE_USER=awx
    DATABASE_NAME=awx
@@ -162,9 +168,7 @@ AWX是基于Docker部署，处理web的容器名称为：awx_web
    AWX_ADMIN_PASSWORD=password
 
    ```
-6. 重新创建容器
+6. Restart all dockers
    ```
    docker-compose -f docker-compose.yml up -d
    ```
-   
-

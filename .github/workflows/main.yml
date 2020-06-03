@@ -17,18 +17,16 @@ jobs:
     - name: vuepress build
       run: |
         cd docs
-        sudo vuepress build .
-        git clone https://github.com/Websoft9/websoft9.github.io.git
-        cp -r html/*  websoft9.github.io/docs/
-        sudo chown -R runner: websoft9.github.io
-        cd  websoft9.github.io
-        git config --local user.email "xu_junkai@foxmail.com"
-        git config --local user.name "Mozlk"
-        git add .
-        git commit -m "Update Docs" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+        sudo vuepress build
+      env:
+        CI: true
+    
+    #  to azure blob
+    - name: debug
+      run: ls
+    - uses: bacongobbler/azure-blob-storage-upload@v1.0.0
       with:
-        github_token: ${{ secrets.TOKEN }}
-        directory: docs/websoft9.github.io
-        repository: Websoft9/websoft9.github.io
+        source_dir: docs/html
+        container_name: $web
+        connection_string: ${{ secrets.Azure_blob }}
+        extra_args: '--destination-path docs'
