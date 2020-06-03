@@ -30,3 +30,24 @@ AWX 域名绑定操作步骤：
 通过负载均衡处理多台 AWX 并行工作，对于大型企业来说这是一种很常见的部署方案。
 
 AWX是基于Docker部署，处理web的容器名称为：awx_web
+
+## 使用外部PostgreSQL
+
+默认安装下，使用的是Docker版本的PostgreSQL数据库，并设置了持久化存储。  
+
+如果你想将数据库更换为外部PostgreSQL数据库（自建或云数据库），请参考如下步骤：
+
+1. 备份好已有的AWX数据
+2. 删除目前AWX项目
+   ```
+   cd /data/.awx
+   docker-compose -f docker-compose.yml down -v
+   ```
+3. 修改 *docker-compose.yml* 文件
+4. 修改 */data/.awx/credentials.py* 文件
+5. 重新创建容器
+   ```
+   docker-compose -f docker-compose.yml up -d
+   ```
+   
+
