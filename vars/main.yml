@@ -5,3 +5,5 @@ init_docker:
      service_after: docker.service
      config_paths: 
        - /data/.awx/environment.sh
+     compose_paths: 
+       - /data/.awx/docker-compose.yml
