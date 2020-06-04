@@ -1,0 +1,7 @@
+init_docker:  
+   aws:   
+     username: admin
+     password: "password"
+     service_after: docker.service
+     config_paths: 
+       - /data/.awx/environment.sh

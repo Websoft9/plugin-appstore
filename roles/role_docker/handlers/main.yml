@@ -1,3 +1,0 @@
-- name: Docker Version
-  debug:
-    var: docker_ver.stdout
