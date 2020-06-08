@@ -1,13 +1,13 @@
-init_docker:  
-   awx:   
+init_docker:
+   awx:
      admin_username: admin
      admin_password: "password"
      db: postgresql
      db_name: awx
      db_username: awx
      db_password: "awxpass"
-     service_after: docker.service
+     service_after: "docker.service"
      config_paths: 
-       - /data/.awx/environment.sh
-       - /data/.awx/credentials.py
+       - "/data/.awx/environment.sh"
+       - "/data/.awx/credentials.py"
      compose_path: "/data/.awx/docker-compose.yml"
