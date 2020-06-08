@@ -8,5 +8,5 @@ init_docker:
      compose_paths: 
        - /data/.awx/docker-compose.yml
      commands:
-       - 
-       -
+       - sed -i "s/awxpass/$new_password/g" /data/.awx/environment.sh
+       - sed -i "s/awxpass/$new_password/g" /data/.awx/credentials.py
