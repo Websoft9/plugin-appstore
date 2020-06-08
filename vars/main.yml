@@ -1,5 +1,5 @@
 init_docker:  
-   aws:   
+   awx:   
      username: admin
      password: "password"
      service_after: docker.service
