@@ -7,3 +7,6 @@ init_docker:
        - /data/.awx/environment.sh
      compose_paths: 
        - /data/.awx/docker-compose.yml
+     commands:
+       - 
+       -
