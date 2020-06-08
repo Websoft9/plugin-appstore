@@ -1,12 +1,12 @@
 init_docker:  
    awx:   
-     username: admin
-     password: "password"
+     admin_username: admin
+     admin_password: "password"
+     db_username: awx
+     db_password: "awxpass"
      service_after: docker.service
      config_paths: 
        - /data/.awx/environment.sh
+       - /data/.awx/credentials.py
      compose_paths: 
        - /data/.awx/docker-compose.yml
-     commands:
-       - sed -i "s/awxpass/$new_password/g" /data/.awx/environment.sh
-       - sed -i "s/awxpass/$new_password/g" /data/.awx/credentials.py
