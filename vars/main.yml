@@ -8,5 +8,4 @@ init_docker:
      config_paths: 
        - /data/.awx/environment.sh
        - /data/.awx/credentials.py
-     compose_paths: 
-       - /data/.awx/docker-compose.yml
+     compose_path: "/data/.awx/docker-compose.yml"
