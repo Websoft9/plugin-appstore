@@ -168,3 +168,38 @@ If you wish to use an external database (e.g [posgtresql](https://github.com/ans
    ```
    docker-compose -f docker-compose.yml up -d
    ```
+   
+## Use an external PostgreSQL with SSL mode
+
+Assume that you have complete the **Use an external PostgreSQL** successfully, then if you want to enable the SSL mode of PostgreSQL, just need to modify the followng files
+
+1. /data/.awx/credentials.py
+
+```
+DATABASES = {
+    'default': {
+        'ATOMIC_REQUESTS': True,
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': "postgres",
+        'USER': "postgres@w9postgres",
+        'PASSWORD': "Qwer1234",
+        'HOST': "w9postgres.postgres.database.azure.com",
+        'PORT': "5432",
+        'SSLMODE': "require",
+    }
+}
+
+BROADCAST_WEBSOCKET_SECRET = "alJ5ckRvUW9ISnpidVouWGxxNG8="
+```
+2. /data/.awx/environment.sh
+```
+DATABASE_USER=postgres@w9postgres
+DATABASE_NAME=postgres
+DATABASE_HOST=w9postgres.postgres.database.azure.com
+DATABASE_PORT=5432
+DATABASE_PASSWORD=Qwer1234
+AWX_ADMIN_USER=admin
+DATABASE_SSLMODE: prefer
+AWX_ADMIN_PASSWORD=password
+
+```
