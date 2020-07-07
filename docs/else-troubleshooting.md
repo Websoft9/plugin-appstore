@@ -20,3 +20,9 @@ df -lh
 # view memory rate
 free -lh 
 ```
+
+#### A server error has occurred?
+
+```
+docker logs awx_web
+```
