@@ -1,3 +1,5 @@
+region: "0"
+
 init_docker:
   awx:
     admin_username: admin
