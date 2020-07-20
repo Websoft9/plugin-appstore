@@ -25,7 +25,7 @@
 
 ## 本项目安装的是 AWX 最新版吗？
 
-本项目采用官方提供的Github自动化项目部署，需要通过修改[awx_version](/roles/awx/defaults/main.yml)的值，保证部署为 AWX 官方发布的最新稳定版。
+本项目采用官方提供的Github自动化项目部署，[awx_version](/roles/awx/defaults/main.yml)参数维护版本值，保证部署为 AWX 官方发布的最新稳定版。
 
 我们会定期测试本项目，以保证用户可以顺利安装。  
 
