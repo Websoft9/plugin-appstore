@@ -6,7 +6,7 @@
   shell: sudo python3 -m pip install -U --force-reinstall docker-compose
   
 
-- name: Add soft link for ansible-playbook
+- name: Add soft link for ansible-playbook same with CentOS
   shell: ln -sf /usr/bin/ansible-playbook /usr/local/bin/ansible-playbook
   when: ansible_os_family == Debian
 
