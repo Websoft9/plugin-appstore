@@ -6,7 +6,7 @@
   shell: sudo python3 -m pip install -U --force-reinstall docker-compose
 
 - name: Run the AWX installation playbook.
-  shell: "ansible-playbook -i inventory install.yml -e ansible_python_interpreter=/usr/bin/python3 -e postgres_data_dir={{ postgres_data_dir }} -e docker_compose_dir={{ docker_compose_dir }}"
+  shell: "/usr/local/bin/ansible-playbook -i inventory install.yml -e ansible_python_interpreter=/usr/bin/python3 -e postgres_data_dir={{ postgres_data_dir }} -e docker_compose_dir={{ docker_compose_dir }}"
   args:
     chdir: "{{ awx_repo_dir }}/installer"
     creates: /etc/awx_playbook_complete
