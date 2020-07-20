@@ -13,5 +13,5 @@ init_docker:
       - "/data/.awx/environment.sh"
       - "/data/.awx/credentials.py"
     compose_path: "/data/.awx/docker-compose.yml"
-    commands: 
+    volumes: 
       - rm -rf /data/pgdocker/10/data
