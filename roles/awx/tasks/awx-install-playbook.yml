@@ -7,7 +7,7 @@
 
 - name: Add soft link for ansible-playbook same with CentOS
   shell: ln -sf /usr/bin/ansible-playbook /usr/local/bin/ansible-playbook
-  when: ansible_os_family == Debian
+  when: ansible_os_family == "Debian"
 
 - name: Run the AWX installation playbook.
   shell: "/usr/local/bin/ansible-playbook -i inventory install.yml -e ansible_python_interpreter=/usr/bin/python3 -e postgres_data_dir={{ postgres_data_dir }} -e docker_compose_dir={{ docker_compose_dir }}"
