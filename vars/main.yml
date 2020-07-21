@@ -14,4 +14,4 @@ init_docker:
       - "/data/.awx/credentials.py"
     compose_path: "/data/.awx/docker-compose.yml"
     volumes: 
-      - rm -rf /data/pgdocker/10/data
+      - /data/pgdocker/10/data
