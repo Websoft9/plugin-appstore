@@ -3,7 +3,7 @@
 #注意：通过修改ansible配置文件或在inventory中修改，是没有作用的，原因是ansible-playbook这条命令本身是由ansible模块发起的
 #ansible-playbook必须指定路径才兼容centos
 - name: Install docker compose python
-  shell: sudo python3 -m pip install -U docker-compose
+  shell: sudo python3 -m pip install -U --force-reinstall docker-compose
 
 - name: Add soft link for ansible-playbook same with CentOS
   shell: ln -sf /usr/bin/ansible-playbook /usr/local/bin/ansible-playbook
