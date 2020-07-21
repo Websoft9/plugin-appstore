@@ -8,33 +8,15 @@
     state: directory
     recurse: yes
 
-- name: Copy credentials.py
+- name: Copy docker env
   template:
-    src: credentials.py
+    src: "{{item}}"
     dest: '/data/.awx'
-
-- name: Copy docker-compose.yml
-  template:
-    src: docker-compose.yml
-    dest: '/data/.awx'
-
-- name: Copy environment.sh
-  template:
-    src: environment.sh
-    dest: '/data/.awx'
-
-- name: Copy nginx.conf
-  template:
-    src: nginx.conf
-    dest: '/data/.awx'
-
-- name: Copy redis.conf
-  template:
-    src: redis.conf
-    dest: '/data/.awx'
-
-- name: Copy SECRET_KEY
-  template:
-    src: SECRET_KEY
-    dest: '/data/.awx'
+  loop:
+    - credentials.py
+    - docker-compose.yml
+    - environment.sh
+    - nginx.conf
+    - redis.conf
+    - SECRET_KEY
 
