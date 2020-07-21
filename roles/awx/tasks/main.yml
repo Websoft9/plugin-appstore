@@ -2,20 +2,39 @@
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Install AWX dependencies.
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ awx_package_dependencies }}"
+- name: Creates awx dock directory
+  file:
+    path: /data/.awx/redis_socket
+    state: directory
+    recurse: yes
 
-- name: Clone AWX into configured directory.
-  git:
-    repo: "{{ awx_repo }}"
-    dest: "{{ awx_repo_dir }}"
-    version: "{{ awx_version }}"
-    update: "{{ awx_keep_updated }}"
-    force: true
-    accept_hostkey: true
+- name: Copy credentials.py
+  template:
+    src: credentials.py
+    dest: '/data/.awx'
 
-- include: awx-install-playbook.yml
-  when: awx_run_install_playbook
+- name: Copy docker-compose.yml
+  template:
+    src: docker-compose.yml
+    dest: '/data/.awx'
+
+- name: Copy environment.sh
+  template:
+    src: environment.sh
+    dest: '/data/.awx'
+
+- name: Copy nginx.conf
+  template:
+    src: nginx.conf
+    dest: '/data/.awx'
+
+- name: Copy redis.conf
+  template:
+    src: redis.conf
+    dest: '/data/.awx'
+
+- name: Copy SECRET_KEY
+  template:
+    src: SECRET_KEY
+    dest: '/data/.awx'
+
