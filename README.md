@@ -29,7 +29,7 @@ Learn more about [Parameters](/docs/stack-components.md).
 
 You can install it by All-in-one Installer. In addition, you can deploy image published on major Cloud Platform by Websoft9.
 
-### All-in-one Installer
+#### All-in-one Installer
 
 Run the automatic installation script with **root** authority to start the installation. If necessary, users need to make interactive choices, and then wait patiently until the installation is successful.
 
@@ -40,7 +40,7 @@ $ wget -N https://raw.githubusercontent.com/Websoft9/ansible-linux/master/script
 
 If the network is broken or blocked, SSH will be interrupted and the installation will fail. Please reinstall.
 
-### Image on Cloud 
+#### Image on Cloud 
 
 Follow our [AWX image](https://apps.websoft9.com/awx) for installation on major Cloud Platform.
 
