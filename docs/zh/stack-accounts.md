@@ -1,18 +1,22 @@
 # 账号密码
 
-使用AWX，可能会用到的几组账号密码如下：
+通过**SSH**连接云服务器，运行 `sudo cat /credentials/password.txt` 命令，查看所有相关账号和密码
+
+![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/common/catdbpassword-websoft9.png)
+
+下面列出可能需要用到的几组账号密码：
 
 ## AWX
 
 管理员用户名：`admin`  
-管理员密码： `password` or `admin` 
+管理员密码： 存储在您的服务器指定文件中：*/credentials/password.txt*
 
 ## PostgreSQL
 
 本部署方案中，PostgreSQL 采用 Docker 部署：
 
 * 管理员账号：*`postgres`*
-* 管理员密码：存储在您的服务器指定文件中：*/data/.awx/awxcompose/credentials.py*。
+* 管理员密码：存储在您的服务器指定文件中：*/credentials/password.txt*。
 
 ## Linux
 
