@@ -11,7 +11,7 @@
 System Requirement to install this repository are as following：
 
 | Conditions       | Details                               | Notes                |
-| ---------- | ------------------------------------- | -------------------- |
+| -------------- | ----------------------------------- | -------------------- |
 | Operating System   | CentOS7.x, Ubuntu18.04, Amazon Linux2 | Optional                 |
 | Public Cloud     | AWS, Azure, Alibaba Cloud, HUAWEI ClOUD, Tencent Cloud    | Optional                 |
 | Private Cloud     | KVM, VMware, VirtualBox, OpenStack    | Optional                 |
