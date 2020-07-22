@@ -16,7 +16,7 @@
 本部署方案中，PostgreSQL 采用 Docker 部署：
 
 * 管理员账号：*`postgres`*
-* 管理员密码：存储在您的服务器指定文件中：*/credentials/password.txt*。
+* 管理员密码：存储在您的服务器指定文件中：*/credentials/password.txt*
 
 ## Linux
 
