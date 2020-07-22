@@ -18,7 +18,7 @@ More detail please refer to the docs：*[**Tower CLI**](https://docs.ansible.com
 
 ## Install AWX CLI
 
-You should install the AWX CLI like below:
+You should install the AWX CLI like below: 
 
 ```
 pip3 install --user https://releases.ansible.com/ansible-tower/cli/ansible-tower-cli-latest.tar.gz

@@ -6,7 +6,7 @@ No, only English
 
 #### How is AWX connected to PostgreSQL?
 
-AWX connect PostgreSQL in Docker inner
+AWX connect PostgreSQL in Docker inner, and you can use external Database
 
 #### What's URL of AWX API?
 
