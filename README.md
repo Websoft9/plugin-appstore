@@ -23,7 +23,7 @@ To learn more information, please view [System Requirement](https://github.com/a
 
 Core components of this repository: AWX, PostgreSQL, Redis on Docker
 
-Learn more about [stock-components](/docs/stack-components.md).
+Learn more about [Parameters](/docs/stack-components.md).
 
 ## Installation
 
