@@ -54,7 +54,7 @@ Detailed changes are documented in the [CHANGELOG](/CHANGELOG.md).
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT), Additional Terms: It is not allowed to publish free or paid image based on this repository in any Cloud platform's Marketplace.
+[LGPL-3.0](/License.md), Additional Terms: It is not allowed to publish free or paid image based on this repository in any Cloud platform's Marketplace.
 
 Copyright (c) 2016-present, Websoft9
 
