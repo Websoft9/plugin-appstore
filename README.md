@@ -67,3 +67,7 @@ Yes.
 #### How to install and view the latest release？
 
 Get the AWX version from [awx releases](https://github.com/ansible/awx/releases), and modify the Ansible variable **[awx_version](/roles/ansible/defaults/main.yml)** to change the AWX version for this repository. 
+
+#### Is the default password safe?
+
+AWX Automatic Installer use the random password solution, every installation have different password, that mean your password is different from other users
