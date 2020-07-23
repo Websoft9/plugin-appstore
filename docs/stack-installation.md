@@ -16,7 +16,7 @@ If you have completed the AWX deployment on Cloud Platform, the following steps 
 2. Waiting for upgrading, when completed you will log in interface of AWX
    ![AWX login page](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
 
-3. Login it[（不知道账号密码？）](/zh/stack-accounts.md#awx)
+3. Login it[(Don't know password?)](/stack-accounts.md#awx)
    ![AWX console](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
 
 4. Create alls need for one installation Template：
