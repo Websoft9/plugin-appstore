@@ -19,7 +19,7 @@ If you have completed the AWX deployment on Cloud Platform, the following steps 
 3. Login it[(Don't know password?)](/stack-accounts.md#awx)
    ![AWX console](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
 
-4. Create alls need for one installation Template：
+4. Create all need for one installation Template：
 
    - ORGANIZATIONS
    - Credentials
