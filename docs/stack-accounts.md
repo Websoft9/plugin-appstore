@@ -4,7 +4,7 @@ You use the **SSH** to connect your Server and run the command `sudo cat /creden
 
 ![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/common/catdbpassword-websoft9.png)
 
-These accounts are required for RabbitMQ image installation and configuration
+These accounts are required for AWX image installation and configuration
 
 ## AWX
 
