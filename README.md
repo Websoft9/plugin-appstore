@@ -1,4 +1,4 @@
-## Introduction
+# Introduction
 
 [English](/README.md) | [简体中文](/README_zh.md)  
 
@@ -46,7 +46,7 @@ Follow our [AWX image](https://apps.websoft9.com/awx) for installation on major 
 
 ## Documentation
 
-To get information about initial installation, parameters, user name, password, RabbitMQ Configuration, HTTPS, SMTP, Backup, Upgrade and more, please view RabbitMQ Administrator Guide. ([English](https://support.websoft9.com/docs/awx) | [简体中文](https://support.websoft9.com/docs/awx/zh))
+To get information about initial installation, parameters, default username and password, Configuration, HTTPS, SMTP, Backup, Upgrade and more, please view AWX Administrator Guide. ([English](https://support.websoft9.com/docs/awx) | [简体中文](https://support.websoft9.com/docs/awx/zh))
 
 ## Changelog
 
