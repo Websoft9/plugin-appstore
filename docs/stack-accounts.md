@@ -13,7 +13,7 @@ These accounts are required for AWX image installation and configuration
 
 ## PostgreSQL
 
-* Administrator username: *`potgres`*
+* Administrator username: *`postgres`*
 * Administrator password: stored in the file of your server instance: */credentials/password.txt*
 
 ## Linux
