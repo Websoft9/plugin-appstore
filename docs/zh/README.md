@@ -20,7 +20,7 @@ home: false
 
 我们在 **2019年12月26日** 之前发布的 AWX 自动部署方案，采用的是基于服务器的源码安装方式，与当前Docker安装方式差异较大。
 
-如果你使用的是旧版本，请参考：[AWS 管理员手册（非Docker版本）](https://support.websoft9.com/docs/awx-nodocker/zh)
+如果你使用的是旧版本，请参考：[AWX 管理员手册（非Docker版本）](https://support.websoft9.com/docs/awx-nodocker/zh)
 
 ## 赞助
 
