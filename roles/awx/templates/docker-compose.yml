@@ -9,10 +9,12 @@ services:
       - postgres
     ports:
       - "80:8052"
+      - "443:443"
     hostname: awxweb
     user: root
     restart: unless-stopped
     volumes:
+      - /data/cert:/etc/ssl/certs
       - supervisor-socket:/var/run/supervisor
       - rsyslog-socket:/var/run/awx-rsyslog/
       - rsyslog-config:/var/lib/awx/rsyslog/
