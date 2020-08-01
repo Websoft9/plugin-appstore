@@ -42,6 +42,7 @@ AWX deployment package has installed the SSL module of Nginx
    ```
    cd /data/.awx
    sudo docker-compose up -d
+   docker restart awx_web
    ```
 
 ## FAQ

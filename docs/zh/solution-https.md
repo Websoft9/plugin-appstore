@@ -44,6 +44,7 @@ AWX 预装 SSL 设置，但需要开启并上传证书。
    ```
    cd /data/.awx
    sudo docker-compose up -d
+   docker restart awx_web
    ```
 
 ## FAQ
