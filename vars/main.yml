@@ -13,9 +13,7 @@ init_docker:
     compose_path: "/data/.awx/docker-compose.yml"
     compose_commands: 
       - sed -i "s/POSTGRES_PASSWORD: awxpass/POSTGRES_PASSWORD: $new_password/g" /data/.awx/docker-compose.yml
-      - sed -i "s/POSTGRES_PASSWORD=superset/POSTGRES_PASSWORD=$new_password/g" /data/wwwroot/superset/docker/.env
-    commands:
-      - sed -i "s/--password admin/--password $new_password/g" /data/wwwroot/superset/docker/docker-init.sh
-      - cd /data/wwwroot/superset && docker-compose exec superset bash /app/docker-init.sh
+      - sed -i "s/awxpass/$new_password/g" /data/.awx/credentials.py
+      - sed -i "s/DATABASE_PASSWORD=awxpass/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
     volumes: 
       - /data/pgdocker/10/data
