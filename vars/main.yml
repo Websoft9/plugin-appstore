@@ -10,9 +10,12 @@ init_docker:
     db_username: awx
     db_password: "awxpass"
     service_after: "docker.service"
-    config_paths: 
-      - "/data/.awx/environment.sh"
-      - "/data/.awx/credentials.py"
     compose_path: "/data/.awx/docker-compose.yml"
+    compose_commands: 
+      - sed -i "s/DATABASE_PASSWORD=superset/DATABASE_PASSWORD=$new_password/g" /data/wwwroot/superset/docker/.env
+      - sed -i "s/POSTGRES_PASSWORD=superset/POSTGRES_PASSWORD=$new_password/g" /data/wwwroot/superset/docker/.env
+    commands:
+      - sed -i "s/--password admin/--password $new_password/g" /data/wwwroot/superset/docker/docker-init.sh
+      - cd /data/wwwroot/superset && docker-compose exec superset bash /app/docker-init.sh
     volumes: 
       - /data/pgdocker/10/data
