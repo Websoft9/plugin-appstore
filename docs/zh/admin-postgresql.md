@@ -8,7 +8,7 @@ AWX 预装包中内置 PostgreSQL 容器，需要登录容器后使用命令对 
 2. 进入 awx-postgresql 容器
 
    ```
-   docker exec -it true 2ca9ad211678 /bin/bash
+   docker exec -it 2ca9ad211678 /bin/bash
    ```
 4. 运行上面的命令后，就进入了容器命令操作界面
 
