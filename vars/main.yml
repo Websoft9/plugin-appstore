@@ -15,5 +15,6 @@ init_docker:
       - 'sed -i "s/POSTGRES_PASSWORD: awxpass/POSTGRES_PASSWORD: $new_password/g" /data/.awx/docker-compose.yml'
       - sed -i "s/awxpass/$new_password/g" /data/.awx/credentials.py
       - sed -i "s/DATABASE_PASSWORD=awxpass/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
+      - sed -i "s/AWX_ADMIN_PASSWORD=password/AWX_ADMIN_PASSWORD=$new_password/g" /data/.awx/environment.sh
     volumes: 
       - /data/pgdocker/10/data
