@@ -10,7 +10,7 @@
 - src: https://github.com/websoft9dev/role_nodejs
   version: master
 
-- src: https://github.com/websoft9dev/role_initpassword
+- src: https://github.com/websoft9dev/role_init
   version: master
 
 - src: https://github.com/websoft9dev/role_preend
