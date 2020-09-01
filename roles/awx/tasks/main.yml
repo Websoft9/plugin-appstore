@@ -20,3 +20,9 @@
     - redis.conf
     - SECRET_KEY
 
+- name: Run docker-compose
+  shell: |
+    docker-compose up -d 
+    sleep 30s
+  args:
+    chdir: /data/.awx
