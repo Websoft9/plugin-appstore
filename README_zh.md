@@ -40,7 +40,7 @@ AWX 的最新版本号[查看地址](https://github.com/ansible/awx/releases)
 sudo su -
 
 #自动化安装命令
-wget -N https://raw.githubusercontent.com/Websoft9/ansible-linux/master/scripts/install.sh; bash install.sh -r awx
+wget -N https://raw.githubusercontent.com/Websoft9/ansible-linux/main/scripts/install.sh; bash install.sh -r awx
 
 ```
 
