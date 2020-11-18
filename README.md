@@ -35,7 +35,7 @@ Run the automatic installation script with **root** authority to start the insta
 
 ```
 $ sudo su -
-$ wget -N https://raw.githubusercontent.com/Websoft9/ansible-linux/main/scripts/install.sh; bash install.sh -r rabbitmq
+$ wget -N https://raw.githubusercontent.com/Websoft9/ansible-linux/main/scripts/install.sh; bash install.sh -r awx
 ```
 
 If the network is broken or blocked, SSH will be interrupted and the installation will fail. Please reinstall.
