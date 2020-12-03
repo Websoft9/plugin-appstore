@@ -26,3 +26,8 @@ free -lh
 ```
 docker logs awx_web
 ```
+
+#### Create mannul Project from SCM type have error "WARNING: There are no available playbook directories in /var/lib/awx/projects...."
+
+Reason: The directory /var/lib/awx/projects of AWX container not mounted to Server
+Solution： Mounted the container's /var/lib/awx/projects to Server's path /data/wwwroot/awx/project.
