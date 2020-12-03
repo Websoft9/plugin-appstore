@@ -7,6 +7,7 @@
 
 ### Bug Fixes
 
+* 2020-12-03  Create new project from Mannul of SCM type
 * 2020-07-21  Azure,Azure ansible,python version and install
 * 2020-07-17  run initpassword, service error
 
