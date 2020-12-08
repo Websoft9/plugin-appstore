@@ -10,6 +10,7 @@
   roles:
     - {role: role_common, tags: "role_common"}
     - {role: role_cloud, tags: "role_cloud"}
+    - {role: role_postgresql, tags: "role_postgresql"}
     - {role: role_docker, tags: "role_docker"}
     - {role: role_nodejs, tags: "role_nodejs"}
     - {role: awx, tags: "awx"}
