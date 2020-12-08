@@ -2,7 +2,7 @@ region: "0"
 common_os_support: ["CentOS", "Ubuntu", "Amazon"]
 
 postgresql_version: "10.5"
-postgresql_password: "awx"
+postgresql_password: "123456"
 
 docker_applications: 
   - phppgadmin
