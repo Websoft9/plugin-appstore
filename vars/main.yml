@@ -1,6 +1,22 @@
 region: "0"
 common_os_support: ["CentOS", "Ubuntu", "Amazon"]
 
+postgresql_version: "10.5"
+postgresql_password: "awx"
+
+docker_applications: 
+  - phppgadmin
+
+postgresql_remote: True
+
+init_db: 
+  postgresql:
+    admin: postgres
+    users: ["awx"]
+    password: "awxpass"
+    config_paths:
+      - /data/wwwroot/canvas/config/database.yml
+      
 init_docker:
   awx:
     admin_username: admin
@@ -16,5 +32,4 @@ init_docker:
       - sudo sed -i "s/awxpass/$new_password/g" /data/.awx/credentials.py
       - sudo sed -i "s/DATABASE_PASSWORD=awxpass/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
       - sudo sed -i "s/AWX_ADMIN_PASSWORD=password/AWX_ADMIN_PASSWORD=$new_password/g" /data/.awx/environment.sh
-    volumes: 
-      - /data/pgdocker/10/data
+ 
