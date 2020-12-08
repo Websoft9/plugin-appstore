@@ -14,17 +14,11 @@ init_db:
     admin: postgres
     users: ["awx"]
     password: "awxpass"
-    config_paths:
-      - /data/wwwroot/canvas/config/database.yml
       
 init_docker:
   awx:
     admin_username: admin
     admin_password: "password"
-    db: postgresql
-    db_name: awx
-    db_username: awx
-    db_password: "awxpass"
     service_after: "docker.service"
     compose_path: "/data/.awx/docker-compose.yml"
     compose_commands: 
