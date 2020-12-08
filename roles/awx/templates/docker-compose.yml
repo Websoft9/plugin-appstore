@@ -6,7 +6,6 @@ services:
     container_name: awx_web
     depends_on:
       - redis
-      - postgres
     ports:
       - "80:8052"
       - "443:443"
@@ -35,7 +34,7 @@ services:
     depends_on:
       - redis
       - web
-      - postgres
+      
     command: /usr/bin/launch_awx_task.sh
     hostname: awx
     user: root
@@ -68,20 +67,6 @@ services:
       - "/data/.awx/redis.conf:/usr/local/etc/redis/redis.conf:ro"
       - "/data/.awx/redis_socket:/var/run/redis/:rw"
 
-  postgres:
-    image: postgres:10
-    container_name: awx_postgres
-    restart: unless-stopped
-    volumes:
-      - /data/pgdocker/10/data/:/var/lib/postgresql/data/pgdata:Z
-    environment:
-      POSTGRES_USER: awx
-      POSTGRES_PASSWORD: awxpass
-      POSTGRES_DB: awx
-      PGDATA: /var/lib/postgresql/data/pgdata
-      http_proxy: 
-      https_proxy: 
-      no_proxy: 
 
 
 volumes:
