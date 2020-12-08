@@ -5,7 +5,7 @@ DATABASES = {
         'NAME': "awx",
         'USER': "awx",
         'PASSWORD': "awxpass",
-        'HOST': "postgres",
+        'HOST': "localhost",
         'PORT': "5432",
     }
 }
