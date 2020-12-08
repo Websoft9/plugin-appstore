@@ -22,8 +22,8 @@
     
 - name: Create awx softlink to /data/wwwroot/awx
   file:
-    src: /data/.awx/
-    dest: /data/wwwroot/
+    src: /data/.awx
+    dest: /data/wwwroot/awx
     state: link
     
 - name: Run docker-compose
