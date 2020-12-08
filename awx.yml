@@ -7,6 +7,9 @@
   vars_files:
     - vars/main.yml
 
+  vars:
+    awx_postgres_password: "{{postgresql_password}}"
+
   roles:
     - {role: role_common, tags: "role_common"}
     - {role: role_cloud, tags: "role_cloud"}
@@ -17,3 +20,5 @@
     - {role: role_init, tags: "role_init"}
     - {role: role_preend, tags: "role_preend"}
     - {role: role_end, tags: "role_end"}
+  
+

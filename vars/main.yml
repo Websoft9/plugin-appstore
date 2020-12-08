@@ -2,7 +2,7 @@ region: "0"
 common_os_support: ["CentOS", "Ubuntu", "Amazon"]
 
 postgresql_version: "10.5"
-postgresql_password: "awx"
+postgresql_password: "123456"
 
 docker_applications: 
   - phppgadmin
@@ -13,7 +13,7 @@ init_db:
   postgresql:
     admin: postgres
     users: ["awx"]
-    password: "awxpass"
+    password: "123456"
       
 init_docker:
   awx:
@@ -22,8 +22,7 @@ init_docker:
     service_after: "docker.service"
     compose_path: "/data/.awx/docker-compose.yml"
     compose_commands: 
-      - 'sudo sed -i "s/POSTGRES_PASSWORD: awxpass/POSTGRES_PASSWORD: $new_password/g" /data/.awx/docker-compose.yml'
-      - sudo sed -i "s/awxpass/$new_password/g" /data/.awx/credentials.py
-      - sudo sed -i "s/DATABASE_PASSWORD=awxpass/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
+      - sudo sed -i "s/123456/$new_password/g" /data/.awx/credentials.py
+      - sudo sed -i "s/DATABASE_PASSWORD=123456/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
       - sudo sed -i "s/AWX_ADMIN_PASSWORD=password/AWX_ADMIN_PASSWORD=$new_password/g" /data/.awx/environment.sh
  

@@ -8,6 +8,10 @@
     state: directory
     recurse: yes
 
+- name: Get Docker Gateway
+  shell: ip route show | grep docker0 | awk '{print $9}'
+  register: awx_docker_gateway
+
 - name: Copy docker env
   template:
     src: "{{item}}"
