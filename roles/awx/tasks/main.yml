@@ -20,6 +20,18 @@
     - redis.conf
     - SECRET_KEY
 
+- name: Creates awx dock directory
+  file:
+    path: /data/wwwroot
+    state: directory
+    recurse: yes
+    
+- name: Create awx softlink to /data/wwwroot/awx
+  file:
+    src: /data/.awx/
+    dest: /data/wwwroot/
+    state: link
+    
 - name: Run docker-compose
   shell: |
     docker-compose up -d 
