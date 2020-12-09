@@ -9,6 +9,8 @@ postgresql_databases:
 
 postgresql_users:
   - name: awx
+    db: awx
+    password: 123456
 
 postgresql_remote: True
 
