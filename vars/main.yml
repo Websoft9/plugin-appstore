@@ -4,10 +4,16 @@ common_os_support: ["CentOS", "Ubuntu", "Amazon"]
 postgresql_version: "10"
 postgresql_password: "123456"
 
-docker_applications: 
-  - phppgadmin
+postgresql_databases:
+  - name: awx
+
+postgresql_users:
+  - name: awx
 
 postgresql_remote: True
+
+docker_applications: 
+  - phppgadmin
 
 init_db: 
   postgresql:
