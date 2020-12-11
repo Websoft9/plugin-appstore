@@ -27,7 +27,6 @@ init_docker:
   awx:
     admin_username: admin
     admin_password: "password"
-    service_before: "docker.service"
     compose_path: "/data/.awx/docker-compose.yml"
     compose_commands: 
       - sudo sed -i "s/123456/$new_password/g" /data/.awx/credentials.py
