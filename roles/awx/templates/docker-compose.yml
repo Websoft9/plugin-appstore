@@ -33,8 +33,7 @@ services:
     container_name: awx_task
     depends_on:
       - redis
-      - web
-      
+      - web   
     command: /usr/bin/launch_awx_task.sh
     hostname: awx
     user: root
@@ -66,8 +65,6 @@ services:
     volumes:
       - "/data/.awx/redis.conf:/usr/local/etc/redis/redis.conf:ro"
       - "/data/.awx/redis_socket:/var/run/redis/:rw"
-
-
 
 volumes:
   supervisor-socket:
