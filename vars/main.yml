@@ -14,8 +14,6 @@ postgresql_users:
 
 postgresql_remote: True
 
-docker_applications: 
-  - phppgadmin
 
 init_db: 
   postgresql:
