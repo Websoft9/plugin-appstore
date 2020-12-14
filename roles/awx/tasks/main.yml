@@ -29,6 +29,11 @@
     src: /data/.awx
     dest: /data/wwwroot/awx
     state: link
+
+- name: change privi
+  shell: |
+    chmod -R 777  /data/.awx/redis_socket
+    chmod 664 /data/.awx/redis.conf
     
 - name: Run docker-compose
   shell: |
