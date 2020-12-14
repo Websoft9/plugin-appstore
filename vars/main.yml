@@ -14,6 +14,8 @@ postgresql_users:
 
 postgresql_remote: True
 
+docker_applications: 
+  - phppgadmin
 
 init_db: 
   postgresql:
@@ -30,4 +32,6 @@ init_docker:
       - sudo sed -i "s/123456/$new_password/g" /data/.awx/credentials.py
       - sudo sed -i "s/DATABASE_PASSWORD=123456/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
       - sudo sed -i "s/AWX_ADMIN_PASSWORD=password/AWX_ADMIN_PASSWORD=$new_password/g" /data/.awx/environment.sh
+      - sudo -u postgres psql -c 'drop database awx'
+      - sudo -u postgres psql -c 'create database awx'
  
