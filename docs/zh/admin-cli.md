@@ -16,15 +16,17 @@ awx是AWX和Red Hat Ansible Tower的官方命令行客户端。它：
 
 更多详情请参考官方文档：[《AWX命令行界面》](https://docs.ansible.com/ansible-tower/latest/html/towercli/index.html)
 
-## 安装 AWX CLI
+##  AWX CLI
 
-AWX 官方关于 CLI 的安装方法，有些混乱，经过研究，大致流程如下：
+AWX 官方关于 CLI 是一个通过命令来控制AWX的客户端工具。
+
+#### 安装
 
 ```
-pip3 install --user https://releases.ansible.com/ansible-tower/cli/ansible-tower-cli-latest.tar.gz
-tower-cli --help
+pip install ansible-tower-cli
 ```
 
+#### 连接
 AWX CLI 需要配置连接信息，方可使用：
 
 ```
@@ -32,6 +34,7 @@ tower-cli config host http://<new-awx-host.example.com>
 tower-cli config username <user>
 tower-cli config password <pass>
 tower-cli send assets.json
+tower-cli user list # 测试是否成功，成功的话显示用户
 ```
 
 > 更多请参考官方文档： [Ansible Tower AWX CLI ](https://docs.ansible.com/ansible-tower/latest/html/towercli/usage.html#installation)， [ AWX CLI on AWX Github](https://github.com/ansible/awx/tree/devel/awxkit/awxkit/cli/docs)
