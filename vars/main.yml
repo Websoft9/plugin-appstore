@@ -34,4 +34,6 @@ init_docker:
       - sudo sed -i "s/AWX_ADMIN_PASSWORD=password/AWX_ADMIN_PASSWORD=$new_password/g" /data/.awx/environment.sh
       - sudo -u postgres psql -c 'drop database awx'
       - sudo -u postgres psql -c 'create database awx'
+      - sudo chmod -R 777  /data/.awx/redis_socket
+      - sudo chmod 664 /data/.awx/redis.conf
  
