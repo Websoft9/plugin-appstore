@@ -1,20 +1,39 @@
 region: "0"
 common_os_support: ["CentOS", "Ubuntu", "Amazon"]
 
+postgresql_version: "10"
+postgresql_password: "123456"
+
+postgresql_databases:
+  - name: awx
+
+postgresql_users:
+  - name: awx
+    db: awx
+    password: 123456
+
+postgresql_remote: True
+
+docker_applications: 
+  - phppgadmin
+
+init_db: 
+  postgresql:
+    admin: postgres
+    users: ["awx"]
+    password: "123456"
+      
 init_docker:
   awx:
     admin_username: admin
     admin_password: "password"
-    db: postgresql
-    db_name: awx
-    db_username: awx
-    db_password: "awxpass"
-    service_after: "docker.service"
     compose_path: "/data/.awx/docker-compose.yml"
     compose_commands: 
-      - 'sudo sed -i "s/POSTGRES_PASSWORD: awxpass/POSTGRES_PASSWORD: $new_password/g" /data/.awx/docker-compose.yml'
-      - sudo sed -i "s/awxpass/$new_password/g" /data/.awx/credentials.py
-      - sudo sed -i "s/DATABASE_PASSWORD=awxpass/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
+      - sudo sed -i "s/123456/$new_password/g" /data/.awx/credentials.py
+      - sudo sed -i "s/DATABASE_PASSWORD=123456/DATABASE_PASSWORD=$new_password/g" /data/.awx/environment.sh
       - sudo sed -i "s/AWX_ADMIN_PASSWORD=password/AWX_ADMIN_PASSWORD=$new_password/g" /data/.awx/environment.sh
-    volumes: 
-      - /data/pgdocker/10/data
+      - sudo -u postgres psql -c 'drop database awx'
+      - sudo -u postgres psql -c 'create database awx'
+      - sudo chmod -R 777  /data/.awx/redis_socket
+      - sudo chmod 664 /data/.awx/redis.conf
+ 

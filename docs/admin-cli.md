@@ -16,15 +16,17 @@ Potential uses include:
 
 More detail please refer to the docs：*[**Tower CLI**](https://docs.ansible.com/ansible-tower/latest/html/towercli/index.html)*
 
-## Install AWX CLI
+##  AWX CLI
+
+#### Install
 
 You should install the AWX CLI like below: 
 
 ```
-pip3 install --user https://releases.ansible.com/ansible-tower/cli/ansible-tower-cli-latest.tar.gz
-tower-cli --help
+pip install ansible-tower-cli
 ```
 
+#### Connection
 You should completed the AWX CLI connection before use it:
 
 ```
@@ -32,5 +34,6 @@ tower-cli config host http://<new-awx-host.example.com>
 tower-cli config username <user>
 tower-cli config password <pass>
 tower-cli send assets.json
+tower-cli user list # If the test is successful, the user will be displayed
 ```
 > Refer to [Ansible Tower AWX CLI ](https://docs.ansible.com/ansible-tower/latest/html/towercli/usage.html#installation)， [ AWX CLI on AWX Github](https://github.com/ansible/awx/tree/devel/awxkit/awxkit/cli/docs)
