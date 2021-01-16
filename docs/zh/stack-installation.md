@@ -42,6 +42,7 @@
 
 先了解几个概念：
 
+
 ![概念](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-Websoft9.png)
 
 1.清单（Inventories）：定义IP地址清单，用来统一管理受控目标客户机资源。
