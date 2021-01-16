@@ -65,7 +65,7 @@
 
 ![设置凭证](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-credentials-Websoft9.png)
 
-3.创建项目，指定要执行的Ansible的项目
+3.创建项目，指定要执行的Ansible的项目。本实例通过git拉取GitHub上的Websoft9的Grafana项目
 
 ![创建项目](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-project-Websoft9.png)
 
