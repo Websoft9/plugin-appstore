@@ -203,3 +203,17 @@ DATABASE_SSLMODE: prefer
 AWX_ADMIN_PASSWORD=password
 
 ```
+
+## Extra variable
+
+AWX support variable outside the Ansible project, it is **Extra variable** which can help you to pass **var_promots**  
+
+There are two ways of additional variables:
+
+* **Method one**: Add additional variables directly on the 【template】 page
+  ![Ansible-Tower Add additional variables](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-extravars-websoft9.png)
+
+* **Method two**: Edit 【EDIT SURVEY】 link directly on the 【template】 page
+  ![Ansible-Tower EDIT SURVEY](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-varspromptset-websoft9.png)
+
+More details please refer to official docs: [Create a Survey](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#ug-surveys)

@@ -167,3 +167,17 @@ AWX是基于Docker部署，处理web的容器名称为：awx_web
    ```
    docker-compose -f docker-compose.yml up -d
    ```
+
+## 额外变量
+
+AWX 支持从项目之外注入所需的变量，它是通过**额外变量**机制实现，一方面可以增加变量的多样性，另外可以绕过 Ansible 项目中的交互式。  
+
+有两种额外变量的方式：
+
+* **方式一**：在【模板】编辑页面直接增加额外变量
+  ![Ansible-Tower 额外变量](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-extravars-websoft9.png)
+
+* **方式二**：在【模板】编辑页面增加一个【问卷调查】项
+  ![Ansible-Tower 问卷调查](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-varspromptset-websoft9.png)
+
+详情参考官方文档 [Create a Survey](https://docs.ansible.com/ansible-tower/latest/html/userguide/job_templates.html#ug-surveys)

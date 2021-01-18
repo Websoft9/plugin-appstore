@@ -2,11 +2,18 @@
 
 #### AWX support multi-language?
 
-No, only English
+Yes, it supported [Locales](https://docs.ansible.com/ansible-tower/latest/html/release-notes/supported_locales.html). It automatically sets the locale preference based on the user’s browser settings. For Safari, Internet Explorer, and older versions of Chrome as well as FireFox, this is handled automatically.
 
 #### How is AWX connected to PostgreSQL?
 
 AWX connect PostgreSQL in Docker inner, and you can use external Database
+
+#### AWX support Ansible Galaxy?
+Yes, refer to [Ansible Galaxy Support](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#ug-galaxy)
+
+#### AWX support **var-prompt**?
+
+Yes, refer to [Extra variable](/solution-more.md#extra-variable) charter of this docs
 
 #### What's URL of AWX API?
 

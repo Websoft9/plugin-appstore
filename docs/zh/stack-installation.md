@@ -14,68 +14,74 @@
    ![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-upgrading-websoft9.png)
 
 2. 等待升级完成后，进入登录界面
-   ![AWX登录页面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
+   ![AWX登录页面](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-login-websoft9.png)
 
 3. 输入用户名和密码[（查看）](/zh/stack-accounts.md)，登录到AWX后台管理界面
-   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
+   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-gui-websoft9.png)
 
-4. 分别创建运行一个安装模板（Template）所需的准备条件：
-
-   - ORGANIZATIONS
-   - Credentials
-   - Inventories
-   - Project
-
-   最后创建 Template 关联它们，就完成了一个自动化项目的配置
-
-   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-template-websoft9.png)
-
-
-6. 启动Template，进入 Job 页面，开始安装所需的应用程序
-   ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-job-websoft9.png)
+4. 此时，AWX 安装部署已经验证通过
 
 > 需要了解更多AWX的使用，请参考：[Ansible Tower Documentation](https://docs.ansible.com/ansible-tower/).
 
 ## AWX 入门向导
 
-现在开始针对于如何使用 AWX 可视化运行Ansible项目进行完整的说明：
+现在开始针对于**如何使用 AWX 可视化运行 Ansible 项目**进行完整的实战操作说明：
 
-先了解几个概念：
+### 概念
 
+在实战之前，必须先了解几个概念：
 
-![概念](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-Websoft9.png)
+![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-consoleui-websoft9.png)
 
-1.清单（Inventories）：定义IP地址清单，用来统一管理受控目标客户机资源。
+* **清单（Inventories）**：对应 Ansible 的 Inventory，即主机组和主机IP清单列表。
 
-2.凭证（Credentials）：定义awx在目标客户机上的操作用户、密码及sudo（su）权限控制
+* **凭证（Credentials）**：受控主机的用户名、密码（秘钥）以及提权控制
 
-3.项目（Projects）：关联Ansible脚本(项目)
+* **项目（Projects）**：一个完整可运行的 Ansible 项目
 
-4.模板（Templates）：定义项目使用指定的凭证在目标清单客户机上运行的模板，一次创建，多次使用，灵活修改相关配置
+* **模板（Templates）**：将清单、项目和凭证关联起来的任务模板，一次创建，多次使用，可修改
 
-5.作业（Jobs）：模板每一次运行视为一次作业
+* **作业（Jobs）**：模板每一次运行视为一次作业
+
+### 准备
+
+在使用 AWX 运行一个 Ansible 项目之前，请确保符合如下条件：
+
+* 准备一个可用的 Ansible 项目，例如：[Grafana](https://github.com/Websoft9/ansible-grafana)
+* 准备一台新创建的云服务器，此服务器被 AWX 安装 Ansible 项目。建议先运行下面的脚本，在服务中安装主流的仓库，以及 Git,pip 等工具
+  ```
+  wget -N https://cdn.statically.io/gh/Websoft9/ansible-linux/main/scripts/install.sh; bash install.sh
+  ```
 
 ### 步骤
 
-1.创建清单，指定目标客户机
+下面我们开始列出具体的步骤：
 
-![创建清单](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-inventories-Websoft9.png)
+1. 登录 AWX，创建【清单】，然后在清单中增加【主机】
 
-2.设置凭证，添加目标机访问用户及密码
+   ![创建清单](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-inventories001-websoft9.png)
 
-![设置凭证](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-credentials-Websoft9.png)
+   ![创建主机](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-inventories002-websoft9.png)
 
-3.创建项目，指定要执行的Ansible的项目。本实例通过git拉取GitHub上的Websoft9的Grafana项目
+   ![创建主机](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-inventories003-websoft9.png)
 
-![创建项目](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-project-Websoft9.png)
+2. 创建【凭证】，下面是创建一个 root 账号以及管理密码所对应的范例（凭证类型选择【机器】）
+   ![创建凭证](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-credentials-websoft9.png)
 
-4.创建模板，在模板中指定在受控客户机、访问账号和执行的任务
+3. 创建【项目】，下面以我们提供的开源项目 [Grafana](https://github.com/Websoft9/ansible-grafana) 作为范例
 
-![创建模板](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-templates-Websoft9.png)
+   ![创建项目](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-project-websoft9.png)
 
-5.执行模板，开启一次作业，检查执行效果
+4. 创建【模板】，分别将前面创建的【凭证】、【清单】、【项目】关联起来，便完成了模板的配置
+   ![创建模板](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-templates-websoft9.png)
 
-![执行模板](https://libs.websoft9.com/Websoft9/blog/temp/awx/awx-job-Websoft9.png)
+5. 创建【问卷调查】，**设置并跳过** Grafana 项目所需的交互式（vars_prompt）
+   ![创建模板](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-varspromptset-websoft9.png)
+
+   > 也可以直接设置**额外变量**覆盖交互式
+
+6. 启动Template，进入 Job 页面，开始安装所需的应用程序
+   ![成功运行项目](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-templaterunning-websoft9.png)
 
 ## 常见问题
 
@@ -86,3 +92,9 @@
 #### 本部署包采用的哪个数据库来存储 AWX 数据？
 
 PostgreSQL Docker
+
+#### AWX 是否支持 Ansible Galaxy？
+
+![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-setgalax-websoft9.png)
+
+支持，参考官方文档 [Ansible Galaxy Support](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#ug-galaxy)
