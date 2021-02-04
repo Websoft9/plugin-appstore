@@ -1,6 +1,6 @@
 # AWX official version is devel, but maybe not stable, you should change it to stable version
 # devel | 11.2.0
-awx_version: "15.0.0"
+awx_version: "latest"
 awx_postgres_version: "10"
 awx_postgres_password: "123456"
 
