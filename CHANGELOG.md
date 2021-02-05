@@ -1,18 +1,12 @@
 # CHANGELOG
 
-## To do
+## Release AWX-v17.0.1  2021-2-5
 
-1. 可视化管理工具
-2. AmazonLinux支持
+### Fixes
+- Error install ansible-awx #15
+- Redis container cannot start and job cannot run #16
 
-## Logs
+### Enhancements
+- Enable Certbot certificatation #12
+- Replace all pictures of AWX in the documentation #17
 
-### Bug Fixes
-
-* 2020-02-14  redis-version版本输出
-* 2020-02-13  redis-version版本输出
-
-### Features
-
-* 2020-02-14  增加GUI工具
-* 2020-02-13  增加2.8版本

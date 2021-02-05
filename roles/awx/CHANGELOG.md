@@ -1,17 +1,11 @@
 # CHANGELOG
 
-## To do
+## Release AWX-v17.0.1  2021-2-5
 
+### Fixes
+- Error install ansible-awx #15
+- Redis container cannot start and job cannot run #16
 
-## Logs
-
-### Bug Fixes
-
-* 2020-12-03  Create new project from Mannul of SCM type
-* 2020-07-21  Azure,Azure ansible,python version and install
-* 2020-07-17  run initpassword, service error
-
-### Features
-
-* 2020-07-21  copy docker file,only one ansible project
-* 2020-07-20  delete /data/pgdocker/10/data
+### Enhancements
+- Enable Certbot certificatation #12
+- Replace all pictures of AWX in the documentation #17
