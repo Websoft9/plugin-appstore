@@ -29,3 +29,27 @@ free -lh
 
 原因：AWX容器的项目路径没有挂在到宿主机上  
 方案：将/var/lib/awx/projects 映射到宿主机目录  /data/wwwroot/awx/projects
+
+#### awx_redis 容器无法启动？
+
+原因：redis.sock 权限不足导致  
+方案：  
+
+1. 编辑 */data/.awx/redis.conf* 文件中增加一行权限配置 `unixsocketperm 750`
+   ```
+   unixsocket /var/run/redis/redis.sock
+   unixsocketperm 660
+   port 0
+   bind 127.0.0.1
+   unixsocketperm 750
+   ```
+2. 进入到 AWX 目录后，重新运行容器即可
+   ```
+   cd /data/.awx
+   docker-compose down -v
+   docker-compose up -d
+   ```
+
+#### 能够正常进入 AWX 控制台，但无法运行 Job？
+
+很有可能是 awx_redis 容器没有正常运行导致，通过命令 `docker ps` 查看 awx_redis 运行状态

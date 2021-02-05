@@ -1,12 +1,19 @@
 ---
+- name: Create awx User
+  user:
+    name: awx
+    shell: /usr/sbin/nologin
+
+- name: Create awx directory
+  file:
+    path: /data/.awx
+    state: directory
+    owner: awx
+    group: awx
+    recurse: yes
+
 - name: Include OS-specific variables.
   include_vars: "{{ ansible_os_family }}.yml"
-
-- name: Creates awx dock directory
-  file:
-    path: /data/.awx/redis_socket
-    state: directory
-    recurse: yes
 
 - name: Get Docker Gateway
   shell: ip route show | grep docker0 | awk '{print $9}'
@@ -24,7 +31,7 @@
     - redis.conf
     - SECRET_KEY
     
-- name: Create awx softlink to /data/wwwroot/awx
+- name: Create awx soft link to /data/wwwroot/awx
   file:
     src: /data/.awx
     dest: /data/wwwroot/awx

@@ -31,3 +31,28 @@ docker logs awx_web
 
 Reason: The directory /var/lib/awx/projects of AWX container not mounted to Server
 Solution： Mounted the container's /var/lib/awx/projects to Server's path /data/wwwroot/awx/project.
+
+#### awx_redis container start fail?
+
+Reason: redis.sock permission problem  
+Solution:  
+
+1. Edit file */data/.awx/redis.conf* and add the line `unixsocketperm 750`
+   ```
+   unixsocket /var/run/redis/redis.sock
+   unixsocketperm 660
+   port 0
+   bind 127.0.0.1
+   unixsocketperm 750
+   ```
+2. Go to AWX directory and run the container again
+   ```
+   cd /data/.awx
+   docker-compose down -v
+   docker-compose up -d
+   ```
+
+#### I can login to AWX console, but run job failed?
+
+The  most likely reason is the **awx_redis** container can not start, you can run the command `docker ps` to check the status of  **awx_redis**
+

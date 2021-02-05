@@ -10,13 +10,10 @@
 
 ## AWX 安装向导
 
-1. 使用本地电脑的 Chrome 或 Firefox 浏览器访问网址：*http://域名* 或 *http://公网IP*, 进入AWX登录页面
-   ![](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-upgrading-websoft9.png)
-
-2. 等待升级完成后，进入登录界面
+1. 使用本地电脑的 Chrome 或 Firefox 浏览器访问网址：*http://域名* 或 *http://公网IP*, 进入 AWX 登录页面
    ![AWX登录页面](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-login-websoft9.png)
 
-3. 输入用户名和密码[（查看）](/zh/stack-accounts.md)，登录到AWX后台管理界面
+3. 输入用户名和密码[（不知道密码？）](/zh/stack-accounts.md)，登录到 AWX 后台管理界面
    ![AWX后台界面](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-gui-websoft9.png)
 
 4. 此时，AWX 安装部署已经验证通过

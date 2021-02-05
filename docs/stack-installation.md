@@ -10,13 +10,10 @@ If you have completed the AWX deployment on Cloud Platform, the following steps 
 
 ## AWX Installation Wizard
 
-1. Using local Chrome or Firefox to visit the URL *http://domain name* or *http://Internet IP*, 
-   ![](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-upgrading-websoft9.png)
-
-2. Waiting for upgrading, when completed you will log in interface of AWX
+1. Using local browser visit the URL *http://DNS* or *http://Server's Internet IP*, enter to login interface
    ![AWX login page](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
 
-3. Login it[(Don't know password?)](/stack-accounts.md#awx)
+3. Login it to AWX console [(Don't know password?)](/stack-accounts.md#awx)
    ![AWX console](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
 
 4. Create all need for one installation Template：
