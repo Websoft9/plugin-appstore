@@ -8,7 +8,7 @@ services:
       - redis
     ports:
       - "{{awx_http_port}}:8052"
-      - "443:443"
+      #- "443:443"
     hostname: awxweb
     user: root
     restart: unless-stopped
