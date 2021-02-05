@@ -12,6 +12,12 @@ AWX 预装 SSL 设置，但需要开启并上传证书。
 
 ## 配置方案
 
+### Nginx中配置（推荐）
+
+
+
+### 容器中配置
+
 1. 修改（检查） /data/.awx/docker-compose.yml 文件，确保有如下两项 "- 443:443" 和 "- /data/cert:/etc/ssl/certs"：       
     ```
     ports:

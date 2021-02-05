@@ -7,7 +7,7 @@ services:
     depends_on:
       - redis
     ports:
-      - "80:8052"
+      - "{{awx_http_port}}:8052"
       - "443:443"
     hostname: awxweb
     user: root
