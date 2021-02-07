@@ -33,7 +33,7 @@ free -lh
 #### awx_redis 容器无法启动？
 
 原因：redis.sock 权限不足导致  
-方案：  
+方案：给 /data/.awx/redis_socket 文件夹授权
 
 1. 编辑 */data/.awx/redis.conf* 文件中增加一行权限配置 `unixsocketperm 750`
    ```
@@ -43,7 +43,8 @@ free -lh
    bind 127.0.0.1
    unixsocketperm 750
    ```
-2. 进入到 AWX 目录后，重新运行容器即可
+2. Redis 通信目录授权 `chmod -R 777 /data/.awx/redis_socket`
+3. 进入到 AWX 目录后，重新运行容器即可
    ```
    cd /data/.awx
    docker-compose down -v

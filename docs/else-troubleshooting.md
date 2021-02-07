@@ -27,7 +27,7 @@ free -lh
 docker logs awx_web
 ```
 
-#### Create mannul Project from SCM type have error "WARNING: There are no available playbook directories in /var/lib/awx/projects...."
+#### Create manful Project from SCM type have error "WARNING: There are no available playbook directories in /var/lib/awx/projects...."
 
 Reason: The directory /var/lib/awx/projects of AWX container not mounted to Server
 Solution： Mounted the container's /var/lib/awx/projects to Server's path /data/wwwroot/awx/project.
@@ -45,7 +45,8 @@ Solution:
    bind 127.0.0.1
    unixsocketperm 750
    ```
-2. Go to AWX directory and run the container again
+2. Set redis socket directory permission with the command `chmod -R 777 /data/.awx/redis_socket`
+3. Go to AWX directory and run the container again
    ```
    cd /data/.awx
    docker-compose down -v
