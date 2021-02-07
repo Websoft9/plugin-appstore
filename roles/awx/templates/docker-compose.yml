@@ -57,6 +57,7 @@ services:
     image: redis
     container_name: awx_redis
     restart: unless-stopped
+    user: '{{awx_uid.stdout}}:{{awx_uid.stdout}}'
     environment:
       http_proxy: 
       https_proxy: 
