@@ -60,7 +60,7 @@
   - name: Check whether awx container status 
     fail:
       msg: "awx fail to start!"
-    when: awx_status.stdout > 1
+    when: awx_status.stdout > "1"
 
   - name: Get awx version
     shell: >
