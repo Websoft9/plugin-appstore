@@ -50,3 +50,19 @@
     sleep 30s
   args:
     chdir: /data/.awx
+
+# check awx container status and  awx version
+- block:
+  - name: Get awx container restarting number
+    shell: docker ps -a --filter 'status=restarting' |wc -l
+    register: awx_status
+
+  - name: Check whether awx container status 
+    fail:
+      msg: "awx fail to start!"
+    when: awx_status.stdout > 1
+
+  - name: Get awx version
+    shell: >
+      sudo echo -e "awx version:" $(docker exec -it awx_web bash -c "awx-manage --version") |sudo tee -a /data/logs/install_version.txt  
+   
