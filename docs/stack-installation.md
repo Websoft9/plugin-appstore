@@ -87,4 +87,5 @@ PostgreSQL on Docker
 
 #### Is AWX support Ansible Galaxy?
 
+![](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-setgalax-websoft9.png)
 Yes, refer to official docs [Ansible Galaxy Support](https://docs.ansible.com/ansible-tower/latest/html/userguide/projects.html#ug-galaxy)
