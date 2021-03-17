@@ -13,23 +13,8 @@ If you have completed the AWX deployment on Cloud Platform, the following steps 
 1. Using local browser visit the URL *http://DNS* or *http://Server's Internet IP*, enter to login interface
    ![AWX login page](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-login-websoft9.png)
 
-3. Login it to AWX console [(Don't know password?)](/stack-accounts.md#awx)
+2. Login it to AWX console [(Don't know password?)](/stack-accounts.md#awx)
    ![AWX console](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awxui-websoft9.png)
-
-4. Create all need for one installation Template：
-
-   - ORGANIZATIONS
-   - Credentials
-   - Inventories
-   - Project
-
-   Then, create Template and your have completed one automatic installation of AWS now
-
-   ![AWX template](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-template-websoft9.png)
-
-
-5. Start a job by Template, the deployment is starting
-   ![AWX job](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-job-websoft9.png)
 
 > More useful AWX guide, please refer to [Ansible Tower Documentation](https://docs.ansible.com/ansible-tower/)
 
@@ -85,12 +70,9 @@ Below we begin to list the specific steps:
 4. Create 【Templates】, associate 【Credentials】,【Inventories】,【Project】 in one interface
    ![Create template](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-templates-websoft9.png)
 
-5. Click 【EDIT SURVEY】for extra variable to confirm **vars_prompt** of Grafana project
-   ![EDIT SURVEY](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-varspromptset-websoft9.png)
-
    > You can set it by add **extra variable** directly
 
-6. Go to Template and start a 【Job】
+5. Go to Template and start a 【Job】
    ![Job running](https://libs.websoft9.com/Websoft9/DocsPicture/en/awx/awx-templaterunning-websoft9.png)
 
 ## Q&A 

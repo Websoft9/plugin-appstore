@@ -65,15 +65,12 @@
 2. 创建【凭证】，下面是创建一个 root 账号以及管理密码所对应的范例（凭证类型选择【机器】）
    ![创建凭证](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-credentials-websoft9.png)
 
-3. 创建【项目】，下面以我们提供的开源项目 [Grafana](https://github.com/Websoft9/ansible-grafana) 作为范例
+3. 创建【项目】，下面以我们提供的开源项目 [HelloWorld](https://github.com/ansible/tower-example) 作为范例
 
    ![创建项目](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-project-websoft9.png)
 
 4. 创建【模板】，分别将前面创建的【凭证】、【清单】、【项目】关联起来，便完成了模板的配置
    ![创建模板](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-templates-websoft9.png)
-
-5. 创建【问卷调查】，**设置并跳过** Grafana 项目所需的交互式（vars_prompt）
-   ![创建模板](https://libs.websoft9.com/Websoft9/DocsPicture/zh/awx/awx-varspromptset-websoft9.png)
 
    > 也可以直接设置**额外变量**覆盖交互式
 
