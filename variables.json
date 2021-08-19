@@ -9,7 +9,7 @@
   "requirements_disk": "20",
   "requirements_swap": "2",
   "requirements_configure_url": "https://github.com/ansible/awx/tree/devel/requirements",
-  "components": "Nginx, Docker, AWX on docker",
+  "components": "Nginx, PostgreSQL, Docker, AWX on docker, pgadmin on docker",
   "install_way": {
     "en": "Docker install",
     "zh": "Docker 安装"
