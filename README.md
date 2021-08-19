@@ -23,7 +23,7 @@ To learn more information, please view [Installation & Configuration](https://gi
 
 ## Ecosystem
 
-Core components of this repository: Nginx, Docker, AWX on docker
+Core components of this repository: Nginx, PostgreSQL, Docker, AWX on docker, pgadmin on docker
 
 Learn more about [Parameters](/docs/stack-components.md).
 

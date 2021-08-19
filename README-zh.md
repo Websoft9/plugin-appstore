@@ -20,7 +20,7 @@
 
 ## 组件
 
-包含的核心组件为：Nginx, Docker, AWX on docker  
+包含的核心组件为：Nginx, PostgreSQL, Docker, AWX on docker, pgadmin on docker  
 
 更多请见: [参数表](/docs/zh/stack-components.md)。
 
