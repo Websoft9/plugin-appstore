@@ -29,7 +29,7 @@ Learn more about [Parameters](/docs/stack-components.md).
 
 ## Installation
 
-You can install it by thi Cloud Installer solution all in one. In addition, you can deploy image published on major Cloud Platform by Websoft9.
+You can install it by the Cloud Installer solution all in one. In addition, you can deploy image published on major Cloud Platform by Websoft9.
 
 #### All-in-one Installer
 
