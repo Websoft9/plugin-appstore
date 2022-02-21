@@ -53,6 +53,8 @@ PostgreSQL 数据持久存储：*/data/pgdocker*
 
 | 名称 | 端口号 | 用途 |  必要性 |
 | --- | --- | --- | --- |
+| PostgreSQL | 5432 | TCP访问PostgreSQL | Optional |
+| PgAdmin | 9090 | 可视化访问PostgreSQL | Optional |
 | HTTP | 80 | 通过http访问AWX | 必须 |
 | HTTPS | 443 | 通过https访问AWX | 可选 |
 
