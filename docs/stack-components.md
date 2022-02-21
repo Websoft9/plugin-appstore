@@ -49,6 +49,7 @@ These Ports is need when use AWX, refer to [Safe Group Setting on Cloud Console]
 | Name | Number | Use |  Necessity |
 | --- | --- | --- | --- |
 | PostgreSQL | 5432 | Remote connect PostgreSQL | Optional |
+| PgAdmin | 9090 | CGI of PostgreSQL | Optional |
 | HTTP | 80 | HTTP requests for AWX | Required |
 | HTTPS | 443 | HTTPS requests AWX | Optional |
 
