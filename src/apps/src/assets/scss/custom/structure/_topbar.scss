@@ -22,13 +22,16 @@
         text-align: center;
         top: 0;
         left: 0;
+
         .logo {
             line-height: $topbar-height;
+
             i {
                 display: none;
             }
         }
     }
+
     .topbar-menu {
         position: relative;
         z-index: 1;
@@ -43,6 +46,7 @@
                 }
             }
         }
+
         .nav-link {
             padding: 0;
             color: #{map-get($grays, "600")};
@@ -71,12 +75,15 @@
                     }
                 }
             }
+
             .react-select__value-container {
                 .react-select__placeholder {
                     color: $input-color !important;
                 }
+
                 .react-select__input-container {
                     color: $input-color !important;
+
                     .react-select__input {
                         color: $input-color !important;
                     }
@@ -102,12 +109,15 @@
         background-color: $bg-topbar-search;
         box-shadow: none;
     }
+
     .react-select__value-container {
         padding: 0;
     }
+
     .react-select__menu {
         margin-top: 0;
     }
+
     span.search-icon {
         position: absolute;
         z-index: 9;
@@ -127,6 +137,7 @@
         background-color: $bg-topbar-search;
         box-shadow: none;
     }
+
     span.search-icon {
         position: absolute;
         z-index: 4;
@@ -135,6 +146,7 @@
         left: 10px;
         top: 0;
     }
+
     .input-group-text {
         margin-left: 0;
         z-index: 4;
@@ -169,23 +181,29 @@
 
     .notify-item {
         padding: 10px 20px;
+
         &.unread-noti {
             background-color: #{tint-color(map-get($grays, "100"), 15%)};
         }
+
         &.read-noti {
             background-color: transparent;
             border: #{$border-width} solid #{map-get($grays, "200")};
         }
+
         .card-body {
             padding: 14px;
+
             .noti-close-btn {
                 position: absolute;
                 top: 3px;
                 right: 5px;
             }
+
             .noti-item-title {
                 margin: 0 0 2px;
             }
+
             .noti-item-title,
             .noti-item-subtitle {
                 overflow: hidden;
@@ -208,10 +226,11 @@
             margin-bottom: 0;
             overflow: hidden;
             margin-left: 45px;
-            
+
             b {
                 font-weight: 500;
             }
+
             small {
                 display: block;
             }
@@ -223,6 +242,7 @@
             line-height: 16px;
         }
     }
+
     .topbar-dropdown-menu {
         .notify-item {
             padding: 7px 20px;
@@ -258,11 +278,13 @@
             width: 32px;
         }
     }
+
     .account-position {
         display: block;
         font-size: 12px;
         margin-top: -3px;
     }
+
     .account-user-name {
         display: block;
         font-weight: $font-weight-semibold;
@@ -349,6 +371,7 @@
         left: 0 !important;
         padding: 0;
     }
+
     .button-menu-mobile {
         &.disable-btn {
             display: inline-block;
@@ -369,9 +392,11 @@
                 padding-right: 12px;
                 padding-left: 12px;
             }
+
             .navbar-toggle {
                 margin: 27px 3px;
             }
+
             .button-menu-mobile {
                 width: auto;
             }
@@ -413,9 +438,11 @@
             background-color: $bg-dark-topbar-search;
             color: $white;
         }
+
         .react-select__input {
             color: $white;
         }
+
         span,
         .react-select__placeholder {
             color: #{map-get($grays, "600")};
@@ -433,7 +460,8 @@ body[data-layout-mode="boxed"] {
     .navbar-custom {
         position: relative;
         left: 0 !important;
-        margin: -$topbar-height (-$grid-gutter-width * 0.5) 0;
+        margin: -$topbar-height (
+            -$grid-gutter-width * 0.5) 0;
     }
 
     &[data-layout="topnav"] {
@@ -454,16 +482,19 @@ body[data-layout-color="dark"] {
                     }
                 }
             }
+
             .nav-link {
                 color: #{map-get($dark-grays, "600")};
             }
         }
     }
+
     .notification-list {
         .notify-item {
             &.unread-noti {
                 background-color: #{tint-color(map-get($dark-grays, "300"), 1%)};
             }
+
             &.read-noti {
                 border: #{$border-width} solid #{map-get($dark-grays, "300")};
             }
@@ -481,6 +512,7 @@ body[data-layout-color="dark"] {
 
     .topnav-navbar-dark {
         .app-search {
+
             span,
             .react-select__placeholder {
                 color: #{map-get($dark-grays, "600")};
@@ -488,50 +520,60 @@ body[data-layout-color="dark"] {
         }
     }
 }
-.appstore-item-content{
+
+.appstore-item-content {
     background-color: #fff;
-    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
-    border-radius: 2px;
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
-    overflow: hidden;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%
+    );
+border-radius: 2px;
+padding: 10px;
+width: 100%;
+cursor: pointer;
+overflow: hidden;
 }
-.appstore-item-content-icon{
+
+.appstore-item-content-icon {
     width: 100px;
     min-width: 100px;
     max-width: 100px;
     padding-left: 10px;
     padding-right: 10px;
 }
-.col-same-height{
+
+.col-same-height {
     height: 100%;
     vertical-align: middle;
     display: table-cell;
-    float: none!important;
+    float: none !important;
 }
+
 .app-icon {
     min-height: 80px;
     max-height: 80px;
     min-width: 80px;
     max-width: 100%;
 }
+
 .appstore-item {
     padding: 10px;
 }
+
 .appstore-item-content-title {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
+
 .appstore-item-content-tagline {
     text-overflow: ellipsis;
     overflow: hidden;
     height: 44px;
 }
+
 .text-muted {
     color: #777;
 }
-.highlight:hover{
+
+.highlight:hover {
     background-color: rgb(229, 230, 229);
 }

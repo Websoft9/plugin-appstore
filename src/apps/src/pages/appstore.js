@@ -1,12 +1,14 @@
 // @flow
+import { gql, useQuery } from '@apollo/client';
+import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Button, Form, Modal, Carousel } from 'react-bootstrap';
-import { useQuery, gql } from '@apollo/client';
+import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
 import FormInput from '../components/FormInput';
+import Spinner from '../components/Spinner';
 
 const getContentfulData = gql`
     query{
-        productCollection {
+        productCollection(locale:"zh-CN") {
             items {
             sys {
                 id
@@ -32,18 +34,18 @@ const getContentfulData = gql`
                         key
                         title
                     }
-                }
+                    }
                 }
             }
             }
         }
-        catalog(id: "2Yp0TY3kBHgG6VDjsHZNpK") {
-            linkedFrom(allowedLocales:["en-US","zh-CN"]) {
+        catalog(id: "2Yp0TY3kBHgG6VDjsHZNpK",locale:"zh-CN") {
+            linkedFrom(allowedLocales:["en-US"]) {
             catalogCollection(limit:20) {
                 items {
                 key
                 title
-                linkedFrom(allowedLocales:["en-US","zh-CN"]) {
+                linkedFrom(allowedLocales:["en-US"]) {
                     catalogCollection(limit:20) {
                     items {
                         key
@@ -60,6 +62,28 @@ const getContentfulData = gql`
 
 const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [index, setIndex] = useState(0);
+    const [code, setCode] = useState(0);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    //安装应用
+    const installApp = (appName) => {
+        setLoading(true);
+        axios
+            .get("/api/v1/apps/install", { params: { app_name: appName } })
+            .then((response) => {
+                setCode(response.data.code);
+                setLoading(false);
+            })
+            .catch((error) => {
+                setError(error.message);
+                setLoading(false);
+            });
+    }
+
+    if (loading) return <Spinner className='dis_mid' color="primary" size="md" />;
+    if (code) return <p>Code : ${code} </p>;
+    if (error) return <p>Error : ${error} </p>;
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -121,7 +145,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 <Button variant="light" onClick={onClose}>
                     Close
                 </Button>{' '}
-                <Button variant="primary" onClick={onClose}>
+                <Button variant="primary" onClick={() => { installApp(product.key) }}>
                     Install
                 </Button>
             </Modal.Footer>
@@ -134,9 +158,9 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [selectedProduct, setSelectedProduct] = useState(null); //用于存储被选中的产品（点击应用详情时使用）
     const [subCatalogs, setSubCatalogs] = useState(null); //用于存储二级目录
     const [allMainCatalogApps, setAllMainCatalogApps] = useState(null); //用于存储某个一级子目录下的所有应用
-    const [value, setValue] = useState(""); //用于存储搜索的值
-    const [mainSelect,setMainSelect] = useState("All")
-    const [subSelect,setSubSelect] = useState("All")
+    const [mainSelect, setMainSelect] = useState("All")
+    const [subSelect, setSubSelect] = useState("All")
+
 
     const { loading: dataLoading, error: dataError, data: allData } = useQuery(getContentfulData);
 
@@ -149,7 +173,9 @@ const AppStore = (): React$Element<React$FragmentType> => {
         setAppList(apps);
     }, [apps])
 
-    if (dataLoading) return <p>Loading...</p>;
+    // if (dataLoading) return <p>Loading...</p>;
+
+    if (dataLoading) return <Spinner className='dis_mid' color="primary" size="md" />;
     if (dataError) return <p>Error : ${dataError.message} </p>;
 
     //用于显示应用详情的弹窗
@@ -199,16 +225,15 @@ const AppStore = (): React$Element<React$FragmentType> => {
         setSubSelect(selectedSubCatalog);
     };
 
-    //当搜索框的内容发生改变时，进行app的过滤
-    const handleInputChange =(searchString)=>{
+    //当搜索框的内容发生改变时，进行app的过滤搜索
+    const handleInputChange = (searchString) => {
         let updatedData = null;
         updatedData =
-        searchString === ""
+            searchString === ""
                 ? apps
-                : apps.filter(app => {return app.trademark.toLowerCase().includes(searchString)});
-                  
+                : apps.filter(app => { return app.trademark.toLowerCase().includes(searchString) || app.key.toLowerCase().includes(searchString) });
+
         setAppList(updatedData);
-        setValue(searchString);
         setMainSelect("All");
         setSubSelect("All");
     }
@@ -258,9 +283,9 @@ const AppStore = (): React$Element<React$FragmentType> => {
                 </Col>
                 <Col sm={6}>
                     <Col xs="auto">
-                        <FormInput type="text" name="search" 
-                        placeholder="Search for apps like WordPress, Dropbox, Slack, Trello, …" 
-                        onChange={(e) => handleInputChange(e.target.value)} />
+                        <FormInput type="text" name="search"
+                            placeholder="Search for apps like WordPress, Dropbox, Slack, Trello, …"
+                            onChange={(e) => handleInputChange(e.target.value)} />
                     </Col>
                 </Col>
             </Row>

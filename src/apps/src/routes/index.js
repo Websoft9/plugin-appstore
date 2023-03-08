@@ -4,12 +4,13 @@ import Root from './Root';
 
 // All layouts/containers
 import DefaultLayout from '../layouts/Default';
-import DetachedLayout from '../layouts/Detached'
+import DetachedLayout from '../layouts/Detached';
 
 // lazy load all the views
 
 // pages
 const AppStore = React.lazy(() => import('../pages/appstore'));
+const MyApps = React.lazy(() => import('../pages/myapps'));
 const ErrorPageNotFound = React.lazy(() => import('../pages/error/PageNotFound'));
 const ServerError = React.lazy(() => import('../pages/error/ServerError'));
 
@@ -50,6 +51,10 @@ const AllRoutes = () => {
                 {
                     path: 'appstore',
                     element: <LoadComponent component={AppStore} />,
+                },
+                {
+                    path: 'myapps',
+                    element: <LoadComponent component={MyApps} />,
                 }
             ],
         }
