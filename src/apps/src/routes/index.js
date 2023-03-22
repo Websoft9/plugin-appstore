@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 import Root from './Root';
 
 // All layouts/containers
@@ -13,6 +13,7 @@ const AppStore = React.lazy(() => import('../pages/appstore'));
 const MyApps = React.lazy(() => import('../pages/myapps'));
 const ErrorPageNotFound = React.lazy(() => import('../pages/error/PageNotFound'));
 const ServerError = React.lazy(() => import('../pages/error/ServerError'));
+const CustomError = React.lazy(() => import('../pages/error/CustomError'));
 
 const loading = () => <div className=""></div>;
 
@@ -30,7 +31,6 @@ const AllRoutes = () => {
     return useRoutes([
         { path: '/', element: <Root /> },
         {
-            // public routes
             path: '/',
             element: <DefaultLayout />,
             children: [
@@ -41,6 +41,10 @@ const AllRoutes = () => {
                 {
                     path: 'error-500',
                     element: <LoadComponent component={ServerError} />,
+                },
+                {
+                    path: "error",
+                    element: <LoadComponent component={CustomError} />,
                 }
             ],
         },
@@ -57,6 +61,10 @@ const AllRoutes = () => {
                     element: <LoadComponent component={MyApps} />,
                 }
             ],
+        },
+        {
+            path: "*", // 通配符路径，匹配任何没有匹配到的路径
+            element: <Navigate to="/error-404" />, // 使用Redirect组件，重定向到error-404页面
         }
     ]);
 };

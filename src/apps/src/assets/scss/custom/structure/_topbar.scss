@@ -577,3 +577,11 @@ overflow: hidden;
 .highlight:hover {
     background-color: rgb(229, 230, 229);
 }
+
+.normal::placeholder {
+    color: #6c757d;
+}
+
+.error::placeholder {
+    color: red;
+}

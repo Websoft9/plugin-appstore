@@ -1,14 +1,15 @@
 // @flow
 import { gql, useQuery } from '@apollo/client';
-import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Alert, Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import FormInput from '../components/FormInput';
 import Spinner from '../components/Spinner';
+import { installApp } from '../helpers';
 
 const getContentfulData = gql`
     query{
-        productCollection(locale:"zh-CN") {
+        productCollection {
             items {
             sys {
                 id
@@ -22,6 +23,9 @@ const getContentfulData = gql`
             screenshots
             distribution
             highlights
+            vcpu
+            memory
+            storage
             logo {
                 imageurl
             }
@@ -39,7 +43,7 @@ const getContentfulData = gql`
             }
             }
         }
-        catalog(id: "2Yp0TY3kBHgG6VDjsHZNpK",locale:"zh-CN") {
+        catalog(id: "2Yp0TY3kBHgG6VDjsHZNpK") {
             linkedFrom(allowedLocales:["en-US"]) {
             catalogCollection(limit:20) {
                 items {
@@ -60,39 +64,77 @@ const getContentfulData = gql`
     }
 `;
 
+//应用详情弹窗
 const AppDetailModal = ({ product, showFlag, onClose }) => {
-    const [index, setIndex] = useState(0);
-    const [code, setCode] = useState(0);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [index, setIndex] = useState(0); //用户图片浏览
+    const navigate = useNavigate(); //用于页面跳转
+    const [visible, setVisible] = useState(true); //用于显示安装选项：版本和应用名称
+    const [customName, setCustomName] = useState(''); //用户存储用户输入的应用名称
+    const [showAlert, setShowAlert] = useState(false); //用于是否显示错误提示
+    const [alertMessage, setAlertMessage] = useState("");//用于显示错误提示消息
+    const [disable, setDisable] = useState(false);//用于按钮禁用
 
-    //安装应用
-    const installApp = (appName) => {
-        setLoading(true);
-        axios
-            .get("/api/v1/apps/install", { params: { app_name: appName } })
-            .then((response) => {
-                setCode(response.data.code);
-                setLoading(false);
-            })
-            .catch((error) => {
-                setError(error.message);
-                setLoading(false);
-            });
+    //用户单击“安装”按钮
+    async function handleInstallClick() {
+        if (!visible) {
+            if (!customName) { //判断用户是否输入应用名称
+                setShowAlert(true);
+                setAlertMessage("Please enter custom name ")
+            }
+            else {
+                //调用应用安装接口
+                try {
+                    setDisable(true);
+                    const response = await installApp({ app_name: product.key, app_version: selectedVersion, customer_app_name: customName })
+                    if (response.data.code === 0) {
+                        navigate("/myapps")
+                    }
+                    else if (response.data.code === -1) {
+                        setShowAlert(true);
+                        setAlertMessage(response.data.message);
+                        setDisable(false);
+                    }
+                }
+                catch (error) {
+                    // 捕获错误并导航到错误页面
+                    navigate("/error-500");
+                }
+            }
+            return;
+        }
+        setVisible(!visible);
     }
-
-    if (loading) return <Spinner className='dis_mid' color="primary" size="md" />;
-    if (code) return <p>Code : ${code} </p>;
-    if (error) return <p>Error : ${error} </p>;
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
     };
-    let versionList = (product.distribution?.filter(item => item.key === "Community") || []).map(version => { return version.value });
+
+    let versions = (product.distribution?.filter(item => item.key === "Community") || []).map(version => { return version.value });//获取应用的版本
+
+    let versionList = (versions && versions.length === 1) ? versions.toString().split(",") : versions;
+
+    const [selectedVersion, setselectedVersion] = useState(versionList[0]); //存储用户选择的安装版本
+
+    const changeVersion = (version) => {
+        setselectedVersion(version);
+    };
+
+    const handleInputChange = (inputValue) => {
+        if (!inputValue) { //当用户没有输入应用名称
+            setShowAlert(true);
+            setAlertMessage("Please enter custom name");
+        }
+        else {
+            setShowAlert(false);
+            setAlertMessage("");
+        }
+        const newValue = inputValue.replace(/[^a-z0-9]/gi, '').toLowerCase();
+        setCustomName(newValue);
+    }
 
     return (
-        <Modal show={showFlag} size="lg" scrollable="true">
-            <Modal.Header >
+        <Modal show={showFlag} onHide={onClose} size="lg" scrollable="true" backdrop="static">
+            <Modal.Header onHide={onClose} closeButton>
                 <div style={{ padding: "10px" }}>
                     <div className='appstore-item-content-icon col-same-height'>
                         <img
@@ -108,48 +150,87 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                         <div>
                             <a rel="noreferrer" href={`https://support.websoft9.com/docs/` + product.key} target="_blank" style={{ color: '#2196f3' }} >{product.trademark} developers</a>
                         </div>
-                        <div>
-                            Versions: {product.trademark} {versionList}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <span style={{ marginRight: "5px" }}>Version :</span> {versions}
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <span style={{ marginRight: "5px" }}>Requires at least : {product.vcpu} vCPU,  {product.memory}  GB memory, {product.storage} GB storage</span>
                         </div>
                     </div>
                 </div>
             </Modal.Header>
             <Modal.Body>
-                <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "80%", margin: "0 auto" }}>
-                    {
-                        (product.screenshots || []).map((item) => {
-                            return (
-                                <Carousel.Item key={item?.id} >
-                                    <img
-                                        className="d-block"
-                                        src={item?.value}
-                                        alt={item?.key}
-                                        width="100%"
-                                        height="300px"
-                                    />
-                                </Carousel.Item>
-                            );
-                        })
-                    }
-                </Carousel>
-                <div style={{ padding: "10px" }}>
-                    <h4>Overview</h4>
-                    {product.overview}
+                <div style={{ display: visible ? "block" : "none" }}>
+                    <Carousel activeIndex={index} onSelect={handleSelect} style={{ width: "80%", margin: "0 auto" }}>
+                        {
+                            (product.screenshots || []).map((item) => {
+                                return (
+                                    <Carousel.Item key={item?.id} >
+                                        <img
+                                            className="d-block"
+                                            src={item?.value}
+                                            alt={item?.key}
+                                            width="100%"
+                                            height="300px"
+                                        />
+                                    </Carousel.Item>
+                                );
+                            })
+                        }
+                    </Carousel>
+                    <div style={{ padding: "10px" }}>
+                        <h4>Overview</h4>
+                        {product.overview}
+                    </div>
+                    <div style={{ padding: "10px" }}>
+                        <h4>Description</h4>
+                        {product.description}
+                    </div>
                 </div>
-                <div style={{ padding: "10px" }}>
-                    <h4>Description</h4>
-                    {product.description}
+                <div style={{ display: visible ? "none" : "block" }}>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div>
+                            <span style={{ marginRight: "5px" }}>Version :</span>
+                            {
+                                versionList && <FormInput
+                                    name="select"
+                                    type="select"
+                                    className="form-select"
+                                    onChange={(e) => changeVersion(e.target.value)}
+                                    key="select">
+                                    {
+                                        (versionList || []).map((version, i) => {
+                                            return <option value={version} key={version + i}>{version}</option>
+                                        })
+                                    }
+                                </FormInput>
+                            }
+                        </div>
+                        <div style={{ marginTop: "5px" }}>
+                            <span style={{ marginRight: "5px" }}>Name :</span>
+                            <FormInput type="text" value={customName} name="app_Name"
+                                placeholder="Please enter a custom application name"
+                                onChange={(e) => { handleInputChange(e.target.value) }} />
+                            <span style={{ fontStyle: "italic", color: "green", marginLeft: "5px" }}>it can only be a combination of lowercase letters and numbers</span>
+                        </div>
+                        <div>
+                            {showAlert && <Alert variant="danger" className="my-2">
+                                {alertMessage}
+                            </Alert>}
+                        </div>
+                    </div>
                 </div>
+
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="light" onClick={onClose}>
                     Close
                 </Button>{' '}
-                <Button variant="primary" onClick={() => { installApp(product.key) }}>
+                <Button disabled={disable} variant="primary" onClick={handleInstallClick}>
                     Install
                 </Button>
             </Modal.Footer>
-        </Modal>
+        </Modal >
     );
 }
 
@@ -175,7 +256,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
     // if (dataLoading) return <p>Loading...</p>;
 
-    if (dataLoading) return <Spinner className='dis_mid' color="primary" size="md" />;
+    if (dataLoading) return <Spinner className='dis_mid' />/*<Spinner className='dis_mid' color="primary" size="md" />*/;
     if (dataError) return <p>Error : ${dataError.message} </p>;
 
     //用于显示应用详情的弹窗

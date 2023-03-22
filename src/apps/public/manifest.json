@@ -2,12 +2,10 @@
     "requires": {
         "cockpit": "264"
     },
-  
     "tools": {
         "index": {
             "label": "App Store"
         }
     },
-    "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src https://graphql.contentful.com/"
-  }
-  
+    "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src https://graphql.contentful.com/ *"
+}

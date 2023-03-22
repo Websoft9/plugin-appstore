@@ -6,13 +6,8 @@ import { Link } from 'react-router-dom';
 
 
 // images
-import logo from '../assets/images/logo-light.png';
-import logoSmLight from '../assets/images/logo_sm.png';
-import logoSmDark from '../assets/images/logo_sm_dark.png';
-
-//constants
-
-// get the profilemenu
+import logoSM from '../assets/images/logo-sm.svg';
+import logo from '../assets/images/logo.svg';
 
 type TopbarProps = {
     hideLogo?: boolean,
@@ -32,10 +27,10 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                     {!hideLogo && (
                         <Link to="/" className="topnav-logo">
                             <span className="topnav-logo-lg">
-                                <img src={logo} alt="logo" height="16" />
+                                <img src={logo} alt="logo" width="99" />
                             </span>
                             <span className="topnav-logo-sm">
-                                <img src={topbarDark ? logoSmLight : logoSmDark} alt="logo" height="16" />
+                                <img src={logoSM} alt="logo" height="24" />
                             </span>
                         </Link>
                     )}
@@ -46,12 +41,12 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                     }}>
                         <li style={{ margin: "0 10px" }}>
                             <Link to="/myapps" style={{ color: "#428bca" }}>
-                                <i className="dripicons-view-apps"></i><span>{' 我的应用'}</span>
+                                <i className="dripicons-view-apps"></i><span>{' My Apps'}</span>
                             </Link>
                         </li>
                         <li style={{ margin: "0 10px" }}>
                             <Link to="/appstore" style={{ color: "#428bca" }}>
-                                <i className="dripicons-cloud-download"></i>{' '}应用商城
+                                <i className="dripicons-cloud-download"></i>{' App Store'}
                             </Link>
                         </li>
                         <li>

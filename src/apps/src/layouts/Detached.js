@@ -1,7 +1,7 @@
 // @flow
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 // actions
@@ -11,7 +11,6 @@ import { changeSidebarType } from '../redux/actions';
 import * as layoutConstants from '../constants/layout';
 
 // components
-import ThemeCustomizer from '../components/ThemeCustomizer/';
 
 // utils
 import { changeBodyAttribute } from '../utils/';
@@ -32,7 +31,7 @@ type VerticalLayoutState = {
 
 const DetachedLayout = ({ children }: VerticalLayoutProps, state: VerticalLayoutState): React$Element<any> => {
     const dispatch = useDispatch();
-    const { layoutColor,} = useSelector((state) => ({
+    const { layoutColor, } = useSelector((state) => ({
         layoutColor: state.Layout.layoutColor,
         layoutWidth: state.Layout.layoutWidth,
     }));
@@ -72,7 +71,7 @@ const DetachedLayout = ({ children }: VerticalLayoutProps, state: VerticalLayout
             <Suspense fallback={loading()}>
                 <Topbar navCssClasses="topnav-navbar" topbarDark={true} />
             </Suspense>
-            <Container fluid style={{marginTop:"100px"}}>
+            <Container fluid style={{ marginTop: "100px" }}>
                 <div className="wrapper">
                     <div className="content-page">
                         <div className="content">
