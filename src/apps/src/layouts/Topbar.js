@@ -40,6 +40,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         marginBottom: "0px"
                     }}>
                         <li style={{ margin: "0 10px" }}>
+                            <Link to="/terminal" style={{ color: "#428bca" }}>
+                                <i className="dripicons-cloud-download"></i>{' Terminal'}
+                            </Link>
+                        </li>
+                        <li style={{ margin: "0 10px" }}>
                             <Link to="/myapps" style={{ color: "#428bca" }}>
                                 <i className="dripicons-view-apps"></i><span>{' My Apps'}</span>
                             </Link>
@@ -49,6 +54,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                                 <i className="dripicons-cloud-download"></i>{' App Store'}
                             </Link>
                         </li>
+
                         <li>
                             <button
                                 className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none" style={{ color: "#428bca" }}>

@@ -2,16 +2,16 @@
 //import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Col, ProgressBar, Row } from 'react-bootstrap';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
 import FormInput from '../components/FormInput';
 import Spinner from '../components/Spinner';
-import { getAppDetails, getInstalledApps, getInstallProgress } from '../helpers';
+import { getInstalledApps, getInstallProgress } from '../helpers';
 import AppDetailModal from './appdetail';
 
 const MyApps = (): React$Element<React$FragmentType> => {
     const [showModal, setShowModal] = useState(false); //用于显示弹窗的标识
-    const [selectedProduct, setSelectedProduct] = useState(null); //用于存储被选中的产品（点击应用详情时使用）
+    const [selectedApp, setSelectedApp] = useState(""); //用于存储被选中的产品（点击应用详情时使用）
     const [apps, setApps] = useState([]); //所有“我的应用”
     const [statusApps, setStatusApps] = useState([]);//根据状态筛选的应用
     const [selectedStatus, setSelectedStatus] = useState("all"); //用于存储用户筛选应用状态的标识
@@ -22,8 +22,8 @@ const MyApps = (): React$Element<React$FragmentType> => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        //获取所有已经安装的应用
+    //获取所有已经安装的应用
+    const getAllApps = () => {
         getInstalledApps().then((response) => {
             if (response.data.code === 0) {
                 setCode(response.data.code);
@@ -66,6 +66,10 @@ const MyApps = (): React$Element<React$FragmentType> => {
             <Navigate to="/error" />
         });
         setLoading(true);
+    }
+
+    useEffect(() => {
+        getAllApps();
     }, []);
 
     useEffect(() => {
@@ -85,10 +89,22 @@ const MyApps = (): React$Element<React$FragmentType> => {
                             case "step3":
                                 setProgress(100);
                                 clearInterval(timer);
+                                // setStatusApps(
+                                //     statusApps.map((item, i) =>
+                                //         item.app_id === progressId ? { ...item, status: item.status = "running" } : item
+                                //     )
+                                // );
+                                setStatusApps(
+                                    statusApps.map((item) => {
+                                        if (item.app_id === progressId) { return { ...item, status: "running" } };
+                                        return item;
+                                    })
+                                );
                                 break;
                             default:
                                 setProgress(0);
                         }
+
                     }
                     else if (response.data.code === -1) {
                         <Navigate to="/error" />
@@ -131,24 +147,34 @@ const MyApps = (): React$Element<React$FragmentType> => {
 
     //用于用户点击应用详情
     const handleClick = async (app_id) => {
-        try {
-            const response = await getAppDetails({ app_id: app_id });
-            if (response.data.code === 0) {
-                setSelectedProduct(response.data.data[0]);
-                setShowModal(true);
-            } else if (response.data.code === -1) {
-                <Navigate to="/error" />
-            }
-        } catch (error) {
-            <Navigate to="/error" />;
-        }
+        setSelectedApp(app_id);
+        setShowModal(true);
     };
 
     //用于关闭应用详情的弹窗
     const handleClose = () => {
         setShowModal(false);
-        setSelectedProduct(null);
+        setSelectedApp("");
     };
+
+    //用于用户启动、停止应用时，同步更新主页APP的状态
+    const handleDataChange = (id, newStatus) => {
+        const newItems = statusApps.map(item => {
+            if (item.app_id === id) {
+                return { ...item, status: newStatus };
+            }
+            return item;
+        });
+        setStatusApps(newItems);
+    };
+
+    //更新所有数据
+    const handleAllDataChange = (id) => {
+        //getAllApps(); //通过刷新重新获取数据
+        //通过过滤本地数据后重新绑定数据来刷新数据
+        const newItems = statusApps.filter(item => item.app_id !== id);
+        setStatusApps(newItems);
+    }
 
     return (
         <>
@@ -179,7 +205,9 @@ const MyApps = (): React$Element<React$FragmentType> => {
                     </Col>
                 </Col>
                 <Col sm={1}>
-                    <Button variant="primary" onClick={() => { window.location.reload(true) }} >Refresh</Button>
+                    <Button variant="primary" onClick={() => {
+                        getAllApps()
+                    }}>Refresh</Button>
                 </Col>
             </Row>
             <Row>
@@ -187,40 +215,48 @@ const MyApps = (): React$Element<React$FragmentType> => {
                     return (
                         <Col xxl={2} md={6} key={app.app_id + i} className="appstore-item">
                             <div className='appstore-item-content highlight' style={{ textAlign: "center", width: "90%" }}>
-                                <div className="float-end arrow-none card-drop p-0" onClick={() => { handleClick(app.app_id) }}>
-                                    <i className="dripicons-gear noti-icon"></i>
+                                {
+                                    app.status !== "installing" &&
+                                    <div className="float-end arrow-none card-drop p-0" onClick={() => { handleClick(app.app_id) }}>
+                                        <i className="dripicons-gear noti-icon"></i>
+                                    </div>
+                                }
+
+                                {/* <Link target="_blank" to={app.url}> */}
+                                <div>
+                                    <img
+                                        src={app.image_url}
+                                        alt={app.name}
+                                        className="app-icon"
+                                        style={{ margin: "30px 10px 30px 10px" }}
+                                        onError={(e) => (e.target.src = DefaultImg)}
+                                    />
                                 </div>
-                                <Link target="_blank" to={app.url}>
-                                    <div>
-                                        <img
-                                            src={app.image_url}
-                                            alt={app.name}
-                                            className="app-icon"
-                                            style={{ margin: "30px 10px 30px 10px" }}
-                                            onError={(e) => (e.target.src = DefaultImg)}
-                                        />
+                                <div>
+                                    <h3 className="appstore-item-content-title" style={{ color: "#2196f3" }}>
+                                        {app.customer_name}
+                                    </h3>
+                                    <div className='appstore-item-content-tagline text-muted'>
+                                        {/* {(progress && progress === 100) ? "running" : app.status} */}
+                                        {app.status}
                                     </div>
-                                    <div>
-                                        <h3 className="appstore-item-content-title">
-                                            {app.customer_name}
-                                        </h3>
-                                        <div className='appstore-item-content-tagline text-muted'>
-                                            {(progress && progress === 100) ? "running" : app.status}
+                                    {
+                                        app.status && app.status === "installing" &&
+                                        <div>
+                                            <ProgressBar now={progress} hidden={progress === 100} label={`${progress}%`}></ProgressBar>
                                         </div>
-                                        {
-                                            app.status && app.status === "installing" &&
-                                            <div>
-                                                <ProgressBar now={progress} hidden={progress === 100} label={`${progress}%`}></ProgressBar>
-                                            </div>
-                                        }
-                                    </div>
-                                </Link>
+                                    }
+                                </div>
+                                {/* </Link> */}
                             </div>
                         </Col>
                     );
                 })}
             </Row >
-            {showModal && <AppDetailModal updateApps={setApps} product={selectedProduct} showFlag={showModal} onClose={handleClose} />}
+            {
+                showModal && <AppDetailModal app_id={selectedApp} showFlag={showModal} onClose={handleClose}
+                    onDataChange={handleDataChange} onAllDataChange={handleAllDataChange} />
+            }
         </>
     );
 };

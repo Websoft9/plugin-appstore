@@ -11,6 +11,9 @@ axios.defaults.headers = {
     'Expires': '0',
 };
 axios.defaults.baseURL = config.API_URL;
+// axios.defaults.httpsAgent = new https.Agent({
+//     rejectUnauthorized: false,
+// });
 
 // intercepting to capture errors
 axios.interceptors.response.use(

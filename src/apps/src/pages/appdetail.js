@@ -1,11 +1,39 @@
 import classnames from "classnames";
-import React from 'react';
+import { default as React, useEffect, useState } from 'react';
 import { Col, Modal, Nav, OverlayTrigger, Row, Tab, Tooltip } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
+import { getAppDetails } from '../helpers';
 import UninstallTab from './uninstalltab';
 
-const AppDetailModal = ({ updateApps, product, showFlag, onClose }): React$Element<React$FragmentType> => {
+const AppDetailModal = (props): React$Element<React$FragmentType> => {
+    const [currentApp, setCurrentApp] = useState(null); // 用于存储当前App的详情
+    // const [disable, setDisable] = useState(false);//用于按钮禁用
+    // const navigate = useNavigate(); //用于页面跳转
+
+    useEffect(() => {
+        try {
+            //获取应用详情
+            getAppDetails({ app_id: props.app_id }).then((response) => {
+                if (response.data.code === 0) {
+                    setCurrentApp(response.data.data);
+                } else if (response.data.code === -1) {
+
+                }
+            });
+        } catch (error) {
+
+        }
+    }, []);
+
+    //用于更新当前Modal的APP数据的运行状态
+    const handleDataChange = (newStatus) => {
+        setCurrentApp({
+            ...currentApp,
+            status: newStatus
+        });
+    };
+
     const tabContents = [
         {
             id: '1',
@@ -53,17 +81,18 @@ const AppDetailModal = ({ updateApps, product, showFlag, onClose }): React$Eleme
             id: '8',
             title: 'Uninstall',
             icon: 'mdi mdi-cog-outline',
-            text: <UninstallTab updateApps={updateApps} app={product} />,
+            text: <UninstallTab data={currentApp} onDataChange={handleDataChange}
+                onFatherDataChange={props.onDataChange} onAllDataChange={props.onAllDataChange} onCloseFatherModal={props.onClose} />,
         },
     ];
 
     return (
-        <Modal show={showFlag} onHide={onClose} size="lg" scrollable="true" >
-            <Modal.Header onHide={onClose} closeButton>
+        currentApp && <Modal show={props.showFlag} onHide={props.onClose} size="lg" scrollable="true" >
+            <Modal.Header onHide={props.onClose} closeButton>
                 <div style={{ padding: "10px", display: "flex", width: "100%", alignItems: "center" }}>
                     <div className='appstore-item-content-icon col-same-height'>
                         <img
-                            src={product.image_url}
+                            src={currentApp.image_url}
                             alt=""
                             className="app-icon"
                             onError={(e) => (e.target.src = DefaultImg)}
@@ -71,10 +100,10 @@ const AppDetailModal = ({ updateApps, product, showFlag, onClose }): React$Eleme
                     </div>
                     <div className='col-same-height'>
                         <h4 className="appstore-item-content-title" style={{ marginTop: "5px" }}>
-                            {product.customer_name}
+                            {currentApp.customer_name}
                         </h4>
                         <h5 className="appstore-item-content-title" style={{ marginTop: "5px" }}>
-                            {product.status}
+                            {currentApp.status}
                         </h5>
                     </div>
                     <div className='col-same-height' style={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}>
@@ -126,6 +155,11 @@ const AppDetailModal = ({ updateApps, product, showFlag, onClose }): React$Eleme
                                 </Tooltip>
                             }>
                             <button
+                                onClick={() => {
+                                    // if (cockpit.user()) {
+                                    window.open("/cockpit/@localhost/system/terminal.html", "_blank");
+                                    // }
+                                }}
                                 className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none" style={{ color: "#428bca" }}>
                                 <i className="dripicons-code noti-icon"></i>{' '}
                             </button>

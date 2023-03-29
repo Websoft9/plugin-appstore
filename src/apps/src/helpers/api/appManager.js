@@ -3,7 +3,7 @@ import { APICore } from './apiCore';
 const api = new APICore();
 
 //安装应用
-function installApp(params: any): any {
+function installApp(params: any): Promise<any> {
     const baseUrl = '/api/v1/apps/install';
     return api.get(`${baseUrl}`, params);
 }
@@ -15,7 +15,7 @@ function getInstalledApps(params: any): Promise<any> {
 }
 
 //卸载应用
-function unInstallApp(params: any): any {
+function unInstallApp(params: any): Promise<any> {
     const baseUrl = '/api/v1/apps/uninstall';
     return api.get(`${baseUrl}`, params);
 }
@@ -27,19 +27,19 @@ function getInstallProgress(params: any): Promise<any> {
 }
 
 //停止应用
-function stopApp(params: any): any {
+function stopApp(params: any): Promise<any> {
     const baseUrl = '/api/v1/apps/stop';
     return api.get(`${baseUrl}`, params);
 }
 
 //启动应用
-function startApp(params: any): any {
+function startApp(params: any): Promise<any> {
     const baseUrl = '/api/v1/apps/start';
     return api.get(`${baseUrl}`, params);
 }
 
 //查询应用详情
-function getAppDetails(params: any): any {
+function getAppDetails(params: any): Promise<any> {
     const baseUrl = '/api/v1/apps/details';
     return api.get(`${baseUrl}`, params);
 }
