@@ -14,7 +14,7 @@ const MyApps = React.lazy(() => import('../pages/myapps'));
 const ErrorPageNotFound = React.lazy(() => import('../pages/error/PageNotFound'));
 const ServerError = React.lazy(() => import('../pages/error/ServerError'));
 const CustomError = React.lazy(() => import('../pages/error/CustomError'));
-const MyTerminal = React.lazy(() => import('../pages/terminal'));
+const MyTerminal = React.lazy(() => import('../pages/myterminal'));
 
 const loading = () => <div className=""></div>;
 
