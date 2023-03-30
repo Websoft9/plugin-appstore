@@ -1,6 +1,6 @@
 {
     "requires": {
-        "cockpit": "264"
+        "cockpit": "190"
     },
     "tools": {
         "index": {
