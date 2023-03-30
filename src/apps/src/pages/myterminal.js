@@ -1,6 +1,5 @@
 import React from 'react';
-import "../lib/css/terminal.scss";
-import UserTerminal from "./terminal";
+import UserTerminal from "./terminal.jsx";
 
 const MyTerminal = (props): React$Element<React$FragmentType> => {
     return (

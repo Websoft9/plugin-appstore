@@ -94,8 +94,9 @@ export class Terminal extends React.Component {
         this.terminalRef = React.createRef();
 
         term.onData(function (data) {
-            if (this.props.channel.valid)
+            if (this.props.channel.valid) {
                 this.props.channel.send(data);
+            }
         }.bind(this));
 
         if (props.onTitleChanged)

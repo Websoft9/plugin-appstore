@@ -40,7 +40,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         marginBottom: "0px"
                     }}>
                         <li style={{ margin: "0 10px" }}>
-                            <Link to="/terminal" style={{ color: "#428bca" }}>
+                            <Link to="/terminal" style={{ color: "#428bca" }} target="_blank">
                                 <i className="dripicons-cloud-download"></i>{' Terminal'}
                             </Link>
                         </li>
