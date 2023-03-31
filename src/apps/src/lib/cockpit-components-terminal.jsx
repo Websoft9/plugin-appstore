@@ -1,12 +1,10 @@
 import { Button, Modal } from "@patternfly/react-core";
+import cockpit from "cockpit";
 import PropTypes from "prop-types";
 import React from "react";
 import { Terminal as Term } from "xterm";
 import { CanvasAddon } from 'xterm-addon-canvas';
-
-import cockpit from "cockpit";
 import { ContextMenu } from "./cockpit-components-context-menu";
-
 import "./css/console.css";
 
 const _ = cockpit.gettext;
@@ -113,6 +111,7 @@ export class Terminal extends React.Component {
     componentDidMount() {
         this.terminal.open(this.terminalRef.current);
         this.terminal.loadAddon(new CanvasAddon());
+
         this.connectChannel();
 
         if (!this.props.rows) {
@@ -235,6 +234,8 @@ export class Terminal extends React.Component {
     connectChannel() {
         const channel = this.props.channel;
         if (channel?.valid) {
+            channel.send("docker exec -it mysql55 bash||sh\n");
+
             channel.addEventListener('message', this.onChannelMessage.bind(this));
             channel.addEventListener('close', this.onChannelClose.bind(this));
         }

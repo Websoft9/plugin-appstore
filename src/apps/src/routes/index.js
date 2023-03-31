@@ -31,6 +31,7 @@ const LoadComponent = ({ component: Component }: LoadComponentProps) => (
 const AllRoutes = () => {
     return useRoutes([
         { path: '/', element: <Root /> },
+        { path: "/terminal", element: <MyTerminal /> },
         {
             path: '/',
             element: <DefaultLayout />,
@@ -60,11 +61,11 @@ const AllRoutes = () => {
                 {
                     path: 'myapps',
                     element: <LoadComponent component={MyApps} />,
-                },
-                {
-                    path: "terminal",
-                    element: <LoadComponent component={MyTerminal} />,
                 }
+                // {
+                //     path: "terminal",
+                //     element: <LoadComponent component={MyTerminal} />,
+                // }
 
             ],
         },

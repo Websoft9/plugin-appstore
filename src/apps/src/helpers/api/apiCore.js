@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
-import config from '../../config';
+//import config from '../../config';
 
 // content type
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -10,7 +10,7 @@ axios.defaults.headers = {
     'Pragma': 'no-cache',
     'Expires': '0',
 };
-axios.defaults.baseURL = config.API_URL;
+//axios.defaults.baseURL = config.API_URL;
 // axios.defaults.httpsAgent = new https.Agent({
 //     rejectUnauthorized: false,
 // });
