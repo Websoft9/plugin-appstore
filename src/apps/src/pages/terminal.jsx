@@ -1,10 +1,13 @@
-import { FormSelect, FormSelectOption, NumberInput, Toolbar, ToolbarContent, ToolbarGroup, ToolbarItem } from "@patternfly/react-core";
+// import { FormSelect, FormSelectOption, NumberInput, Toolbar, ToolbarContent, ToolbarGroup, ToolbarItem } from "@patternfly/react-core";
+import { FormSelect, FormSelectOption } from "@patternfly/react-core/dist/esm/components/FormSelect/index.js";
+import { NumberInput } from "@patternfly/react-core/dist/esm/components/NumberInput/index.js";
+import { Toolbar, ToolbarContent, ToolbarGroup, ToolbarItem } from "@patternfly/react-core/dist/esm/components/Toolbar/index.js";
 import cockpit from "cockpit";
 import React from "react";
-import { Terminal } from "../lib/cockpit-components-terminal";
-// import "../lib/css/ter.css";
-// import '../lib/patternfly/patternfly-4-cockpit.scss';
-{/* <link href="/css/terminal.css" type="text/css" rel="stylesheet"></link> */ }
+import '../assets/scss/custom/terminal/patternfly-4-cockpit.scss';
+import "../assets/scss/custom/terminal/terminal.scss";
+import { Terminal } from "../lib/cockpit-components-terminal.jsx";
+import '../lib/cockpit-dark-theme';
 
 const _ = cockpit.gettext;
 

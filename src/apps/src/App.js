@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Routes from './routes/Routes';
 import './assets/scss/Saas.scss';
+import Routes from './routes/Routes';
 
 type AppProps = {};
 

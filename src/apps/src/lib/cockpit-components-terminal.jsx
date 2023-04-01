@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Terminal as Term } from "xterm";
 import { CanvasAddon } from 'xterm-addon-canvas';
+import "../assets/scss/custom/terminal/console.css";
 import { ContextMenu } from "./cockpit-components-context-menu";
-import "./css/console.css";
 
 const _ = cockpit.gettext;
 

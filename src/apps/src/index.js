@@ -34,7 +34,7 @@ root.render(
       <Provider store={configureStore({})}>
         <App />
       </Provider>
-    </ApolloProvider>,
+    </ApolloProvider>
   </React.StrictMode>
 );
 
