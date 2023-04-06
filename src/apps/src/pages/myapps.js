@@ -214,15 +214,14 @@ const MyApps = (): React$Element<React$FragmentType> => {
                 {(statusApps || []).map((app, i) => {
                     return (
                         <Col xxl={2} md={6} key={app.app_id + i} className="appstore-item">
-                            <div className='appstore-item-content highlight' style={{ textAlign: "center", width: "90%" }}>
+                            <div className='appstore-item-content highlight' style={{ textAlign: "center", width: "90%" }}
+                                /*onClick={(app.status === "running" || app.status === "stop") ? () => { handleClick(app.app_id) } : undefined}*/>
                                 {
-                                    app.status !== "installing" &&
+                                    (app.status === "running" || app.status === "stop") &&
                                     <div className="float-end arrow-none card-drop p-0" onClick={() => { handleClick(app.app_id) }}>
                                         <i className="dripicons-gear noti-icon"></i>
                                     </div>
                                 }
-
-                                {/* <Link target="_blank" to={app.url}> */}
                                 <div>
                                     <img
                                         src={app.image_url}
@@ -247,7 +246,6 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                         </div>
                                     }
                                 </div>
-                                {/* </Link> */}
                             </div>
                         </Col>
                     );

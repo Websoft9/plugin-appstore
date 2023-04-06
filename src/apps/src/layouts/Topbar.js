@@ -30,7 +30,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                                 <img src={logo} alt="logo" width="99" />
                             </span>
                             <span className="topnav-logo-sm">
-                                <img src={logoSM} alt="logo" height="24" />
+                                <img src={logoSM} alt="logo" width="24px" height="24" />
                             </span>
                         </Link>
                     )}
@@ -39,11 +39,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         alignItems: "center", minHeight: "70px", fontSize: "16px", listStyle: "none",
                         marginBottom: "0px"
                     }}>
-                        <li style={{ margin: "0 10px" }}>
+                        {/* <li style={{ margin: "0 10px" }}>
                             <Link to="/terminal" style={{ color: "#428bca" }} target="_blank">
                                 <i className="dripicons-cloud-download"></i>{' Terminal'}
                             </Link>
-                        </li>
+                        </li> */}
                         <li style={{ margin: "0 10px" }}>
                             <Link to="/myapps" style={{ color: "#428bca" }}>
                                 <i className="dripicons-view-apps"></i><span>{' My Apps'}</span>

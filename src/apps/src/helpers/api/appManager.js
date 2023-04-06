@@ -38,6 +38,11 @@ function startApp(params: any): Promise<any> {
     return api.get(`${baseUrl}`, params);
 }
 
+function reStartApp(params: any): Promise<any> {
+    const baseUrl = '/api/v1/apps/restart';
+    return api.get(`${baseUrl}`, params);
+}
+
 //查询应用详情
 function getAppDetails(params: any): Promise<any> {
     const baseUrl = '/api/v1/apps/details';
