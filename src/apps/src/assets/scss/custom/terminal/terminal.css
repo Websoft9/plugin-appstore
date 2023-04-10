@@ -1,7 +1,6 @@
 /* #root {
     height: 100% !important;
 } */
-
 .pf-t-light {
     --pf-global--Color--100: var(--pf-global--Color--dark-100);
     --pf-global--Color--200: var(--pf-global--Color--dark-200);

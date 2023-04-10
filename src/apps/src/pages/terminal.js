@@ -129,8 +129,8 @@ class UserTerminal extends React.Component {
             : <span>Loading...</span>;
 
         return (
-            <div className="console-ct-container">
-                <div className="terminal-group">
+            <div className='console-ct-container'>
+                <div className='terminal-group'>
                     {/* <tt className="terminal-title">{this.state.title}</tt> */}
                     <tt className="terminal-title"></tt>
                     <Toolbar id="toolbar">
@@ -180,7 +180,7 @@ class UserTerminal extends React.Component {
                 <div className={"terminal-body " + this.state.theme} id="the-terminal">
                     {terminal}
                 </div>
-            </div>
+            </div >
         );
     }
 }

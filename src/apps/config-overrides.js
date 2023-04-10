@@ -1,5 +1,4 @@
 const CockpitRsyncPlugin = require("./src/lib/cockpit-rsync-plugin");
-const { useCracoPlugin } = require("craco-plugin-scoped-css");
 
 const {
     override,
@@ -12,5 +11,4 @@ module.exports = override(
         "cockpit": "cockpit"
     }),
     addWebpackPlugin(new CockpitRsyncPlugin()),
-    useCracoPlugin()
 )

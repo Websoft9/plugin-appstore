@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useLocation } from "react-router-dom";
-import "../assets/scss/custom/terminal/terminal.scoped.css";
+import "../assets/scss/custom/terminal/terminal.css";
 import UserTerminal from "./terminal";
 
 // const MyTerminal = (props): React$Element<React$FragmentType> => {
@@ -16,9 +16,9 @@ import UserTerminal from "./terminal";
 
 const MyTerminal = (props): React$Element<React$FragmentType> => {
     return (
-        <div className='ct-page-fill' id="terminal">
-            <UserTerminal runCmd={`docker exec -it ${props.data.customer_name} bash || sh\n`} />
-        </div>
+        <div className='ct-page-fill' id="terminal" >
+            <UserTerminal runCmd={`docker exec -it ${props.data.customer_name} bash\n`} />
+        </div >
     );
 }
 export default MyTerminal;
