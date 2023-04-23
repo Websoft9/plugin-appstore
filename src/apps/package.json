@@ -30,11 +30,12 @@
     "simplebar-react": "^2.3.6",
     "web-vitals": "^2.1.4",
     "xterm": "^5.1.0",
-    "xterm-addon-canvas": "^0.3.0"
+    "xterm-addon-canvas": "^0.3.0",
+    "react-table": "^7.8.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "export GENERATE_SOURCEMAP=false && react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },

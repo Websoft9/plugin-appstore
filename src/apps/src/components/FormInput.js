@@ -1,10 +1,10 @@
 // @flow
+import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Form, InputGroup } from 'react-bootstrap';
-import classNames from 'classnames';
 
 /* Password Input */
-const PasswordInput = ({ name, placeholder, refCallback, errors, register, className }) => {
+const PasswordInput = ({ name, placeholder, refCallback, errors, register, className, value, readOnly }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -23,6 +23,8 @@ const PasswordInput = ({ name, placeholder, refCallback, errors, register, class
                     isInvalid={errors && errors[name] ? true : false}
                     {...(register ? register(name) : {})}
                     autoComplete={name}
+                    defaultValue={value}
+                    readOnly={readOnly}
                 />
                 <div
                     className={classNames('input-group-text', 'input-group-password', {
@@ -58,6 +60,8 @@ const FormInput = ({
     label,
     type,
     name,
+    value,
+    readOnly,
     placeholder,
     register,
     errors,
@@ -93,6 +97,8 @@ const FormInput = ({
                                     errors={errors}
                                     register={register}
                                     className={className}
+                                    value={value}
+                                    readOnly={readOnly}
                                 />
 
                                 {errors && errors[name] ? (

@@ -1,89 +1,67 @@
 import classnames from "classnames";
-import { default as React, useEffect, useState } from 'react';
+import cockpit from 'cockpit';
+import React, { useEffect, useState } from 'react';
 import { Col, Modal, Nav, OverlayTrigger, Row, Tab, Tooltip } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
-import { getAppDetails } from '../helpers';
-import EventLogs from './eventlogs';
-import Terminal from './myterminal';
-import UninstallTab from './uninstalltab';
+import AppLogin from './appdetailtabs/applogin';
+import AppLogs from './appdetailtabs/applogs';
+import Backups from './appdetailtabs/backups';
+import Uninstall from './appdetailtabs/uninstall';
+
+const _ = cockpit.gettext;
 
 const AppDetailModal = (props): React$Element<React$FragmentType> => {
-    const [currentApp, setCurrentApp] = useState(null); // 用于存储当前App的详情
     // const [disable, setDisable] = useState(false);//用于按钮禁用
+    const [currentApp, setCurrentApp] = useState(props.current_app);
     const navigate = useNavigate(); //用于页面跳转
 
     useEffect(() => {
-        try {
-            //获取应用详情
-            getAppDetails({ app_id: props.app_id }).then((response) => {
-                if (response.data.code === 0) {
-                    setCurrentApp(response.data.data);
-                } else if (response.data.code === -1) {
-
-                }
-            });
-        } catch (error) {
-
-        }
-    }, []);
-
-    //用于更新当前Modal的APP数据的运行状态
-    const handleDataChange = (newStatus) => {
-        setCurrentApp({
-            ...currentApp,
-            status: newStatus
-        });
-    };
+        setCurrentApp(props.current_app);
+    }, [props.current_app]);
 
     const tabContents = [
         {
             id: '1',
-            title: 'Domain',
+            title: _("Domain"),
             icon: 'mdi mdi-home-variant',
             text: 'Home - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
         },
         {
             id: '2',
-            title: 'Login',
+            title: _("Account"),
             icon: 'mdi mdi-account-circle',
-            text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+            text: <AppLogin data={currentApp} />,
         },
         {
             id: '3',
-            title: 'Container',
+            title: _("Container"),
             icon: 'mdi mdi-account-circle',
             text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
         },
         {
             id: '4',
-            title: 'Backups',
+            title: _("Backups"),
             icon: 'mdi mdi-account-circle',
-            text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+            text: <Backups data={currentApp} />,
         },
         {
             id: '5',
-            title: 'Updates',
+            title: _("Updates"),
             icon: 'mdi mdi-account-circle',
             text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
         },
         {
             id: '6',
-            title: 'Terminal',
+            title: _("Logs"),
             icon: 'mdi mdi-account-circle',
-            text: <Terminal data={currentApp} />,
+            text: <AppLogs projectName={currentApp} />,
         },
         {
             id: '7',
-            title: 'Logs',
-            icon: 'mdi mdi-account-circle',
-            text: <EventLogs projectName={currentApp} />,
-        },
-        {
-            id: '8',
-            title: 'Uninstall',
+            title: _("Uninstall"),
             icon: 'mdi mdi-cog-outline',
-            text: <UninstallTab data={currentApp} onDataChange={handleDataChange}
+            text: <Uninstall data={currentApp}
                 onFatherDataChange={props.onDataChange} onAllDataChange={props.onAllDataChange} onCloseFatherModal={props.onClose} />,
         },
     ];
@@ -110,7 +88,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                     </div>
                     <div className='col-same-height' style={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
                         {
-                            currentApp.status === "stop" ?
+                            currentApp.status === "exited" ?
                                 <OverlayTrigger
                                     key="bottom1"
                                     placement="bottom"
@@ -142,7 +120,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 </OverlayTrigger>
                         }
                         <OverlayTrigger
-                            key="bottom2"
+                            key="bottom3"
                             placement="bottom"
                             overlay={
                                 <Tooltip id="tooltip-bottom">
@@ -155,20 +133,23 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 <i className="dripicons-clockwise noti-icon"></i>{' '}
                             </button>
                         </OverlayTrigger>
-                        {/* <OverlayTrigger
-                            key="bottom4"
-                            placement="bottom"
-                            overlay={
-                                <Tooltip id="tooltip-bottom">
-                                    Terminal
-                                </Tooltip>
-                            }>
-                            <Link to={{ pathname: '/terminal', search: `?id=${currentApp.customer_name}` }}
-                                style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
-                                target="_blank">
-                                <i className="dripicons-code noti-icon"></i>{' '}
-                            </Link>
-                        </OverlayTrigger> */}
+                        {/* {
+                            currentApp.status === "running" &&
+                            <OverlayTrigger
+                                key="bottom4"
+                                placement="bottom"
+                                overlay={
+                                    <Tooltip id="tooltip-bottom">
+                                        Terminal
+                                    </Tooltip>
+                                }>
+                                <Link to={{ pathname: '/terminal', search: `?id=${currentApp.customer_name}` }}
+                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                    target="_blank">
+                                    <i className="dripicons-code noti-icon"></i>{' '}
+                                </Link>
+                            </OverlayTrigger>
+                        } */}
                     </div>
                 </div>
             </Modal.Header>

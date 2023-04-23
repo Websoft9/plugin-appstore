@@ -1,15 +1,19 @@
 // @flow
 import { gql, useQuery } from '@apollo/client';
+import cockpit from 'cockpit';
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import FormInput from '../components/FormInput';
 import Spinner from '../components/Spinner';
-import { installApp } from '../helpers';
+import { AppInstall } from '../helpers';
+
+const _ = cockpit.gettext;
+const language = cockpit.language;//获取cockpit的当前语言环境
 
 const getContentfulData = gql`
-    query{
-        productCollection {
+    query($locale: String!){
+        productCollection(locale:$locale) {
             items {
             sys {
                 id
@@ -43,7 +47,7 @@ const getContentfulData = gql`
             }
             }
         }
-        catalog(id: "2Yp0TY3kBHgG6VDjsHZNpK") {
+        catalog(id: "2Yp0TY3kBHgG6VDjsHZNpK",locale:$locale) {
             linkedFrom(allowedLocales:["en-US"]) {
             catalogCollection(limit:20) {
                 items {
@@ -79,24 +83,23 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
         if (!visible) {
             if (!customName) { //判断用户是否输入应用名称
                 setShowAlert(true);
-                setAlertMessage("Please enter custom name ")
+                setAlertMessage(_("Please enter a custom application name"))
             }
             else {
                 //调用应用安装接口
                 try {
                     setDisable(true);
-                    const response = await installApp({ app_name: product.key, app_version: selectedVersion, customer_app_name: customName })
-                    if (response.data.code === 0) {
-                        navigate("/myapps")
-                    }
-                    else if (response.data.code === -1) {
+                    const response = await AppInstall({ app_name: product.key, app_version: selectedVersion, customer_app_name: customName })
+                    if (response.data.Error) {
                         setShowAlert(true);
-                        setAlertMessage(response.data.message);
+                        setAlertMessage(response.data.Error.Message);
                         setDisable(false);
+                    }
+                    else {
+                        navigate("/myapps");
                     }
                 }
                 catch (error) {
-                    // 捕获错误并导航到错误页面
                     navigate("/error-500");
                 }
             }
@@ -122,7 +125,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     const handleInputChange = (inputValue) => {
         if (!inputValue) { //当用户没有输入应用名称
             setShowAlert(true);
-            setAlertMessage("Please enter custom name");
+            setAlertMessage(_("Please enter a custom application name"))
         }
         else {
             setShowAlert(false);
@@ -148,13 +151,13 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                             {product.trademark}
                         </h4>
                         <div>
-                            <a rel="noreferrer" href={`https://support.websoft9.com/docs/` + product.key} target="_blank" style={{ color: '#2196f3' }} >{product.trademark} developers</a>
+                            <a rel="noreferrer" href={`https://support.websoft9.com/docs/` + product.key} target="_blank" style={{ color: '#2196f3' }} >{product.trademark} {_("developers")}</a>
                         </div>
                         <div style={{ display: "flex", alignItems: "center" }}>
-                            <span style={{ marginRight: "5px" }}>Version :</span> {versions}
+                            <span style={{ marginRight: "5px" }}>{_("Version")} : </span> {versions}
                         </div>
                         <div style={{ display: "flex", alignItems: "center" }}>
-                            <span style={{ marginRight: "5px" }}>Requires at least : {product.vcpu} vCPU,  {product.memory}  GB memory, {product.storage} GB storage</span>
+                            <span style={{ marginRight: "5px" }}>{_("Requires at least")} : {product.vcpu} vCPU,  {product.memory}  GB memory, {product.storage} GB storage</span>
                         </div>
                     </div>
                 </div>
@@ -179,18 +182,18 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                         }
                     </Carousel>
                     <div style={{ padding: "10px" }}>
-                        <h4>Overview</h4>
+                        <h4>{_("Overview")}</h4>
                         {product.overview}
                     </div>
                     <div style={{ padding: "10px" }}>
-                        <h4>Description</h4>
+                        <h4>{_("Description")}</h4>
                         {product.description}
                     </div>
                 </div>
                 <div style={{ display: visible ? "none" : "block" }}>
                     <div style={{ display: "flex", flexDirection: "column" }}>
                         <div>
-                            <span style={{ marginRight: "5px" }}>Version :</span>
+                            <span style={{ marginRight: "5px" }}>{_("Version")} :</span>
                             {
                                 versionList && <FormInput
                                     name="select"
@@ -207,11 +210,13 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                             }
                         </div>
                         <div style={{ marginTop: "5px" }}>
-                            <span style={{ marginRight: "5px" }}>Name :</span>
+                            <span style={{ marginRight: "5px" }}>{_("Name")} :</span>
                             <FormInput type="text" value={customName} name="app_Name"
-                                placeholder="Please enter a custom application name"
+                                placeholder={_("Please enter a custom application name, which can only be a combination of numbers and lowercase letters.")}
                                 onChange={(e) => { handleInputChange(e.target.value) }} />
-                            <span style={{ fontStyle: "italic", color: "green", marginLeft: "5px" }}>it can only be a combination of lowercase letters and numbers</span>
+                            {/* <span style={{ fontStyle: "italic", color: "green", marginLeft: "5px" }}>
+                                    it can only be a combination of lowercase letters and numbers
+                                </span> */}
                         </div>
                         <div>
                             {showAlert && <Alert variant="danger" className="my-2">
@@ -224,10 +229,10 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="light" onClick={onClose}>
-                    Close
+                    {_("Close")}
                 </Button>{' '}
                 <Button disabled={disable} variant="primary" onClick={handleInstallClick}>
-                    Install
+                    {_("Install")}
                 </Button>
             </Modal.Footer>
         </Modal >
@@ -243,7 +248,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [subSelect, setSubSelect] = useState("All")
 
 
-    const { loading: dataLoading, error: dataError, data: allData } = useQuery(getContentfulData);
+    const { loading: dataLoading, error: dataError, data: allData } = useQuery(getContentfulData, { variables: { locale: language === "zh_CN" ? "zh-CN" : "en-US" } });
 
     const mainCatalogs = allData?.catalog.linkedFrom.catalogCollection.items; //主目录数据
     const apps = allData?.productCollection?.items;//所有应用数据
@@ -332,7 +337,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                                 className="form-select"
                                 key="select"
                                 onChange={(e) => changeMainCatalog(e.target.value)}>
-                                <option value="All">All</option>
+                                <option value="All">{_("All")}</option>
                                 {
                                     (mainCatalogs || []).map((item, i) => {
                                         return (
@@ -350,7 +355,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                                 className="form-select"
                                 key="select"
                                 onChange={(e) => changeSubCatalog(e.target.value)}>
-                                <option value="All">All</option>
+                                <option value="All">{_("All")}</option>
                                 {
                                     (subCatalogs || []).map((item, i) => {
                                         return (

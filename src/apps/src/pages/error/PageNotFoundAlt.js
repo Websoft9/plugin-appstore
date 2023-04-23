@@ -1,10 +1,9 @@
 // @flow
 import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
 
 // components
-import PageTitle from '../../components/PageTitle';
 
 // images
 import notFoundImg from '../../assets/images/file-searching.svg';
@@ -12,14 +11,6 @@ import notFoundImg from '../../assets/images/file-searching.svg';
 const ErrorPageNotFoundAlt = (): React$Element<React$FragmentType> => {
     return (
         <>
-            <PageTitle
-                breadCrumbItems={[
-                    { label: 'Pages', path: '/pages/error-404' },
-                    { label: '404', path: '/pages/error-404', active: true },
-                ]}
-                title={'404 Error'}
-            />
-
             <div className="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
                 <div className="container">
                     <Row className="justify-content-center">
