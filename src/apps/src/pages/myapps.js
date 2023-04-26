@@ -25,12 +25,12 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
 
     return (
         <Modal show={props.showConform} onHide={props.onClose} size="lg"
-            scrollable="true" backdrop="static" style={{ backgroundColor: "rgba(0,0,0,0.8)" }}>
+            scrollable="true" backdrop="static">
             <Modal.Header onHide={props.onClose} closeButton style={{ border: "none" }}>
-                <h4>Uninstall {props.app.customer_name}</h4>
+                <h4>Remove {props.app.customer_name}</h4>
             </Modal.Header>
             <Modal.Body className="row" >
-                <span style={{ margin: "10px 0px" }}>This will immediately uninstall {props.app.customer_name} and remove all its data.</span>
+                <span style={{ margin: "10px 0px" }}>This will immediately remove {props.app.customer_name}</span>
                 <div>
                     {showAlert && <Alert variant="danger" className="my-2">
                         {alertMessage}
@@ -264,10 +264,6 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                                 <i className="dripicons-trash noti-icon"></i>
                                             </div>
                                         }
-                                        {
-                                            showUninstallConform &&
-                                            <UninstallConform showConform={showUninstallConform} onClose={CanceldeleteApp} app={selectedApp} onDataChange={handleDataChange} />
-                                        }
                                         <div>
                                             <img
                                                 src={app.image_url}
@@ -284,7 +280,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                             <div style={{ color: app.status === 'failed' ? 'red' : 'inherit', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                 {app.status && app.status === "installing" && <Spinner className="spinner-border-sm m-2" />}
                                                 {" "}
-                                                {app.status}
+                                                <div className="m-2">{app.status}</div>
                                             </div>
                                         </div>
                                     </div >
@@ -295,8 +291,11 @@ const MyApps = (): React$Element<React$FragmentType> => {
                 })
             }
             {
-                showModal && <AppDetailModal current_app={selectedApp} showFlag={showModal} onClose={handleClose}
-                    onDataChange={handleDataChange} />
+                showModal && <AppDetailModal current_app={selectedApp} showFlag={showModal} onClose={handleClose} onDataChange={handleDataChange} />
+            }
+            {
+                showUninstallConform &&
+                <UninstallConform showConform={showUninstallConform} onClose={CanceldeleteApp} app={selectedApp} onDataChange={handleDataChange} />
             }
         </>
     );
