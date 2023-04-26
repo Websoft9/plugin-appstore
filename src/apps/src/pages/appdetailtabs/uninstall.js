@@ -6,7 +6,7 @@ import Spinner from '../../components/Spinner';
 import { AppStart, AppStop, AppUninstall } from '../../helpers';
 
 //卸载应用时的确定/取消弹窗
-const UninstallConform = (props/*{ app, showConform, onClose }*/) => {
+const UninstallConform = (props) => {
     const navigate = useNavigate(); //用于页面跳转
     const [disable, setDisable] = useState(false);//用于按钮禁用
     const [showAlert, setShowAlert] = useState(false); //用于是否显示错误提示
@@ -17,8 +17,8 @@ const UninstallConform = (props/*{ app, showConform, onClose }*/) => {
         props.onClose();
         props.onCloseFatherModal();
 
-        //更新主页APP的数据，从里面删除已经卸载的数据（这种方式的目的是使得主页页面不刷新）
-        props.onAllDataChange(props.app.app_id);
+        //更新主页APP的数据
+        props.onDataChange();
     }
 
     return (
@@ -100,7 +100,7 @@ const Uninstall = (props): React$Element<React$FragmentType> => {
                                 }
                                 else {
                                     setDisable(false);
-                                    props.onFatherDataChange(props.data.app_id);
+                                    props.onDataChange(props.data.app_id);
                                 }
                             }
                             catch (error) {
@@ -119,7 +119,7 @@ const Uninstall = (props): React$Element<React$FragmentType> => {
                                 }
                                 else {
                                     setDisable(false);
-                                    props.onFatherDataChange(props.data.app_id);
+                                    props.onDataChange(props.data.app_id);
                                 }
                             }
                             catch (error) {
@@ -146,8 +146,7 @@ const Uninstall = (props): React$Element<React$FragmentType> => {
                 </Col>
             </Row>
             {showUninstallConform && <UninstallConform showConform={showUninstallConform} onClose={handleClose}
-                app={props.data} onDataChange={props.onFatherDataChange} onAllDataChange={props.onAllDataChange}
-                onCloseFatherModal={props.onCloseFatherModal} />}
+                app={props.data} onDataChange={props.onDataChange} onCloseFatherModal={props.onCloseFatherModal} />}
         </>
     );
 }

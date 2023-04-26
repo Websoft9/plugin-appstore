@@ -10,12 +10,13 @@ function App() {
 
   const getData = async () => {
     try {
-      const response = await axios.get('./config.json');
+      const response = await axios.get('./config.json'); //从项目下读取配置文件
       if (response.status === 200) {
         let config = response.data;
         const { PORTAINER_USERNAME, PORTAINER_PASSWORD, PORTAINER_AUTH_URL, PORTAINER_HOME_PAGE } = config;
         setPortainerHomePage(PORTAINER_HOME_PAGE);
 
+        //调用portainer的登录API，模拟登录
         const authResponse = await axios.post(PORTAINER_AUTH_URL, {
           username: PORTAINER_USERNAME,
           password: PORTAINER_PASSWORD
@@ -23,7 +24,7 @@ function App() {
         if (authResponse.status === 200) {
           let jwt = "\"" + authResponse.data.jwt + "\"";
           setPortainerJWT(jwt);
-          window.localStorage.setItem('portainer\.JWT', jwt);
+          window.localStorage.setItem('portainer\.JWT', jwt); //关键是将通过API登录后获取的jwt，存储到本地localStorage
         } else {
           console.log('Error:', authResponse);
         }
@@ -41,17 +42,19 @@ function App() {
   }, []);
 
   return (
-    <div class='container' key='container'>
+    <>
       {
         portainerJWT && portainerHomePage ? (
-          <iframe title='portainer' src={portainerHomePage} />
+          <div class='myPortainer' key='container'>
+            <iframe title='portainer' src={portainerHomePage} />
+          </div>
         ) : (
           <div className="d-flex align-items-center justify-content-center m-5">
             <Spinner animation="border" variant="secondary" />
           </div>
         )
       }
-    </div>
+    </>
   );
 }
 

@@ -1,11 +1,11 @@
-.container {
+.myPortainer {
     overflow: hidden;
     /* 16:9 aspect ratio */
     padding-top: 56.25%;
     position: relative;
 }
 
-.container iframe {
+.myPortainer iframe {
     border: 0;
     height: 100%;
     left: 0;

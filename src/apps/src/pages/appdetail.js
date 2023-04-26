@@ -35,34 +35,28 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
         },
         {
             id: '3',
-            title: _("Container"),
-            icon: 'mdi mdi-account-circle',
-            text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-        },
-        {
-            id: '4',
             title: _("Backups"),
             icon: 'mdi mdi-account-circle',
             text: <Backups data={currentApp} />,
         },
         {
-            id: '5',
+            id: '4',
             title: _("Updates"),
             icon: 'mdi mdi-account-circle',
             text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
         },
         {
-            id: '6',
+            id: '5',
             title: _("Logs"),
             icon: 'mdi mdi-account-circle',
             text: <AppLogs projectName={currentApp} />,
         },
         {
-            id: '7',
+            id: '6',
             title: _("Uninstall"),
             icon: 'mdi mdi-cog-outline',
             text: <Uninstall data={currentApp}
-                onFatherDataChange={props.onDataChange} onAllDataChange={props.onAllDataChange} onCloseFatherModal={props.onClose} />,
+                onDataChange={props.onDataChange} onCloseFatherModal={props.onClose} />,
         },
     ];
 
