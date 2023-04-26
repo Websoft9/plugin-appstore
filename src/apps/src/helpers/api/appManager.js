@@ -4,43 +4,43 @@ const api = new APICore();
 
 //App 安装
 function AppInstall(params: any): Promise<any> {
-    const baseUrl = '/AppManage/AppInstall';
+    const baseUrl = '/AppInstall';
     return api.get(`${baseUrl}`, params);
 }
 
 //App 列表查询
 function AppList(params: any): Promise<any> {
-    const baseUrl = '/AppManage/AppList';
+    const baseUrl = '/AppList';
     return api.get(`${baseUrl}`, params);
 }
 
 //App 卸载
 function AppUninstall(params: any): Promise<any> {
-    const baseUrl = '/AppManage/AppUninstall';
+    const baseUrl = '/AppUninstall';
     return api.get(`${baseUrl}`, params);
 }
 
 //App 停止
 function AppStop(params: any): Promise<any> {
-    const baseUrl = '/AppManage/AppStop';
+    const baseUrl = '/AppStop';
     return api.get(`${baseUrl}`, params);
 }
 
 //App 启动
 function AppStart(params: any): Promise<any> {
-    const baseUrl = '/AppManage/AppStart';
+    const baseUrl = '/AppStart';
     return api.get(`${baseUrl}`, params);
 }
 
 //App 重启
 function AppRestart(params: any): Promise<any> {
-    const baseUrl = '/AppManage/AppRestart';
+    const baseUrl = '/AppRestart';
     return api.get(`${baseUrl}`, params);
 }
 
 //App 状态查询
 function AppStatus(params: any): Promise<any> {
-    const baseUrl = '/AppManage/AppStatus';
+    const baseUrl = '/AppStatus';
     return api.get(`${baseUrl}`, params);
 }
 
