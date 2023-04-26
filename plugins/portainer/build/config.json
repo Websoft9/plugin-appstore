@@ -1,6 +1,6 @@
 {
     "PORTAINER_AUTH_URL": "/portainer/api/auth",
     "PORTAINER_HOME_PAGE": "/portainer/#!/wizard",
-    "PORTAINER_USERNAME": "",
-    "PORTAINER_PASSWORD": ""
+    "PORTAINER_USERNAME": "admin",
+    "PORTAINER_PASSWORD": "websoft9@2023"
 }
