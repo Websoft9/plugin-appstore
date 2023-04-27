@@ -108,7 +108,22 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                     }>
                                     <button
                                         className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
-                                        style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}>
+                                        style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                        onClick={async () => {
+                                            try {
+                                                //调用应用停止接口
+                                                const response = await AppStop({ app_id: props.data.app_id });
+                                                if (response.data.Error) {
+                                                    navigate("/error")
+                                                }
+                                                else {
+                                                    props.onDataChange(props.data.app_id);
+                                                }
+                                            }
+                                            catch (error) {
+                                                navigate("/error-500");
+                                            }
+                                        }}>
                                         <i className="dripicons-media-stop noti-icon"></i>{' '}
                                     </button>
                                 </OverlayTrigger>
@@ -127,7 +142,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 <i className="dripicons-clockwise noti-icon"></i>{' '}
                             </button>
                         </OverlayTrigger>
-                        {/* {
+                        {
                             currentApp.status === "running" &&
                             <OverlayTrigger
                                 key="bottom4"
@@ -143,7 +158,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                     <i className="dripicons-code noti-icon"></i>{' '}
                                 </Link>
                             </OverlayTrigger>
-                        } */}
+                        }
                     </div>
                 </div>
             </Modal.Header>

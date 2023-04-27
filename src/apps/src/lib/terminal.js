@@ -34,8 +34,6 @@ class UserTerminal extends React.Component {
     constructor(props) {
         super(props);
 
-
-
         let theme = localStorage.getItem('terminal:theme');
         let size = localStorage.getItem('terminal:font-size');
 
@@ -129,7 +127,7 @@ class UserTerminal extends React.Component {
                 fontSize={this.state.size}
                 parentId="the-terminal"
                 onTitleChanged={this.onTitleChanged}
-                AppId={this.props.AppId} />
+                runCmd={this.props.runCmd} />
             : <span>Loading...</span>;
 
         return (

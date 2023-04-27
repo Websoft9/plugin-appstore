@@ -240,7 +240,7 @@ export class Terminal extends React.Component {
             channel.addEventListener('close', this.onChannelClose.bind(this));
 
             //用于打开终端时默认执行一条命令，进入容器内部
-            channel.send(`docker exec -it ${this.props.AppId} bash\n`);
+            channel.send(this.props.runCmd);
             this.reset();//调用一次重置
         }
     }

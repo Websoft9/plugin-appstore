@@ -171,13 +171,8 @@ const MyApps = (): React$Element<React$FragmentType> => {
 
     //用于用户点击应用详情
     const handleClick = (app) => {
-        if ((app.status === "running" || app.status === "exited")) {
-            setSelectedApp(app);
-            setShowModal(true);
-        }
-        else if (app.status === "failed") {
-            setSelectedApp(app);
-        }
+        setSelectedApp(app);
+        setShowModal(true);
     };
 
     //用于应用为failed时删除应用
