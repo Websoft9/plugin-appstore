@@ -49,7 +49,6 @@ const UninstallConform = (props) => {
                             setAlertMessage(response.data.Error.Message);
                         }
                         else {
-                            //window.location.reload(true); //刷新当前页面
                             closeAllModals(); //关闭弹窗并更新数据
                         }
                     }

@@ -1,13 +1,6 @@
 {
     "PORTAINER_AUTH_URL": "/portainer/api/auth",
-<<<<<<< HEAD
     "PORTAINER_HOME_PAGE": "/portainer",
     "PORTAINER_USERNAME": "admin",
     "PORTAINER_PASSWORD": "websoft9@2023"
 }
-=======
-    "PORTAINER_HOME_PAGE": "/portainer/#!/wizard",
-    "PORTAINER_USERNAME": "xx",
-    "PORTAINER_PASSWORD": ""
-}
->>>>>>> de242ff2970a0695bee6811917433178f8f81ca1

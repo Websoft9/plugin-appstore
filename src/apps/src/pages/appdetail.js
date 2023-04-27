@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Modal, Nav, OverlayTrigger, Row, Tab, Tooltip } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
+import Spinner from '../components/Spinner';
 import { AppRestart, AppStart, AppStop } from '../helpers';
 import AppLogin from './appdetailtabs/applogin';
 import AppLogs from './appdetailtabs/applogs';
@@ -15,6 +16,9 @@ const _ = cockpit.gettext;
 const AppDetailModal = (props): React$Element<React$FragmentType> => {
     // const [disable, setDisable] = useState(false);//用于按钮禁用
     const [currentApp, setCurrentApp] = useState(props.current_app);
+    const [startAppLoading, setStartAppLoading] = useState(false); //用户显示启动应用的加载状态
+    const [stopAppLoading, setStopAppLoading] = useState(false); //用户显示停止时应用的加载状态
+    const [restartAppLoading, setRestartAppLoading] = useState(false); //用户显示重启时应用的加载状态
     const navigate = useNavigate(); //用于页面跳转
 
     useEffect(() => {
@@ -62,7 +66,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
     ];
 
     return (
-        currentApp && <Modal show={props.showFlag} onHide={props.onClose} size="lg" scrollable="true" dialogClassName="modal-full-width" >
+        currentApp && <Modal show={props.showFlag} onHide={props.onClose} size="lg" scrollable="true" /*dialogClassName="modal-full-width"*/ >
             <Modal.Header onHide={props.onClose} closeButton>
                 <div style={{ padding: "10px", display: "flex", width: "100%", alignItems: "center" }}>
                     <div className='appstore-item-content-icon col-same-height'>
@@ -96,6 +100,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                     className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
                                     style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
                                     onClick={async () => {
+                                        setStartAppLoading(true);
                                         try {
                                             const response = await AppStart({ app_id: currentApp.app_id });
                                             if (response.data.Error) {
@@ -108,9 +113,17 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                         catch (error) {
                                             navigate("/error-500");
                                         }
+                                        finally {
+                                            setStartAppLoading(false);
+                                        }
                                     }}
                                 >
-                                    <i className="dripicons-media-play noti-icon"></i>{' '}
+                                    {
+                                        startAppLoading ?
+                                            <Spinner className="spinner-border-sm noti-icon" />
+                                            :
+                                            <i className="dripicons-media-play noti-icon"></i>
+                                    }
                                 </button>
                             </OverlayTrigger>
                         }
@@ -128,6 +141,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                     className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
                                     style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
                                     onClick={async () => {
+                                        setStopAppLoading(true);
                                         try {
                                             const response = await AppStop({ app_id: currentApp.app_id });
                                             if (response.data.Error) {
@@ -140,9 +154,17 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                         catch (error) {
                                             navigate("/error-500");
                                         }
+                                        finally {
+                                            setStopAppLoading(false);
+                                        }
                                     }}
                                 >
-                                    <i className="dripicons-media-stop noti-icon"></i>{' '}
+                                    {
+                                        stopAppLoading ?
+                                            <Spinner className="spinner-border-sm noti-icon" />
+                                            :
+                                            <i className="dripicons-power noti-icon"></i>
+                                    }
                                 </button>
                             </OverlayTrigger>
                         }
@@ -159,6 +181,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
                                 onClick={async () => {
                                     try {
+                                        setRestartAppLoading(true);
                                         const response = await AppRestart({ app_id: currentApp.app_id });
                                         if (response.data.Error) {
                                             navigate("/error");
@@ -170,9 +193,17 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                     catch (error) {
                                         navigate("/error-500");
                                     }
+                                    finally {
+                                        setRestartAppLoading(false);
+                                    }
                                 }}
                             >
-                                <i className="dripicons-clockwise noti-icon"></i>{' '}
+                                {
+                                    restartAppLoading ?
+                                        <Spinner className="spinner-border-sm noti-icon" />
+                                        :
+                                        <i className="dripicons-clockwise noti-icon"></i>
+                                }
                             </button>
                         </OverlayTrigger>
                         {
