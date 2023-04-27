@@ -8,7 +8,8 @@ const MyTerminal = (props): React$Element<React$FragmentType> => {
 
     return (
         <div className='ct-page-fill' id="terminal">
-            <UserTerminal runCmd={`docker exec -it ${id} bash\n`} />
+            {/* <UserTerminal runCmd={`docker exec -it ${id} bash\n`} /> */}
+            <UserTerminal runCmd={`docker exec -it ${id} sh -c "if [ -x /bin/bash ]; then exec /bin/bash; else exec /bin/sh; fi" \n`} />
         </div>
     );
 }

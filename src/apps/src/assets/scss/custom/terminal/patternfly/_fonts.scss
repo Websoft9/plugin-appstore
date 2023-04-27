@@ -1,6 +1,6 @@
 @mixin printRedHatFont($weightValue: 400,
     $weightName: "Regular",
-    $familyName: "RedHatText",
+    $familyName: "RedHatDisplay",
     $style: "normal",
     $relative: true) {
     $filePath: "../fonts"+"/"+$familyName +"-"+$weightName;

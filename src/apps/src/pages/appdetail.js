@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Modal, Nav, OverlayTrigger, Row, Tab, Tooltip } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
+import { AppRestart, AppStart, AppStop } from '../helpers';
 import AppLogin from './appdetailtabs/applogin';
 import AppLogs from './appdetailtabs/applogs';
 import Backups from './appdetailtabs/backups';
@@ -82,51 +83,68 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                     </div>
                     <div className='col-same-height' style={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
                         {
-                            currentApp.status === "exited" ?
-                                <OverlayTrigger
-                                    key="bottom1"
-                                    placement="bottom"
-                                    overlay={
-                                        <Tooltip id="tooltip-bottom">
-                                            Start App
-                                        </Tooltip>
-                                    }>
-                                    <button
-                                        className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
-                                        style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}>
-                                        <i className="dripicons-media-play noti-icon"></i>{' '}
-                                    </button>
-                                </OverlayTrigger>
-                                :
-                                <OverlayTrigger
-                                    key="bottom2"
-                                    placement="bottom"
-                                    overlay={
-                                        <Tooltip id="tooltip-bottom">
-                                            Stop App
-                                        </Tooltip>
-                                    }>
-                                    <button
-                                        className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
-                                        style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
-                                        onClick={async () => {
-                                            try {
-                                                //调用应用停止接口
-                                                const response = await AppStop({ app_id: props.data.app_id });
-                                                if (response.data.Error) {
-                                                    navigate("/error")
-                                                }
-                                                else {
-                                                    props.onDataChange(props.data.app_id);
-                                                }
+                            currentApp.status === "exited" &&
+                            <OverlayTrigger
+                                key="bottom1"
+                                placement="bottom"
+                                overlay={
+                                    <Tooltip id="tooltip-bottom">
+                                        Start App
+                                    </Tooltip>
+                                }>
+                                <button
+                                    className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
+                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                    onClick={async () => {
+                                        try {
+                                            const response = await AppStart({ app_id: currentApp.app_id });
+                                            if (response.data.Error) {
+                                                navigate("/error")
                                             }
-                                            catch (error) {
-                                                navigate("/error-500");
+                                            else {
+                                                props.onDataChange();
                                             }
-                                        }}>
-                                        <i className="dripicons-media-stop noti-icon"></i>{' '}
-                                    </button>
-                                </OverlayTrigger>
+                                        }
+                                        catch (error) {
+                                            navigate("/error-500");
+                                        }
+                                    }}
+                                >
+                                    <i className="dripicons-media-play noti-icon"></i>{' '}
+                                </button>
+                            </OverlayTrigger>
+                        }
+                        {
+                            currentApp.status === "running" &&
+                            <OverlayTrigger
+                                key="bottom2"
+                                placement="bottom"
+                                overlay={
+                                    <Tooltip id="tooltip-bottom">
+                                        Stop App
+                                    </Tooltip>
+                                }>
+                                <button
+                                    className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
+                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                    onClick={async () => {
+                                        try {
+                                            const response = await AppStop({ app_id: currentApp.app_id });
+                                            if (response.data.Error) {
+                                                navigate("/error");
+                                            }
+                                            else {
+                                                props.onDataChange();
+                                            }
+                                        }
+                                        catch (error) {
+                                            navigate("/error-500");
+                                        }
+                                    }}
+                                >
+                                    <i className="dripicons-media-stop noti-icon"></i>{' '}
+                                </button>
+                            </OverlayTrigger>
                         }
                         <OverlayTrigger
                             key="bottom3"
@@ -138,7 +156,22 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                             }>
                             <button
                                 className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
-                                style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}>
+                                style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                onClick={async () => {
+                                    try {
+                                        const response = await AppRestart({ app_id: currentApp.app_id });
+                                        if (response.data.Error) {
+                                            navigate("/error");
+                                        }
+                                        else {
+                                            props.onDataChange();
+                                        }
+                                    }
+                                    catch (error) {
+                                        navigate("/error-500");
+                                    }
+                                }}
+                            >
                                 <i className="dripicons-clockwise noti-icon"></i>{' '}
                             </button>
                         </OverlayTrigger>
@@ -157,6 +190,22 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                     target="_blank">
                                     <i className="dripicons-code noti-icon"></i>{' '}
                                 </Link>
+                            </OverlayTrigger>
+                        }
+                        {
+                            <OverlayTrigger
+                                key="bottom5"
+                                placement="bottom"
+                                overlay={
+                                    <Tooltip id="tooltip-bottom">
+                                        Documentation
+                                    </Tooltip>
+                                }>
+                                <a href={'https://support.websoft9.com/docs/' + currentApp.app_name}
+                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                    target="_blank">
+                                    <i className="dripicons-document noti-icon"></i>{' '}
+                                </a>
                             </OverlayTrigger>
                         }
                     </div>

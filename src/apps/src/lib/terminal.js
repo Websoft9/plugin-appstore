@@ -10,14 +10,6 @@ const _ = cockpit.gettext;
 
 cockpit.translate();
 
-/*
- * A terminal component for the cockpit user.
- *
- * Uses the Terminal component from base1 internally, but adds a header
- * with title and Reset button.
- *
- * Spawns the user's shell in the user's home directory.
- */
 class UserTerminal extends React.Component {
     createChannel(user) {
         return cockpit.channel({
@@ -134,7 +126,7 @@ class UserTerminal extends React.Component {
             <div className='console-ct-container'>
                 <div className='terminal-group'>
                     {/* <tt className="terminal-title">{this.state.title}</tt> */}
-                    <tt className="terminal-title">The terminal for : {this.props.AppId}</tt>
+                    <tt className="terminal-title"></tt>
                     <Toolbar id="toolbar">
                         <ToolbarContent>
                             <ToolbarGroup>

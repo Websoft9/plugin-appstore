@@ -38,9 +38,7 @@ const AppLogin = (props): React$Element<React$FragmentType> => {
                             </div>
                         </Col>
                     </Row>
-
                 </Card.Body>
-
             </Card>
             <Card style={{ marginTop: "10px" }}>
                 <Card.Body className="profile-user-box">

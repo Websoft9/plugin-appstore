@@ -10,6 +10,32 @@ import AppDetailModal from './appdetail';
 
 const _ = cockpit.gettext;
 
+//应用状态为failed时，显示错误消息
+const ErrorInfoModal = (props): React$Element<React$FragmentType> => {
+    return (
+        <Modal show={props.showConform} onHide={props.onClose} size="lg" scrollable="true" backdrop="static">
+            <Modal.Header onHide={props.onClose} closeButton>
+                <h4>This is the error message for {props.app.customer_name}</h4>
+            </Modal.Header>
+            <Modal.Body className="row" >
+                {
+                    props.app.status_reason &&
+                    <>
+                        <span style={{ margin: "10px 0px" }}> <b>{"Code: "}</b>{props.app.status_reason.Code} </span>
+                        <span style={{ margin: "10px 0px" }}> <b>{"Message: "}</b>{props.app.status_reason.Message} </span>
+                        <span style={{ margin: "10px 0px" }}> <b>{"Detail: "}</b>{props.app.status_reason.Detail} </span>
+                    </>
+                }
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="light" onClick={props.onClose}>
+                    Close
+                </Button>
+            </Modal.Footer>
+        </Modal >
+    );
+}
+
 //删除应用弹窗
 const UninstallConform = (props): React$Element<React$FragmentType> => {
     const navigate = useNavigate(); //用于页面跳转
@@ -58,7 +84,7 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
                         navigate("/error-500");
                     }
                 }}>
-                    {disable && <Spinner className="spinner-border-sm me-1" tag="span" color="white" />} Uninstall
+                    {disable && <Spinner className="spinner-border-sm me-1" tag="span" color="white" />} Remove
                 </Button>
             </Modal.Footer>
         </Modal >
@@ -67,7 +93,8 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
 
 const MyApps = (): React$Element<React$FragmentType> => {
     const [showModal, setShowModal] = useState(false); //用于显示状态为running或exited弹窗的标识
-    const [showUninstallConform, setShowUninstallConform] = useState(false); //用于显示状态为failed时确定删除的弹窗
+    const [showUninstallConform, setShowUninstallConform] = useState(false); //用于显示状态为failed时显示确定删除的弹窗
+    const [showErrorInfo, setShowErrorInfo] = useState(false); //用于显示状态为failed时显示错误消息的弹窗
     const [showOtherAppModal, setShowOtherAppModal] = useState(false); //用于显示非websoft9应用的的弹窗的标识
 
     const [selectedApp, setSelectedApp] = useState(null); //用于存储被选中的产品（点击应用详情时使用）
@@ -144,7 +171,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
     }, []);
 
     useEffect(() => {
-        getAllApps();
+        //getAllApps();
     }, []);
 
     useEffect(() => {
@@ -181,8 +208,19 @@ const MyApps = (): React$Element<React$FragmentType> => {
         setShowUninstallConform(true);
     };
 
+    //用于应用为failed时显示错误信息弹窗
+    const showError = (app) => {
+        setSelectedApp(app);
+        setShowErrorInfo(true);
+    };
+
+    //用于关闭显示错误消息弹窗
+    const cancelShowError = () => {
+        setShowErrorInfo(false);
+    };
+
     //用于取消删除应用
-    const CanceldeleteApp = () => {
+    const canceldeleteApp = () => {
         setShowUninstallConform(false);
     };
 
@@ -259,6 +297,12 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                                 <i className="dripicons-trash noti-icon"></i>
                                             </div>
                                         }
+                                        {
+                                            app.status === 'failed' &&
+                                            <div className="float-end arrow-none card-drop p-0" onClick={() => { showError(app) }}>
+                                                <i className="dripicons-information noti-icon" style={{ paddingRight: "10px" }}></i>
+                                            </div>
+                                        }
                                         <div>
                                             <img
                                                 src={app.image_url}
@@ -290,7 +334,11 @@ const MyApps = (): React$Element<React$FragmentType> => {
             }
             {
                 showUninstallConform &&
-                <UninstallConform showConform={showUninstallConform} onClose={CanceldeleteApp} app={selectedApp} onDataChange={handleDataChange} />
+                <UninstallConform showConform={showUninstallConform} onClose={canceldeleteApp} app={selectedApp} onDataChange={handleDataChange} />
+            }
+            {
+                showErrorInfo &&
+                <ErrorInfoModal showConform={showErrorInfo} onClose={cancelShowError} app={selectedApp} />
             }
         </>
     );
