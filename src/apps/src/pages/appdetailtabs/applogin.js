@@ -66,7 +66,7 @@ const AppLogin = (props): React$Element<React$FragmentType> => {
                                                     type="text"
                                                     name="username"
                                                     id="username"
-                                                    defaultValue={props.data.user_name}
+                                                    defaultValue={props.data?.config?.user_name}
                                                     readOnly
                                                 />
                                             </Col>
@@ -81,7 +81,7 @@ const AppLogin = (props): React$Element<React$FragmentType> => {
                                                     type="password"
                                                     name="password"
                                                     containerClass={'mb-3'}
-                                                    value={props.data.password}
+                                                    value={props.data?.config?.password}
                                                     readOnly
                                                 />
                                             </Col>

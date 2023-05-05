@@ -1,7 +1,8 @@
+import classNames from 'classnames';
 import cockpit from 'cockpit';
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Button, Col, Modal, Row } from 'react-bootstrap';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Alert, Button, Col, Dropdown, Modal, Row } from 'react-bootstrap';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
 import FormInput from '../components/FormInput';
 import Spinner from '../components/Spinner';
@@ -14,7 +15,7 @@ const _ = cockpit.gettext;
 const ErrorInfoModal = (props): React$Element<React$FragmentType> => {
     return (
         <Modal show={props.showConform} onHide={props.onClose} size="lg" scrollable="true" backdrop="static">
-            <Modal.Header onHide={props.onClose} closeButton>
+            <Modal.Header onHide={props.onClose} closeButton className={classNames('modal-colored-header', 'bg-danger')}>
                 <h4>This is the error message for {props.app.customer_name}</h4>
             </Modal.Header>
             <Modal.Body className="row" >
@@ -30,6 +31,9 @@ const ErrorInfoModal = (props): React$Element<React$FragmentType> => {
             <Modal.Footer>
                 <Button variant="light" onClick={props.onClose}>
                     Close
+                </Button>
+                <Button variant="light" onClick={() => window.open('https://www.websoft9.com/ticket', '_blank')}>
+                    Support
                 </Button>
             </Modal.Footer>
         </Modal >
@@ -52,18 +56,18 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
     return (
         <Modal show={props.showConform} onHide={props.onClose} size="lg"
             scrollable="true" backdrop="static">
-            <Modal.Header onHide={props.onClose} closeButton style={{ border: "none" }}>
+            <Modal.Header onHide={props.onClose} className={classNames('modal-colored-header', 'bg-warning')}>
                 <h4>Remove {props.app.customer_name}</h4>
             </Modal.Header>
             <Modal.Body className="row" >
-                <span style={{ margin: "10px 0px" }}>This will immediately remove {props.app.customer_name}</span>
+                <span style={{ margin: "10px 0px" }}>This will immediately remove {props.app.customer_name} and remove all its data.</span>
                 <div>
                     {showAlert && <Alert variant="danger" className="my-2">
                         {alertMessage}
                     </Alert>}
                 </div>
             </Modal.Body>
-            <Modal.Footer style={{ border: "none" }}>
+            <Modal.Footer>
                 <Button variant="light" onClick={props.onClose}>
                     Close
                 </Button>{" "}
@@ -110,6 +114,13 @@ const MyApps = (): React$Element<React$FragmentType> => {
     const [error, setError] = useState(null);
     const [errorDetails, setErrorDetails] = useState(null)
     const [loading, setLoading] = useState(false);
+
+    const menuItems = [
+        { label: 'Stop', icon: 'dripicons-power noti-icon' },
+        { label: 'Start', icon: 'dripicons-media-play noti-icon' },
+        { label: 'Restart', icon: 'dripicons-clockwise noti-icon' },
+        { label: 'Uninstall', icon: 'dripicons-trash noti-icon' },
+    ]
 
     let timer;
 
@@ -235,6 +246,23 @@ const MyApps = (): React$Element<React$FragmentType> => {
         getAllAppsOnce();
     };
 
+    // const handleClick = (index) => {
+    //     // 根据不同的索引执行不同的操作
+    //     switch (index) {
+    //         case 0:
+    //             console.log("You clicked action");
+    //             break;
+    //         case 1:
+    //             console.log("You clicked another action");
+    //             break;
+    //         case 2:
+    //             console.log("You clicked something else");
+    //             break;
+    //         default:
+    //             console.log("You clicked nothing");
+    //     }
+    // };
+
     return (
         <>
             <Row className="mb-2" style={{ display: "flex", alignItems: "center" }}>
@@ -286,29 +314,62 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                 <Col xxl={2} md={6} key={app.app_id + i} className="appstore-item">
                                     <div className='appstore-item-content highlight' style={{ textAlign: "center" }}>
                                         {
-                                            (app.status === "running" || app.status === "exited") &&
-                                            <div className="float-end arrow-none card-drop p-0" onClick={() => { handleClick(app) }}>
-                                                <i className="dripicons-gear noti-icon"></i>
-                                            </div>
+                                            (!official_app && (app.status === "running" || app.status === "exited")) &&
+                                            <Dropdown style={{ float: "right" }}>
+                                                <Dropdown.Toggle as={Link} to="#" className="arrow-none card-drop">
+                                                    <i className="dripicons-gear noti-icon" />
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu align="end">
+                                                    {(menuItems || []).map((item, index) => {
+                                                        return (
+                                                            <React.Fragment key={index}>
+                                                                {item.hasDivider && <Dropdown.Divider as="div" />}
+                                                                <Dropdown.Item className={classNames(item.variant ? item.variant : '')}
+                                                                    onClick={() => handleClick(index)}
+                                                                >
+                                                                    {item.icon && <i className={classNames(item.icon, 'me-1')}></i>}
+                                                                    {item.label}
+                                                                </Dropdown.Item>
+                                                            </React.Fragment>
+                                                        );
+                                                    })}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        }
+                                        {
+                                            (official_app && (app.status === "running" || app.status === "exited")) &&
+                                            <>
+                                                <div className="float-end arrow-none card-drop p-0" onClick={() => { handleClick(app) }}>
+                                                    <i className="dripicons-gear noti-icon"></i>
+                                                </div>
+                                                <div style={{ clear: "both" }}></div>
+                                            </>
+                                        }
+                                        {
+                                            (official_app && app.status === "installing") &&
+                                            <>
+                                                <div className="float-end arrow-none card-drop p-0">
+                                                    <i className="dripicons-empty noti-icon"></i>
+                                                </div>
+                                                <div style={{ clear: "both" }}></div>
+                                            </>
                                         }
                                         {
                                             app.status === 'failed' &&
-                                            <div className="float-end arrow-none card-drop p-0" onClick={() => { deleteApp(app) }}>
-                                                <i className="dripicons-trash noti-icon"></i>
-                                            </div>
-                                        }
-                                        {
-                                            app.status === 'failed' &&
-                                            <div className="float-end arrow-none card-drop p-0" onClick={() => { showError(app) }}>
-                                                <i className="dripicons-information noti-icon" style={{ paddingRight: "10px" }}></i>
-                                            </div>
+                                            <>
+                                                <div className="float-end arrow-none card-drop p-0" >
+                                                    <i className="dripicons-information noti-icon" style={{ paddingRight: "10px" }} onClick={() => { showError(app) }}></i>
+                                                    <i className="dripicons-trash noti-icon" onClick={() => { deleteApp(app) }}></i>
+                                                </div>
+                                                <div style={{ clear: "both" }}></div>
+                                            </>
                                         }
                                         <div>
                                             <img
                                                 src={app.image_url}
                                                 alt={app.app_name}
                                                 className="app-icon"
-                                                style={{ margin: "30px 10px 30px 10px" }}
+                                                style={{ margin: "20px 10px 20px 10px" }}
                                                 onError={(e) => (e.target.src = DefaultImg)}
                                             />
                                         </div>
@@ -323,7 +384,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                             </div>
                                         </div>
                                     </div >
-                                </Col >
+                                </Col>
                             ))}
                         </Row >
                     ) : null;

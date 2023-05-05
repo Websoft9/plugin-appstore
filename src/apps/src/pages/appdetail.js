@@ -66,7 +66,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
     ];
 
     return (
-        currentApp && <Modal show={props.showFlag} onHide={props.onClose} size="lg" scrollable="true" /*dialogClassName="modal-full-width"*/ >
+        currentApp && <Modal show={props.showFlag} onHide={props.onClose} size="lg" scrollable="true" dialogClassName="modal-full-width" >
             <Modal.Header onHide={props.onClose} closeButton>
                 <div style={{ padding: "10px", display: "flex", width: "100%", alignItems: "center" }}>
                     <div className='appstore-item-content-icon col-same-height'>

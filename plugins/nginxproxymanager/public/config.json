@@ -1,0 +1,7 @@
+{
+    "NGINXPROXYMANAGER_AUTH_URL": "/nginxproxymanager/api/tokens",
+    "NGINXPROXYMANAGER_HOME_PAGE": "/nginxproxymanager",
+    "NGINXPROXYMANAGER_USERNAME": "admin@example.com",
+    "NGINXPROXYMANAGER_PASSWORD": "changeme",
+    "NGINXPROXYMANAGER_NIKENAME": "Admin"
+}

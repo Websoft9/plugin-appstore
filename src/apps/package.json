@@ -31,7 +31,9 @@
     "web-vitals": "^2.1.4",
     "xterm": "^5.1.0",
     "xterm-addon-canvas": "^0.3.0",
-    "react-table": "^7.8.0"
+    "react-table": "^7.8.0",
+    "@mui/material": "^5.12.2",
+    "@emotion/styled": "^11.10.6"
   },
   "scripts": {
     "start": "react-app-rewired start",

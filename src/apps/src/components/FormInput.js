@@ -46,6 +46,7 @@ type FormInputProps = {
     label?: string,
     type?: string,
     name?: string,
+    value?: string,
     placeholder?: string,
     register?: any,
     errors?: any,
@@ -171,6 +172,7 @@ const FormInput = ({
                                             <Form.Control
                                                 type={type}
                                                 placeholder={placeholder}
+                                                value={value}
                                                 name={name}
                                                 id={name}
                                                 as={comp}

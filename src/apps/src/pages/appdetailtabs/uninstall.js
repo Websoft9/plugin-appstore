@@ -1,4 +1,4 @@
-
+import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Alert, Button, Col, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ const UninstallConform = (props) => {
     return (
         <Modal show={props.showConform} onHide={props.onClose} size="lg"
             scrollable="true" backdrop="static" style={{ backgroundColor: "rgba(0,0,0,0.8)" }}>
-            <Modal.Header onHide={props.onClose} closeButton style={{ border: "none" }}>
+            <Modal.Header onHide={props.onClose} closeButton className={classNames('modal-colored-header', 'bg-warning')}>
                 <h4>Uninstall {props.app.customer_name}</h4>
             </Modal.Header>
             <Modal.Body className="row" >
@@ -35,7 +35,7 @@ const UninstallConform = (props) => {
                     </Alert>}
                 </div>
             </Modal.Body>
-            <Modal.Footer style={{ border: "none" }}>
+            <Modal.Footer>
                 <Button variant="light" onClick={props.onClose}>
                     Close
                 </Button>{" "}
