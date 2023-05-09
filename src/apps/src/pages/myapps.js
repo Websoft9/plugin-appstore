@@ -94,7 +94,7 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
                         navigate("/error-500");
                     }
                 }}>
-                    {disable && <Spinner className="spinner-border-sm me-1" tag="span" color="white" />} Remove
+                    {disable && <Spinner className="spinner-border-sm me-1" tag="span" color="white" />} Uninstall
                 </Button>
             </Modal.Footer>
         </Modal >
@@ -109,6 +109,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
     const [isLoading, setIsLoading] = useState(false); //用于非官方应用启动 停止 重启 卸载时，显示加载中
     const [showAlert, setShowAlert] = useState(false); //用于是否显示错误提示
     const [alertMessage, setAlertMessage] = useState("");//用于显示错误提示消息
+    const [alertType, setAlertType] = useState("");//用于确定弹窗的类型：error\success
 
     const [selectedApp, setSelectedApp] = useState(null); //用于存储被选中的产品（点击应用详情时使用）
     const [apps, setApps] = useState([]); //所有“我的应用”
@@ -289,23 +290,30 @@ const MyApps = (): React$Element<React$FragmentType> => {
     }
 
     //处理非官方应用的操作
-    const NoOfficialAppClick = async (label, id) => {
-        console.log("label:" + label);
-        console.log("id:" + id);
+    const NoOfficialAppClick = async (label, app) => {
+        if (label === "Uninstall") {
+            setSelectedApp(app);
+            setShowUninstallConform(true);
+            return;
+        }
+
         setIsLoading(true);
         try {
-            const response = await appActions[label].api({ app_id: id });
+            const response = await appActions[label].api({ app_id: app.app_id });
             if (response.data.Error) {
                 setShowAlert(true);
+                setAlertType("error")
                 setAlertMessage(response.data.Error.Message);
             }
             else {
+                setShowAlert(true);
+                setAlertType("success")
+                setAlertMessage("执行成功");
                 handleDataChange();
             }
         }
         catch (error) {
-            console.error(error)
-            //navigate("/error-500");
+            navigate("/error-500");
         }
         finally {
             setIsLoading(false);
@@ -366,7 +374,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                             (!official_app && (app.status === "running" || app.status === "exited")) &&
                                             <Dropdown style={{ float: "right" }}>
                                                 <Dropdown.Toggle as={Link} to="#" className="arrow-none card-drop">
-                                                    <i className="dripicons-gear noti-icon" />
+                                                    {isLoading ? <Spinner className="spinner-border-sm noti-icon" /> : <i className="dripicons-gear noti-icon" />}
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu align="end">
                                                     {(menuItems(app.status) || []).map((item, index) => {
@@ -375,10 +383,10 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                                                 {item.condition && item.hasDivider && <Dropdown.Divider as="div" />}
                                                                 {
                                                                     item.condition && <Dropdown.Item className={classNames(item.variant ? item.variant : '')}
-                                                                        onClick={() => NoOfficialAppClick(item.label, app.customer_name)}
+                                                                        onClick={() => NoOfficialAppClick(item.label, app)}
                                                                     >
-                                                                        {/* {item.icon && <i className={classNames(item.icon, 'me-1')}></i>} */}
-                                                                        {isLoading ? <Spinner className="spinner-border-sm noti-icon" /> : item.icon && <i className={classNames(item.icon, 'me-1')}></i>}
+                                                                        {item.icon && <i className={classNames(item.icon, 'me-1')}></i>}
+                                                                        {/* {isLoading ? <Spinner className="spinner-border-sm noti-icon" /> : item.icon && <i className={classNames(item.icon, 'me-1')}></i>} */}
                                                                         {item.label}
                                                                     </Dropdown.Item>
                                                                 }
@@ -456,7 +464,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
             {
                 showAlert &&
                 <Snackbar open={showAlert} autoHideDuration={5000} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                    <MyMuiAlert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
+                    <MyMuiAlert onClose={handleAlertClose} severity={alertType} sx={{ width: '100%' }}>
                         {alertMessage}
                     </MyMuiAlert>
                 </Snackbar>

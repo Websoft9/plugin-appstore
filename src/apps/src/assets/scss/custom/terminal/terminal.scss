@@ -3,6 +3,10 @@
 @import "global-variables";
 @import "@patternfly/patternfly/components/Toolbar/toolbar.scss";
 
+// 样式问题：
+//1:node_modules/@patternfly/base/_common.scss,注释：[class*="pf-c-"] 中：padding: 0
+//2:node_modules/@patternfly/patternfly.scss,点击链接@import "patternfly-base"; 注释@import "base/fonts"
+
 #id {
     height: 100% !important;
 }

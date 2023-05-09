@@ -4,5 +4,5 @@
             "label": "App Store"
         }
     },
-    "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src https://graphql.contentful.com/ *"
+    "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src https://graphql.contentful.com/  http://redhattext http://overpass-webfont *"
 }
