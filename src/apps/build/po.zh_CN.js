@@ -123,9 +123,9 @@
         null,
         "域名"
     ],
-    "Account": [
+    "Access": [
         null,
-        "账号"
+        "访问"
     ],
     "Backups": [
         null,

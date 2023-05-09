@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
 import Spinner from '../components/Spinner';
 import { AppRestart, AppStart, AppStop } from '../helpers';
-import AppLogin from './appdetailtabs/applogin';
+import AppAccess from './appdetailtabs/appaccess';
 import AppLogs from './appdetailtabs/applogs';
 import Backups from './appdetailtabs/backups';
 import Uninstall from './appdetailtabs/uninstall';
@@ -28,36 +28,30 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
     const tabContents = [
         {
             id: '1',
-            title: _("Domain"),
-            icon: 'mdi mdi-home-variant',
-            text: 'Home - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+            title: _("Access"),
+            icon: 'mdi mdi-account-circle',
+            text: <AppAccess data={currentApp} />,
         },
         {
             id: '2',
-            title: _("Account"),
-            icon: 'mdi mdi-account-circle',
-            text: <AppLogin data={currentApp} />,
-        },
-        {
-            id: '3',
             title: _("Backups"),
             icon: 'mdi mdi-account-circle',
             text: <Backups data={currentApp} />,
         },
         {
-            id: '4',
+            id: '3',
             title: _("Updates"),
             icon: 'mdi mdi-account-circle',
             text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
         },
         {
-            id: '5',
+            id: '4',
             title: _("Logs"),
             icon: 'mdi mdi-account-circle',
             text: <AppLogs projectName={currentApp} />,
         },
         {
-            id: '6',
+            id: '5',
             title: _("Uninstall"),
             icon: 'mdi mdi-cog-outline',
             text: <Uninstall data={currentApp}

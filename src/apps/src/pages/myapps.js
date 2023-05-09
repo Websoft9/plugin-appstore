@@ -1,3 +1,5 @@
+import MuiAlert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 import classNames from 'classnames';
 import cockpit from 'cockpit';
 import React, { useEffect, useRef, useState } from 'react';
@@ -6,10 +8,14 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
 import FormInput from '../components/FormInput';
 import Spinner from '../components/Spinner';
-import { AppList, AppUninstall } from '../helpers';
+import { AppList, AppRestart, AppStart, AppStop, AppUninstall } from '../helpers';
 import AppDetailModal from './appdetail';
 
 const _ = cockpit.gettext;
+
+const MyMuiAlert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 //应用状态为failed时，显示错误消息
 const ErrorInfoModal = (props): React$Element<React$FragmentType> => {
@@ -100,6 +106,9 @@ const MyApps = (): React$Element<React$FragmentType> => {
     const [showUninstallConform, setShowUninstallConform] = useState(false); //用于显示状态为failed时显示确定删除的弹窗
     const [showErrorInfo, setShowErrorInfo] = useState(false); //用于显示状态为failed时显示错误消息的弹窗
     const [showOtherAppModal, setShowOtherAppModal] = useState(false); //用于显示非websoft9应用的的弹窗的标识
+    const [isLoading, setIsLoading] = useState(false); //用于非官方应用启动 停止 重启 卸载时，显示加载中
+    const [showAlert, setShowAlert] = useState(false); //用于是否显示错误提示
+    const [alertMessage, setAlertMessage] = useState("");//用于显示错误提示消息
 
     const [selectedApp, setSelectedApp] = useState(null); //用于存储被选中的产品（点击应用详情时使用）
     const [apps, setApps] = useState([]); //所有“我的应用”
@@ -109,18 +118,27 @@ const MyApps = (): React$Element<React$FragmentType> => {
     const [progressId, setProgressId] = useState([]); //用于存储当前正在安装的应用ID，用于做进度查询的参数
 
     const selectedAppRef = useRef(selectedApp);
+    const navigate = useNavigate(); //用于页面跳转
 
     const [code, setCode] = useState(0);
     const [error, setError] = useState(null);
     const [errorDetails, setErrorDetails] = useState(null)
     const [loading, setLoading] = useState(false);
 
-    const menuItems = [
-        { label: 'Stop', icon: 'dripicons-power noti-icon' },
-        { label: 'Start', icon: 'dripicons-media-play noti-icon' },
-        { label: 'Restart', icon: 'dripicons-clockwise noti-icon' },
-        { label: 'Uninstall', icon: 'dripicons-trash noti-icon' },
-    ]
+    const menuItems = (appStatus) => {
+        return [
+            { label: 'Stop', icon: 'dripicons-power noti-icon', condition: appStatus === "running" },
+            { label: 'Start', icon: 'dripicons-media-play noti-icon', condition: appStatus === "exited" },
+            { label: 'Restart', icon: 'dripicons-clockwise noti-icon', condition: appStatus === "running" || appStatus === "exited" },
+            {
+                label: 'Uninstall',
+                icon: 'dripicons-trash noti-icon',
+                variant: 'text-danger',
+                hasDivider: true,
+                condition: true
+            }
+        ]
+    };
 
     let timer;
 
@@ -241,27 +259,58 @@ const MyApps = (): React$Element<React$FragmentType> => {
         setSelectedApp(null);
     };
 
+    const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setShowAlert(false);
+        setAlertMessage("");
+    };
+
     //用于立即刷新数据
     const handleDataChange = () => {
         getAllAppsOnce();
     };
 
-    // const handleClick = (index) => {
-    //     // 根据不同的索引执行不同的操作
-    //     switch (index) {
-    //         case 0:
-    //             console.log("You clicked action");
-    //             break;
-    //         case 1:
-    //             console.log("You clicked another action");
-    //             break;
-    //         case 2:
-    //             console.log("You clicked something else");
-    //             break;
-    //         default:
-    //             console.log("You clicked nothing");
-    //     }
-    // };
+    //非官方应用的操作
+    const appActions = {
+        "Stop": {
+            api: AppStop,
+        },
+        "Start": {
+            api: AppStart,
+        },
+        "Restart": {
+            api: AppRestart,
+        },
+        "Uninstall": {
+            api: AppUninstall,
+        }
+    }
+
+    //处理非官方应用的操作
+    const NoOfficialAppClick = async (label, id) => {
+        console.log("label:" + label);
+        console.log("id:" + id);
+        setIsLoading(true);
+        try {
+            const response = await appActions[label].api({ app_id: id });
+            if (response.data.Error) {
+                setShowAlert(true);
+                setAlertMessage(response.data.Error.Message);
+            }
+            else {
+                handleDataChange();
+            }
+        }
+        catch (error) {
+            console.error(error)
+            //navigate("/error-500");
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }
 
     return (
         <>
@@ -320,16 +369,19 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                                     <i className="dripicons-gear noti-icon" />
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu align="end">
-                                                    {(menuItems || []).map((item, index) => {
+                                                    {(menuItems(app.status) || []).map((item, index) => {
                                                         return (
                                                             <React.Fragment key={index}>
-                                                                {item.hasDivider && <Dropdown.Divider as="div" />}
-                                                                <Dropdown.Item className={classNames(item.variant ? item.variant : '')}
-                                                                    onClick={() => handleClick(index)}
-                                                                >
-                                                                    {item.icon && <i className={classNames(item.icon, 'me-1')}></i>}
-                                                                    {item.label}
-                                                                </Dropdown.Item>
+                                                                {item.condition && item.hasDivider && <Dropdown.Divider as="div" />}
+                                                                {
+                                                                    item.condition && <Dropdown.Item className={classNames(item.variant ? item.variant : '')}
+                                                                        onClick={() => NoOfficialAppClick(item.label, app.customer_name)}
+                                                                    >
+                                                                        {/* {item.icon && <i className={classNames(item.icon, 'me-1')}></i>} */}
+                                                                        {isLoading ? <Spinner className="spinner-border-sm noti-icon" /> : item.icon && <i className={classNames(item.icon, 'me-1')}></i>}
+                                                                        {item.label}
+                                                                    </Dropdown.Item>
+                                                                }
                                                             </React.Fragment>
                                                         );
                                                     })}
@@ -400,6 +452,14 @@ const MyApps = (): React$Element<React$FragmentType> => {
             {
                 showErrorInfo &&
                 <ErrorInfoModal showConform={showErrorInfo} onClose={cancelShowError} app={selectedApp} />
+            }
+            {
+                showAlert &&
+                <Snackbar open={showAlert} autoHideDuration={5000} onClose={handleAlertClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                    <MyMuiAlert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
+                        {alertMessage}
+                    </MyMuiAlert>
+                </Snackbar>
             }
         </>
     );

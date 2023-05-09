@@ -232,7 +232,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                             <div style={{ marginTop: "5px" }}>
                                 <span style={{ marginRight: "5px" }}>{_("Name")} :</span>
                                 <FormInput type="text" value={customName} name="app_Name"
-                                    placeholder={_("Please enter a custom application name")}
+                                    placeholder={_("Only letters and numbers are allowed. No special characters.")}
                                     onChange={(e) => { handleInputChange(e.target.value) }} />
                             </div>
                         </div>
