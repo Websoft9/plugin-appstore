@@ -201,7 +201,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
     }, []);
 
     useEffect(() => {
-        //getAllApps();
+        getAllApps();
     }, []);
 
     useEffect(() => {

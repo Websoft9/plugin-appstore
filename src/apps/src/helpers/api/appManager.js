@@ -44,5 +44,11 @@ function AppStatus(params: any): Promise<any> {
     return api.get(`${baseUrl}`, params);
 }
 
-export { AppInstall, AppList, AppUninstall, AppStop, AppStart, AppRestart, AppStatus };
+//查询APP对应的域名
+function AppDomainList(params: any): Promise<any> {
+    const baseUrl = '/AppManage/AppDomainList';
+    return api.get(`${baseUrl}`, params);
+}
+
+export { AppInstall, AppList, AppUninstall, AppStop, AppStart, AppRestart, AppStatus, AppDomainList };
 

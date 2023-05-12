@@ -1,4 +1,4 @@
 // @flow
-import { AppInstall, AppList, AppRestart, AppStart, AppStatus, AppStop, AppUninstall } from './appManager';
+import { AppDomainList, AppInstall, AppList, AppRestart, AppStart, AppStatus, AppStop, AppUninstall } from './appManager';
 
-export { AppInstall, AppList, AppUninstall, AppStop, AppStart, AppRestart, AppStatus };
+export { AppInstall, AppList, AppUninstall, AppStop, AppStart, AppRestart, AppStatus, AppDomainList };

@@ -81,7 +81,7 @@
     ],
     "developers": [
         null,
-        "维护手册"
+        "文档"
     ],
     "Version": [
         null,

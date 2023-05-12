@@ -8,7 +8,7 @@ import Spinner from '../components/Spinner';
 import { AppRestart, AppStart, AppStop } from '../helpers';
 import AppAccess from './appdetailtabs/appaccess';
 import AppLogs from './appdetailtabs/applogs';
-import Backups from './appdetailtabs/backups';
+import AppOverview from './appdetailtabs/appoverview';
 import Uninstall from './appdetailtabs/uninstall';
 
 const _ = cockpit.gettext;
@@ -28,30 +28,30 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
     const tabContents = [
         {
             id: '1',
+            title: _("Overview"),
+            icon: 'mdi mdi-account-circle',
+            text: <AppOverview data={currentApp} />,
+        },
+        {
+            id: '2',
             title: _("Access"),
             icon: 'mdi mdi-account-circle',
             text: <AppAccess data={currentApp} />,
         },
-        {
-            id: '2',
-            title: _("Backups"),
-            icon: 'mdi mdi-account-circle',
-            text: <Backups data={currentApp} />,
-        },
+        // {
+        //     id: '3',
+        //     title: _("Backups"),
+        //     icon: 'mdi mdi-account-circle',
+        //     text: <Backups data={currentApp} />,
+        // },
         {
             id: '3',
-            title: _("Updates"),
-            icon: 'mdi mdi-account-circle',
-            text: 'Profile - Food truck quinoa dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
-        },
-        {
-            id: '4',
             title: _("Logs"),
             icon: 'mdi mdi-account-circle',
             text: <AppLogs projectName={currentApp} />,
         },
         {
-            id: '5',
+            id: '4',
             title: _("Uninstall"),
             icon: 'mdi mdi-cog-outline',
             text: <Uninstall data={currentApp}
@@ -237,7 +237,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                 </div>
             </Modal.Header>
             <Modal.Body className="row">
-                <Tab.Container defaultActiveKey="Domain">
+                <Tab.Container defaultActiveKey={_("Overview")}>
                     <Col sm={2} className="mb-2 mb-sm-0">
                         <Nav variant="pills" className="flex-column">
                             {tabContents.map((tab, index) => {
