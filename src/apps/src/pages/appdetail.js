@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import cockpit from 'cockpit';
-import React, { useEffect, useState } from 'react';
-import { Col, Modal, Nav, OverlayTrigger, Row, Tab, Tooltip } from 'react-bootstrap';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Col, Modal, Nav, OverlayTrigger, Row, Tab, Tooltip } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import DefaultImg from '../assets/images/default.png';
 import Spinner from '../components/Spinner';
@@ -14,12 +14,37 @@ import Uninstall from './appdetailtabs/uninstall';
 const _ = cockpit.gettext;
 
 const AppDetailModal = (props): React$Element<React$FragmentType> => {
-    // const [disable, setDisable] = useState(false);//用于按钮禁用
+    const [restartDisable, setRestartDisable] = useState(false);//用于重启按钮的按钮禁用
+    const [buttonDisable, setButtonDisable] = useState(false); //用于启动/停止按钮禁用
     const [currentApp, setCurrentApp] = useState(props.current_app);
     const [startAppLoading, setStartAppLoading] = useState(false); //用户显示启动应用的加载状态
     const [stopAppLoading, setStopAppLoading] = useState(false); //用户显示停止时应用的加载状态
     const [restartAppLoading, setRestartAppLoading] = useState(false); //用户显示重启时应用的加载状态
     const navigate = useNavigate(); //用于页面跳转
+    const childRef = useRef();
+
+    //设置卸载页面的按钮禁用
+    const setUninstallButtonDisable = () => {
+        // 通过ref调用子组件的方法
+        childRef.current.setButtonDisable();
+    };
+
+    //设置卸载页面的按钮启用
+    const setUninstallButtonEnable = () => {
+        // 通过ref调用子组件的方法
+        childRef.current.setButtonEnable();
+    };
+
+    //设置启动/停止按钮禁用,用于传递给卸载页面
+    const setAppdetailButtonDisable = () => {
+        setButtonDisable(true);
+        setRestartDisable(true);
+    };
+    //设置启动/停止按钮启用,用于传递给卸载页面
+    const setAppdetailButtonEnable = () => {
+        setButtonDisable(false);
+        setRestartDisable(false);
+    };
 
     useEffect(() => {
         setCurrentApp(props.current_app);
@@ -38,12 +63,6 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
             icon: 'mdi mdi-account-circle',
             text: <AppAccess data={currentApp} />,
         },
-        // {
-        //     id: '3',
-        //     title: _("Backups"),
-        //     icon: 'mdi mdi-account-circle',
-        //     text: <Backups data={currentApp} />,
-        // },
         {
             id: '3',
             title: _("Logs"),
@@ -54,13 +73,13 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
             id: '4',
             title: _("Uninstall"),
             icon: 'mdi mdi-cog-outline',
-            text: <Uninstall data={currentApp}
+            text: <Uninstall data={currentApp} ref={childRef} disabledButton={setAppdetailButtonDisable} enableButton={setAppdetailButtonEnable}
                 onDataChange={props.onDataChange} onCloseFatherModal={props.onClose} />,
         },
     ];
 
     return (
-        currentApp && <Modal show={props.showFlag} onHide={props.onClose} size="lg" scrollable="true" dialogClassName="modal-full-width" >
+        currentApp && <Modal show={props.showFlag} backdrop="static" onHide={props.onClose} size="lg" scrollable="true" dialogClassName="modal-full-width" >
             <Modal.Header onHide={props.onClose} closeButton>
                 <div style={{ padding: "10px", display: "flex", width: "100%", alignItems: "center" }}>
                     <div className='appstore-item-content-icon col-same-height'>
@@ -87,14 +106,15 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 placement="bottom"
                                 overlay={
                                     <Tooltip id="tooltip-bottom">
-                                        Start App
+                                        {_("Start App")}
                                     </Tooltip>
                                 }>
-                                <button
-                                    className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
-                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                <Button variant="primary" disabled={buttonDisable}
+                                    style={{ padding: "5px 10px", borderRadius: "3px", marginRight: "10px" }}
                                     onClick={async () => {
+                                        setUninstallButtonDisable();
                                         setStartAppLoading(true);
+                                        setRestartDisable(true);
                                         try {
                                             const response = await AppStart({ app_id: currentApp.app_id });
                                             if (response.data.Error) {
@@ -108,17 +128,19 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                             navigate("/error-500");
                                         }
                                         finally {
+                                            setUninstallButtonEnable();
                                             setStartAppLoading(false);
+                                            setRestartDisable(false);
                                         }
                                     }}
                                 >
                                     {
                                         startAppLoading ?
-                                            <Spinner className="spinner-border-sm noti-icon" />
+                                            <Spinner className="spinner-border-sm noti-icon" color="light" />
                                             :
                                             <i className="dripicons-media-play noti-icon"></i>
                                     }
-                                </button>
+                                </Button>
                             </OverlayTrigger>
                         }
                         {
@@ -128,14 +150,15 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 placement="bottom"
                                 overlay={
                                     <Tooltip id="tooltip-bottom">
-                                        Stop App
+                                        {_("Stop App")}
                                     </Tooltip>
                                 }>
-                                <button
-                                    className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
-                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                <Button variant="primary" disabled={buttonDisable}
+                                    style={{ padding: "5px 10px", borderRadius: "3px", marginRight: "10px" }}
                                     onClick={async () => {
+                                        setUninstallButtonDisable();
                                         setStopAppLoading(true);
+                                        setRestartDisable(true);
                                         try {
                                             const response = await AppStop({ app_id: currentApp.app_id });
                                             if (response.data.Error) {
@@ -149,17 +172,19 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                             navigate("/error-500");
                                         }
                                         finally {
+                                            setUninstallButtonEnable();
                                             setStopAppLoading(false);
+                                            setRestartDisable(false);
                                         }
                                     }}
                                 >
                                     {
                                         stopAppLoading ?
-                                            <Spinner className="spinner-border-sm noti-icon" />
+                                            <Spinner className="spinner-border-sm noti-icon" color="light" />
                                             :
                                             <i className="dripicons-power noti-icon"></i>
                                     }
-                                </button>
+                                </Button>
                             </OverlayTrigger>
                         }
                         <OverlayTrigger
@@ -167,15 +192,16 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                             placement="bottom"
                             overlay={
                                 <Tooltip id="tooltip-bottom">
-                                    Restart App
+                                    {_("Restart App")}
                                 </Tooltip>
                             }>
-                            <button
-                                className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
-                                style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                            <Button disabled={restartDisable}
+                                style={{ padding: "5px 10px", borderRadius: "3px", marginRight: "10px" }}
                                 onClick={async () => {
                                     try {
+                                        setUninstallButtonDisable();
                                         setRestartAppLoading(true);
+                                        setButtonDisable(true);
                                         const response = await AppRestart({ app_id: currentApp.app_id });
                                         if (response.data.Error) {
                                             navigate("/error");
@@ -188,17 +214,19 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                         navigate("/error-500");
                                     }
                                     finally {
+                                        setUninstallButtonEnable();
                                         setRestartAppLoading(false);
+                                        setButtonDisable(false);
                                     }
                                 }}
                             >
                                 {
                                     restartAppLoading ?
-                                        <Spinner className="spinner-border-sm noti-icon" />
+                                        <Spinner className="spinner-border-sm noti-icon" color="light" />
                                         :
                                         <i className="dripicons-clockwise noti-icon"></i>
                                 }
-                            </button>
+                            </Button>
                         </OverlayTrigger>
                         {
                             currentApp.status === "running" &&
@@ -207,11 +235,11 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 placement="bottom"
                                 overlay={
                                     <Tooltip id="tooltip-bottom">
-                                        Terminal
+                                        {_("Terminal")}
                                     </Tooltip>
                                 }>
                                 <Link to={{ pathname: '/terminal', search: `?id=${currentApp.customer_name}` }}
-                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                    style={{ color: "#fff", backgroundColor: "#727cf5", padding: "5px 10px", borderRadius: "3px", borderColor: "#727cf5", marginRight: "10px" }}
                                     target="_blank">
                                     <i className="dripicons-code noti-icon"></i>{' '}
                                 </Link>
@@ -223,11 +251,11 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 placement="bottom"
                                 overlay={
                                     <Tooltip id="tooltip-bottom">
-                                        Documentation
+                                        {_("Documentation")}
                                     </Tooltip>
                                 }>
                                 <a href={'https://support.websoft9.com/docs/' + currentApp.app_name}
-                                    style={{ color: "#fff", backgroundColor: "#2196f3", padding: "5px 10px", borderRadius: "3px", borderColor: "#2196f3", marginRight: "10px" }}
+                                    style={{ color: "#fff", backgroundColor: "#727cf5", padding: "5px 10px", borderRadius: "3px", borderColor: "#727cf5", marginRight: "10px" }}
                                     target="_blank">
                                     <i className="dripicons-document noti-icon"></i>{' '}
                                 </a>

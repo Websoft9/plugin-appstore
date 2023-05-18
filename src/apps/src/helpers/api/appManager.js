@@ -50,5 +50,29 @@ function AppDomainList(params: any): Promise<any> {
     return api.get(`${baseUrl}`, params);
 }
 
-export { AppInstall, AppList, AppUninstall, AppStop, AppStart, AppRestart, AppStatus, AppDomainList };
+//删除APP绑定的域名
+function AppDomainDelete(params: any): Promise<any> {
+    const baseUrl = '/AppManage/AppDomainDelete';
+    return api.get(`${baseUrl}`, params);
+}
+
+//修改APP绑定的域名
+function AppDomainUpdate(params: any): Promise<any> {
+    const baseUrl = '/AppManage/AppDomainUpdate';
+    return api.get(`${baseUrl}`, params);
+}
+
+//APP绑定域名
+function AppDomainAdd(params: any): Promise<any> {
+    const baseUrl = '/AppManage/AppDomainAdd';
+    return api.get(`${baseUrl}`, params);
+}
+
+//设定默认域名
+function AppDomainSet(params: any): Promise<any> {
+    const baseUrl = '/AppManage/AppDomainSet';
+    return api.get(`${baseUrl}`, params);
+}
+
+export { AppInstall, AppList, AppUninstall, AppStop, AppStart, AppRestart, AppStatus, AppDomainList, AppDomainDelete, AppDomainUpdate, AppDomainAdd, AppDomainSet };
 

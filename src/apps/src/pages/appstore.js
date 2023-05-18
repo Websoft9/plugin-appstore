@@ -389,7 +389,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                 <Col sm={6}>
                     <Col xs="auto">
                         <FormInput type="text" name="search"
-                            placeholder="Search for apps like WordPress, Dropbox, Slack, Trello, …"
+                            placeholder="Search for apps like WordPress, MySQL, aaPanel, GitLab, …"
                             value={searchValue}
                             onChange={(e) => handleInputChange(e.target.value)} />
                     </Col>

@@ -22,24 +22,24 @@ const ErrorInfoModal = (props): React$Element<React$FragmentType> => {
     return (
         <Modal show={props.showConform} onHide={props.onClose} size="lg" scrollable="true" backdrop="static">
             <Modal.Header onHide={props.onClose} closeButton className={classNames('modal-colored-header', 'bg-danger')}>
-                <h4>This is the error message for {props.app.customer_name}</h4>
+                <h4>{_("This is the error message for")} {props.app.customer_name}</h4>
             </Modal.Header>
             <Modal.Body className="row" >
                 {
                     props.app.status_reason &&
                     <>
-                        <span style={{ margin: "10px 0px" }}> <b>{"Code: "}</b>{props.app.status_reason.Code} </span>
-                        <span style={{ margin: "10px 0px" }}> <b>{"Message: "}</b>{props.app.status_reason.Message} </span>
-                        <span style={{ margin: "10px 0px" }}> <b>{"Detail: "}</b>{props.app.status_reason.Detail} </span>
+                        <span style={{ margin: "10px 0px" }}> <b>{_("Code: ")}</b>{props.app.status_reason.Code} </span>
+                        <span style={{ margin: "10px 0px" }}> <b>{_("Message: ")}</b>{props.app.status_reason.Message} </span>
+                        <span style={{ margin: "10px 0px" }}> <b>{_("Detail: ")}</b>{props.app.status_reason.Detail} </span>
                     </>
                 }
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="light" onClick={props.onClose}>
-                    Close
+                    {_("Close")}
                 </Button>
                 <Button variant="light" onClick={() => window.open('https://www.websoft9.com/ticket', '_blank')}>
-                    Support
+                    {_("Support")}
                 </Button>
             </Modal.Footer>
         </Modal >
@@ -63,10 +63,10 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
         <Modal show={props.showConform} onHide={props.onClose} size="lg"
             scrollable="true" backdrop="static">
             <Modal.Header onHide={props.onClose} className={classNames('modal-colored-header', 'bg-warning')}>
-                <h4>Remove {props.app.customer_name}</h4>
+                <h4>{_("Remove")} {props.app.customer_name}</h4>
             </Modal.Header>
             <Modal.Body className="row" >
-                <span style={{ margin: "10px 0px" }}>This will immediately remove {props.app.customer_name} and remove all its data.</span>
+                <span style={{ margin: "10px 0px" }}>{_("This will immediately remove")} {props.app.customer_name} {_("and remove all its data.")}</span>
                 <div>
                     {showAlert && <Alert variant="danger" className="my-2">
                         {alertMessage}
@@ -75,7 +75,7 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="light" onClick={props.onClose}>
-                    Close
+                    {_("Close")}
                 </Button>{" "}
                 <Button disabled={disable} variant="warning" onClick={async () => {
                     try {
@@ -94,7 +94,7 @@ const UninstallConform = (props): React$Element<React$FragmentType> => {
                         navigate("/error-500");
                     }
                 }}>
-                    {disable && <Spinner className="spinner-border-sm me-1" tag="span" color="white" />} Uninstall
+                    {disable && <Spinner className="spinner-border-sm me-1" tag="span" color="white" />} {_("Remove")}
                 </Button>
             </Modal.Footer>
         </Modal >
@@ -322,7 +322,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
 
     return (
         <>
-            <Row className="mb-2" style={{ display: "flex", alignItems: "center" }}>
+            <Row className="mb-2 align-items-center">
                 <Col sm={2}>
                     <span style={{ fontSize: "36px" }}>{_("My Apps")}</span>
                 </Col>
@@ -351,7 +351,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                     </Col>
                 </Col>
                 <Col sm={1}>
-                    <Button variant="primary" style={{ float: "right" }} onClick={() => {
+                    <Button variant="primary" className="float-end" onClick={() => {
                         window.location.reload(false);
                     }}>{_("Refresh")}</Button>
                 </Col>
@@ -369,10 +369,10 @@ const MyApps = (): React$Element<React$FragmentType> => {
                             <h4 style={official_app ? {} : { paddingTop: "10px" }}>{official_app ? _("Websoft9's Apps") : _("Other Apps")}</h4>
                             {filteredApps.map((app, i) => (
                                 <Col xxl={2} md={6} key={app.app_id + i} className="appstore-item">
-                                    <div className='appstore-item-content highlight' style={{ textAlign: "center" }}>
+                                    <div className='appstore-item-content highlight text-align-center'>
                                         {
                                             (!official_app && (app.status === "running" || app.status === "exited")) &&
-                                            <Dropdown style={{ float: "right" }}>
+                                            <Dropdown className="float-end">
                                                 <Dropdown.Toggle as={Link} to="#" className="arrow-none card-drop">
                                                     {isLoading ? <Spinner className="spinner-border-sm noti-icon" /> : <i className="dripicons-gear noti-icon" />}
                                                 </Dropdown.Toggle>
@@ -402,7 +402,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                                 <div className="float-end arrow-none card-drop p-0" onClick={() => { handleClick(app) }}>
                                                     <i className="dripicons-gear noti-icon"></i>
                                                 </div>
-                                                <div style={{ clear: "both" }}></div>
+                                                <div className="clearfix"></div>
                                             </>
                                         }
                                         {
@@ -411,7 +411,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                                 <div className="float-end arrow-none card-drop p-0">
                                                     <i className="dripicons-empty noti-icon"></i>
                                                 </div>
-                                                <div style={{ clear: "both" }}></div>
+                                                <div className="clearfix"></div>
                                             </>
                                         }
                                         {
@@ -421,7 +421,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                                                     <i className="dripicons-information noti-icon" style={{ paddingRight: "10px" }} onClick={() => { showError(app) }}></i>
                                                     <i className="dripicons-trash noti-icon" onClick={() => { deleteApp(app) }}></i>
                                                 </div>
-                                                <div style={{ clear: "both" }}></div>
+                                                <div className="clearfix"></div>
                                             </>
                                         }
                                         <div>
