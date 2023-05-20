@@ -1,9 +1,14 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
 import classNames from 'classnames';
 import cockpit from 'cockpit';
-import React, { useEffect, useState } from 'react';
-import { Alert, Badge, Button, Card, Col, Modal, Row } from 'react-bootstrap';
+import { default as React, useEffect, useState } from 'react';
+import { Alert, Badge, Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import FormInput from '../../components/FormInput';
 import Spinner from '../../components/Spinner';
@@ -85,6 +90,9 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
     const [showRemoveDomain, setShowRemoveDomain] = useState(false); //用于显示状态为failed时显示确定删除的弹窗
     const [deleteRowData, setDeleteRowData] = useState(null); //用于保存将要删除的行数据
     const [inputDomainValue, setInputDomainValue] = useState("");//用户保存用户输入的域名
+
+    const [isExpandedForDomain, setIsExpandedForDomain] = React.useState(true); //用于保存“域名绑定”的折叠状态
+    const [isExpandedForNoDomain, setIsExpandedForNoDomain] = React.useState(true);//用于保存“无域名访问”的折叠状态
 
     const getDomains = async () => {
         try {
@@ -287,80 +295,210 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
         setShowRemoveDomain(false);
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
+
+    const handleChangefordomin = (event, newExpanded) => {
+        setIsExpandedForDomain(newExpanded);
+    };
+
+    const handleChangefornodomin = (event, newExpanded) => {
+        setIsExpandedForNoDomain(newExpanded);
+    };
     return (
         <>
             <Card>
-                <Card.Header>
-                    <Row className="mb-2 align-items-center">
-                        <Col xs={12} md={9}>
-                            <label className="me-2 fs-5">{_("Domain Binding")}</label>
-                        </Col>
-                        <Col xs={12} md={3}>
-                            <Button variant="primary" size="sm" className="me-2" onClick={() => addRow()}>{_("Add")}</Button>
-                            <a href="/nginx" target="_parent" className="me-2">
-                                <Button variant="primary" size="sm">{_("More")}</Button>
-                            </a>
-                            <Button disabled={refreshDisable} size="sm" className="me-2" variant="primary"
-                                onClick={async () => { setRefreshDisable(true); await getDomains(); setRefreshDisable(false) }} >
-                                {refreshDisable && <Spinner className="spinner-border-sm me-2" tag="span" color="white" />} {_("Refresh")}
-                            </Button>
-                        </Col>
-                    </Row>
-                </Card.Header>
                 <Card.Body>
-                    {domains.map((row, index) => (
-                        <Row className="mb-2" key={index}>
-                            <Col xs={12} md={9}>
-                                <Col xs="auto">
-                                    <FormInput className="mb-2 mb-md-0" type="text"
-                                        name={`domain-${index}`}
-                                        value={row.newDomainValue}
-                                        disabled={!row.isEditable}
-                                        onChange={(e) => handleChange(index, e)} />
-                                </Col>
-                            </Col>
-                            <Col xs={12} md={3}>
-                                <Button variant="link text-danger" style={{ padding: "5px" }} onClick={() => deleteRow(row, index)}>
-                                    {_("delete")}
-                                </Button>
-                                {row.isEditable && row.isFromAPI && (
-                                    <>
-                                        <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => saveRow(row, index)}>
-                                            {_("save")}
-                                        </Button>
-                                        <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => cancelEditRow(index)}>
-                                            {_("cancel")}
-                                        </Button>
-                                    </>
-                                )}
-                                {row.isEditable && !row.isFromAPI && (
-
-                                    <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => saveRow(row, index)}>
-                                        {_("save")}
-                                    </Button>
-                                )}
-                                {!row.isEditable && (
-                                    <>
-                                        <Button variant="link text-primary" style={{ padding: "5px" }} onClick={() => editRow(index)}>
-                                            {_("edit")}
-                                        </Button>
-                                        <a href={'http://' + row.domainValue} target="_blank">
-                                            <Button variant="link text-primary" style={{ padding: "5px" }}>{_("access")}</Button>
-                                        </a>
-                                        {
-                                            row.isDefaultDomain ? (
-                                                <Badge className="ms-2 bg-success"> {_("default")} </Badge>
-                                            ) : (
-                                                <Button variant="link text-primary" onClick={() => setDefaultDomain(index)}>
-                                                    {_("set as default")}
+                    <Accordion defaultExpanded={true} onChange={handleChangefordomin}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>
+                                <label className="me-2 fs-5 d-block">{_("Domain Binding")}</label>
+                                <span className="me-2 fs-6" style={{ display: isExpandedForDomain ? 'inline' : 'none' }}>建议绑定域名访问应用，以免无域名造成应用异常</span>
+                            </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                <Card>
+                                    <Card.Header>
+                                        <Row className="mb-2 align-items-center">
+                                            <Col xs={12} md={9}></Col>
+                                            <Col xs={12} md={3}>
+                                                <Button variant="primary" size="sm" className="me-2" onClick={() => addRow()}>{_("Add")}</Button>
+                                                <a href="/nginx" target="_parent" className="me-2">
+                                                    <Button variant="primary" size="sm">{_("More")}</Button>
+                                                </a>
+                                                <Button disabled={refreshDisable} size="sm" className="me-2" variant="primary"
+                                                    onClick={async () => { setRefreshDisable(true); await getDomains(); setRefreshDisable(false) }} >
+                                                    {refreshDisable && <Spinner className="spinner-border-sm me-2" tag="span" color="white" />} {_("Refresh")}
                                                 </Button>
-                                            )
-                                        }
-                                    </>
-                                )}
-                            </Col>
-                        </Row>
-                    ))}
+                                            </Col>
+                                        </Row>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        {domains.map((row, index) => (
+                                            <Row className="mb-2" key={index}>
+                                                <Col xs={12} md={9}>
+                                                    <Col xs="auto">
+                                                        <FormInput className="mb-2 mb-md-0" type="text"
+                                                            name={`domain-${index}`}
+                                                            value={row.newDomainValue}
+                                                            disabled={!row.isEditable}
+                                                            onChange={(e) => handleChange(index, e)} />
+                                                    </Col>
+                                                </Col>
+                                                <Col xs={12} md={3}>
+                                                    <Button variant="link text-danger" style={{ padding: "5px" }} onClick={() => deleteRow(row, index)}>
+                                                        {_("delete")}
+                                                    </Button>
+                                                    {row.isEditable && row.isFromAPI && (
+                                                        <>
+                                                            <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => saveRow(row, index)}>
+                                                                {_("save")}
+                                                            </Button>
+                                                            <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => cancelEditRow(index)}>
+                                                                {_("cancel")}
+                                                            </Button>
+                                                        </>
+                                                    )}
+                                                    {row.isEditable && !row.isFromAPI && (
+
+                                                        <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => saveRow(row, index)}>
+                                                            {_("save")}
+                                                        </Button>
+                                                    )}
+                                                    {!row.isEditable && (
+                                                        <>
+                                                            <Button variant="link text-primary" style={{ padding: "5px" }} onClick={() => editRow(index)}>
+                                                                {_("edit")}
+                                                            </Button>
+                                                            <a href={'http://' + row.domainValue} target="_blank">
+                                                                <Button variant="link text-primary" style={{ padding: "5px" }}>{_("access")}</Button>
+                                                            </a>
+                                                            {
+                                                                row.isDefaultDomain ? (
+                                                                    <Badge className="ms-2 bg-success"> {_("default")} </Badge>
+                                                                ) : (
+                                                                    <Button variant="link text-primary" onClick={() => setDefaultDomain(index)}>
+                                                                        {_("set as default")}
+                                                                    </Button>
+                                                                )
+                                                            }
+                                                        </>
+                                                    )}
+                                                </Col>
+                                            </Row>
+                                        ))}
+                                    </Card.Body>
+                                </Card >
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    {
+                        (props.data?.config?.url && ((props.data?.config?.default_domain && !props.data?.app_replace_url) || (!props.data?.config?.default_domain))) &&
+                        <Accordion defaultExpanded={true} onChange={handleChangefornodomin}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel2a-content"
+                                id="panel2a-header"
+                            >
+                                <Typography>
+                                    <label className="me-2 fs-5 d-block">无域名访问</label>
+                                    <span className="me-2 fs-6" style={{ display: isExpandedForNoDomain ? 'inline' : 'none' }}>没有域名可以通过IP+端口的方式临时访问应用</span>
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    <Card>
+                                        {/* <Card.Header>
+                                            <span className="me-2 fs-6">没有域名可以通过IP+端口的方式临时访问应用</span>
+                                        </Card.Header> */}
+                                        <Card.Body>
+                                            {
+                                                props.data?.config?.url &&
+                                                (
+                                                    <div>
+                                                        <label className="me-2 fs-5">前台:</label>
+                                                        <a href={props.data?.config?.url} target="_blank" className="me-2">
+                                                            {props.data?.config?.url}
+                                                        </a>
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                props.data?.config?.admin_url &&
+                                                (
+                                                    <div>
+                                                        <label className="me-2 fs-5">后台:</label>
+                                                        <a href={props.data?.config?.admin_url} target="_blank" className="me-2">
+                                                            {props.data?.config?.admin_url}
+                                                        </a>
+                                                    </div>
+                                                )
+                                            }
+                                        </Card.Body>
+                                    </Card>
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    }
+                    {
+                        props.data?.config?.admin_username &&
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel3a-content"
+                                id="panel3a-header"
+                            >
+                                <Typography>
+                                    <label className="me-2 fs-5 d-block">初始账号</label>
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography>
+                                    <Card>
+                                        <Card.Body>
+                                            <p>
+                                                This app is pre-setup with an admin account,Please change the admin password immediately. The initial credentials are:
+                                            </p>
+                                            <Form.Group as={Row} className="mb-3">
+                                                <Form.Label htmlFor="username" column md={2} className='fs-5'>
+                                                    UserName
+                                                </Form.Label>
+                                                <Col md={4}>
+                                                    <Form.Control
+                                                        type="text"
+                                                        name="username"
+                                                        id="username"
+                                                        defaultValue={props.data?.config?.admin_username}
+                                                        readOnly
+                                                    />
+                                                </Col>
+                                            </Form.Group>
+
+                                            <Form.Group as={Row} className="mb-3">
+                                                <Form.Label htmlFor="password" column md={2} className='fs-5'>
+                                                    Password
+                                                </Form.Label>
+                                                <Col md={4}>
+                                                    <FormInput
+                                                        type="password"
+                                                        name="password"
+                                                        containerClass={'mb-3'}
+                                                        value={props.data?.config?.admin_password}
+                                                        readOnly
+                                                    />
+                                                </Col>
+                                            </Form.Group>
+                                        </Card.Body>
+                                    </Card>
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    }
                 </Card.Body>
             </Card >
             {

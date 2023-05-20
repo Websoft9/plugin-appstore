@@ -7,9 +7,9 @@ import DefaultImg from '../assets/images/default.png';
 import Spinner from '../components/Spinner';
 import { AppRestart, AppStart, AppStop } from '../helpers';
 import AppAccess from './appdetailtabs/appaccess';
-import AppLogs from './appdetailtabs/applogs';
+import AppContainer from './appdetailtabs/appcontainer';
 import AppOverview from './appdetailtabs/appoverview';
-import Uninstall from './appdetailtabs/uninstall';
+import Uninstall from './appdetailtabs/appuninstall';
 
 const _ = cockpit.gettext;
 
@@ -65,9 +65,9 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
         },
         {
             id: '3',
-            title: _("Logs"),
+            title: _("Container"),
             icon: 'mdi mdi-account-circle',
-            text: <AppLogs projectName={currentApp} />,
+            text: <AppContainer data={currentApp} />,
         },
         {
             id: '4',
