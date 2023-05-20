@@ -93,6 +93,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
 
     const [isExpandedForDomain, setIsExpandedForDomain] = React.useState(true); //用于保存“域名绑定”的折叠状态
     const [isExpandedForNoDomain, setIsExpandedForNoDomain] = React.useState(true);//用于保存“无域名访问”的折叠状态
+    const [isExpandedForAccount, setIsExpandedForAccount] = React.useState(false);//用于保存“无域名访问”的折叠状态
 
     const getDomains = async () => {
         try {
@@ -305,11 +306,16 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
     const handleChangefornodomin = (event, newExpanded) => {
         setIsExpandedForNoDomain(newExpanded);
     };
+
+    const handleChangeforaccount = (event, newExpanded) => {
+        setIsExpandedForAccount(newExpanded);
+    };
+
     return (
         <>
             <Card>
                 <Card.Body>
-                    <Accordion defaultExpanded={true} onChange={handleChangefordomin}>
+                    <Accordion defaultExpanded={true} onChange={handleChangefordomin} className='mb-2'>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
@@ -399,7 +405,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                     </Accordion>
                     {
                         (props.data?.config?.url && ((props.data?.config?.default_domain && !props.data?.app_replace_url) || (!props.data?.config?.default_domain))) &&
-                        <Accordion defaultExpanded={true} onChange={handleChangefornodomin}>
+                        <Accordion defaultExpanded={true} onChange={handleChangefornodomin} className='mb-2'>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel2a-content"
@@ -413,9 +419,6 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                             <AccordionDetails>
                                 <Typography>
                                     <Card>
-                                        {/* <Card.Header>
-                                            <span className="me-2 fs-6">没有域名可以通过IP+端口的方式临时访问应用</span>
-                                        </Card.Header> */}
                                         <Card.Body>
                                             {
                                                 props.data?.config?.url &&
@@ -447,7 +450,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                     }
                     {
                         props.data?.config?.admin_username &&
-                        <Accordion>
+                        <Accordion className='mb-2' onChange={handleChangeforaccount}>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel3a-content"
@@ -455,15 +458,18 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                             >
                                 <Typography>
                                     <label className="me-2 fs-5 d-block">初始账号</label>
+                                    <span className="me-2 fs-6" style={{ display: isExpandedForAccount ? 'inline' : 'none' }}>
+                                        此应用程序是使用管理员帐户预先设置的，请立即更改管理员密码。初始凭据为：
+                                    </span>
                                 </Typography>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
                                     <Card>
                                         <Card.Body>
-                                            <p>
+                                            {/* <p>
                                                 This app is pre-setup with an admin account,Please change the admin password immediately. The initial credentials are:
-                                            </p>
+                                            </p> */}
                                             <Form.Group as={Row} className="mb-3">
                                                 <Form.Label htmlFor="username" column md={2} className='fs-5'>
                                                     UserName
