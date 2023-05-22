@@ -1,7 +1,8 @@
 {
     "tools": {
         "index": {
-            "label": "App Store"
+            "label": "App Store",
+            "order": 10
         }
     },
     "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src https://graphql.contentful.com/  http://redhattext http://overpass-webfont *"

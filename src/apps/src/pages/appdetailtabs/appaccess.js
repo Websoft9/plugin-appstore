@@ -81,7 +81,6 @@ const RemoveDomain = (props): React$Element<React$FragmentType> => {
 const AppAccess = (props): React$Element<React$FragmentType> => {
     const navigate = useNavigate(); //用于页面跳转
     const [domains, setDomains] = useState([]); // 定义域名数组
-    const [refreshDisable, setRefreshDisable] = useState(false);//用于刷新按钮禁用
     const [loading, setLoading] = useState(false); // 定义执行操作时的加载转态
 
     const [showAlert, setShowAlert] = useState(false); //用于是否显示错误提示
@@ -353,13 +352,10 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                                 }
                                                 <Button disabled={refreshDisable} size="sm" className="me-2" variant="primary"
                                                     onClick={async () => {
-                                                        // setRefreshDisable(true); 
                                                         setLoading(true);
                                                         await getDomains();
                                                         setLoading(false);
-                                                        // setRefreshDisable(false) 
-                                                    }} >
-                                                    {/*{refreshDisable && <Spinner className="spinner-border-sm me-2" tag="span" color="white" />}*/} {_("Refresh")}
+                                                    }} > {_("Refresh")}
                                                 </Button>
                                             </Col>
                                         </Row>
