@@ -341,7 +341,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                     <Card.Header>
                                         <Row className="mb-2 align-items-center">
                                             <Col xs={12} md={9}></Col>
-                                            <Col xs={12} md={3}>
+                                            <Col xs={12} md={3} className="d-flex justify-content-end">
                                                 <Button variant="primary" size="sm" className="me-2" onClick={() => addRow()}>添加域名</Button>
                                                 {
                                                     props.data?.config?.admin_domain_url && (
@@ -350,7 +350,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                                         </a>
                                                     )
                                                 }
-                                                <Button disabled={refreshDisable} size="sm" className="me-2" variant="primary"
+                                                <Button size="sm" className="me-2" variant="primary"
                                                     onClick={async () => {
                                                         setLoading(true);
                                                         await getDomains();
