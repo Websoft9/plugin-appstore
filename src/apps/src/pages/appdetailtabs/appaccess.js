@@ -182,7 +182,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
     //设为默认域名
     const setDefaultDomain = async (index) => {
         const defaultDomain = domains[index].newDomainValue; //获取域名
-
+        setLoading(true);
         try {  //调用设定默认域名接口
             const response = await AppDomainSet({ app_id: props.data.app_id, domain: defaultDomain });
             if (response.data.Error) {
@@ -199,6 +199,9 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
         }
         catch (error) {
             navigate("/error-500");
+        }
+        finally {
+            setLoading(false);
         }
     }
 
@@ -314,6 +317,11 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
     return (
         <>
             <Card>
+                {loading && (
+                    <div className="card-disabled" style={{ zIndex: 999 }}>
+                        <div className="card-portlets-loader"></div>
+                    </div>
+                )}
                 <Card.Body>
                     <Accordion defaultExpanded={true} onChange={handleChangefordomin} className='mb-2'>
                         <AccordionSummary
@@ -322,8 +330,10 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                             id="panel1a-header"
                         >
                             <Typography>
-                                <label className="me-2 fs-5 d-block">{_("Domain Binding")}</label>
-                                <span className="me-2 fs-6" style={{ display: isExpandedForDomain ? 'inline' : 'none' }}>建议绑定域名访问应用，以免无域名造成应用异常</span>
+                                <label className="me-2 fs-5 d-block">域名访问</label>
+                                <span className="me-2 fs-6" style={{ display: isExpandedForDomain ? 'inline' : 'none' }}>
+                                    建议绑定域名访问应用，以免无域名造成应用异常
+                                </span>
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -333,13 +343,23 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                         <Row className="mb-2 align-items-center">
                                             <Col xs={12} md={9}></Col>
                                             <Col xs={12} md={3}>
-                                                <Button variant="primary" size="sm" className="me-2" onClick={() => addRow()}>{_("Add")}</Button>
-                                                <a href="/nginx" target="_parent" className="me-2">
-                                                    <Button variant="primary" size="sm">{_("More")}</Button>
-                                                </a>
+                                                <Button variant="primary" size="sm" className="me-2" onClick={() => addRow()}>添加域名</Button>
+                                                {
+                                                    props.data?.config?.admin_domain_url && (
+                                                        <a href={props.data?.config?.admin_domain_url} target="_blank" className="me-2">
+                                                            <Button variant="primary" size="sm">访问后台</Button>
+                                                        </a>
+                                                    )
+                                                }
                                                 <Button disabled={refreshDisable} size="sm" className="me-2" variant="primary"
-                                                    onClick={async () => { setRefreshDisable(true); await getDomains(); setRefreshDisable(false) }} >
-                                                    {refreshDisable && <Spinner className="spinner-border-sm me-2" tag="span" color="white" />} {_("Refresh")}
+                                                    onClick={async () => {
+                                                        // setRefreshDisable(true); 
+                                                        setLoading(true);
+                                                        await getDomains();
+                                                        setLoading(false);
+                                                        // setRefreshDisable(false) 
+                                                    }} >
+                                                    {/*{refreshDisable && <Spinner className="spinner-border-sm me-2" tag="span" color="white" />}*/} {_("Refresh")}
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -399,6 +419,18 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                             </Row>
                                         ))}
                                     </Card.Body>
+                                    <Card.Footer>
+                                        <Row className="mb-2 mt-2">
+                                            <Col sm={12}>
+                                                <span>
+                                                    如要需要进行Https设置,或者更多自定义配置，请点击更多
+                                                </span>
+                                                <a href="/nginx" target="_parent" className="me-2 float-end">
+                                                    <Button variant="primary" size="sm">{_("More")}</Button>
+                                                </a>
+                                            </Col>
+                                        </Row>
+                                    </Card.Footer>
                                 </Card >
                             </Typography>
                         </AccordionDetails>
