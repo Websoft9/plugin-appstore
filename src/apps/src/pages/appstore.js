@@ -19,7 +19,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const getContentfulData = gql`
     query($locale: String!){
-        productCollection(locale:$locale) {
+        productCollection(locale:$locale,where:{appStore:true}) {
             items {
             sys {
                 id
