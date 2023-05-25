@@ -1,0 +1,9 @@
+{
+  "tools": {
+    "index": {
+      "label": "BackUp",
+      "order": 40
+    }
+  },
+  "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' data: *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;"
+}
