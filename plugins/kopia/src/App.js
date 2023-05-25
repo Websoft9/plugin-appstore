@@ -1,21 +1,30 @@
+import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
 
 function App() {
-  const [iframeSrc, setIframeSrc] = useState(null);   // 定义一个状态变量，保存iframe的src
   const [kopiaHomePage, setKopiaHomePage] = useState(null);   // 定义一个状态变量，保存kopiaHomePage
   const [encoded, setEncoded] = useState(null);   // 定义一个状态变量，保存kopiaHomePage
 
   async function getData() {
-    const configRes = await fetch("./config.json");
-    const config = await configRes.json();
-    const { KOPIA_USERNAME, KOPIA_PASSWORD, KOPIA_HOME_PAGE } = config;
-    setKopiaHomePage(KOPIA_HOME_PAGE);
+    try {
+      const response = await axios.get('../appstore/config.json'); //从项目下读取配置文件
+      if (response.status === 200) {
+        const config = response.data.KOPIA;
+        const { KOPIA_USERNAME, KOPIA_PASSWORD, KOPIA_HOME_PAGE } = config;
+        setKopiaHomePage(KOPIA_HOME_PAGE);
 
-    const encoded = btoa(KOPIA_USERNAME + ":" + KOPIA_PASSWORD); // 对用户名和密码进行base64编码
-    setEncoded(encoded);
+        const encoded = btoa(KOPIA_USERNAME + ":" + KOPIA_PASSWORD); // 对用户名和密码进行base64编码
+        setEncoded(encoded);
+      }
+      else {
+        console.log('Error:', response);
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
   }
 
   useEffect(() => {

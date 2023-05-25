@@ -280,7 +280,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
     // if (dataLoading) return <p>Loading...</p>;
 
-    if (dataLoading) return <Spinner className='dis_mid' />/*<Spinner className='dis_mid' color="primary" size="md" />*/;
+    if (dataLoading) return <Spinner className='dis_mid' />
     if (dataError) return <p>Error : ${dataError.message} </p>;
 
     //用于显示应用详情的弹窗
@@ -389,7 +389,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                 <Col sm={6}>
                     <Col xs="auto">
                         <FormInput type="text" name="search"
-                            placeholder="Search for apps like WordPress, MySQL, aaPanel, GitLab, …"
+                            placeholder="Search for apps like WordPress, MySQL, GitLab, …"
                             value={searchValue}
                             onChange={(e) => handleInputChange(e.target.value)} />
                     </Col>
@@ -407,7 +407,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                                         className="app-icon"
                                     />
                                 </div>
-                                <div className='col-same-height'>
+                                <div className='col-same-height' style={{ textAlign: "initial" }}>
                                     <h4 className="appstore-item-content-title">
                                         {app.trademark}
                                     </h4>

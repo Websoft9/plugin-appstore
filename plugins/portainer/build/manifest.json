@@ -1,7 +1,8 @@
 {
   "tools": {
     "index": {
-      "label": "Portainer"
+      "label": "Portainer",
+      "order": 20
     }
   },
   "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src https://graphql.contentful.com/ *"

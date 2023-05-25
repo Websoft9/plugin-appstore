@@ -10,9 +10,9 @@ function App() {
 
   const getData = async () => {
     try {
-      const response = await axios.get('./config.json'); //从项目下读取配置文件
+      const response = await axios.get('../appstore/config.json'); //从项目下读取配置文件
       if (response.status === 200) {
-        const config = response.data;
+        const config = response.data.NGINXPROXYMANAGER;
         const { NGINXPROXYMANAGER_USERNAME, NGINXPROXYMANAGER_PASSWORD, NGINXPROXYMANAGER_AUTH_URL, NGINXPROXYMANAGER_HOME_PAGE, NGINXPROXYMANAGER_NIKENAME } = config;
         setNginxproxymanagerHomePage(NGINXPROXYMANAGER_HOME_PAGE);
 
