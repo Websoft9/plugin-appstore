@@ -16,5 +16,9 @@
         "KOPIA_HOME_PAGE": "/kopia",
         "KOPIA_USERNAME": "admin",
         "KOPIA_PASSWORD": "admin"
+    },
+    "APPMANAGE": {
+        "APPMANAGE_USERNAME": "websoft9",
+        "APPMANAGE_PASSWORD": "websoft9"
     }
 }

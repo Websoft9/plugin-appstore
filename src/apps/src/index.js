@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import config from "./config";
 import { configureStore } from './redux/store';
-import reportWebVitals from './reportWebVitals';
 
 const token = config.ACCESS_TOKEN;
 const spaces = config.SPACES;
@@ -37,5 +36,3 @@ root.render(
     </ApolloProvider>
   </React.StrictMode>
 );
-
-reportWebVitals();
