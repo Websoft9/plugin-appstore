@@ -286,6 +286,18 @@
     "Container": [
         null,
         "容器"
+    ],
+    "Nginx": [
+        null,
+        "域名"
+    ],
+    "BackUp": [
+        null,
+        "备份"
+    ],
+    "Navigator": [
+        null,
+        "文件"
     ]
 }));
 

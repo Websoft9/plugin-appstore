@@ -1,8 +1,10 @@
 {
-  "tools": {
-    "index": {
+  "version": "1.0.0",
+  "menu": {
+    "container": {
       "label": "Portainer",
-      "order": 20
+      "path": "index.html",
+      "order": 2
     }
   },
   "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src https://graphql.contentful.com/ *"

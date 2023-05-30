@@ -117,9 +117,9 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                     };
                 });
                 //排序：将默认域名放前面
-                // resturnDomains.sort((a, b) => {
-                //     return b.isDefaultDomain - a.isDefaultDomain;
-                // });
+                resturnDomains.sort((a, b) => {
+                    return b.isDefaultDomain - a.isDefaultDomain;
+                });
                 setDomains(resturnDomains);
             }
         }
@@ -331,7 +331,10 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                             <Typography>
                                 <label className="me-2 fs-5 d-block">域名访问</label>
                                 <span className="me-2 fs-6" style={{ display: isExpandedForDomain ? 'inline' : 'none' }}>
-                                    建议绑定域名访问应用，以免无域名造成应用异常
+                                    建议绑定域名访问应用，以免无域名造成应用异常。如要需要进行Https设置或者自定义配置，请点击
+                                    <a href="/nginx" target="_parent">
+                                        更多
+                                    </a>
                                 </span>
                             </Typography>
                         </AccordionSummary>
@@ -340,8 +343,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                 <Card>
                                     <Card.Header>
                                         <Row className="mb-2 align-items-center">
-                                            <Col xs={12} md={9}></Col>
-                                            <Col xs={12} md={3} className="d-flex justify-content-end">
+                                            <Col xs={12} md={12} className="d-flex justify-content-end">
                                                 <Button variant="primary" size="sm" className="me-2" onClick={() => addRow()}>添加域名</Button>
                                                 {
                                                     props.data?.config?.admin_domain_url && (
@@ -363,59 +365,59 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                     <Card.Body>
                                         {domains.map((row, index) => (
                                             <Row className="mb-2" key={index}>
-                                                <Col xs={12} md={9}>
-                                                    <Col xs="auto">
+                                                <Col xs={12} className="d-flex justify-content-between">
+                                                    <Col>
                                                         <FormInput className="mb-2 mb-md-0" type="text"
                                                             name={`domain-${index}`}
                                                             value={row.newDomainValue}
                                                             disabled={!row.isEditable}
                                                             onChange={(e) => handleChange(index, e)} />
                                                     </Col>
-                                                </Col>
-                                                <Col xs={12} md={3}>
-                                                    <Button variant="link text-danger" style={{ padding: "5px" }} onClick={() => deleteRow(row, index)}>
-                                                        {_("delete")}
-                                                    </Button>
-                                                    {row.isEditable && row.isFromAPI && (
-                                                        <>
+                                                    <Col className='col-auto ms-auto'>
+                                                        <Button variant="link text-danger" style={{ padding: "5px" }} onClick={() => deleteRow(row, index)}>
+                                                            {_("delete")}
+                                                        </Button>
+                                                        {row.isEditable && row.isFromAPI && (
+                                                            <>
+                                                                <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => saveRow(row, index)}>
+                                                                    {_("save")}
+                                                                </Button>
+                                                                <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => cancelEditRow(index)}>
+                                                                    {_("cancel")}
+                                                                </Button>
+                                                            </>
+                                                        )}
+                                                        {row.isEditable && !row.isFromAPI && (
+
                                                             <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => saveRow(row, index)}>
                                                                 {_("save")}
                                                             </Button>
-                                                            <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => cancelEditRow(index)}>
-                                                                {_("cancel")}
-                                                            </Button>
-                                                        </>
-                                                    )}
-                                                    {row.isEditable && !row.isFromAPI && (
-
-                                                        <Button variant="link text-success" style={{ padding: "5px" }} onClick={() => saveRow(row, index)}>
-                                                            {_("save")}
-                                                        </Button>
-                                                    )}
-                                                    {!row.isEditable && (
-                                                        <>
-                                                            <Button variant="link text-primary" style={{ padding: "5px" }} onClick={() => editRow(index)}>
-                                                                {_("edit")}
-                                                            </Button>
-                                                            <a href={'http://' + row.domainValue} target="_blank">
-                                                                <Button variant="link text-primary" style={{ padding: "5px" }}>{_("access")}</Button>
-                                                            </a>
-                                                            {
-                                                                row.isDefaultDomain ? (
-                                                                    <Badge className="ms-2 bg-success"> {_("default")} </Badge>
-                                                                ) : (
-                                                                    <Button variant="link text-primary" onClick={() => setDefaultDomain(index)}>
-                                                                        {_("set as default")}
-                                                                    </Button>
-                                                                )
-                                                            }
-                                                        </>
-                                                    )}
+                                                        )}
+                                                        {!row.isEditable && (
+                                                            <>
+                                                                <Button variant="link text-primary" style={{ padding: "5px" }} onClick={() => editRow(index)}>
+                                                                    {_("edit")}
+                                                                </Button>
+                                                                <a href={'http://' + row.domainValue} target="_blank">
+                                                                    <Button variant="link text-primary" style={{ padding: "5px" }}>{_("access")}</Button>
+                                                                </a>
+                                                                {
+                                                                    row.isDefaultDomain ? (
+                                                                        <Badge className="ms-2 bg-success"> {_("default")} </Badge>
+                                                                    ) : (
+                                                                        <Button variant="link text-primary" onClick={() => setDefaultDomain(index)}>
+                                                                            {_("set as default")}
+                                                                        </Button>
+                                                                    )
+                                                                }
+                                                            </>
+                                                        )}
+                                                    </Col>
                                                 </Col>
                                             </Row>
                                         ))}
                                     </Card.Body>
-                                    <Card.Footer>
+                                    {/* <Card.Footer>
                                         <Row className="mb-2 mt-2">
                                             <Col sm={12}>
                                                 <span>
@@ -426,7 +428,7 @@ const AppAccess = (props): React$Element<React$FragmentType> => {
                                                 </a>
                                             </Col>
                                         </Row>
-                                    </Card.Footer>
+                                    </Card.Footer> */}
                                 </Card >
                             </Typography>
                         </AccordionDetails>

@@ -66,7 +66,6 @@ const AllRoutes = () => {
                 //     path: "terminal",
                 //     element: <LoadComponent component={MyTerminal} />,
                 // }
-
             ],
         },
         {

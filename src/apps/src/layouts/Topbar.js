@@ -44,14 +44,22 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         marginBottom: "0px"
                     }}>
                         <li style={{ margin: "0 10px" }}>
-                            <Link to="/myapps" style={{ color: "#428bca" }}>
+                            {/* <Link to="/myapps" style={{ color: "#428bca" }}>
                                 <i className="dripicons-view-apps"></i>{' '}{_("My Apps")}
-                            </Link>
+                            </Link> */}
+                            <a href='' style={{ color: "#428bca" }} target="_parent" onClick={() => {
+                                cockpit.jump("/apps")
+                            }}>
+                                <i className="dripicons-view-apps"></i>{' '}{_("My Apps")}
+                            </a>
                         </li>
                         <li style={{ margin: "0 10px" }}>
-                            <Link to="/appstore" style={{ color: "#428bca" }}>
+                            {/* <Link to="/appstore" style={{ color: "#428bca" }}>
                                 <i className="dripicons-cloud-download"></i>{' '}{_("App Store")}
-                            </Link>
+                            </Link> */}
+                            <a href='/appstore' style={{ color: "#428bca" }} target="_parent">
+                                <i className="dripicons-cloud-download"></i>{' '}{_("App Store")}
+                            </a>
                         </li>
                         <li>
                             <button

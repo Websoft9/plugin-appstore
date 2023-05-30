@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /data/stackhub-web/plugins/backup/build
+cd /data/stackhub-web/plugins/kopia/build
 yarn build
 while [ ! -d "/usr/share/cockpit/backup" ]; do
   sleep 1

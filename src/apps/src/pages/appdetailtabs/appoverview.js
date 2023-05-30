@@ -16,30 +16,30 @@ const AppOverview = (props): React$Element<React$FragmentType> => {
                         <label className="me-2 fs-5 d-block">应用概览</label>
                     </Card.Header>
                     <Card.Body>
-                        <Table responsive className="mb-0" bordered={false}>
+                        <Table responsive className="mb-0" bordered={false} style={{ display: 'flex' }}>
                             <tbody>
                                 <tr>
-                                    <td style={{ width: '10%', fontWeight: "bold" }}>应用名称：</td>
+                                    <td style={{ fontWeight: "bold" }}>应用名称：</td>
                                     <td>{props.data?.app_name}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{ width: '10%', fontWeight: "bold" }}>应用版本：</td>
+                                    <td style={{ fontWeight: "bold" }}>应用版本：</td>
                                     <td>{props.data?.app_version}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{ width: '10%', fontWeight: "bold" }}>应用端口：</td>
+                                    <td style={{ fontWeight: "bold" }}>应用端口：</td>
                                     <td>{props.data?.config?.port}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{ width: '10%', fontWeight: "bold" }}>创建时间：</td>
+                                    <td style={{ fontWeight: "bold" }}>创建时间：</td>
                                     <td>{props.data?.create_time}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{ width: '10%', fontWeight: "bold" }}>配置目录： </td>
+                                    <td style={{ fontWeight: "bold" }}>配置目录： </td>
                                     <td>{props.data?.config_path}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{ width: '10%', fontWeight: "bold" }}>数据目录：</td>
+                                    <td style={{ fontWeight: "bold" }}>数据目录：</td>
                                     <td>{props.data?.volume_data}</td>
                                 </tr>
                             </tbody>

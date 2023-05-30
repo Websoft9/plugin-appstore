@@ -1,8 +1,10 @@
 {
-  "tools": {
-    "index": {
+  "version": "1.0.0",
+  "menu": {
+    "backup": {
       "label": "BackUp",
-      "order": 40
+      "path": "index.html",
+      "order": 4
     }
   },
   "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' data: *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;"
