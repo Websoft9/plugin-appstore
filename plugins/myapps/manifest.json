@@ -1,10 +1,10 @@
 {
     "version": "1.0.0",
     "menu": {
-        "apps": {
+        "myapps": {
             "label": "My Apps",
             "path": "index.html",
-            "order": -1
+            "order": 0
         }
     },
     "preload": [

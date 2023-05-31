@@ -47,9 +47,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                             {/* <Link to="/myapps" style={{ color: "#428bca" }}>
                                 <i className="dripicons-view-apps"></i>{' '}{_("My Apps")}
                             </Link> */}
-                            <a href='' style={{ color: "#428bca" }} target="_parent" onClick={() => {
-                                cockpit.jump("/apps")
-                            }}>
+                            <a href='/myapps' style={{ color: "#428bca" }} target="_parent" >
                                 <i className="dripicons-view-apps"></i>{' '}{_("My Apps")}
                             </a>
                         </li>

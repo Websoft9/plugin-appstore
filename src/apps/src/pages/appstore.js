@@ -104,7 +104,8 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     else {
                         setShowAlert(false);
                         setAlertMessage("");
-                        navigate("/myapps");
+                        //navigate("/myapps");
+                        window.location.assign("/myapps");
                     }
                 }
                 catch (error) {
