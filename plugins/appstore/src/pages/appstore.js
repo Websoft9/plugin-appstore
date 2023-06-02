@@ -108,6 +108,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                             console.log(content);
                         });
                         cockpit.jump("/myapps");
+                        onClose();
                     }
                 }
                 catch (error) {
