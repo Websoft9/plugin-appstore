@@ -2,6 +2,11 @@
 
 # dependencies
 /node_modules
+/appstore/node_modules
+/myapps/node_modules
+/kopia/node_modules
+/nginxproxymanager/node_modules
+/portainer/node_modules
 /.pnp
 .pnp.js
 
