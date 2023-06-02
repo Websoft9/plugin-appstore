@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render tab button 1`] = `
+<DocumentFragment>
+  <button
+    data-ouia-component-type="PF4/TabButton"
+    data-ouia-safe="true"
+    type="button"
+  >
+    Tab button
+  </button>
+</DocumentFragment>
+`;

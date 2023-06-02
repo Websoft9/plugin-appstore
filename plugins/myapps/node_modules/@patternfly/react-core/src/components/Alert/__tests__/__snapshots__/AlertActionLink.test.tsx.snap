@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches the snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class=""
+  >
+    Test
+  </button>
+  <p>
+    variant: link
+  </p>
+  <p
+    id="labelling-id"
+  >
+    Test label
+  </p>
+  <p>
+    isInline: true
+  </p>
+  <p>
+    iconPosition: undefined
+  </p>
+  <div
+    data-testid="icon"
+  />
+</DocumentFragment>
+`;

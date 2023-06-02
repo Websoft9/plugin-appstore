@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches the snapshot 1`] = `
+<DocumentFragment>
+  <dl
+    aria-label="this is a simple accordion"
+    class="pf-c-accordion"
+  />
+</DocumentFragment>
+`;

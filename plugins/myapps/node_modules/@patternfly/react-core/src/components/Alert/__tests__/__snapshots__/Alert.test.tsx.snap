@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    aria-atomic="false"
+    aria-label="Toast alert label"
+    aria-live="polite"
+    class="pf-c-alert"
+    data-ouia-component-id="ouia-id"
+    data-ouia-component-type="PF4/Alert"
+    data-ouia-safe="true"
+  >
+    <div>
+      <p>
+        custom icon: 
+      </p>
+      <p>
+        variant: default
+      </p>
+    </div>
+    <h4
+      class="pf-c-alert__title"
+    >
+      <span
+        class="pf-u-screen-reader"
+      >
+        Default alert:
+      </span>
+      Some title
+    </h4>
+    <div
+      class="pf-c-alert__description"
+    >
+      Some toast alert
+    </div>
+  </div>
+</DocumentFragment>
+`;

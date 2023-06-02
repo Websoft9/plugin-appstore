@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextList should match snapshot (auto-generated) 1`] = `
+<DocumentFragment>
+  <ul
+    class="''"
+  >
+    ReactNode
+  </ul>
+</DocumentFragment>
+`;

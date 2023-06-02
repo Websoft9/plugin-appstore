@@ -1,0 +1,34 @@
+.pf-c-timestamp {
+  --pf-c-timestamp--FontSize: var(--pf-global--FontSize--sm);
+  --pf-c-timestamp--Color: var(--pf-global--Color--200);
+  --pf-c-timestamp--OutlineOffset: 0.1875rem;
+  --pf-c-timestamp--m-help-text--TextDecorationLine: underline;
+  --pf-c-timestamp--m-help-text--TextDecorationStyle: dashed;
+  --pf-c-timestamp--m-help-text--TextDecorationThickness: var(--pf-global--BorderWidth--sm);
+  --pf-c-timestamp--m-help-text--TextUnderlineOffset: 0.25rem;
+  --pf-c-timestamp--m-help-text--TextDecorationColor: var(--pf-global--BorderColor--200);
+  --pf-c-timestamp--m-help-text--hover--Color: var(--pf-global--Color--100);
+  --pf-c-timestamp--m-help-text--focus--Color: var(--pf-global--Color--100);
+  --pf-c-timestamp--m-help-text--hover--TextDecorationColor: var(--pf-global--Color--100);
+  --pf-c-timestamp--m-help-text--focus--TextDecorationColor: var(--pf-global--Color--100);
+  display: inline-block;
+  font-size: var(--pf-c-timestamp--FontSize);
+  color: var(--pf-c-timestamp--Color);
+  outline-offset: var(--pf-c-timestamp--OutlineOffset);
+}
+.pf-c-timestamp.pf-m-help-text {
+  cursor: pointer;
+  text-decoration-line: var(--pf-c-timestamp--m-help-text--TextDecorationLine);
+  text-decoration-style: var(--pf-c-timestamp--m-help-text--TextDecorationStyle);
+  text-decoration-thickness: var(--pf-c-timestamp--m-help-text--TextDecorationThickness);
+  text-underline-offset: var(--pf-c-timestamp--m-help-text--TextUnderlineOffset);
+  text-decoration-color: var(--pf-c-timestamp--m-help-text--TextDecorationColor);
+}
+.pf-c-timestamp.pf-m-help-text:hover {
+  --pf-c-timestamp--Color: var(--pf-c-timestamp--m-help-text--hover--Color);
+  --pf-c-timestamp--m-help-text--TextDecorationColor: var(--pf-c-timestamp--m-help-text--hover--TextDecorationColor);
+}
+.pf-c-timestamp.pf-m-help-text:focus {
+  --pf-c-timestamp--Color: var(--pf-c-timestamp--m-help-text--focus--Color);
+  --pf-c-timestamp--m-help-text--TextDecorationColor: var(--pf-c-timestamp--m-help-text--focus--TextDecorationColor);
+}

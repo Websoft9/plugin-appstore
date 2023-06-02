@@ -38,41 +38,28 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                             </span>
                         </Link>
                     )}
-                    <ul style={{
+                    {/* <ul style={{
                         display: "flex", justifyContent: "flex-end", flexDirection: "row",
                         alignItems: "center", minHeight: "70px", fontSize: "16px", listStyle: "none",
                         marginBottom: "0px"
                     }}>
                         <li style={{ margin: "0 10px" }}>
-                            {/* <Link to="/myapps" style={{ color: "#428bca" }}>
-                                <i className="dripicons-view-apps"></i>{' '}{_("My Apps")}
-                            </Link> */}
                             <a href='/myapps' style={{ color: "#428bca" }} target="_parent" >
                                 <i className="dripicons-view-apps"></i>{' '}{_("My Apps")}
                             </a>
                         </li>
                         <li style={{ margin: "0 10px" }}>
-                            {/* <Link to="/appstore" style={{ color: "#428bca" }}>
-                                <i className="dripicons-cloud-download"></i>{' '}{_("App Store")}
-                            </Link> */}
                             <a href='/appstore' style={{ color: "#428bca" }} target="_parent">
                                 <i className="dripicons-cloud-download"></i>{' '}{_("App Store")}
                             </a>
                         </li>
                         <li>
-                            <button onClick={() => {
-                                console.log("b:" + cockpit.location)
-                                let location = cockpit.location;
-                                location.go("/system/terminal")
-                                //cockpit.jump("/system/terminal")
-                                console.log("a:" + cockpit.location)
-                                console.log("a:" + window.location.href)
-                            }}
+                            <button
                                 className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none" style={{ color: "#428bca" }}>
                                 <i className="dripicons-gear noti-icon"></i>{' '}
                             </button>
                         </li>
-                    </ul>
+                    </ul> */}
                 </div>
             </div>
         </>
