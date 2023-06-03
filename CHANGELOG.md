@@ -1,8 +1,4 @@
 ## 0.2.0 release on 2023-06-03
 
-1. appmanage docker 镜像更新
-2. portainer 插件未创建 local endpoint 的 bug 修正
-
-## 1.0.0 release on 2023-05-31
-
-1. stackhub-web 初期发布
+1. Portainer 插件修复自动登录bug
+2. My Apps 插件修复首次使用获取容器bug
