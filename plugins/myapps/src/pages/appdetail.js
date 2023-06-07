@@ -9,7 +9,9 @@ import { AppRestart, AppStart, AppStop } from '../helpers';
 import AppAccess from './appdetailtabs/appaccess';
 import AppContainer from './appdetailtabs/appcontainer';
 import AppOverview from './appdetailtabs/appoverview';
+import AppTerminal from './appdetailtabs/appterminal';
 import Uninstall from './appdetailtabs/appuninstall';
+
 
 const _ = cockpit.gettext;
 
@@ -71,6 +73,12 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
         },
         {
             id: '4',
+            title: _("Terminal"),
+            icon: 'mdi dripicons-stack',
+            text: <AppTerminal data={currentApp} />,
+        },
+        {
+            id: '5',
             title: _("Uninstall"),
             icon: 'mdi mdi-cog-outline',
             text: <Uninstall data={currentApp} ref={childRef} disabledButton={setAppdetailButtonDisable} enableButton={setAppdetailButtonEnable}
@@ -238,6 +246,11 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                         {_("Terminal")}
                                     </Tooltip>
                                 }>
+                                {/* <Link to={{ pathname: '/terminal', search: `?id=${currentApp.customer_name}` }}
+                                    style={{ color: "#fff", backgroundColor: "#727cf5", padding: "5px 10px", borderRadius: "3px", borderColor: "#727cf5", marginRight: "10px" }}
+                                    target="_blank">
+                                    <i className="dripicons-code noti-icon"></i>{' '}
+                                </Link> */}
                                 <Link to={{ pathname: '/terminal', search: `?id=${currentApp.customer_name}` }}
                                     style={{ color: "#fff", backgroundColor: "#727cf5", padding: "5px 10px", borderRadius: "3px", borderColor: "#727cf5", marginRight: "10px" }}
                                     target="_blank">
@@ -301,7 +314,7 @@ const AppDetailModal = (props): React$Element<React$FragmentType> => {
                                 return (
                                     <Tab.Pane eventKey={tab.title} id={tab.id} key={index} style={{ height: "100%" }}>
                                         <Row style={{ height: "100%" }}>
-                                            <Col sm="12" style={{ height: tab.title === "Terminal" ? "600px" : "" }}>
+                                            <Col sm="12" /*style={{ height: tab.title === "Terminal" ? "600px" : "" }}*/>
                                                 {tab.text}
                                             </Col>
                                         </Row>

@@ -308,7 +308,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
             else {
                 setShowAlert(true);
                 setAlertType("success")
-                setAlertMessage("执行成功");
+                setAlertMessage(_("Success"));
                 handleDataChange();
             }
         }
@@ -347,7 +347,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                     <FormInput
                         type="text"
                         name="search"
-                        placeholder={_("Search for apps like WordPress, Dropbox, Slack, Trello, …")}
+                        placeholder={_("Search for apps like WordPress, MySQL, GitLab, …")}
                         onChange={(e) => handleInputChange(e.target.value)}
                     />
                 </Col>
