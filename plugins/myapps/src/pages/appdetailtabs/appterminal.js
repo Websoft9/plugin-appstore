@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Spinner from 'react-bootstrap/Spinner';
 
-const handleIframe = (iframe) => {
-    var iframeWindow = iframe.contentWindow;
+// 把handleIframe函数提取成一个自定义hook，并使用useCallback来缓存它
+const useHandleIframe = () => {
+    return useCallback((iframe) => {
+        var iframeWindow = iframe.contentWindow;
 
-    var pageWrapper = iframeWindow.document.getElementById("page-wrapper");
-    if (pageWrapper) {
-        setTimeout(function () {
+        var pageWrapper = iframeWindow.document.getElementById("page-wrapper");
+        if (pageWrapper) {
             var sideview = pageWrapper.querySelector("#sideview");
             if (sideview) {
                 pageWrapper.removeChild(sideview);
@@ -31,30 +32,40 @@ const handleIframe = (iframe) => {
             pageWrapper.className = "";
 
             iframe.style.display = "block";
-        }, 1000); // 延迟1秒执行
-    }
+        }
+    }, []);
 };
 
 const AppTerminal = (props): React$Element<React$FragmentType> => {
     const iframeRef = useRef(null);
     const [loading, setLoading] = useState(true);
+    const endpointsId = props.endpointsId;
+    const containerId = props.containerId;
+
+    // 使用自定义hook来获取handleIframe函数
+    const handleIframe = useHandleIframe();
 
     useEffect(() => {
         if (iframeRef.current) {
-            if (iframeRef.current.attachEvent) {
-                iframeRef.current.attachEvent("onload", function () {
-                    handleIframe(iframeRef.current);
-                    setLoading(false);
-                });
+            // 创建一个MutationObserver来监听iframe中的内容的变化
+            const observer = new MutationObserver(() => {
+                // 当变化发生时，执行handleIframe函数
+                handleIframe(iframeRef.current);
+                setLoading(false);
+            });
+            // 设置观察选项，观察子节点和属性的变化
+            const config = { childList: true, attributes: true };
+            // 判断iframe的contentDocument是否不为null
+            if (iframeRef.current.contentDocument) {
+                // 开始观察iframe中的文档根节点
+                observer.observe(iframeRef.current.contentDocument.documentElement, config);
             }
-            else {
-                iframeRef.current.onload = function () {
-                    handleIframe(iframeRef.current);
-                    setLoading(false);
-                };
-            }
+            return () => {
+                // 停止观察
+                observer.disconnect();
+            };
         }
-    }, [iframeRef]);
+    }, [iframeRef.current, handleIframe]);
 
     return (
         <>
@@ -69,9 +80,11 @@ const AppTerminal = (props): React$Element<React$FragmentType> => {
                 <iframe
                     id="myIframe"
                     title="myProtainerTerminal"
-                    src="/portainer/#!/12/docker/containers/81104709115ba86d3708730a01daf3cc9a6a6fe3495abc9ca8996d3b25a0c94e/exec"
+                    src={`/portainer/#!/${endpointsId}/docker/containers/${containerId}/exec`}
                     style={{ display: "none" }}
                     ref={iframeRef}
+                    sandbox='allow-scripts allow-modal allow-same-origin'
+                    loading='eager'
                 />
             </div >
         </>

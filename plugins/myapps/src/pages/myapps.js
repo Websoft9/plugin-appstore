@@ -228,8 +228,10 @@ const MyApps = (): React$Element<React$FragmentType> => {
 
     //用于用户点击应用详情
     const handleClick = (app) => {
-        setSelectedApp(app);
-        setShowModal(true);
+        if (app.status === "running" || app.status === "exited") {
+            setSelectedApp(app);
+            setShowModal(true);
+        }
     };
 
     //用于应用为failed时删除应用
@@ -377,7 +379,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                             <h4 style={official_app ? {} : { paddingTop: "10px" }}>{official_app ? _("Websoft9's Apps") : _("Other Apps")}</h4>
                             {filteredApps.map((app, i) => (
                                 <Col xxl={2} md={3} key={app.app_id + i} className="appstore-item">
-                                    <div className='appstore-item-content highlight text-align-center'>
+                                    <div className='appstore-item-content highlight text-align-center' onClick={() => { handleClick(app) }}>
                                         {
                                             (!official_app && (app.status === "running" || app.status === "exited")) &&
                                             <Dropdown className="float-end">
