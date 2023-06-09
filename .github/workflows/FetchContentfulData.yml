@@ -59,3 +59,8 @@ jobs:
               SKIP=$((SKIP + LIMIT))
             done
           done
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update catalog.json product.json
