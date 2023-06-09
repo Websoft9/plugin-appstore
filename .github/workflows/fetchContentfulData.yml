@@ -1,4 +1,4 @@
-name: Get data from contentful
+name: Fetch contentful data
 
 on: workflow_dispatch
 
@@ -26,7 +26,7 @@ jobs:
       # Create a file with the query function
       - name: Create query function file
         run: |
-          cat > query.sh <<EOF
+          cat > contentful/config/query.sh <<EOF
           #!/bin/bash
           query() {
             FILE=$1
@@ -41,7 +41,7 @@ jobs:
         run: |
           mkdir -p appmanage/static/json
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
-          for QUERY_FILE in catalog_query.json product_query.json; do
+          for QUERY_FILE in contentful/config/catalog_query.json contentful/config/product_query.json; do
             for LOCALE in "${LOCALE_ARRAY[@]}"; do
               # Get the output file name from the query file name and locale
               OUTPUT_FILE=${QUERY_FILE%_query.json}_$LOCALE.json
