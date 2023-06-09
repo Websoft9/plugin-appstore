@@ -4,6 +4,8 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
       - name: Install ossutil
         run: |
           wget http://gosspublic.alicdn.com/ossutil/1.7.6/ossutil64
