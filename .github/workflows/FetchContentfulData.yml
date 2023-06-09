@@ -60,23 +60,23 @@ jobs:
         env:
           LOCALES: "en-US,zh-CN"
           DEST_DIR: "plugins/appstore/build/static/data/images/logo/"
-          FILENAME: $(basename $1)
         run: |
           mkdir -p $DEST_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR/${{ env.FILENAME }}
+            FILENAME=$(basename $1)
+            jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR/$FILENAME
           done
 
       - name: Download screenshots
         env:
           LOCALES: "en-US,zh-CN"
           DEST_DIR: "plugins/appstore/build/static/data/images/screenshots/"
-          FILENAME: $(basename $1)
         run: |
           mkdir -p $DEST_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
+            FILENAME=$(basename $1)
             jq -r '.[].screenshots[] | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR/${{ env.FILENAME }}
           done
 
