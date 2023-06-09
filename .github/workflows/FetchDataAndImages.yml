@@ -54,7 +54,7 @@ jobs:
       - name: Configure ossutil
         run: ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
-      - name: Download logos from Oss
+      - name: Download logos from oss
         run: |
           mkdir -p $LOGO_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
@@ -62,12 +62,12 @@ jobs:
             jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' $DATA_DIR/product_$LOCALE.json | xargs -n 1 -I {} bash -c 'FILENAME=$(basename {}); ./ossutil64 cp --update {} $LOGO_DIR/$FILENAME'
           done
 
-      - name: Download screenshots from Oss
+      - name: Download screenshots from oss
         run: |
           mkdir -p $SCREENSHOT_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].screenshots[] | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' $DATA_DIR/product_$LOCALE.json |  xargs -n 1 -I {} bash -c 'FILENAME=$(basename {}); ./ossutil64 cp --update {} $SCREENSHOT_DIR/$FILENAME'
+            jq -r '.[].screenshots[].value' $DATA_DIR/product_$LOCALE.json |  xargs -n 1 -I {} bash -c 'url={}; value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); ./ossutil64 cp --update $url $SCREENSHOT_DIR/$lang/$FILENAME'
           done
 
       - name: Commit and push changes
