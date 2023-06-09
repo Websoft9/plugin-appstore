@@ -9,45 +9,53 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Fetch data from contentful graphql
-        env:
-          ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
-          LOCALES: "en-US,zh-CN"
-        run: |
-          mkdir -p appmanage/static/json
-          IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
-          for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            curl -X POST \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer $ACCESS_TOKEN" \
-              -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
-              https://graphql.contentful.com/content/v1/spaces/ffrhttfighww > appmanage/static/json/catalog_$LOCALE.json
-          done
-
-      - name: Fetch Product data from contentful graphql
+      - name: Fetch Catalog and Product data from contentful graphql
         env:
           ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
           LOCALES: "en-US,zh-CN"
           LIMIT: 100
+          OUT_DIR: plugins/appstore/build/static/data
         run: |
-          mkdir -p appmanage/static/json
+          mkdir -p $OUT_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
+            # Fetch Catalog data
+            RETRY=0 # Initialize the retry counter
+            while [ $RETRY -lt 3 ]; do # Loop until retry limit is reached
+              curl -X POST \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer $ACCESS_TOKEN" \
+                -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
+                https://graphql.contentful.com/content/v1/spaces/ffrhttfighww > $OUT_DIR/catalog_$LOCALE.json &&
+              break # If curl succeeds, break the loop
+              RETRY=$((RETRY + 1)) # If curl fails, increment the retry counter
+              sleep 5 # Wait for 5 seconds before retrying
+            done
+            if [ $RETRY -eq 3 ]; then # If retry limit is reached, exit with error
+              echo "Failed to fetch catalog data for locale $LOCALE after 3 retries"
+              exit 1
+            fi
+            # Fetch Product data
             SKIP=0
             TOTAL=0
             while [ $SKIP -le $TOTAL ]; do
-              RESPONSE=$(curl -X POST \
-                -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $ACCESS_TOKEN" \
-                -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
-                https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
-              echo $RESPONSE | jq '.data.productCollection.items' >> appmanage/static/json/product_$LOCALE.json
+              RETRY=0 # Initialize the retry counter
+              while [ $RETRY -lt 3 ]; do # Loop until retry limit is reached
+                RESPONSE=$(curl -X POST \
+                  -H "Content-Type: application/json" \
+                  -H "Authorization: Bearer $ACCESS_TOKEN" \
+                  -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
+                  https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
+                echo $RESPONSE | jq '.data.productCollection.items' >> $OUT_DIR/product_$LOCALE.json &&
+                break # If curl succeeds, break the loop
+                RETRY=$((RETRY + 1)) # If curl fails, increment the retry counter
+                sleep 5 # Wait for 5 seconds before retrying
+              done
+              if [ $RETRY -eq 3 ]; then # If retry limit is reached, exit with error
+                echo "Failed to fetch product data for locale $LOCALE after 3 retries"
+                exit 1
+              fi
               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
               SKIP=$((SKIP + LIMIT))
             done
           done
-
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Update catalog.json
