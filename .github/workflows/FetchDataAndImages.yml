@@ -67,7 +67,7 @@ jobs:
           mkdir -p $SCREENSHOT_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].screenshots[].value' $DATA_DIR/product_$LOCALE.json |  xargs -I {} bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/oss:\/\/libs-websoft9-com}; value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); ./ossutil64 cp --update $url $SCREENSHOT_DIR/$lang/$FILENAME'
+            jq -r '.[].screenshots[].value' $DATA_DIR/product_$LOCALE.json |  xargs -I {} bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/oss:\/\/libs-websoft9-com}; url=${url/http:\/\/libs.websoft9.com/oss:\/\/libs-websoft9-com}; value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); ./ossutil64 cp --update $url $SCREENSHOT_DIR/$lang/$FILENAME'
           done
 
       - name: Commit and push changes
