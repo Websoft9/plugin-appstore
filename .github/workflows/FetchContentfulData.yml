@@ -64,8 +64,7 @@ jobs:
           mkdir -p $DEST_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            FILENAME=$(basename $1)
-            jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR/$FILENAME
+            jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 -I {} bash -c 'FILENAME=$(basename {}); ./ossutil64 cp --update {} $DEST_DIR/$FILENAME'
           done
 
       - name: Download screenshots
@@ -76,8 +75,7 @@ jobs:
           mkdir -p $DEST_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            FILENAME=$(basename $1)
-            jq -r '.[].screenshots[] | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR/${{ env.FILENAME }}
+            jq -r '.[].screenshots[] | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json |  xargs -n 1 -I {} bash -c 'FILENAME=$(basename {}); ./ossutil64 cp --update {} $DEST_DIR/$FILENAME'
           done
 
       - name: Commit and push changes
