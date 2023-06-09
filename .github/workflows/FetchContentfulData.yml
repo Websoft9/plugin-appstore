@@ -9,66 +9,45 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Define some variables for convenience
-      - name: Set up variables
+      - name: Fetch data from contentful graphql
+        env:
+          ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
+          LOCALES: "en-US,zh-CN"
+        run: |
+          mkdir -p appmanage/static/json
+          IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
+          for LOCALE in "${LOCALE_ARRAY[@]}"; do
+            curl -X POST \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $ACCESS_TOKEN" \
+              -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
+              https://graphql.contentful.com/content/v1/spaces/ffrhttfighww > appmanage/static/json/catalog_$LOCALE.json
+          done
+
+      - name: Fetch Product data from contentful graphql
         env:
           ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
           LOCALES: "en-US,zh-CN"
           LIMIT: 100
-          SPACE_ID: ffrhttfighww
-          API_URL: https://graphql.contentful.com/content/v1/spaces/$SPACE_ID
-          OUT_DIR: plugins/appstore/build/static/data
         run: |
-          echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV
-          echo "LOCALES=$LOCALES" >> $GITHUB_ENV
-          echo "LIMIT=$LIMIT" >> $GITHUB_ENV
-          echo "API_URL=$API_URL" >> $GITHUB_ENV
-          echo "OUT_DIR=$OUT_DIR" >> $GITHUB_ENV
-
-      # Create a file with the query function
-      - name: Create query function file
-        run: |
-          cat > query.sh <<EOF
-          #!/bin/bash
-          query() {
-            FILE=$1
-            LOCALE=$2
-            SKIP=$3
-            jq -n --argfile query $FILE --arg locale $LOCALE --arg skip $SKIP '$query + {variables: {locale: $locale, skip: ($skip|tonumber)}}'
-          }
-          EOF
-
-      # Loop through different queries and locales
-      - name: Fetch data from contentful graphql
-        run: |
-          mkdir -p $OUT_DIR
+          mkdir -p appmanage/static/json
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
-          for QUERY_FILE in contentful/config/catalog_query.json contentful/config/product_query.json; do
-            for LOCALE in "${LOCALE_ARRAY[@]}"; do
-              # Get the output file name from the query file name and locale
-              OUTPUT_FILE=${QUERY_FILE%_query.json}_$LOCALE.json
-              SKIP=0
-              TOTAL=0
-              while [ $SKIP -le $TOTAL ]; do
-                # Load the query function from the file and generate the query string from the file and variables
-                source query.sh
-                QUERY=$(query $QUERY_FILE $LOCALE $SKIP)
-                # Send the query to the API and get the response
-                RESPONSE=$(curl -X POST \
-                  -H "Content-Type: application/json" \
-                  -H "Authorization: Bearer $ACCESS_TOKEN" \
-                  -d "$QUERY" \
-                  $API_URL)
-                # Append the items to the output file
-                echo $RESPONSE | jq '.data.productCollection.items' >> $OUT_DIR/$OUTPUT_FILE
-                # Update the total and skip values
-                TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
-                SKIP=$((SKIP + LIMIT))
-              done
+          for LOCALE in "${LOCALE_ARRAY[@]}"; do
+            SKIP=0
+            TOTAL=0
+            while [ $SKIP -le $TOTAL ]; do
+              RESPONSE=$(curl -X POST \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer $ACCESS_TOKEN" \
+                -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
+                https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
+              echo $RESPONSE | jq '.data.productCollection.items' >> appmanage/static/json/product_$LOCALE.json
+              TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
+              SKIP=$((SKIP + LIMIT))
             done
           done
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Update catalog.json and product.json
+          commit_message: Update catalog.json
