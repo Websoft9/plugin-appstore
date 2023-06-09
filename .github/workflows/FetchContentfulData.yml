@@ -64,7 +64,7 @@ jobs:
           mkdir -p $DEST_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR
+            jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR/${{ basename $1 }}
           done
 
       - name: Download screenshots
@@ -75,7 +75,7 @@ jobs:
           mkdir -p $DEST_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].screenshots[] | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR
+            jq -r '.[].screenshots[] | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' appmanage/static/json/product_$LOCALE.json | xargs -n 1 ./ossutil64 cp --update $DEST_DIR/${{ basename $1 }}
           done
 
       - name: Commit and push changes
