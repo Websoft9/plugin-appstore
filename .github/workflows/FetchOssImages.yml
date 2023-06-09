@@ -11,4 +11,9 @@ jobs:
       - name: Configure ossutil
         run: ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
       - name: Download file from OSS
-        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ plugins/appstore/build/static/images/ -r --update
+        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ plugins/appstore/build/static/data/images/ -r --update
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update catalog.json
