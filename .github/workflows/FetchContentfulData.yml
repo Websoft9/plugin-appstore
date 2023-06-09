@@ -1,4 +1,4 @@
-name: Fetch contentful data
+name: Fetch Contentful Data
 
 on: workflow_dispatch
 
@@ -51,7 +51,7 @@ jobs:
               TOTAL=0
               while [ $SKIP -le $TOTAL ]; do
                 # Load the query function from the file and generate the query string from the file and variables
-                source query.sh
+                source contentful/config/query.sh
                 QUERY=$(query $QUERY_FILE $LOCALE $SKIP)
                 # Send the query to the API and get the response
                 RESPONSE=$(curl -X POST \
