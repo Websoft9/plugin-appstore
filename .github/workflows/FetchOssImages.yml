@@ -9,6 +9,6 @@ jobs:
           wget http://gosspublic.alicdn.com/ossutil/1.7.6/ossutil64
           chmod 755 ossutil64
       - name: Configure ossutil
-        run: ./ossutil64 config -e $ { { secrets.OSS_ENDPOINT }} -i $ { { secrets.OSS_ACCESS_KEY_ID }} -k $ { { secrets.OSS_ACCESS_KEY_SECRET }} -L CH
+        run: ./ossutil64 config -e $ { { secrets.OSS_ENDPOINT }} -i $ { { secrets.OSS_ACCESS_KEY_ID }} -k $ { { secrets.OSS_ACCESS_KEY_SECRET }}
       - name: Download file from OSS
         run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ plugins/appstore/build/static/images/ -r --update
