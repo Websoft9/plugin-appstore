@@ -17,11 +17,13 @@ jobs:
           LIMIT: 100
           SPACE_ID: ffrhttfighww
           API_URL: https://graphql.contentful.com/content/v1/spaces/$SPACE_ID
+          OUT_DIR: plugins/appstore/build/static/data
         run: |
           echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> $GITHUB_ENV
           echo "LOCALES=$LOCALES" >> $GITHUB_ENV
           echo "LIMIT=$LIMIT" >> $GITHUB_ENV
           echo "API_URL=$API_URL" >> $GITHUB_ENV
+          echo "OUT_DIR=$OUT_DIR" >> $GITHUB_ENV
 
       # Create a file with the query function
       - name: Create query function file
@@ -39,7 +41,7 @@ jobs:
       # Loop through different queries and locales
       - name: Fetch data from contentful graphql
         run: |
-          mkdir -p appmanage/static/json
+          mkdir -p $OUT_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for QUERY_FILE in contentful/config/catalog_query.json contentful/config/product_query.json; do
             for LOCALE in "${LOCALE_ARRAY[@]}"; do
@@ -58,7 +60,7 @@ jobs:
                   -d "$QUERY" \
                   $API_URL)
                 # Append the items to the output file
-                echo $RESPONSE | jq '.data.productCollection.items' >> appmanage/static/json/$OUTPUT_FILE
+                echo $RESPONSE | jq '.data.productCollection.items' >> $OUT_DIR/$OUTPUT_FILE
                 # Update the total and skip values
                 TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
                 SKIP=$((SKIP + LIMIT))
