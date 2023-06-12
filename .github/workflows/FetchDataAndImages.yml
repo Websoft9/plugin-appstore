@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
-      LOCALES: "en,zh"
+      LOCALES: "en-US,zh-CN"
       DATA_DIR: "plugins/appstore/src/data"
       APPSTORE_LOGO_DIR: "plugins/appstore/src/assets/images/"
       MYAPPS_LOGO_DIR: "plugins/myapps/src/assets/images/"
@@ -40,10 +40,29 @@ jobs:
               -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
               https://graphql.contentful.com/content/v1/spaces/ffrhttfighww | \
               sed "1s/^/{/" | 
-              sed "1s/^/const catalog_$LOCALE= \n/" | 
+              sed "1s/^/const catalog_${LOCALE:0:2}= \n/" | 
               sed "s//;/" | 
-              sed "$ a export { catalog_$LOCALE};" > $DATA_DIR/catalog_$LOCALE.js
+              sed "$ a export { catalog_${LOCALE:0:2}};" > $DATA_DIR/catalog_${LOCALE:0:2}.js
           done
+
+      # - name: Fetch product data from contentful graphql
+      #   run: |
+      #     mkdir -p $DATA_DIR
+      #     IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
+      #     for LOCALE in "${LOCALE_ARRAY[@]}"; do
+      #       SKIP=0
+      #       TOTAL=0
+      #       while [ $SKIP -le $TOTAL ]; do
+      #         RESPONSE=$(curl -X POST \
+      #           -H "Content-Type: application/json" \
+      #           -H "Authorization: Bearer $ACCESS_TOKEN" \
+      #           -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
+      #           https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
+      #         echo $RESPONSE | jq '.data.productCollection.items' >> $DATA_DIR/product_$LOCALE.json
+      #         TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
+      #         SKIP=$((SKIP + LIMIT))
+      #       done
+      #     done
 
       - name: Fetch product data from contentful graphql
         run: |
@@ -58,7 +77,10 @@ jobs:
                 -H "Authorization: Bearer $ACCESS_TOKEN" \
                 -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
                 https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
-              echo $RESPONSE | jq '.data.productCollection.items' >> $DATA_DIR/product_$LOCALE.json
+              echo $RESPONSE | jq '.data.productCollection.items' | \
+              sed "1s/^/const product_${LOCALE:0:2}= /" | \
+              sed "$ s/$/;/" | \
+              sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
               SKIP=$((SKIP + LIMIT))
             done
