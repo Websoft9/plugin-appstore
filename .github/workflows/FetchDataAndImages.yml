@@ -8,7 +8,7 @@ jobs:
     env:
       ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
       LOCALES: "en-US,zh-CN"
-      DATA_DIR: "plugins/appstore/build/static/data/json"
+      DATA_DIR: "plugins/appstore/data"
       APPSTORE_LOGO_DIR: "plugins/appstore/src/assets/images/"
       MYAPPS_LOGO_DIR: "plugins/myapps/src/assets/images/"
       SCREENSHOT_DIR: "plugins/appstore/src/assets/images/screenshot"
