@@ -239,7 +239,7 @@ const product_zh= [
     "memory": 2,
     "storage": 1,
     "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/onlyoffice-websoft9.png"
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/onlyofficedocs-websoft9.png"
     },
     "catalogCollection": {
       "items": [
