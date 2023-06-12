@@ -39,9 +39,9 @@ jobs:
               -H "Authorization: Bearer $ACCESS_TOKEN" \
               -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
               https://graphql.contentful.com/content/v1/spaces/ffrhttfighww | \
+              jq '.data.catalog.linkedFrom.catalogCollection.items' | \
               sed "1s/^/const catalog_${LOCALE:0:2} = /" | \
-              sed "1s/{/{/" | \
-              sed "$ s/}/};/" | \
+              sed "$ s/$/;/" | \
               sed "$ a export { catalog_${LOCALE:0:2}};" > $DATA_DIR/catalog_${LOCALE:0:2}.js
           done
 
