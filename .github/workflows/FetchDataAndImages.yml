@@ -40,12 +40,12 @@ jobs:
               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
               SKIP=$((SKIP + LIMIT))
             done
-            sudo echo ${ITEMS[@]} | jq -s 'add' | \
+            echo ${ITEMS[@]} | jq -s 'add' | \
             sed "1s/^/const product_${LOCALE:0:2}= /" | \
             sed "$ s/$/;/" | \
             sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
           done && mkdir -p $SCREENSHOT_DIR && IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES" && for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].screenshots[].value' <(node -e "const { product_${LOCALE:0:2} } = require(`$DATA_DIR/product_${LOCALE:0:2}.js`); console.log(JSON.stringify(product_${LOCALE:0:2}));") |  xargs -I {} -P 8 bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com};value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); wget --tries=3 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 $url -O $SCREENSHOT_DIR/$lang/$FILENAME || echo $url >> $SCREENSHOT_DIR/Error.log'
+            jq -r '.[].screenshots[].value' <(node -e "const { product_${LOCALE:0:2} } = require('$DATA_DIR/product_${LOCALE:0:2}.js'); console.log(JSON.stringify(product_${LOCALE:0:2}));") |  xargs -I {} -P 8 bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com};value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); wget --tries=3 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 $url -O $SCREENSHOT_DIR/$lang/$FILENAME || echo $url >> $SCREENSHOT_DIR/Error.log'
           done
 
       - name: Commit and push changes
