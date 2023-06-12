@@ -55,19 +55,14 @@ jobs:
         run: ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
       - name: Download logos from oss
-        run: |
-          mkdir -p $LOGO_DIR
-          IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
-          for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].logo.imageurl | sub("https://libs.websoft9.com";"oss://libs-websoft9-com")' $DATA_DIR/product_$LOCALE.json | xargs -I {} bash -c 'FILENAME=$(basename {}); ./ossutil64 cp --update {} $LOGO_DIR/$FILENAME'
-          done
+        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $LOGO_DIR -r --update
 
       - name: Download screenshots from oss
         run: |
           mkdir -p $SCREENSHOT_DIR
           IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].screenshots[].value' $DATA_DIR/product_$LOCALE.json |  xargs -I {} bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/oss:\/\/libs-websoft9-com}; url=${url/http:\/\/libs.websoft9.com/oss:\/\/libs-websoft9-com}; value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); ./ossutil64 cp --update $url $SCREENSHOT_DIR/$lang/$FILENAME'
+            jq -r '.[].screenshots[].value' $DATA_DIR/product_$LOCALE.json |  xargs -I {} bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com}; url=${url/http:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com}; value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); wget --tries=3 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 $url -O $SCREENSHOT_DIR/$lang/$FILENAME || echo $url >> $SCREENSHOT_DIR/Error.log'
           done
 
       - name: Commit and push changes
