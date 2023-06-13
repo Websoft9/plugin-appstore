@@ -55,7 +55,7 @@ jobs:
              echo "SCREENSHOT_DIR=$SCREENSHOT_DIR"
              echo "LOCALE=$LOCALE"
 
-             mkdir -p "$DIR"
+             mkdir -p $DIR
              echo "ls -l $DIR" 
              echo ${ITEMS[@]} | jq --raw-output '.[].screenshots[].value' | xargs -P 8 -n 1 bash -c 'url=$1; echo "url=$url"; curl -o $DIR/$(basename $url) $url || echo $url >> $SCREENSHOT_DIR/Error.log' _
 
