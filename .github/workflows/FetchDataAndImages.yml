@@ -40,27 +40,27 @@ jobs:
           done
 
           for LOCALE in "${LOCALE_ARRAY[@]}"; do
-             SKIP=0
-             TOTAL=0
-             ITEMS=()
-             while [ $SKIP -le $TOTAL ]; do
-               RESPONSE=$(curl -X POST \
-                 -H "Content-Type: application/json" \
-                 -H "Authorization: Bearer $ACCESS_TOKEN" \
-                 -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
-                 https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
-               ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items'))
-               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
-               SKIP=$((SKIP + LIMIT))
-             done
-             # 下载图片
-             echo ${ITEMS[@]} | jq '.[].screenshots[].value' | xargs -n 1 -P 10 -I {} bash -c 'url=$(echo {} | sed "s/\"//g"); FILENAME=$(basename "$url"); wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log'
-             # 写入文件
-             echo ${ITEMS[@]} | jq -s 'add' | \
-             sed "1s/^/const product_${LOCALE:0:2}= /" | \
-             sed "$ s/$/;/" | \
-             sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
-           done
+            SKIP=0
+            TOTAL=0
+            ITEMS=()
+            while [ $SKIP -le $TOTAL ]; do
+              RESPONSE=$(curl -X POST \
+                -H "Content-Type: application/json" \
+                -H "Authorization: Bearer $ACCESS_TOKEN" \
+                -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
+                https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
+              ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items'))
+              TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
+              SKIP=$((SKIP + LIMIT))
+            done
+            # 下载图片
+            echo ${ITEMS[@]} | jq '.[].screenshots[].value' | xargs -n 1 -P 10 -I {} bash -c 'url=$(echo {} | sed "s/\"//g"); FILENAME=$(basename "$url"); wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log' _ $LOCALE
+            # 写入文件
+            echo ${ITEMS[@]} | jq -s 'add' | \
+            sed "1s/^/const product_${LOCALE:0:2}= /" | \
+            sed "$ s/$/;/" | \
+            sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
+          done
 
       - name: Install ossutil
         run: |
