@@ -54,7 +54,7 @@ jobs:
               SKIP=$((SKIP + LIMIT))
             done
             # 下载图片
-            echo ${ITEMS[@]} | jq '.[].screenshots[].value' | xargs -n 1 -P 10 -I {} bash -c 'url=$(echo {} | sed "s/\"//g"); FILENAME=$(basename "$url"); wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log' _ $LOCALE
+            echo ${ITEMS[@]} | jq '.[].screenshots[].value' | xargs -L 10 -P 10 -I {} bash -c 'url=$(echo {} | sed "s/\"//g"); FILENAME=$(basename "$url"); wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log' _ $LOCALE $SCREENSHOT_DIR
             # 写入文件
             echo ${ITEMS[@]} | jq -s 'add' | \
             sed "1s/^/const product_${LOCALE:0:2}= /" | \
