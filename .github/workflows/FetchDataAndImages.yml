@@ -22,6 +22,10 @@ jobs:
         with:
           node-version: "14"
 
+      - name: Install dependencies
+        run: |
+          npm install node-fetch fs-extra rimraf
+
       - name: Fetch product data and download screenshots
         run: |
           mkdir -p $DATA_DIR
@@ -31,11 +35,7 @@ jobs:
             TOTAL=0
             ITEMS=()
             while [ $SKIP -le $TOTAL ]; do
-              RESPONSE=$(curl -X POST \
-                -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $ACCESS_TOKEN" \
-                -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
-                https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
+              RESPONSE=$(node -e "const fetch = require('node-fetch'); fetch('https://graphql.contentful.com/content/v1/spaces/ffrhttfighww', {method:'POST', headers:{'Content-Type':'application/json', 'Authorization':'Bearer $ACCESS_TOKEN'}, body:JSON.stringify({query:'query($locale:String,$skip:Int){productCollection(locale:$locale,where:{appStore:true},limit:$LIMIT,skip:$skip){total items{sys{id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo{imageurl} catalogCollection(limit:15){items{key title catalogCollection(limit:5){items{key title}}}}}}}', variables:{locale:'$LOCALE', skip:$SKIP}})}).then(res => res.json()).then(data => console.log(JSON.stringify(data)))")
               ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items'))
               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
               SKIP=$((SKIP + LIMIT))
@@ -44,11 +44,18 @@ jobs:
             sed "1s/^/const product_${LOCALE:0:2}= /" | \
             sed "$ s/$/;/" | \
             sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
-          done && mkdir -p $SCREENSHOT_DIR && IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES" && for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            jq -r '.[].screenshots[].value' <(node -e "const { product_${LOCALE:0:2} } = require($DATA_DIR/product_${LOCALE:0:2}.js); console.log(JSON.stringify(product_${LOCALE:0:2}));") |  xargs -I {} -P 8 bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com};value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); wget --tries=3 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 $url -O $SCREENSHOT_DIR/$lang/$FILENAME || echo $url >> $SCREENSHOT_DIR/Error.log'
+          done && rimraf $SCREENSHOT_DIR && mkdir -p $SCREENSHOT_DIR && IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES" && for LOCALE in "${LOCALE_ARRAY[@]}"; do
+            jq -r '.[].screenshots[].value' <(node -e "const { product_${LOCALE:0:2} } = require(`$DATA_DIR/product_${LOCALE:0:2}.js`); console.log(JSON.stringify(product_${LOCALE:0:2}));") |  xargs -I {} -P 8 bash -c 'url={}; url=${url/https:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com};value=${url#*DocsPicture/}; value=${value%/*}; lang=${value%%/*}; mkdir -p $SCREENSHOT_DIR/$lang; FILENAME=$(basename $url); wget --tries=3 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 $url -O $SCREENSHOT_DIR/$lang/$FILENAME || echo $url >> $SCREENSHOT_DIR/Error.log'
           done
 
+      - name: Check changes
+        id: changes
+        run: |
+          CHANGED=$(git status --porcelain)
+          if [ -n "$CHANGED" ]; then echo "::set-output name=changed::true"; fi
+
       - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update data 、logos、screenshots
