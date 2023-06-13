@@ -50,7 +50,8 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             echo ${ITEMS[@]} | jq --raw-output '.[].screenshots[].value' | xargs -P 8 -n 1 bash -c 'url=$1; locale=$2; mkdir -p $SCREENSHOT_DIR/${locale:0:2}; curl -o $SCREENSHOT_DIR/${locale:0:2}/$(basename $url) $url || echo $url >> $SCREENSHOT_DIR/Error.log' _ $LOCALE
+             echo ${ITEMS[@]} | jq --raw-output '.[].screenshots[].value' | xargs -P 8 -n 1 bash -c 'url=$1; locale=$2; echo "url=$url"; mkdir -p $SCREENSHOT_DIR/${locale:0:2}; curl -o $SCREENSHOT_DIR/${locale:0:2}/$(basename $url) $url || echo $url >> $SCREENSHOT_DIR/Error.log' _ $LOCALE
+
              # 写入文件
              echo ${ITEMS[@]} | jq -s 'add' | \
              sed "1s/^/const product_${LOCALE:0:2}= /" | \
