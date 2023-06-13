@@ -51,7 +51,7 @@ jobs:
              done
              # 下载图片
              echo ${ITEMS[@]} | jq '.[].screenshots[].value' | while read url; do 
-              url=${url/https:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com}
+              url=${url/https/http}
               mkdir -p $SCREENSHOT_DIR/${LOCALE:0:2}
               FILENAME=$(basename "$url")
               wget --tries=3 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log
