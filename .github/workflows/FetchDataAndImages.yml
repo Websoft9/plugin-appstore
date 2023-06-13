@@ -50,11 +50,7 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             DIR="$SCREENSHOT_DIR/${LOCALE:0:2}";
-             mkdir -p "$DIR";
-             ls "$DIR" ;
-             echo ${ITEMS[@]} | jq --raw-output '.[].screenshots[].value' | xargs -P 8 -n 1 bash -c 'url=$1; echo "url=$url"; curl -o $DIR/$(basename $url) $url || echo $url >> $SCREENSHOT_DIR/Error.log' _
-
+             echo ${ITEMS[@]} | jq -r '.[].screenshots[].value' |  xargs -I {} -P 8 bash -c "url={}; url=${url/https:\/\/libs.websoft9.com/http:\/\/libs.websoft9.com}; mkdir -p $SCREENSHOT_DIR/${LOCALE:0:2}; FILENAME=$(basename $url); wget --tries=3 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 $url -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo $url >> $SCREENSHOT_DIR/Error.log"
              # 写入文件
              echo ${ITEMS[@]} | jq -s 'add' | \
              sed "1s/^/const product_${LOCALE:0:2}= /" | \
