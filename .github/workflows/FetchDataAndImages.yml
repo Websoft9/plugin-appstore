@@ -17,34 +17,61 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Fetch catalog data from contentful graphql
+        run: |
+          mkdir -p $DATA_DIR
+          IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
+          for LOCALE in "${LOCALE_ARRAY[@]}"; do
+            curl -X POST \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $ACCESS_TOKEN" \
+              -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
+              https://graphql.contentful.com/content/v1/spaces/ffrhttfighww | \
+              jq '.data.catalog.linkedFrom.catalogCollection.items' | \
+              sed "1s/^/const catalog_${LOCALE:0:2} = /" | \
+              sed "$ s/$/;/" | \
+              sed "$ a export { catalog_${LOCALE:0:2}};" > $DATA_DIR/catalog_${LOCALE:0:2}.js
+          done
+
       - name: Fetch product data and download screenshots
         run: |
           mkdir -p $SCREENSHOT_DIR && IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES" && for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            mkdir -p $SCREENSHOT_DIR/${LOCALE:0:2}
-          done
+             SKIP=0
+             TOTAL=0
+             ITEMS=()
+             while [ $SKIP -le $TOTAL ]; do
+               RESPONSE=$(curl -X POST \
+                 -H "Content-Type: application/json" \
+                 -H "Authorization: Bearer $ACCESS_TOKEN" \
+                 -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
+                 https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
+               ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items'))
+               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
+               SKIP=$((SKIP + LIMIT))
+             done
+             # 下载图片
+             echo ${ITEMS[@]} | jq '.[].screenshots[].value' | while read url; do 
+              url=$(echo $url | sed 's/"//g')
+              mkdir -p $SCREENSHOT_DIR/${LOCALE:0:2}
+              FILENAME=$(basename "$url")
+              wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log
+             done
+             # 写入文件
+             echo ${ITEMS[@]} | jq -s 'add' | \
+             sed "1s/^/const product_${LOCALE:0:2}= /" | \
+             sed "$ s/$/;/" | \
+             sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
+           done
 
-          for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            SKIP=0
-            TOTAL=0
-            ITEMS=()
-            while [ $SKIP -le $TOTAL ]; do
-              RESPONSE=$(curl -X POST \
-                -H "Content-Type: application/json" \
-                -H "Authorization: Bearer $ACCESS_TOKEN" \
-                -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
-                https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
-              ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items'))
-              TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
-              SKIP=$((SKIP + LIMIT))
-            done
-            # 下载图片
-            echo ${ITEMS[@]} | jq '.[].screenshots[].value' | xargs -L 10 -P 10 -I {} bash -c 'url=$(echo {} | sed "s/\"//g"); FILENAME=$(basename "$url"); wget -t 0 "$url" -P "$3/${2:0:2}" || echo "$url" >> "$3/Error.log"' _ $LOCALE $SCREENSHOT_DIR
-            # 写入文件
-            echo ${ITEMS[@]} | jq -s 'add' | \
-            sed "1s/^/const product_${LOCALE:0:2}= /" | \
-            sed "$ s/$/;/" | \
-            sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
-          done
+      - name: Install ossutil
+        run: |
+          wget http://gosspublic.alicdn.com/ossutil/1.7.6/ossutil64
+          chmod 755 ossutil64
+      - name: Configure ossutil
+        run: ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+
+      - name: Download logos from oss
+        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $APPSTORE_LOGO_DIR -r --update && ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $MYAPPS_LOGO_DIR -r --update
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
