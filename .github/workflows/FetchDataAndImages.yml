@@ -54,7 +54,7 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             echo ${ITEMS[@]} | jq -r '.[].screenshots[].value' | xargs -I {} -n 1 -P 10 curl -L -o $SCREENSHOT_DIR/${LOCALE:0:2}/{}.png
+             echo ${ITEMS[@]} | jq -r '.[].screenshots[].value' | xargs -I {} -n 1 -P 10 sh -c 'curl -L "{}" -o "$SCREENSHOT_DIR/${LOCALE:0:2}/$(basename "{}")"'
              # 写入文件
              echo ${ITEMS[@]} | jq -s 'add' | \
              sed "1s/^/const product_${LOCALE:0:2}= /" | \
