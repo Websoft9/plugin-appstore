@@ -8,7 +8,7 @@ jobs:
     env:
       ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
       LOCALES: "en-US,zh-CN"
-      DATA_DIR: "plugins/appstore/build/data"
+      DATA_DIR: "plugins/appstore/build/static/data"
       APPSTORE_LOGO_DIR: "plugins/appstore/build/static/logos"
       MYAPPS_LOGO_DIR: "plugins/myapps/build/static/logos"
       SCREENSHOT_DIR: "plugins/appstore/build/static/screenshots"
@@ -27,8 +27,7 @@ jobs:
               -H "Authorization: Bearer $ACCESS_TOKEN" \
               -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
               https://graphql.contentful.com/content/v1/spaces/ffrhttfighww | \
-              jq '.data.catalog.linkedFrom.catalogCollection.items' | \
-              jq -n --argjson data "$(cat)" '{data: $data}' > $DATA_DIR/catalog_${LOCALE:0:2}.json
+              jq '.data.catalog.linkedFrom.catalogCollection.items' > $DATA_DIR/catalog_${LOCALE:0:2}.json
           done
 
       - name: Fetch product data and download screenshots
@@ -55,10 +54,7 @@ jobs:
               wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log
              done
              # 写入文件
-             echo ${ITEMS[@]} | jq -s 'add' | \
-             sed "1s/^/const product_${LOCALE:0:2}= /" | \
-             sed "$ s/$/;/" | \
-             sed "$ a export { product_${LOCALE:0:2}};" > $DATA_DIR/product_${LOCALE:0:2}.js
+             echo ${ITEMS} | jq -R > $DATA_DIR/catalog_${LOCALE:0:2}.json
            done
 
       - name: Install ossutil
