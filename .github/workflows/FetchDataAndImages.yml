@@ -28,9 +28,7 @@ jobs:
               -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
               https://graphql.contentful.com/content/v1/spaces/ffrhttfighww | \
               jq '.data.catalog.linkedFrom.catalogCollection.items' | \
-              sed "1s/^/const catalog_${LOCALE:0:2} = /" | \
-              sed "$ s/$/;/" | \
-              sed "$ a export { catalog_${LOCALE:0:2}};" > $DATA_DIR/catalog_${LOCALE:0:2}.js
+              jq -n --argjson data "$(cat)" '{data: $data}' > $DATA_DIR/catalog_${LOCALE:0:2}.json
           done
 
       - name: Fetch product data and download screenshots
