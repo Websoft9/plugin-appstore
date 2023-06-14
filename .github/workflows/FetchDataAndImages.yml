@@ -47,14 +47,14 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             echo ${ITEMS[@]} | sed 's/[\r\n]//g' | jq '.screenshots[]?.value' | while read url; do
+             echo ${ITEMS[@]} | jq '.screenshots[]?.value' | while read url; do
               url=$(echo $url | sed 's/"//g')
               mkdir -p $SCREENSHOT_DIR/${LOCALE:0:2}
               FILENAME=$(basename "$url")
               wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log
              done
              # 写入文件
-             printf '%s\n' ${ITEMS[@]} | jq -s '.' > $DATA_DIR/product_${LOCALE:0:2}.json
+             echo ${ITEMS[@]} > $DATA_DIR/product_${LOCALE:0:2}.json
            done
 
       - name: Install ossutil
