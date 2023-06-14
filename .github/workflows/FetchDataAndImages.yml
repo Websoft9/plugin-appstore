@@ -9,9 +9,9 @@ jobs:
       ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
       LOCALES: "en-US,zh-CN"
       DATA_DIR: "plugins/appstore/build/data"
-      APPSTORE_LOGO_DIR: "plugins/appstore/build/images/logo"
-      MYAPPS_LOGO_DIR: "plugins/myapps/build/images/logo"
-      SCREENSHOT_DIR: "plugins/appstore/build/images/screenshot"
+      APPSTORE_LOGO_DIR: "plugins/appstore/build/static/logos"
+      MYAPPS_LOGO_DIR: "plugins/myapps/build/static/logos"
+      SCREENSHOT_DIR: "plugins/appstore/build/static/screenshots"
       LIMIT: 100
 
     steps:
