@@ -1,7 +1,6 @@
 name: Fetch Contentful Data and Oss Images
 
-on: 
-  workflow_dispatch
+on: workflow_dispatch
 
 jobs:
   fetch-data:
@@ -43,7 +42,7 @@ jobs:
                  -H "Authorization: Bearer $ACCESS_TOKEN" \
                  -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
                  https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
-               ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items[]'))
+               ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items'))
                TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
                SKIP=$((SKIP + LIMIT))
              done
@@ -55,7 +54,7 @@ jobs:
               wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log
              done
              # 写入文件
-             printf "[%s]\n" "$(IFS=,; printf "%s" "${items[*]}")" > $DATA_DIR/product_${LOCALE:0:2}.json
+             echo ${ITEMS[@]} | jq -s ' {productCollection: .}' > $DATA_DIR/product_${LOCALE:0:2}.json
            done
 
       - name: Install ossutil
@@ -72,4 +71,3 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Update data 、logos、screenshots
-          force_option: true
