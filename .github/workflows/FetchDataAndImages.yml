@@ -47,7 +47,8 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             echo ${ITEMS[@]} | jq '.[].screenshots[].value' | while read url; do 
+             echo ${ITEMS[@]} | jq '.screenshots[]?.value' | while read url; do 
+              echo $url
               url=$(echo $url | sed 's/"//g')
               mkdir -p $SCREENSHOT_DIR/${LOCALE:0:2}
               FILENAME=$(basename "$url")
