@@ -54,10 +54,7 @@ jobs:
               wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log
              done
              # 写入文件
-             echo '[' > $DATA_DIR/product_${LOCALE:0:2}.json
-             printf '%s,\n' ${ITEMS[@]} >> $DATA_DIR/product_${LOCALE:0:2}.json
-             sed -i '$ s/,$//' $DATA_DIR/product_${LOCALE:0:2}.json
-             echo ']' >> $DATA_DIR/product_${LOCALE:0:2}.json
+             jq ${ITEMS[@]} > $DATA_DIR/product_${LOCALE:0:2}.json
            done
 
       - name: Install ossutil
