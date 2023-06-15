@@ -47,7 +47,7 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             echo "${ITEMS[@]}" | jq -r '.screenshots[].value' | xargs -n 1 -P 10 sh -c 'wget -O $SCREENSHOT_DIR/${1%%_*}/$(basename $0) $0' $LOCALE
+             echo "${ITEMS[@]}" | jq -r '.screenshots[].value' | xargs -n 1 -P 10 sh -c 'wget -O "$SCREENSHOT_DIR/${1%%_*}/$(basename $0)" $0' $LOCALE
              # 写入文件
              echo ${ITEMS[@]} | jq -s '.' > $DATA_DIR/product_${LOCALE:0:2}.json
            done
