@@ -1,4 +1,3 @@
-## 0.2.0 release on 2023-06-03
+## 0.1.0 release on 2023-06-15
 
-1. Portainer 插件修复自动登录bug
-2. My Apps 插件修复首次使用获取容器bug
+1. cockpit 插件 init
