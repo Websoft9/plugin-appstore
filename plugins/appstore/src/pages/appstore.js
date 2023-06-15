@@ -3,8 +3,9 @@ import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
 import cockpit from 'cockpit';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from "react-router-dom";
 import DefaultImg from '../assets/images/default.png';
 import FormInput from '../components/FormInput';
@@ -16,66 +17,6 @@ const language = cockpit.language;//获取cockpit的当前语言环境
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
-// const getContentfulData = gql`
-//     query($locale: String,$skip: Int){
-//         productCollection(locale:$locale,where:{appStore:true},limit: 100, skip: $skip) {
-//             total
-//             items {
-//             sys { 
-//                 id 
-//             }
-//             key
-//             hot
-//             trademark
-//             summary
-//             overview
-//             websiteurl
-//             description
-//             screenshots
-//             distribution
-//             vcpu
-//             memory
-//             storage
-//             logo {
-//                 imageurl
-//             }
-//             catalogCollection(limit:15) {
-//                 items {
-//                 key
-//                 title
-//                 catalogCollection(limit:5){
-//                     items{
-//                         key
-//                         title
-//                     }
-//                     }
-//                 }
-//             }
-//             }
-//         }
-//         catalog(id: "2Yp0TY3kBHgG6VDjsHZNpK",locale:$locale) {
-//             linkedFrom(allowedLocales:["en-US"]) {
-//             catalogCollection(limit:20) {
-//                 items {
-//                 key
-//                 position
-//                 title
-//                 linkedFrom(allowedLocales:["en-US"]) {
-//                     catalogCollection(limit:20) {
-//                     items {
-//                         key
-//                         title
-//                         position
-//                     }
-//                     }
-//                 }
-//                 }
-//             }
-//             }
-//         }
-//     }
-// `;
 
 //应用详情弹窗
 const AppDetailModal = ({ product, showFlag, onClose }) => {
@@ -278,16 +219,20 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [isAllSelected, setIsAllSelected] = useState(true);
     const [searchValue, setSearchValue] = useState("");
     const [mainCatalogs, setMainCatalogs] = useState([]);
-    const navigate = useNavigate(); //用于页面跳转
     const [apps, setApps] = useState([]); //用于存储通过目录筛选出来的数据
     const [appList, setAppList] = useState([]); //用于存储通过目录筛选出来的数据
+    const [loading, setLoading] = useState(false);
 
-    // const { loading: dataLoading, error: dataError, data: allData, fetchMore } = useQuery(getContentfulData, { variables: { locale: language === "zh_CN" ? "zh-CN" : "en-US" } });
+    const navigate = useNavigate(); //用于页面跳转
 
     //读取数据文件
-    const getData = async () => {
+    const getData = useCallback(async () => {
+        setLoading(true);
         try {
-            const catalogResponse = await axios.get(`./static/data/json/catalog_${language === "zh_CN" ? "zh" : "en"}.json`);
+            const [catalogResponse, productResponse] = await Promise.all([
+                axios.get(`./static/data/json/catalog_${language === "zh_CN" ? "zh" : "en"}.json`),
+                axios.get(`./static/data/json/product_${language === "zh_CN" ? "zh" : "en"}.json`)
+            ]);
             if (catalogResponse.status === 200) {
                 const catalogSort = catalogResponse.data.sort(function (a, b) {
                     if (a.position === null && b.position === null) {
@@ -306,7 +251,6 @@ const AppStore = (): React$Element<React$FragmentType> => {
                 return <p>Error: Failed to fetch directory data </p>;
             }
 
-            const productResponse = await axios.get('./static/data/json/product_${language === "zh_CN" ? "zh" : "en"}.json');
             if (productResponse.status === 200) {
                 setApps(productResponse.data);
                 setAppList(productResponse.data);
@@ -318,13 +262,15 @@ const AppStore = (): React$Element<React$FragmentType> => {
         catch {
             navigate("/error-500");
         }
-    }
+        setLoading(false);
+    }, [language, setMainCatalogs, setApps, setAppList]);
 
     useEffect(() => {
         getData();
-    }, [])
+    }, [getData]);
 
-    // if (dataLoading) return <Spinner className='dis_mid' />
+
+    if (loading) return <Spinner className='dis_mid' />
     // if (dataError) return <p>Error : ${dataError.message} </p>;
 
     //用于显示应用详情的弹窗
