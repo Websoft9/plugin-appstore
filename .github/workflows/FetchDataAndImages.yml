@@ -46,13 +46,6 @@ jobs:
                TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
                SKIP=$((SKIP + LIMIT))
              done
-             # 下载图片
-             echo ${ITEMS[@]} | jq '.screenshots[]?.value' | while read url; do
-              url=$(echo $url | sed 's/"//g')
-              mkdir -p $SCREENSHOT_DIR/${LOCALE:0:2}
-              FILENAME=$(basename "$url")
-              wget -t 0 "$url" -O $SCREENSHOT_DIR/${LOCALE:0:2}/$FILENAME || echo "$url" >> $SCREENSHOT_DIR/Error.log
-             done
              # 写入文件
              echo ${ITEMS[@]} | jq -s '.' > product_${LOCALE:0:2}.json
            done
