@@ -182,6 +182,16 @@
       "catalogCollection": {
         "items": [
           {
+            "key": "subscriptions-and-billing",
+            "title": "Subscriptions and billing",
+            "position": 10
+          },
+          {
+            "key": "licensing",
+            "title": "Licensing and distribution",
+            "position": 10
+          },
+          {
             "key": "email",
             "title": "Email Server",
             "position": 1
@@ -385,6 +395,11 @@
     "linkedFrom": {
       "catalogCollection": {
         "items": [
+          {
+            "key": "artifact-repository",
+            "title": "Artifact Repository",
+            "position": 10
+          },
           {
             "key": "low-code",
             "title": "Low Code",

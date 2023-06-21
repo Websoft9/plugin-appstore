@@ -182,6 +182,16 @@
       "catalogCollection": {
         "items": [
           {
+            "key": "subscriptions-and-billing",
+            "title": "订阅计费",
+            "position": 10
+          },
+          {
+            "key": "licensing",
+            "title": "授权许可",
+            "position": 10
+          },
+          {
             "key": "email",
             "title": "企业邮箱",
             "position": 1
@@ -385,6 +395,11 @@
     "linkedFrom": {
       "catalogCollection": {
         "items": [
+          {
+            "key": "artifact-repository",
+            "title": "制品仓库",
+            "position": 10
+          },
           {
             "key": "low-code",
             "title": "低代码",

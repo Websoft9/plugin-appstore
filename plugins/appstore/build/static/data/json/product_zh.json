@@ -1,6 +1,366 @@
 [
   {
     "sys": {
+      "id": "2JownpXW4M2rCkMRG2NhlL"
+    },
+    "key": "mastodon",
+    "hot": 8000,
+    "trademark": "Mastodon",
+    "summary": "自托管微博系统",
+    "overview": "Mastodon是一个基于ActivityPub的免费开源社交网络服务器，用户可以在其中关注朋友并发现新朋友。",
+    "websiteurl": "https://joinmastodon.org/",
+    "description": "在Mastodon上，用户可以发布他们想要的任何内容：链接，图片，文本，视频。所有Mastodon服务器都可以作为联合网络进行互操作（一台服务器上的用户可以与另一台服务器上的用户无缝通信，包括实现ActivityPub的非Mastodon软件",
+    "screenshots": [
+      {
+        "id": "12ba0ea3-f6ae-497e-b846-d53a74d43e09",
+        "key": "界面",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mastodon/mastodon-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mastodon-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "community",
+          "title": "社交/论坛",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "3IH3rRDjM22v9HM127EmCi"
+    },
+    "key": "chatgptnextweb",
+    "hot": 10000,
+    "trademark": "ChatGPT Next Web",
+    "summary": "ChatGPT 私有化应用",
+    "overview": "一键拥有你自己的跨平台 ChatGPT 应用 (Web / PWA / Linux / Win / MacOS)",
+    "websiteurl": "https://chatgpt1.nextweb.fun/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c5f8afa-0618-4999-be55-2ee0d39bd7e2",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/chatgptnextweb/chatgptnextweb-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/chatgptnextweb-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "aigc",
+          "title": "AIGC",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "ai",
+                "title": "人工智能"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2GjCi0sfyjfiR7k6Qr3k6U"
+    },
+    "key": "jfrog",
+    "hot": 10000,
+    "trademark": "JFrog Artifactory",
+    "summary": "二进制包与软件制品管理",
+    "overview": "JFrog’s Artifactory open source project was created to speed up development cycles using binary repositories. It’s the world’s most advanced repository manager, creating a single place for teams to manage all their binary artifacts efficiently.",
+    "websiteurl": "https://jfrog.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c5f8afa-0618-4999-be55-2ee0d39bd7e2",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/jfrog/jfrog-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/jfrog-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "softwarechain",
+          "title": "软件供应链",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "security",
+                "title": "IT 安全"
+              }
+            ]
+          }
+        },
+        {
+          "key": "container",
+          "title": "容器",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "architecture",
+                "title": "IT 应用架构"
+              }
+            ]
+          }
+        },
+        {
+          "key": "artifact-repository",
+          "title": "制品仓库",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "6YkVlOzA5vEsbpGwKjfct9"
+    },
+    "key": "nexus",
+    "hot": 10000,
+    "trademark": "Sonatype Nexus Repository",
+    "summary": "二进制包与软件制品管理",
+    "overview": "Sonatype Nexus can build and distribute software fast Build quickly and reliably Publish and cache components in a central repository that connects natively to all popular package managers. ",
+    "websiteurl": "https://www.sonatype.com/products/sonatype-nexus-repository",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c5f8afa-0618-4999-be55-2ee0d39bd7e2",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/nexus/nexus-gui-websoft9.webp"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/nexus-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "softwarechain",
+          "title": "软件供应链",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "security",
+                "title": "IT 安全"
+              }
+            ]
+          }
+        },
+        {
+          "key": "container",
+          "title": "容器",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "architecture",
+                "title": "IT 应用架构"
+              }
+            ]
+          }
+        },
+        {
+          "key": "artifact-repository",
+          "title": "制品仓库",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "6TonQd8q8oAnb3lI3WaqY9"
+    },
+    "key": "harbor",
+    "hot": 10000,
+    "trademark": "Harbor",
+    "summary": "安全受信的容器镜像仓库平台",
+    "overview": "Harbor 是一个开源注册表，它使用策略和基于角色的访问控制来保护工件，确保图像被扫描且没有漏洞，并将图像标记为受信任。",
+    "websiteurl": "https://goharbor.io/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c5f8afa-0618-4999-be55-2ee0d39bd7e2",
+        "key": "Dashbord",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/harbor/harbor-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 2,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/harbor-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "softwarechain",
+          "title": "软件供应链",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "security",
+                "title": "IT 安全"
+              }
+            ]
+          }
+        },
+        {
+          "key": "container",
+          "title": "容器",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "architecture",
+                "title": "IT 应用架构"
+              }
+            ]
+          }
+        },
+        {
+          "key": "artifact-repository",
+          "title": "制品仓库",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "owpIblId1fUziB9EkUORm"
+    },
+    "key": "waydroid",
+    "hot": 10000,
+    "trademark": "Waydroid",
+    "summary": "运行在 Linux 上的 Android 模拟环境",
+    "overview": "一种基于容器的方法，用于在常规的GNU/Linux系统（如Ubuntu）上启动完整的Android系统。",
+    "websiteurl": "https://waydro.id/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "ec40efc7-139e-4056-aa9a-7b0907b612f4",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/waydroid/waydroid-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/waydroid-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "cloud-workspaces",
+          "title": "云桌面",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "1SiiSlB3xSewjzjAElPRYL"
     },
     "key": "tky",
@@ -196,66 +556,6 @@
               {
                 "key": "itdeveloper",
                 "title": "IT 开发者"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "6TonQd8q8oAnb3lI3WaqY9"
-    },
-    "key": "harbor",
-    "hot": 10000,
-    "trademark": "Harbor",
-    "summary": "安全受信的容器镜像仓库平台",
-    "overview": "Harbor 是一个开源注册表，它使用策略和基于角色的访问控制来保护工件，确保图像被扫描且没有漏洞，并将图像标记为受信任。",
-    "websiteurl": "https://goharbor.io/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "3c5f8afa-0618-4999-be55-2ee0d39bd7e2",
-        "key": "Dashbord",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/harbor/harbor-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 2,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/harbor-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "softwarechain",
-          "title": "软件供应链",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "security",
-                "title": "IT 安全"
-              }
-            ]
-          }
-        },
-        {
-          "key": "container",
-          "title": "容器",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "architecture",
-                "title": "IT 应用架构"
               }
             ]
           }

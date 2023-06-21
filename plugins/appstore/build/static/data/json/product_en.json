@@ -1,6 +1,366 @@
 [
   {
     "sys": {
+      "id": "2JownpXW4M2rCkMRG2NhlL"
+    },
+    "key": "mastodon",
+    "hot": 8000,
+    "trademark": "Mastodon",
+    "summary": "Your self-hosted and globally interconnected microblogging community",
+    "overview": "Mastodon is a free, open-source social network server based on ActivityPub where users can follow friends and discover new ones. ",
+    "websiteurl": "https://joinmastodon.org/",
+    "description": "On Mastodon, users can publish anything they want: links, pictures, text, video. All Mastodon servers are interoperable as a federated network (users on one server can seamlessly communicate with users from another one, including non-Mastodon software that implements ActivityPub!)",
+    "screenshots": [
+      {
+        "id": "d06d6030-d645-474f-9af9-b2bae308b46c",
+        "key": "Interface",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mastodon/mastodon-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mastodon-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "community",
+          "title": "Online Community",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "3IH3rRDjM22v9HM127EmCi"
+    },
+    "key": "chatgptnextweb",
+    "hot": 10000,
+    "trademark": "ChatGPT Next Web",
+    "summary": "Well-designed cross-platform ChatGPT web UI",
+    "overview": "A well-designed cross-platform ChatGPT UI (Web / PWA / Linux / Win / MacOS)",
+    "websiteurl": "https://chatgpt1.nextweb.fun/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "e21d7f48-331d-4c76-9619-92e2974f9202",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/chatgptnextweb/chatgptnextweb-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/chatgptnextweb-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "aigc",
+          "title": "AIGC",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "ai",
+                "title": "AI + Machine Learning"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2GjCi0sfyjfiR7k6Qr3k6U"
+    },
+    "key": "jfrog",
+    "hot": 10000,
+    "trademark": "JFrog Artifactory",
+    "summary": "Binary & Artifact Management",
+    "overview": "JFrog’s Artifactory open source project was created to speed up development cycles using binary repositories. It’s the world’s most advanced repository manager, creating a single place for teams to manage all their binary artifacts efficiently.",
+    "websiteurl": "https://jfrog.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "e21d7f48-331d-4c76-9619-92e2974f9202",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/jfrog/jfrog-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/jfrog-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "softwarechain",
+          "title": "Software supply chain",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "security",
+                "title": "IT Security"
+              }
+            ]
+          }
+        },
+        {
+          "key": "container",
+          "title": "Container",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "architecture",
+                "title": "IT Architecture"
+              }
+            ]
+          }
+        },
+        {
+          "key": "artifact-repository",
+          "title": "Artifact Repository",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "6YkVlOzA5vEsbpGwKjfct9"
+    },
+    "key": "nexus",
+    "hot": 10000,
+    "trademark": "Sonatype Nexus Repository",
+    "summary": "Binary & Artifact Management",
+    "overview": "Sonatype Nexus can build and distribute software fast Build quickly and reliably Publish and cache components in a central repository that connects natively to all popular package managers. ",
+    "websiteurl": "https://www.sonatype.com/products/sonatype-nexus-repository",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "e21d7f48-331d-4c76-9619-92e2974f9202",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/nexus/nexus-gui-websoft9.webp"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/nexus-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "softwarechain",
+          "title": "Software supply chain",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "security",
+                "title": "IT Security"
+              }
+            ]
+          }
+        },
+        {
+          "key": "container",
+          "title": "Container",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "architecture",
+                "title": "IT Architecture"
+              }
+            ]
+          }
+        },
+        {
+          "key": "artifact-repository",
+          "title": "Artifact Repository",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "6TonQd8q8oAnb3lI3WaqY9"
+    },
+    "key": "harbor",
+    "hot": 10000,
+    "trademark": "Harbor",
+    "summary": "Trusted cloud native repository",
+    "overview": "Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted. ",
+    "websiteurl": "https://goharbor.io/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "e21d7f48-331d-4c76-9619-92e2974f9202",
+        "key": "Dashbord",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/harbor/harbor-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 2,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/harbor-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "softwarechain",
+          "title": "Software supply chain",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "security",
+                "title": "IT Security"
+              }
+            ]
+          }
+        },
+        {
+          "key": "container",
+          "title": "Container",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "architecture",
+                "title": "IT Architecture"
+              }
+            ]
+          }
+        },
+        {
+          "key": "artifact-repository",
+          "title": "Artifact Repository",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "owpIblId1fUziB9EkUORm"
+    },
+    "key": "waydroid",
+    "hot": 10000,
+    "trademark": "Waydroid",
+    "summary": "Android system on a regular GNU/Linux system",
+    "overview": "A container-based approach to boot a full Android system on a regular GNU/Linux system like Ubuntu.",
+    "websiteurl": "https://waydro.id/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c3c3232-bc6f-47d7-a1a1-86b2fb978d0a",
+        "key": "Console",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/waydroid/waydroid-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/waydroid-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "cloud-workspaces",
+          "title": "Cloud Workspaces",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "1SiiSlB3xSewjzjAElPRYL"
     },
     "key": "tky",
@@ -196,66 +556,6 @@
               {
                 "key": "itdeveloper",
                 "title": "IT Developer"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "6TonQd8q8oAnb3lI3WaqY9"
-    },
-    "key": "harbor",
-    "hot": 10000,
-    "trademark": "Harbor",
-    "summary": "Trusted cloud native repository",
-    "overview": "Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted. ",
-    "websiteurl": "https://goharbor.io/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "e21d7f48-331d-4c76-9619-92e2974f9202",
-        "key": "Dashbord",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/harbor/harbor-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "21b7b8c9-9e78-4bd1-87ab-3656e188d206",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 2,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/harbor-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "softwarechain",
-          "title": "Software supply chain",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "security",
-                "title": "IT Security"
-              }
-            ]
-          }
-        },
-        {
-          "key": "container",
-          "title": "Container",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "architecture",
-                "title": "IT Architecture"
               }
             ]
           }
