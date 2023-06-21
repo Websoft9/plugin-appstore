@@ -42,7 +42,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
 
     const updateLogClose = () => {
         setShowUpdateLog(!showUpdateLog);
-        window.location.reload(false);
+        window.location.reload(true);
     };
 
     const handleClose = (event, reason) => {

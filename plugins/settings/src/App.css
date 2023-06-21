@@ -54,7 +54,27 @@
     top: 0;
 }
 
+
+
 .dis_mid {
     display: block;
     margin: 0 auto;
+    margin-top: 200px;
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(241, 243, 250, .8);
+}
+
+.FullModal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
 }

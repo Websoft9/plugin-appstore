@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import cockpit from 'cockpit';
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Form, Modal, Row } from 'react-bootstrap';
+import FullModal from "react-modal";
 import "./App.css";
 import Spinner from './Spinner';
 
@@ -19,6 +20,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+// FullModal.setAppElement("#main"); // 设置模态框绑定的元素，通常是父页面的根元素
 
 function App() {
   const [showUpdateLog, setShowUpdateLog] = useState(false); //用于更新弹窗
@@ -29,6 +31,7 @@ function App() {
   const [disable, setDisable] = useState(false);//用于更新按钮禁用
   const [showMask, setShowMask] = useState(false); //用于设置遮罩层
   const [alertType, setAlertType] = useState("");  //用于确定弹窗的类型：error\success
+  const [showConfirm, setShowConfirm] = useState(false); //用于显示确认更新弹窗
 
   let credentials;
 
@@ -58,10 +61,20 @@ function App() {
       else {
         const data = response.data.ResponseData.Compare_content;
         setCurrentVersion(data.current_version);
-        setUpdateContent(data.Update_content);
-        if (!init) {
-          setShowUpdateLog(true);
-          setDisable(false);
+        if (data.Update_content) {
+          setUpdateContent(data.Update_content);
+          if (!init) {
+            setShowUpdateLog(true);
+            setDisable(false);
+          }
+        }
+        else {
+          if (!init) {
+            setShowAlert(true);
+            setAlertType("success")
+            setAlertMessage(_("The system is already the latest version"));
+            setDisable(false);
+          }
         }
       }
     }
@@ -73,15 +86,19 @@ function App() {
   };
 
   const systemUpdate = async () => {
+    showConfirmClose();
     setShowMask(true);
     setShowUpdateLog(false);
+
     //调用更新脚本
     var script = "curl https://websoft9.github.io/StackHub/install/update.sh | bash";
     cockpit.script(script).then(() => {
       setShowMask(false);
-      setShowAlert(true);
-      setAlertType("success")
-      setAlertMessage("更新成功");
+      // setShowAlert(true);
+      // setAlertType("success")
+      // setAlertMessage(_("System update successful"));
+      closeFullModal();
+      checkeUpdate(true);
 
     }).catch(exception => {
       setShowAlert(true);
@@ -95,12 +112,20 @@ function App() {
     setShowUpdateLog(!showUpdateLog);
   };
 
+  const showConfirmClose = () => {
+    setShowConfirm(!showConfirm);
+  };
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setShowAlert(false);
     setAlertMessage("");
+  };
+
+  const closeFullModal = () => {
+    setShowMask(false);
   };
 
   useEffect(() => {
@@ -110,12 +135,50 @@ function App() {
   return (
     <>
       {
+        <FullModal parentSelector={() => window.parent.document.getElementById("main")}
+          isOpen={showMask}
+          onRequestClose={closeFullModal}
+          shouldCloseOnOverlayClick={false}
+          contentLabel="Full Modal"
+          style={{
+            overlay: {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(241, 243, 250, .8)",
+              zIndex: 999
+            },
+            content: {
+              position: "absolute",
+              top: "40px",
+              left: "40px",
+              right: "40px",
+              bottom: "40px",
+            }
+          }}
+        >
+          <img src="../settings/loading.gif" alt="loading" width="200px" style={{ display: "block", margin: "0 auto" }} />
+          <h1 style={{ textAlign: "center", color: "#ffc31a" }}>
+            <strong>
+              {_("During the system update, it will take approximately 5-10 minutes. Please be patient and do not operate during the process to avoid unknown errors.")}
+            </strong>
+          </h1>
+        </FullModal>
+      }
+      {/* {
         showMask && (
           <div className="card-disabled" style={{ zIndex: 999 }}>
             <Spinner className='dis_mid' />
+            <h4 style={{ textAlign: "center", color: "#ffc31a", marginTop: "30px" }}>
+              <strong>
+                {_("Please do not operate during system updates to avoid unknown errors!")}
+              </strong>
+            </h4>
           </div>
         )
-      }
+      } */}
       <Row style={{ padding: "30px" }}>
         <Col xs={12}>
           <Card>
@@ -136,7 +199,6 @@ function App() {
                   <Typography>
                     <Form>
                       <Form.Check
-                        checked
                         type="switch"
                         id="store-switch"
                         label={_("Enable automatic updates")}
@@ -160,7 +222,6 @@ function App() {
                       <Col xs={12} md={12} className="d-flex">
                         <Form>
                           <Form.Check
-                            checked
                             type="switch"
                             id="system-switch"
                             label={_("Enable automatic updates")}
@@ -188,15 +249,34 @@ function App() {
         </Col>
       </Row >
       {
+        showConfirm && <Modal show={showConfirm} onHide={showConfirmClose} size="lg"
+          scrollable="true" backdrop="static" >
+          <Modal.Header onHide={showConfirmClose} closeButton className={classNames('modal-colored-header', 'bg-warning')} style={{ color: "#fff" }}>
+            {_("System Updates")}
+          </Modal.Header>
+          <Modal.Body className="row" >
+            {_("The update operation requires restarting the service. Do you want to continue?")}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="light" onClick={showConfirmClose}>
+              {_("Close")}
+            </Button>
+            <Button variant='warning' className='bg-warning' onClick={systemUpdate}>
+              {_("Update")}
+            </Button>
+          </Modal.Footer>
+        </Modal >
+      }
+      {
         showUpdateLog && <Modal show={showUpdateLog} onHide={updateLogClose} size="lg"
           scrollable="true" backdrop="static" >
           <Modal.Header onHide={updateLogClose} closeButton className={classNames('modal-colored-header', 'bg-primary')} style={{ color: "#fff" }}>
-            <h4>{_("Update Log")}</h4>
+            {_("Update Log")}
           </Modal.Header>
           <Modal.Body className="row" >
-            <p>{_("Latest Version")}{" : "}{updateContent.latest_version}</p>
-            <p>{_("Update Time")}{" : "}{updateContent.date}</p>
-            <p>{_("Update Content")}{" : "}</p>
+            <p><strong>{_("Latest Version")}</strong>{" : "}<span style={{ color: "#0b5ed7" }}>{updateContent.latest_version}</span></p>
+            <p><strong>{_("Update Time")}</strong>{" : "}{updateContent.date}</p>
+            <p><strong>{_("Update Content")}</strong>{" : "}</p>
             {updateContent.content.map((item, index) => (
               <p key={index}>{index + 1}{" : "}{item}</p>
             ))}
@@ -205,7 +285,7 @@ function App() {
             <Button variant="light" onClick={updateLogClose}>
               {_("Close")}
             </Button>
-            <Button variant='primary' className='bg-primary' onClick={systemUpdate}>
+            <Button variant='primary' className='bg-primary' onClick={() => { setShowConfirm(true); setShowUpdateLog(false); }}>
               {_("Update")}
             </Button>
           </Modal.Footer>

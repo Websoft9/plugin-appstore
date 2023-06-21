@@ -358,7 +358,7 @@ const MyApps = (): React$Element<React$FragmentType> => {
                         variant="primary"
                         className="float-end"
                         onClick={() => {
-                            window.location.reload(false);
+                            window.location.reload(true);
                         }}
                     >
                         {_("Refresh")}

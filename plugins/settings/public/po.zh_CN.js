@@ -70,6 +70,22 @@
     "Update": [
         null,
         "立即更新"
+    ],
+    "The system is already the latest version": [
+        null,
+        "系统当前已是最新版本"
+    ],
+    "System update successful": [
+        null,
+        "系统更新成功"
+    ],
+    "The update operation requires restarting the service. Do you want to continue?": [
+        null,
+        "更新操作需要重启服务，是否继续？"
+    ],
+    "During the system update, it will take approximately 5-10 minutes. Please be patient and do not operate during the process to avoid unknown errors.": [
+        null,
+        "系统更新中，大概需要5-10分钟，请耐心等待，过程中请勿进行操作，避免造成未知错误。"
     ]
 }));
 
