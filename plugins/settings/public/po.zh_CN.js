@@ -86,6 +86,14 @@
     "During the system update, it will take approximately 5-10 minutes. Please be patient and do not operate during the process to avoid unknown errors.": [
         null,
         "系统更新中，大概需要5-10分钟，请耐心等待，过程中请勿进行操作，避免造成未知错误。"
+    ],
+    "Restart Now": [
+        null,
+        "立即重启"
+    ],
+    "The system update has been completed. Please restart the service to use the new features.": [
+        null,
+        "系统更新已完成，需要重启服务。"
     ]
 }));
 

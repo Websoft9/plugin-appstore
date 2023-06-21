@@ -32,6 +32,7 @@ function App() {
   const [showMask, setShowMask] = useState(false); //用于设置遮罩层
   const [alertType, setAlertType] = useState("");  //用于确定弹窗的类型：error\success
   const [showConfirm, setShowConfirm] = useState(false); //用于显示确认更新弹窗
+  const [showComplete, setShowComplete] = useState(false); //用于显示更新完成提示弹窗
 
   let credentials;
 
@@ -99,6 +100,7 @@ function App() {
       // setAlertMessage(_("System update successful"));
       closeFullModal();
       checkeUpdate(true);
+      setShowComplete(true);
 
     }).catch(exception => {
       setShowAlert(true);
@@ -108,12 +110,28 @@ function App() {
     });
   }
 
+  const systemRestart = async () => {
+    setShowComplete(false);
+    var script = "systemctl restart cockpit cockpit.socket";
+    cockpit.script(script).then(() => {
+      console.log("system restart successful");
+    }).catch(exception => {
+      setShowAlert(true);
+      setAlertType("error")
+      setAlertMessage(exception.toString());
+    });
+  }
+
   const updateLogClose = () => {
     setShowUpdateLog(!showUpdateLog);
   };
 
   const showConfirmClose = () => {
     setShowConfirm(!showConfirm);
+  };
+
+  const showCompleteClose = () => {
+    setShowComplete(!showComplete);
   };
 
   const handleClose = (event, reason) => {
@@ -134,51 +152,38 @@ function App() {
 
   return (
     <>
-      {
-        <FullModal parentSelector={() => window.parent.document.getElementById("main")}
-          isOpen={showMask}
-          onRequestClose={closeFullModal}
-          shouldCloseOnOverlayClick={false}
-          contentLabel="Full Modal"
-          style={{
-            overlay: {
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "rgba(241, 243, 250, .8)",
-              zIndex: 999
-            },
-            content: {
-              position: "absolute",
-              top: "40px",
-              left: "40px",
-              right: "40px",
-              bottom: "40px",
-            }
-          }}
-        >
-          <img src="../settings/loading.gif" alt="loading" width="200px" style={{ display: "block", margin: "0 auto" }} />
-          <h1 style={{ textAlign: "center", color: "#ffc31a" }}>
-            <strong>
-              {_("During the system update, it will take approximately 5-10 minutes. Please be patient and do not operate during the process to avoid unknown errors.")}
-            </strong>
-          </h1>
-        </FullModal>
-      }
-      {/* {
-        showMask && (
-          <div className="card-disabled" style={{ zIndex: 999 }}>
-            <Spinner className='dis_mid' />
-            <h4 style={{ textAlign: "center", color: "#ffc31a", marginTop: "30px" }}>
-              <strong>
-                {_("Please do not operate during system updates to avoid unknown errors!")}
-              </strong>
-            </h4>
-          </div>
-        )
-      } */}
+      <FullModal parentSelector={() => window.parent.document.getElementById("main")}
+        isOpen={showMask}
+        onRequestClose={closeFullModal}
+        shouldCloseOnOverlayClick={false}
+        contentLabel="Full Modal"
+        style={{
+          overlay: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(241, 243, 250, .8)",
+            zIndex: 999
+          },
+          content: {
+            position: "absolute",
+            top: "40px",
+            left: "40px",
+            right: "40px",
+            bottom: "40px",
+          }
+        }}
+      >
+        <img src="../settings/loading.gif" alt="loading" width="200px" style={{ display: "block", margin: "0 auto" }} />
+        <h1 style={{ textAlign: "center", color: "#ffc31a" }}>
+          <strong>
+            {_("During the system update, it will take approximately 5-10 minutes. Please be patient and do not operate during the process to avoid unknown errors.")}
+          </strong>
+        </h1>
+      </FullModal>
+
       <Row style={{ padding: "30px" }}>
         <Col xs={12}>
           <Card>
@@ -248,6 +253,22 @@ function App() {
           </Card>
         </Col>
       </Row >
+      {
+        <Modal show={showComplete} onHide={showCompleteClose} size="lg"
+          scrollable="true" backdrop="static" >
+          <Modal.Header onHide={showCompleteClose} closeButton className={classNames('modal-colored-header', 'bg-primary')} style={{ color: "#fff" }}>
+            {_("System Updates")}
+          </Modal.Header>
+          <Modal.Body className="row" >
+            {_("The system update has been completed. Please restart the service to use the new features.")}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={systemRestart}>
+              {_("Restart Now")}
+            </Button>
+          </Modal.Footer>
+        </Modal >
+      }
       {
         showConfirm && <Modal show={showConfirm} onHide={showConfirmClose} size="lg"
           scrollable="true" backdrop="static" >
