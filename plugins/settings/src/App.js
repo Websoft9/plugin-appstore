@@ -95,12 +95,8 @@ function App() {
     var script = "curl https://websoft9.github.io/StackHub/install/update.sh | bash";
     cockpit.script(script).then(() => {
       setShowMask(false);
-      // setShowAlert(true);
-      // setAlertType("success")
-      // setAlertMessage(_("System update successful"));
       closeFullModal();
-      checkeUpdate(true);
-      setShowComplete(true);
+      systemRestart();
 
     }).catch(exception => {
       setShowAlert(true);
@@ -112,7 +108,7 @@ function App() {
 
   const systemRestart = async () => {
     setShowComplete(false);
-    var script = "systemctl restart cockpit cockpit.socket";
+    var script = "systemctl restart cockpit";
     cockpit.script(script).then(() => {
       console.log("system restart successful");
     }).catch(exception => {
@@ -223,7 +219,7 @@ function App() {
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>
-                    <Row className="mb-2 align-items-center">
+                    {/* <Row className="mb-2 align-items-center">
                       <Col xs={12} md={12} className="d-flex">
                         <Form>
                           <Form.Check
@@ -233,7 +229,7 @@ function App() {
                           />
                         </Form>
                       </Col>
-                    </Row>
+                    </Row> */}
 
                     <Row className="mb-2 align-items-center">
                       <Col xs={6} md={6} className="d-flex">
@@ -241,7 +237,9 @@ function App() {
                       </Col>
                       <Col xs={6} md={6} className="d-flex">
                         <Button variant="primary" size="sm" className="me-2" disabled={disable}
-                          onClick={() => { setDisable(true); checkeUpdate(false); }} >
+                          onClick={() => {
+                            setDisable(true); checkeUpdate(false);
+                          }} >
                           {disable && <Spinner className="spinner-border-sm me-1" tag="span" color="white" />}  {_("Check for updates")}
                         </Button>
                       </Col>
@@ -253,7 +251,7 @@ function App() {
           </Card>
         </Col>
       </Row >
-      {
+      {/* {
         <Modal show={showComplete} onHide={showCompleteClose} size="lg"
           scrollable="true" backdrop="static" >
           <Modal.Header onHide={showCompleteClose} closeButton className={classNames('modal-colored-header', 'bg-primary')} style={{ color: "#fff" }}>
@@ -268,7 +266,7 @@ function App() {
             </Button>
           </Modal.Footer>
         </Modal >
-      }
+      } */}
       {
         showConfirm && <Modal show={showConfirm} onHide={showConfirmClose} size="lg"
           scrollable="true" backdrop="static" >

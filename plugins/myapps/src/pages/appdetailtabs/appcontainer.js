@@ -164,7 +164,6 @@ const AppContainer = (props): React$Element<React$FragmentType> => {
                                                         </a>
                                                     )
                                                 }
-
                                             </td>
                                             <td>{container.Image}</td>
                                             <td>{new Date(container.Created * 1000).toLocaleString()}</td>
