@@ -1,6 +1,988 @@
 [
   {
     "sys": {
+      "id": "7FRM6Ercqt1jcoyYCxHd23"
+    },
+    "key": "nocobase",
+    "hot": 10000,
+    "trademark": "Nocobase",
+    "summary": "Open-source no-code development platform",
+    "overview": "NocoBase is a scalability-first, open-source no-code/low-code platform to build internal tools.",
+    "websiteurl": "https://www.nocobase.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "c3f52b51-f3e9-45ab-b26b-c13ed7ec6ac3",
+        "key": "GUI",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/nocobase/nocobase-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "2c1a7943-f9b7-41e9-9d19-ed6dccd6db36",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/nocobase-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "LTWbkdq2GrC9rBXNcVlCY"
+    },
+    "key": "apitable",
+    "hot": 10000,
+    "trademark": "APITable",
+    "summary": "Simple & Powerful Work Management OS",
+    "overview": "APITable is an incredibly simple and powerful work management OS. You'll be able to get started in just one second, without any complicated setup or training required.\nOnce you're up and running, you'll find that APITable is the coolest project management software you've ever used. Whether you're a solo entrepreneur or part of a large team, APITable can help you achieve your goals and increase productivity.",
+    "websiteurl": null,
+    "description": "Customizable View\n7 types of views included.\nAnd you can extend more views by our API & SDK.\n\nTable View, Board View, Gantt View\nArchitecture View, Gallery View, Calendar View\nUse our SDK to extend more views\n\nInfinite Cross Link\nUnlike other Low Code Softwares, Apitable is not a \"Base/App\" structure. You can link unlimited and infinite tables in one space.\n\nLink 1000+ tables together\nOne-direction or Bi-direction Link\nCross Space Shortcuts\n\nRow Permissions\nActivate Rows permissions with a single click through our function called \"Mirror\"\n\nSimple & Powerful row permission\nRows private to only you\nUse a View as an App\n\nOne-Click API Panel\nAPI is the first-class citizen in APITable.\nYou can summon the API power everywhere.\n\nJava/JavaScript/C#/Python... SDK\nCRUD like Database with API\nJSON column, JavaScript column\n\nAutomation\nWith all different kinds of tools connected, you can optimize your workflow solely based on your actual needs.\n\nZapier/Tray.io integration\nScheduled time automation trigger\nExecute code\n\nBI Dashboard\nFreedom \"Dashboard\" interface. You can easily create a BI system.\n\nUse a Dashboard as Standalone App\nCustomize unlimited charts\nDevelop widgets with SDKs",
+    "screenshots": [
+      {
+        "id": "160674cb-8ebf-4e9f-8141-7f162fb844a2",
+        "key": "apitable",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/apitable/apitable-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a6008421-6a17-4ed7-8da9-6e3bc35e318d",
+        "key": "Community",
+        "value": "0.20.0"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 8,
+    "storage": 2,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/apitable-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        },
+        {
+          "key": "software-platform",
+          "title": "Software Platform",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "industry",
+                "title": "Industries "
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "5YSaWTBBKaeFZbIEKeXYpK"
+    },
+    "key": "mingdao",
+    "hot": 18000,
+    "trademark": "Mingdao",
+    "summary": "leader of APaaS, No Code Platform",
+    "overview": "Provide rapid development Tool and middle-ground application solution for enterprise customer.",
+    "websiteurl": "https://www.mingdao.com/",
+    "description": "Mingdao ApaaS On-Premise is the core of Mingdao.com APaaS. We made it possible via container technology. Thus enterprise users can take use of the highly usable, reliable and scalable APaaS product. Every citizen developer can build their own business app in minutes, when adopting digital transformation.",
+    "screenshots": [
+      {
+        "id": "e95feba9-8af5-48c1-a798-4a058e6422d5",
+        "key": "mdfeature",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mingdao/mingdao-tables-websoft9.jpg"
+      },
+      {
+        "id": "0ebcd31d-7727-418f-8b2e-363669dee903",
+        "key": "main",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/mingdao/mingdao-main-lib-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "d9c492c2-9cb8-4d77-b1aa-59ebad77f379",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 8,
+    "memory": 20,
+    "storage": 40,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mingdao-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        },
+        {
+          "key": "software-platform",
+          "title": "Software Platform",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "industry",
+                "title": "Industries "
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "40PUDAY7PxnSiBf3NMhwOd"
+    },
+    "key": "appsmith",
+    "hot": 10000,
+    "trademark": "Appsmith",
+    "summary": "Appsmith | Open-source Workbench for Internal Tools",
+    "overview": "Stop grappling with data, scouring for the perfect React library, and coding everything from scratch. Build internal tools 10X faster with Appsmith.",
+    "websiteurl": "appsmith.com",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "f618bffe-b689-42fe-9344-3121ef605450",
+        "key": "GUI",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/appsmith/appsmith-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 4,
+    "storage": 10,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/appsmith-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "master-data",
+          "title": "Master Data",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "Data Analytics"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "3xOgZOPK7DWmtPXTpHqcsP"
+    },
+    "key": "rowy",
+    "hot": 10000,
+    "trademark": "Rowy",
+    "summary": "Airtable-like UI for managing database",
+    "overview": "Low-code backend platform. Manage database on spreadsheet-like UI and build cloud functions workflows in JS/TS, all in your browser.",
+    "websiteurl": "http://rowy.io/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "f618bffe-b689-42fe-9344-3121ef605450",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/rowy/rowy-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/rowy-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "master-data",
+          "title": "Master Data",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "Data Analytics"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "DEOp8ynxuO4rMELqtrNRl"
+    },
+    "key": "wordpress",
+    "hot": 200,
+    "trademark": "WordPress",
+    "summary": "WordPress is open source software you can use to create a beautiful website, blog, or app",
+    "overview": "42% of the web is built on WordPress. More bloggers, small businesses, and Fortune 500 companies use WordPress than all other options combined. Join the millions of people that call WordPress.com home.",
+    "websiteurl": "https://wordpress.com/",
+    "description": "Style it your way\n\nDesign anything you imagine. Start with a blank canvas or choose from a wide variety of themes and patterns. Customize every detail, from color and fonts to layouts and functionality.\n\nPlug in and extend\n\nMake WordPress do whatever you need it to. Add a store, mailing list, portfolio, social feed, analytics; you’re in control with over 55,000 plugins.\n\nOwn what you make \n\nYour content, your design, and your data always belong to you. With WordPress you’re free to tell your story, grow your brand, or simply be yourself.\n\nCreate with confidence\n\nBuilt by an open source community with decades of experience, its passionate contributors are committed to keeping WordPress as stable and secure as possible.",
+    "screenshots": [],
+    "distribution": [
+      {
+        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
+        "key": "Community",
+        "value": "6.2"
+      },
+      {
+        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
+        "key": "Multisites",
+        "value": "latest"
+      },
+      {
+        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
+        "key": "Solution",
+        "value": "MinIO,Matomo"
+      },
+      {
+        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
+        "key": "Free themes",
+        "value": "latest"
+      },
+      {
+        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
+        "key": "Basic services",
+        "value": "latest"
+      },
+      {
+        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
+        "key": "Senior services",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "website",
+          "title": "Website Builder",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        },
+        {
+          "key": "ecommerce",
+          "title": "eCommerce",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        },
+        {
+          "key": "marketing",
+          "title": "Marketing",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "Business Operation"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "73sQK2CIMnbgqrHvgucgGb"
+    },
+    "key": "airflow",
+    "hot": 10000,
+    "trademark": "Apache Airflow",
+    "summary": "Platform to programmatically author, schedule and monitor workflows.",
+    "overview": "Apache Airflow (or simply Airflow) is a platform to programmatically author, schedule, and monitor workflows.",
+    "websiteurl": "https://airflow.apache.org/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "1d263c64-8b51-4cd4-856f-88df0d1937ab",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/airflow/airflow-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/airflow-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "workflowauto",
+          "title": "Workflow automation",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "automation",
+                "title": "Automation"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2gem5XPiF4gkosXdGFXRDf"
+    },
+    "key": "affine",
+    "hot": 10000,
+    "trademark": "AFFiNE",
+    "summary": "The Next-Gen Collaborative Knowledge Base",
+    "overview": "AFFiNE is a next-gen knowledge base that brings planning, sorting and creating all together.\nPrivacy first, open-source, customizable and ready to use - a free replacement for Notion & Miro.",
+    "websiteurl": "https://affine.pro/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "1d263c64-8b51-4cd4-856f-88df0d1937ab",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/affine/affine-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/affine-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "pm-task",
+          "title": "Project and Task",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        },
+        {
+          "key": "whiteboard-and-note",
+          "title": "Whiteboard and Note",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "7FwhnvboG5hH0qSqPFuNfF"
+    },
+    "key": "appflowy",
+    "hot": 10000,
+    "trademark": "AppFlowy",
+    "summary": "Open Source Notion Alternative",
+    "overview": "AppFlowy is an open-source alternative to Notion. You are in charge of your data and customizations. Built with Flutter and Rust.",
+    "websiteurl": "https://appflowy.io/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "1d263c64-8b51-4cd4-856f-88df0d1937ab",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/appflowy/appflowy-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/appflowy-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "pm-task",
+          "title": "Project and Task",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        },
+        {
+          "key": "whiteboard-and-note",
+          "title": "Whiteboard and Note",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "1i1FTT5UFDNcZL30tsYns2"
+    },
+    "key": "focalboard",
+    "hot": 300,
+    "trademark": "Focalboard",
+    "summary": "Open source project management for technical teams",
+    "overview": "Focalboard is an open source project management for technical teams. Keep everything and everyone on track, all in the Mattermost platform.",
+    "websiteurl": "https://www.zentao.net/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "5ae46e12-59e8-416d-9ea2-5b73b6fd0936",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/focalboard/focalboard-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "54029d6d-4383-4418-9d4e-29e6b8cbfd77",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/focalboard-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "agile",
+          "title": "Agile Lifecycle Management",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              }
+            ]
+          }
+        },
+        {
+          "key": "pm-task",
+          "title": "Project and Task",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "5Z7EV9C7orv0YLKTaOWnCz"
+    },
+    "key": "onlyoffice",
+    "hot": null,
+    "trademark": "ONLYOFFICE",
+    "summary": "A free open-source collaborative system",
+    "overview": "ONLYOFFICE is a multifunctional portal for business collaboration, document and project management. ",
+    "websiteurl": "https://www.onlyoffice.com/",
+    "description": "This is a repackaged ONLYOFFICE Workspace with professional support for your business. ONLYOFFICE Workspace is a free open-source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place. It allows you to organize business tasks and milestones, store and share your corporate or personal documents, use social networking tools such as blogs and forums, as well as communicate with your team members via corporate IM.",
+    "screenshots": [
+      {
+        "id": "a305c557-137b-4730-a108-e0ab089d2171",
+        "key": "ui",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/onlyoffice/onlyoffice-websoft9-002.png"
+      },
+      {
+        "id": "b3c9aeb2-5a28-4017-9722-3b3d43989e20",
+        "key": "sample",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/onlyoffice/onlyoffice-websoft9-002.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "470afc11-23a6-43cc-ae88-69cfeee21954",
+        "key": "Community ",
+        "value": "12.0"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 8,
+    "storage": 20,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/onlyoffice-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "document",
+          "title": "Document Collaboration",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        },
+        {
+          "key": "pm-task",
+          "title": "Project and Task",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "23HrDKURRv8pE2HGxOjrJg"
+    },
+    "key": "mattermost",
+    "hot": null,
+    "trademark": "mattermost",
+    "summary": "A self-hosted Slack-alternative, flexible, messaging platform",
+    "overview": "Mattermost is a self-hosted Slack-alternative, flexible, messaging platform that enables secure team collaboration.",
+    "websiteurl": "https://mattermost.com/",
+    "description": "This is a repackaged Mattermost with professional support for your business. Mattermost is a self-hosted Slack-alternative, flexible, messaging platform that enables secure team collaboration. It is designed to increase the agility, efficiency and innovation in high trust organizations while keeping data and operations under IT control.",
+    "screenshots": [
+      {
+        "id": "1d263c64-8b51-4cd4-856f-88df0d1937ab",
+        "key": "gui",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mattermost/mattermost-gui-websoft9.webp"
+      },
+      {
+        "id": "d1d4ebd1-0fc1-40d8-95f0-5da679444672",
+        "key": "display",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/mattermost/mattermost-display-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "7.10"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 2,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mattermost-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "chat",
+          "title": "Chat",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "communication",
+                "title": "Communication"
+              }
+            ]
+          }
+        },
+        {
+          "key": "pm-task",
+          "title": "Project and Task",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "1YrdAH2ii73NpK7DjCpKMR"
+    },
+    "key": "excalidraw",
+    "hot": 10000,
+    "trademark": "Excalidraw",
+    "summary": "Virtual whiteboard for sketching hand-drawn like diagrams",
+    "overview": "Excalidraw is an open source virtual hand-drawn style whiteboard. It can help you to create collaborative and end-to-end encrypted diagrams.\n",
+    "websiteurl": "https://github.com/excalidraw/excalidraw",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c3c3232-bc6f-47d7-a1a1-86b2fb978d0a",
+        "key": "Console",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/excalidraw/excalidraw-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/excalidraw-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "whiteboard-and-note",
+          "title": "Whiteboard and Note",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "Design & Create"
+              }
+            ]
+          }
+        },
+        {
+          "key": "task",
+          "title": "Task Collaboration",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "Collaboration & Office"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "66nvg2eHzQcGhpg4WLpcji"
+    },
+    "key": "akaunting",
+    "hot": 10000,
+    "trademark": "Akaunting",
+    "summary": "Open Source and online accounting software",
+    "overview": "Akaunting is a free, open source and online accounting software designed for small businesses and freelancers. ",
+    "websiteurl": "https://akaunting.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c3c3232-bc6f-47d7-a1a1-86b2fb978d0a",
+        "key": "Console",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/akaunting/akaunting-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/akaunting-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "finance-and-tax",
+          "title": "Finance & Tax",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "Business Operation"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "3N1q7Xjn6wlgaZ4qPbLtt0"
+    },
+    "key": "mautic",
+    "hot": 10000,
+    "trademark": "Mautic",
+    "summary": "Open Source Marketing Automation Software",
+    "overview": "Mautic provides free and open source marketing automation software available to everyone. Free email marketing software, lead management software and more",
+    "websiteurl": "https://www.mautic.org/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3c3c3232-bc6f-47d7-a1a1-86b2fb978d0a",
+        "key": "Console",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mautic/mautic-gui-websoft9.jpg"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mautic-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "marketing",
+          "title": "Marketing",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "Business Operation"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2qkhKqHSsPi5bMd6TcweCO"
+    },
+    "key": "uptimekuma",
+    "hot": 10000,
+    "trademark": "Uptime Kuma",
+    "summary": "A fancy self-hosted monitoring tool",
+    "overview": "Uptime Kuma is an easy-to-use self-hosted monitoring tool. Monitoring uptime for HTTP(s) / TCP / HTTP(s) Keyword / Ping / DNS Record / Push / Steam Game Server",
+    "websiteurl": "https://github.com/louislam/uptime-kuma",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "291fde08-eec7-41ed-8bd8-616e5a3e6f64",
+        "key": "gui",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/uptimekuma/uptimekuma-gui-websoft9.jpg"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "7d7cd69a-3350-4a68-a16b-4038aec7bee0",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/uptimekuma-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "fullmonitor",
+          "title": "Full Monitoring",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdevops",
+                "title": "IT Monitor"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "2JownpXW4M2rCkMRG2NhlL"
     },
     "key": "mastodon",
@@ -686,8 +1668,8 @@
           }
         },
         {
-          "key": "pms",
-          "title": "Project Management",
+          "key": "pm-task",
+          "title": "Project and Task",
           "catalogCollection": {
             "items": [
               {
@@ -736,125 +1718,6 @@
         {
           "key": "community",
           "title": "Online Community",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "DEOp8ynxuO4rMELqtrNRl"
-    },
-    "key": "wordpress",
-    "hot": 200,
-    "trademark": "WordPress",
-    "summary": "WordPress is open source software you can use to create a beautiful website, blog, or app",
-    "overview": "42% of the web is built on WordPress. More bloggers, small businesses, and Fortune 500 companies use WordPress than all other options combined. Join the millions of people that call WordPress.com home.",
-    "websiteurl": "https://wordpress.com/",
-    "description": "Style it your way\n\nDesign anything you imagine. Start with a blank canvas or choose from a wide variety of themes and patterns. Customize every detail, from color and fonts to layouts and functionality.\n\nPlug in and extend\n\nMake WordPress do whatever you need it to. Add a store, mailing list, portfolio, social feed, analytics; you’re in control with over 55,000 plugins.\n\nOwn what you make \n\nYour content, your design, and your data always belong to you. With WordPress you’re free to tell your story, grow your brand, or simply be yourself.\n\nCreate with confidence\n\nBuilt by an open source community with decades of experience, its passionate contributors are committed to keeping WordPress as stable and secure as possible.",
-    "screenshots": [],
-    "distribution": [
-      {
-        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
-        "key": "Community",
-        "value": "6.2"
-      },
-      {
-        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
-        "key": "Multisites",
-        "value": "latest"
-      },
-      {
-        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
-        "key": "Solution",
-        "value": "MinIO,Matomo"
-      },
-      {
-        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
-        "key": "Free themes",
-        "value": "latest"
-      },
-      {
-        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
-        "key": "Basic services",
-        "value": "latest"
-      },
-      {
-        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
-        "key": "Senior services",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "website",
-          "title": "Website Builder",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "Low Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              }
-            ]
-          }
-        },
-        {
-          "key": "content-marketing",
-          "title": "Content Marketing",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "marketing",
-                "title": "Marketing"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              }
-            ]
-          }
-        },
-        {
-          "key": "ecommerce",
-          "title": "eCommerce",
           "catalogCollection": {
             "items": [
               {
@@ -1109,158 +1972,6 @@
   },
   {
     "sys": {
-      "id": "3xOgZOPK7DWmtPXTpHqcsP"
-    },
-    "key": "rowy",
-    "hot": 10000,
-    "trademark": "Rowy",
-    "summary": "Airtable-like UI for managing database",
-    "overview": "Low-code backend platform. Manage database on spreadsheet-like UI and build cloud functions workflows in JS/TS, all in your browser.",
-    "websiteurl": "http://rowy.io/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "f618bffe-b689-42fe-9344-3121ef605450",
-        "key": "Dashboard",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/rowy/rowy-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/rowy-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "master-data",
-          "title": "Master Data",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "Data Analytics"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "Low Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "40PUDAY7PxnSiBf3NMhwOd"
-    },
-    "key": "appsmith",
-    "hot": 10000,
-    "trademark": "Appsmith",
-    "summary": "Appsmith | Open-source Workbench for Internal Tools",
-    "overview": "Stop grappling with data, scouring for the perfect React library, and coding everything from scratch. Build internal tools 10X faster with Appsmith.",
-    "websiteurl": "appsmith.com",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "f618bffe-b689-42fe-9344-3121ef605450",
-        "key": "GUI",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/appsmith/appsmith-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 4,
-    "storage": 10,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/appsmith-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "master-data",
-          "title": "Master Data",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "Data Analytics"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "Low Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "1dozRAa6FMuX7KkNueYXfy"
     },
     "key": "huginn",
@@ -1293,14 +2004,10 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "dataintegration",
-          "title": "Data Integration",
+          "key": "workflowauto",
+          "title": "Workflow automation",
           "catalogCollection": {
             "items": [
-              {
-                "key": "analytics",
-                "title": "Data Analytics"
-              },
               {
                 "key": "automation",
                 "title": "Automation"
@@ -1366,71 +2073,6 @@
   },
   {
     "sys": {
-      "id": "23HrDKURRv8pE2HGxOjrJg"
-    },
-    "key": "mattermost",
-    "hot": null,
-    "trademark": "mattermost",
-    "summary": "A self-hosted Slack-alternative, flexible, messaging platform",
-    "overview": "Mattermost is a self-hosted Slack-alternative, flexible, messaging platform that enables secure team collaboration.",
-    "websiteurl": "https://mattermost.com/",
-    "description": "This is a repackaged Mattermost with professional support for your business. Mattermost is a self-hosted Slack-alternative, flexible, messaging platform that enables secure team collaboration. It is designed to increase the agility, efficiency and innovation in high trust organizations while keeping data and operations under IT control.",
-    "screenshots": [
-      {
-        "id": "1d263c64-8b51-4cd4-856f-88df0d1937ab",
-        "key": "gui",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mattermost/mattermost-gui-websoft9.webp"
-      },
-      {
-        "id": "d1d4ebd1-0fc1-40d8-95f0-5da679444672",
-        "key": "display",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/mattermost/mattermost-display-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
-        "key": "Community",
-        "value": "7.10"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 2,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mattermost-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "chat",
-          "title": "Chat",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "communication",
-                "title": "Communication"
-              }
-            ]
-          }
-        },
-        {
-          "key": "task",
-          "title": "Task Collaboration",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "collaboration",
-                "title": "Collaboration & Office"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "6C2fZYqNNJlDNcp0aYi82"
     },
     "key": "akeneo",
@@ -1482,87 +2124,6 @@
               {
                 "key": "cms",
                 "title": "Content Management"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "5YSaWTBBKaeFZbIEKeXYpK"
-    },
-    "key": "mingdao",
-    "hot": 18000,
-    "trademark": "Mingdao",
-    "summary": "leader of APaaS, No Code Platform",
-    "overview": "Provide rapid development Tool and middle-ground application solution for enterprise customer.",
-    "websiteurl": "https://www.mingdao.com/",
-    "description": "Mingdao ApaaS On-Premise is the core of Mingdao.com APaaS. We made it possible via container technology. Thus enterprise users can take use of the highly usable, reliable and scalable APaaS product. Every citizen developer can build their own business app in minutes, when adopting digital transformation.",
-    "screenshots": [
-      {
-        "id": "e95feba9-8af5-48c1-a798-4a058e6422d5",
-        "key": "mdfeature",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mingdao/mingdao-tables-websoft9.jpg"
-      },
-      {
-        "id": "0ebcd31d-7727-418f-8b2e-363669dee903",
-        "key": "main",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/mingdao/mingdao-main-lib-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "d9c492c2-9cb8-4d77-b1aa-59ebad77f379",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 8,
-    "memory": 20,
-    "storage": 40,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mingdao-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "Low Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              }
-            ]
-          }
-        },
-        {
-          "key": "software-platform",
-          "title": "Software Platform",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "industry",
-                "title": "Industries "
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
               }
             ]
           }
@@ -1674,8 +2235,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }
@@ -2051,14 +2612,10 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "dataintegration",
-          "title": "Data Integration",
+          "key": "workflowauto",
+          "title": "Workflow automation",
           "catalogCollection": {
             "items": [
-              {
-                "key": "analytics",
-                "title": "Data Analytics"
-              },
               {
                 "key": "automation",
                 "title": "Automation"
@@ -2156,8 +2713,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }
@@ -2283,8 +2840,8 @@
           }
         },
         {
-          "key": "pms",
-          "title": "Project Management",
+          "key": "pm-task",
+          "title": "Project and Task",
           "catalogCollection": {
             "items": [
               {
@@ -2998,8 +3555,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }
@@ -3065,82 +3622,6 @@
               {
                 "key": "database",
                 "title": "Databases"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "LTWbkdq2GrC9rBXNcVlCY"
-    },
-    "key": "apitable",
-    "hot": 10000,
-    "trademark": "APITable",
-    "summary": "Simple & Powerful Work Management OS",
-    "overview": "APITable is an incredibly simple and powerful work management OS. You'll be able to get started in just one second, without any complicated setup or training required.\nOnce you're up and running, you'll find that APITable is the coolest project management software you've ever used. Whether you're a solo entrepreneur or part of a large team, APITable can help you achieve your goals and increase productivity.",
-    "websiteurl": null,
-    "description": "Customizable View\n7 types of views included.\nAnd you can extend more views by our API & SDK.\n\nTable View, Board View, Gantt View\nArchitecture View, Gallery View, Calendar View\nUse our SDK to extend more views\n\nInfinite Cross Link\nUnlike other Low Code Softwares, Apitable is not a \"Base/App\" structure. You can link unlimited and infinite tables in one space.\n\nLink 1000+ tables together\nOne-direction or Bi-direction Link\nCross Space Shortcuts\n\nRow Permissions\nActivate Rows permissions with a single click through our function called \"Mirror\"\n\nSimple & Powerful row permission\nRows private to only you\nUse a View as an App\n\nOne-Click API Panel\nAPI is the first-class citizen in APITable.\nYou can summon the API power everywhere.\n\nJava/JavaScript/C#/Python... SDK\nCRUD like Database with API\nJSON column, JavaScript column\n\nAutomation\nWith all different kinds of tools connected, you can optimize your workflow solely based on your actual needs.\n\nZapier/Tray.io integration\nScheduled time automation trigger\nExecute code\n\nBI Dashboard\nFreedom \"Dashboard\" interface. You can easily create a BI system.\n\nUse a Dashboard as Standalone App\nCustomize unlimited charts\nDevelop widgets with SDKs",
-    "screenshots": [
-      {
-        "id": "160674cb-8ebf-4e9f-8141-7f162fb844a2",
-        "key": "apitable",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/apitable/apitable-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "a6008421-6a17-4ed7-8da9-6e3bc35e318d",
-        "key": "Community",
-        "value": "0.20.0"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 8,
-    "storage": 2,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/apitable-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "Low Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              }
-            ]
-          }
-        },
-        {
-          "key": "software-platform",
-          "title": "Software Platform",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "industry",
-                "title": "Industries "
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "Design & Create"
               }
             ]
           }
@@ -3235,8 +3716,8 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "data-storage-and-search",
-          "title": "Data storage and search",
+          "key": "storage-and-search",
+          "title": "Storage and Search",
           "catalogCollection": {
             "items": [
               {
@@ -3324,8 +3805,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }
@@ -3487,8 +3968,8 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "data-storage-and-search",
-          "title": "Data storage and search",
+          "key": "storage-and-search",
+          "title": "Storage and Search",
           "catalogCollection": {
             "items": [
               {
@@ -3620,7 +4101,7 @@
         },
         {
           "key": "low-code",
-          "title": "Low Code",
+          "title": "Low Code and No Code",
           "catalogCollection": {
             "items": [
               {
@@ -3732,7 +4213,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "Low Code",
+          "title": "Low Code and No Code",
           "catalogCollection": {
             "items": [
               {
@@ -4358,8 +4839,8 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "data-storage-and-search",
-          "title": "Data storage and search",
+          "key": "storage-and-search",
+          "title": "Storage and Search",
           "catalogCollection": {
             "items": [
               {
@@ -4431,7 +4912,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "Low Code",
+          "title": "Low Code and No Code",
           "catalogCollection": {
             "items": [
               {
@@ -4549,54 +5030,6 @@
               {
                 "key": "itdevops",
                 "title": "IT Monitor"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "3N1q7Xjn6wlgaZ4qPbLtt0"
-    },
-    "key": "mautic",
-    "hot": 10000,
-    "trademark": "Mautic",
-    "summary": "Open Source Marketing Automation Software",
-    "overview": "Mautic provides free and open source marketing automation software available to everyone. Free email marketing software, lead management software and more",
-    "websiteurl": "https://www.mautic.org/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "3c3c3232-bc6f-47d7-a1a1-86b2fb978d0a",
-        "key": "Console",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mautic/mautic-gui-websoft9.jpg"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mautic-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "email-marketing",
-          "title": "Email Marketing",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "marketing",
-                "title": "Marketing"
               }
             ]
           }
@@ -5220,7 +5653,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "Low Code",
+          "title": "Low Code and No Code",
           "catalogCollection": {
             "items": [
               {
@@ -6067,7 +6500,7 @@
         },
         {
           "key": "low-code",
-          "title": "Low Code",
+          "title": "Low Code and No Code",
           "catalogCollection": {
             "items": [
               {
@@ -6482,7 +6915,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "Low Code",
+          "title": "Low Code and No Code",
           "catalogCollection": {
             "items": [
               {
@@ -6827,8 +7260,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }
@@ -6894,71 +7327,6 @@
               {
                 "key": "cms",
                 "title": "Content Management"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "5Z7EV9C7orv0YLKTaOWnCz"
-    },
-    "key": "onlyoffice",
-    "hot": null,
-    "trademark": "ONLYOFFICE",
-    "summary": "A free open-source collaborative system",
-    "overview": "ONLYOFFICE is a multifunctional portal for business collaboration, document and project management. ",
-    "websiteurl": "https://www.onlyoffice.com/",
-    "description": "This is a repackaged ONLYOFFICE Workspace with professional support for your business. ONLYOFFICE Workspace is a free open-source collaborative system developed to manage documents, projects, customer relationship and email correspondence, all in one place. It allows you to organize business tasks and milestones, store and share your corporate or personal documents, use social networking tools such as blogs and forums, as well as communicate with your team members via corporate IM.",
-    "screenshots": [
-      {
-        "id": "a305c557-137b-4730-a108-e0ab089d2171",
-        "key": "ui",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/onlyoffice/onlyoffice-websoft9-002.png"
-      },
-      {
-        "id": "b3c9aeb2-5a28-4017-9722-3b3d43989e20",
-        "key": "sample",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/onlyoffice/onlyoffice-websoft9-002.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "470afc11-23a6-43cc-ae88-69cfeee21954",
-        "key": "Community ",
-        "value": "12.0"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 8,
-    "storage": 20,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/onlyoffice-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "document",
-          "title": "Document Collaboration",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "collaboration",
-                "title": "Collaboration & Office"
-              }
-            ]
-          }
-        },
-        {
-          "key": "task",
-          "title": "Task Collaboration",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "collaboration",
-                "title": "Collaboration & Office"
               }
             ]
           }
@@ -7119,7 +7487,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "Low Code",
+          "title": "Low Code and No Code",
           "catalogCollection": {
             "items": [
               {
@@ -7240,8 +7608,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }
@@ -7794,8 +8162,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }
@@ -7842,8 +8210,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "Customer 360"
+                "key": "business-operation",
+                "title": "Business Operation"
               }
             ]
           }

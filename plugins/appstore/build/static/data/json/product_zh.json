@@ -1,6 +1,1009 @@
 [
   {
     "sys": {
+      "id": "7FRM6Ercqt1jcoyYCxHd23"
+    },
+    "key": "nocobase",
+    "hot": 10000,
+    "trademark": "Nocobase",
+    "summary": "开源零（低）代码平台",
+    "overview": "NocoBase 是一个可扩展性优先的开源无代码/低代码平台，用于构建内部工具。",
+    "websiteurl": "https://www.nocobase.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3a6e1655-d66e-4d36-9431-cbe000d069c1",
+        "key": "控制面板",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/nocobase/nocobase-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "2c1a7943-f9b7-41e9-9d19-ed6dccd6db36",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/nocobase-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "LTWbkdq2GrC9rBXNcVlCY"
+    },
+    "key": "apitable",
+    "hot": 10000,
+    "trademark": "APITable",
+    "summary": "Simple & Powerful Work Management OS",
+    "overview": "APITable is an incredibly simple and powerful work management OS. You'll be able to get started in just one second, without any complicated setup or training required.\nOnce you're up and running, you'll find that APITable is the coolest project management software you've ever used. Whether you're a solo entrepreneur or part of a large team, APITable can help you achieve your goals and increase productivity.",
+    "websiteurl": null,
+    "description": "Customizable View\n7 types of views included.\nAnd you can extend more views by our API & SDK.\n\nTable View, Board View, Gantt View\nArchitecture View, Gallery View, Calendar View\nUse our SDK to extend more views\n\nInfinite Cross Link\nUnlike other Low Code Softwares, Apitable is not a \"Base/App\" structure. You can link unlimited and infinite tables in one space.\n\nLink 1000+ tables together\nOne-direction or Bi-direction Link\nCross Space Shortcuts\n\nRow Permissions\nActivate Rows permissions with a single click through our function called \"Mirror\"\n\nSimple & Powerful row permission\nRows private to only you\nUse a View as an App\n\nOne-Click API Panel\nAPI is the first-class citizen in APITable.\nYou can summon the API power everywhere.\n\nJava/JavaScript/C#/Python... SDK\nCRUD like Database with API\nJSON column, JavaScript column\n\nAutomation\nWith all different kinds of tools connected, you can optimize your workflow solely based on your actual needs.\n\nZapier/Tray.io integration\nScheduled time automation trigger\nExecute code\n\nBI Dashboard\nFreedom \"Dashboard\" interface. You can easily create a BI system.\n\nUse a Dashboard as Standalone App\nCustomize unlimited charts\nDevelop widgets with SDKs",
+    "screenshots": [
+      {
+        "id": "160674cb-8ebf-4e9f-8141-7f162fb844a2",
+        "key": "apitable",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/apitable/apitable-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a6008421-6a17-4ed7-8da9-6e3bc35e318d",
+        "key": "Community",
+        "value": "0.20.0"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 8,
+    "storage": 2,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/apitable-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        },
+        {
+          "key": "software-platform",
+          "title": "软件与平台",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "industry",
+                "title": "行业"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "5YSaWTBBKaeFZbIEKeXYpK"
+    },
+    "key": "mingdao",
+    "hot": 18000,
+    "trademark": "明道云",
+    "summary": "是一个无代码开发平台（aPaas, No-Code, Low-Code）",
+    "overview": "由Websoft9提供的明道云私有部署版镜像，通过容器化技术，将高性能、高弹性和高用户体验的 APaaS（应用平台）公共云服务封装，面向科技型企业和大中型企业赋能企业数字化管理。",
+    "websiteurl": "https://www.mingdao.com/",
+    "description": "明道云私有部署版是驱动 APaaS 服务明道云的产品内核，面向科技型企业和大中型企业提供一个极其简洁的运维环境，让不同层次的客户均能够自助建立应用中台能力，赋能企业数字化管理。明道云私有部署版（MDP）既可以运行在 IaaS 平台，也可以运行在企业自建的本地网络。在 POC 阶段和小型使用情况下，MDP 提供支持单机部署的免费社区版授权；在更完整的部门和企业级使用情况下，明道云也提供包含高可用、多租户部署、应用搭建和技术支持服务的商业授权。同时，分布在各区域和行业的明道云合作伙伴也为获得商业授权的客户提供本地化的应用搭建服务。",
+    "screenshots": [
+      {
+        "id": "6f135862-cfc0-4a19-bfd3-8eff00bcbd28",
+        "key": "mdfeature",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mingdao/mingdao-tables-websoft9.jpg"
+      },
+      {
+        "id": "635dcebe-6dcb-49f3-b9cc-67ba352c6d50",
+        "key": "main",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mingdao/mingdao-main-lib-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "d9c492c2-9cb8-4d77-b1aa-59ebad77f379",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 8,
+    "memory": 20,
+    "storage": 40,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mingdao-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        },
+        {
+          "key": "software-platform",
+          "title": "软件与平台",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "industry",
+                "title": "行业"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "40PUDAY7PxnSiBf3NMhwOd"
+    },
+    "key": "appsmith",
+    "hot": 10000,
+    "trademark": "Appsmith",
+    "summary": "快速构建内部工具的开源低代码平台",
+    "overview": "Appsmith 是一个开源框架，可让您的团队更快、更协作地构建自定义内部应用程序，如仪表板、管理面板、CRUD 应用程序",
+    "websiteurl": "appsmith.com",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3e66b007-9fe2-439c-9a74-63e2e7b23322",
+        "key": "GUI",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/appsmith/appsmith-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 4,
+    "storage": 10,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/appsmith-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "master-data",
+          "title": "主数据管理",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "数据 & 分析"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "3xOgZOPK7DWmtPXTpHqcsP"
+    },
+    "key": "rowy",
+    "hot": 10000,
+    "trademark": "Rowy",
+    "summary": "快速构建 Web 电子表格程序开源低代码平台",
+    "overview": "低代码后端平台。在类似电子表格的 UI 上管理数据库，并在 JS/TS 中构建云函数工作流，所有这些都在您的浏览器中完成。",
+    "websiteurl": "http://rowy.io/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "3e66b007-9fe2-439c-9a74-63e2e7b23322",
+        "key": "Dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/rowy/rowy-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/rowy-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "master-data",
+          "title": "主数据管理",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "数据 & 分析"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "DEOp8ynxuO4rMELqtrNRl"
+    },
+    "key": "wordpress",
+    "hot": 200,
+    "trademark": "WordPress",
+    "summary": "全球 42% 的网页基于 WordPress 构建",
+    "overview": "WordPress 是一个流行的开源建站平台，市场占有率极高。它以其易用性、易扩展性（ 插件 、模板 、二次开发）、功能强大、美观、搜索引擎友好等特征而广泛流行。",
+    "websiteurl": "https://wordpress.com/",
+    "description": "按你的方式设计\n\n设计您想象的任何东西。从一张空白的画布开始，或者从各种各样的主题和图案中进行选择。自定义每个细节，从颜色和字体到布局和功能。\n\n插入和扩展\n\n让 WordPress 做任何你需要它做的事。添加商店、邮寄列表、投资组合、社交提要、分析；您可以控制超过 55,000 个插件。\n\n拥有你所做的 \n\n您的内容、设计和数据始终属于您。使用 WordPress，您可以自由地讲述您的故事、发展您的品牌，或者只是做您自己。\n\n充满信心地创造\n\n由拥有数十年经验的开源社区构建，其热情的贡献者致力于保持 WordPress 尽可能稳定和安全。",
+    "screenshots": [
+      {
+        "id": "94655745-52ac-419b-bb06-02aa15e0b923",
+        "key": "登录界面",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-add-site-websoft9.png"
+      },
+      {
+        "id": "18f86757-dff9-4e88-94de-e3af48eef29c",
+        "key": "2",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addplugins-websoft9.png"
+      },
+      {
+        "id": "e5fcd98b-c8d9-4e32-b9a3-d8b6e2e75276",
+        "key": "3",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addthemes-websoft9.png"
+      },
+      {
+        "id": "0b86adb5-5be4-418a-8e13-bd5693b21e74",
+        "key": "4",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-createmenu-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
+        "key": "Community",
+        "value": "6.2"
+      },
+      {
+        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
+        "key": "Multisites",
+        "value": "latest"
+      },
+      {
+        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
+        "key": "Solution",
+        "value": "MinIO,Matomo"
+      },
+      {
+        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
+        "key": "Free themes",
+        "value": "latest"
+      },
+      {
+        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
+        "key": "Basic services",
+        "value": "latest"
+      },
+      {
+        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
+        "key": "Senior services",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "website",
+          "title": "企业建站",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              },
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        },
+        {
+          "key": "ecommerce",
+          "title": "电子商务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        },
+        {
+          "key": "marketing",
+          "title": "市场营销",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "企业运营"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "73sQK2CIMnbgqrHvgucgGb"
+    },
+    "key": "airflow",
+    "hot": 10000,
+    "trademark": "Apache Airflow",
+    "summary": "可视化作业调度平台",
+    "overview": "Apache Airflow (or simply Airflow) is a platform to programmatically author, schedule, and monitor workflows.",
+    "websiteurl": "https://airflow.apache.org/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "5ce48cc3-a26e-488f-9b31-7ea947d8de53",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/airflow/airflow-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/airflow-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "workflowauto",
+          "title": "工作流",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "automation",
+                "title": "自动化"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2gem5XPiF4gkosXdGFXRDf"
+    },
+    "key": "affine",
+    "hot": 10000,
+    "trademark": "AFFiNE",
+    "summary": "Notion 开源替代品 ",
+    "overview": "AFFiNE is a next-gen knowledge base that brings planning, sorting and creating all together.\nPrivacy first, open-source, customizable and ready to use - a free replacement for Notion & Miro.",
+    "websiteurl": "https://affine.pro/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "5ce48cc3-a26e-488f-9b31-7ea947d8de53",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/affine/affine-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/affine-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "pm-task",
+          "title": "项目/任务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        },
+        {
+          "key": "whiteboard-and-note",
+          "title": "白板/笔记",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "7FwhnvboG5hH0qSqPFuNfF"
+    },
+    "key": "appflowy",
+    "hot": 10000,
+    "trademark": "AppFlowy",
+    "summary": "Notion 开源替代品 ",
+    "overview": "AppFlowy是Notion的开源替代品。您负责您的数据和自定义。用Flutter and Rust构建。",
+    "websiteurl": "https://appflowy.io/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "5ce48cc3-a26e-488f-9b31-7ea947d8de53",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/appflowy/appflowy-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/appflowy-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "pm-task",
+          "title": "项目/任务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        },
+        {
+          "key": "whiteboard-and-note",
+          "title": "白板/笔记",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "1i1FTT5UFDNcZL30tsYns2"
+    },
+    "key": "focalboard",
+    "hot": 300,
+    "trademark": "Focalboard",
+    "summary": "面向技术人员的项目管理系统 ",
+    "overview": "Focalboard是一个面向技术团队的开源项目管理。让一切和每个人都步入正轨，所有这些都在 Mattermost 平台中。",
+    "websiteurl": "https://www.zentao.net/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "b7726315-f237-412a-bf32-827f7f29a8fd",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/focalboard/focalboard-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "54029d6d-4383-4418-9d4e-29e6b8cbfd77",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/focalboard-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "agile",
+          "title": "敏捷项目管理",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              }
+            ]
+          }
+        },
+        {
+          "key": "pm-task",
+          "title": "项目/任务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "5Z7EV9C7orv0YLKTaOWnCz"
+    },
+    "key": "onlyoffice",
+    "hot": null,
+    "trademark": "ONLYOFFICE",
+    "summary": "是一款开源的团队协作办公套件",
+    "overview": "ONLYOFFICE Workspace是一款集成了文档、电子邮件、事件、任务和客户关系管理工具的团队协作办公套件与生产力工具。",
+    "websiteurl": "https://www.onlyoffice.com/",
+    "description": "ONLYOFFICE Workspace 是一款集成了文档、电子邮件、事件、任务和客户关系管理工具的团队协作办公套件与生产力工具。其文档管理功能可用于替代 Office365。ONLYOFFICE Workspace 为用户提供了多种编辑工具与协作功能，可确保团队实现更优秀的工作流，并在网页端提供无缝的复杂格式化工作协作解决方案。",
+    "screenshots": [
+      {
+        "id": "900adc3e-588c-478b-986d-b05cb9534fc2",
+        "key": "ui",
+        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/zh/onlyoffice/onlyoffice-websoft9-001.png"
+      },
+      {
+        "id": "c99c1c05-4b6a-45e6-8416-c2849c0a3876",
+        "key": "document",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/onlyoffice/onlyoffice-websoft9-002.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "470afc11-23a6-43cc-ae88-69cfeee21954",
+        "key": "Community ",
+        "value": "12.0"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 8,
+    "storage": 20,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/onlyoffice-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "document",
+          "title": "文档协作",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        },
+        {
+          "key": "pm-task",
+          "title": "项目/任务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "23HrDKURRv8pE2HGxOjrJg"
+    },
+    "key": "mattermost",
+    "hot": null,
+    "trademark": "mattermost",
+    "summary": "开源的团队通讯服务系统",
+    "overview": "Mattermost是一个 Slack 的开源替代品，基于团队聊天为核心，集成文件、邮件等，把各种碎片化的企业沟通和协作集中到一起。",
+    "websiteurl": "https://mattermost.com/",
+    "description": "Mattermost是一个 Slack 的开源替代品。采用 Go 语言开发，可为团队带来跨 PC 和移动设备的消息、文件分享，提供归档和搜索功能，是一个开源的团队通讯服务系统。",
+    "screenshots": [
+      {
+        "id": "5ce48cc3-a26e-488f-9b31-7ea947d8de53",
+        "key": "gui",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mattermost/mattermost-gui-websoft9.webp"
+      },
+      {
+        "id": "e0abb6b7-cce2-4009-a63d-aea819d591ee",
+        "key": "display",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/mattermost/mattermost-display-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
+        "key": "Community",
+        "value": "7.10"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 2,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mattermost-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "chat",
+          "title": "团队聊天",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "communication",
+                "title": "通信"
+              }
+            ]
+          }
+        },
+        {
+          "key": "pm-task",
+          "title": "项目/任务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "1YrdAH2ii73NpK7DjCpKMR"
+    },
+    "key": "excalidraw",
+    "hot": 10000,
+    "trademark": "Excalidraw",
+    "summary": "在线虚拟白板系统",
+    "overview": "Excalidraw是一个开源的虚拟手绘风格的白板。它可以帮助您创建协作和端到端加密逻辑示意图。",
+    "websiteurl": "https://github.com/excalidraw/excalidraw",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "ec40efc7-139e-4056-aa9a-7b0907b612f4",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/excalidraw/excalidraw-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/excalidraw-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "whiteboard-and-note",
+          "title": "白板/笔记",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "create",
+                "title": "设计创作"
+              }
+            ]
+          }
+        },
+        {
+          "key": "task",
+          "title": "任务协作",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "collaboration",
+                "title": "协作办公"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "66nvg2eHzQcGhpg4WLpcji"
+    },
+    "key": "akaunting",
+    "hot": 10000,
+    "trademark": "Akaunting",
+    "summary": "会计与记账系统",
+    "overview": "Akaunting是一款免费的开源在线会计软件，专为小型企业和自由职业者设计。",
+    "websiteurl": "https://akaunting.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "ec40efc7-139e-4056-aa9a-7b0907b612f4",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/akaunting/akaunting-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/akaunting-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "finance-and-tax",
+          "title": "财税",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "企业运营"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "3N1q7Xjn6wlgaZ4qPbLtt0"
+    },
+    "key": "mautic",
+    "hot": 10000,
+    "trademark": "Mautic",
+    "summary": "开源营销自动化系统",
+    "overview": "Mautic为 所有人提供免费和开源 的营销自动化软件。免费电子邮件营销软件，潜在客户管理软件等。",
+    "websiteurl": "https://www.mautic.org/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "ec40efc7-139e-4056-aa9a-7b0907b612f4",
+        "key": "控制台",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mautic/mautic-gui-websoft9.jpg"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mautic-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "marketing",
+          "title": "市场营销",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "企业运营"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2qkhKqHSsPi5bMd6TcweCO"
+    },
+    "key": "uptimekuma",
+    "hot": 10000,
+    "trademark": "Uptime Kuma",
+    "summary": "网站与应用监控工具",
+    "overview": "Uptime Kuma 是一个易于使用的自托管监控工具。Monitoring uptime for HTTP(s) / TCP / HTTP(s) Keyword / Ping / DNS Record / Push / Steam Game Server",
+    "websiteurl": "https://github.com/louislam/uptime-kuma",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "b621c299-8c80-4026-8e42-81ccb0890416",
+        "key": "界面",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/uptimekuma/uptimekuma-gui-websoft9.jpg"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "7d7cd69a-3350-4a68-a16b-4038aec7bee0",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/uptimekuma-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "fullmonitor",
+          "title": "全面监控",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdevops",
+                "title": "IT 监控运维"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "2JownpXW4M2rCkMRG2NhlL"
     },
     "key": "mastodon",
@@ -686,8 +1689,8 @@
           }
         },
         {
-          "key": "pms",
-          "title": "项目管理",
+          "key": "pm-task",
+          "title": "项目/任务",
           "catalogCollection": {
             "items": [
               {
@@ -736,146 +1739,6 @@
         {
           "key": "community",
           "title": "社交/论坛",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "DEOp8ynxuO4rMELqtrNRl"
-    },
-    "key": "wordpress",
-    "hot": 200,
-    "trademark": "WordPress",
-    "summary": "全球 42% 的网页基于 WordPress 构建",
-    "overview": "WordPress 是一个流行的开源建站平台，市场占有率极高。它以其易用性、易扩展性（ 插件 、模板 、二次开发）、功能强大、美观、搜索引擎友好等特征而广泛流行。",
-    "websiteurl": "https://wordpress.com/",
-    "description": "按你的方式设计\n\n设计您想象的任何东西。从一张空白的画布开始，或者从各种各样的主题和图案中进行选择。自定义每个细节，从颜色和字体到布局和功能。\n\n插入和扩展\n\n让 WordPress 做任何你需要它做的事。添加商店、邮寄列表、投资组合、社交提要、分析；您可以控制超过 55,000 个插件。\n\n拥有你所做的 \n\n您的内容、设计和数据始终属于您。使用 WordPress，您可以自由地讲述您的故事、发展您的品牌，或者只是做您自己。\n\n充满信心地创造\n\n由拥有数十年经验的开源社区构建，其热情的贡献者致力于保持 WordPress 尽可能稳定和安全。",
-    "screenshots": [
-      {
-        "id": "94655745-52ac-419b-bb06-02aa15e0b923",
-        "key": "登录界面",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-add-site-websoft9.png"
-      },
-      {
-        "id": "18f86757-dff9-4e88-94de-e3af48eef29c",
-        "key": "2",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addplugins-websoft9.png"
-      },
-      {
-        "id": "e5fcd98b-c8d9-4e32-b9a3-d8b6e2e75276",
-        "key": "3",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addthemes-websoft9.png"
-      },
-      {
-        "id": "0b86adb5-5be4-418a-8e13-bd5693b21e74",
-        "key": "4",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-createmenu-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
-        "key": "Community",
-        "value": "6.2"
-      },
-      {
-        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
-        "key": "Multisites",
-        "value": "latest"
-      },
-      {
-        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
-        "key": "Solution",
-        "value": "MinIO,Matomo"
-      },
-      {
-        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
-        "key": "Free themes",
-        "value": "latest"
-      },
-      {
-        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
-        "key": "Basic services",
-        "value": "latest"
-      },
-      {
-        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
-        "key": "Senior services",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "website",
-          "title": "企业建站",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "低代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              }
-            ]
-          }
-        },
-        {
-          "key": "content-marketing",
-          "title": "内容营销",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "marketing",
-                "title": "市场营销"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              }
-            ]
-          }
-        },
-        {
-          "key": "ecommerce",
-          "title": "电子商务",
           "catalogCollection": {
             "items": [
               {
@@ -1130,158 +1993,6 @@
   },
   {
     "sys": {
-      "id": "3xOgZOPK7DWmtPXTpHqcsP"
-    },
-    "key": "rowy",
-    "hot": 10000,
-    "trademark": "Rowy",
-    "summary": "快速构建 Web 电子表格程序开源低代码平台",
-    "overview": "低代码后端平台。在类似电子表格的 UI 上管理数据库，并在 JS/TS 中构建云函数工作流，所有这些都在您的浏览器中完成。",
-    "websiteurl": "http://rowy.io/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "3e66b007-9fe2-439c-9a74-63e2e7b23322",
-        "key": "Dashboard",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/rowy/rowy-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/rowy-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "master-data",
-          "title": "主数据管理",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "低代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "40PUDAY7PxnSiBf3NMhwOd"
-    },
-    "key": "appsmith",
-    "hot": 10000,
-    "trademark": "Appsmith",
-    "summary": "快速构建内部工具的开源低代码平台",
-    "overview": "Appsmith 是一个开源框架，可让您的团队更快、更协作地构建自定义内部应用程序，如仪表板、管理面板、CRUD 应用程序",
-    "websiteurl": "appsmith.com",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "3e66b007-9fe2-439c-9a74-63e2e7b23322",
-        "key": "GUI",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/appsmith/appsmith-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 4,
-    "storage": 10,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/appsmith-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "master-data",
-          "title": "主数据管理",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "低代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "1dozRAa6FMuX7KkNueYXfy"
     },
     "key": "huginn",
@@ -1314,14 +2025,10 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "dataintegration",
-          "title": "数据集成",
+          "key": "workflowauto",
+          "title": "工作流",
           "catalogCollection": {
             "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              },
               {
                 "key": "automation",
                 "title": "自动化"
@@ -1387,71 +2094,6 @@
   },
   {
     "sys": {
-      "id": "23HrDKURRv8pE2HGxOjrJg"
-    },
-    "key": "mattermost",
-    "hot": null,
-    "trademark": "mattermost",
-    "summary": "开源的团队通讯服务系统",
-    "overview": "Mattermost是一个 Slack 的开源替代品，基于团队聊天为核心，集成文件、邮件等，把各种碎片化的企业沟通和协作集中到一起。",
-    "websiteurl": "https://mattermost.com/",
-    "description": "Mattermost是一个 Slack 的开源替代品。采用 Go 语言开发，可为团队带来跨 PC 和移动设备的消息、文件分享，提供归档和搜索功能，是一个开源的团队通讯服务系统。",
-    "screenshots": [
-      {
-        "id": "5ce48cc3-a26e-488f-9b31-7ea947d8de53",
-        "key": "gui",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mattermost/mattermost-gui-websoft9.webp"
-      },
-      {
-        "id": "e0abb6b7-cce2-4009-a63d-aea819d591ee",
-        "key": "display",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/mattermost/mattermost-display-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "8c77261f-1f32-41e8-ade4-6014bea9bee7",
-        "key": "Community",
-        "value": "7.10"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 2,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mattermost-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "chat",
-          "title": "团队聊天",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "communication",
-                "title": "通信"
-              }
-            ]
-          }
-        },
-        {
-          "key": "task",
-          "title": "任务协作",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "collaboration",
-                "title": "协作办公"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "6C2fZYqNNJlDNcp0aYi82"
     },
     "key": "akeneo",
@@ -1503,87 +2145,6 @@
               {
                 "key": "cms",
                 "title": "内容管理"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "5YSaWTBBKaeFZbIEKeXYpK"
-    },
-    "key": "mingdao",
-    "hot": 18000,
-    "trademark": "明道云",
-    "summary": "是一个无代码开发平台（aPaas, No-Code, Low-Code）",
-    "overview": "由Websoft9提供的明道云私有部署版镜像，通过容器化技术，将高性能、高弹性和高用户体验的 APaaS（应用平台）公共云服务封装，面向科技型企业和大中型企业赋能企业数字化管理。",
-    "websiteurl": "https://www.mingdao.com/",
-    "description": "明道云私有部署版是驱动 APaaS 服务明道云的产品内核，面向科技型企业和大中型企业提供一个极其简洁的运维环境，让不同层次的客户均能够自助建立应用中台能力，赋能企业数字化管理。明道云私有部署版（MDP）既可以运行在 IaaS 平台，也可以运行在企业自建的本地网络。在 POC 阶段和小型使用情况下，MDP 提供支持单机部署的免费社区版授权；在更完整的部门和企业级使用情况下，明道云也提供包含高可用、多租户部署、应用搭建和技术支持服务的商业授权。同时，分布在各区域和行业的明道云合作伙伴也为获得商业授权的客户提供本地化的应用搭建服务。",
-    "screenshots": [
-      {
-        "id": "6f135862-cfc0-4a19-bfd3-8eff00bcbd28",
-        "key": "mdfeature",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mingdao/mingdao-tables-websoft9.jpg"
-      },
-      {
-        "id": "635dcebe-6dcb-49f3-b9cc-67ba352c6d50",
-        "key": "main",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mingdao/mingdao-main-lib-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "d9c492c2-9cb8-4d77-b1aa-59ebad77f379",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 8,
-    "memory": 20,
-    "storage": 40,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mingdao-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "低代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              }
-            ]
-          }
-        },
-        {
-          "key": "software-platform",
-          "title": "软件与平台",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "industry",
-                "title": "行业"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
               }
             ]
           }
@@ -1695,8 +2256,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }
@@ -2072,14 +2633,10 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "dataintegration",
-          "title": "数据集成",
+          "key": "workflowauto",
+          "title": "工作流",
           "catalogCollection": {
             "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              },
               {
                 "key": "automation",
                 "title": "自动化"
@@ -2177,8 +2734,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }
@@ -2304,8 +2861,8 @@
           }
         },
         {
-          "key": "pms",
-          "title": "项目管理",
+          "key": "pm-task",
+          "title": "项目/任务",
           "catalogCollection": {
             "items": [
               {
@@ -3014,8 +3571,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }
@@ -3081,82 +3638,6 @@
               {
                 "key": "database",
                 "title": "数据库"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "LTWbkdq2GrC9rBXNcVlCY"
-    },
-    "key": "apitable",
-    "hot": 10000,
-    "trademark": "APITable",
-    "summary": "Simple & Powerful Work Management OS",
-    "overview": "APITable is an incredibly simple and powerful work management OS. You'll be able to get started in just one second, without any complicated setup or training required.\nOnce you're up and running, you'll find that APITable is the coolest project management software you've ever used. Whether you're a solo entrepreneur or part of a large team, APITable can help you achieve your goals and increase productivity.",
-    "websiteurl": null,
-    "description": "Customizable View\n7 types of views included.\nAnd you can extend more views by our API & SDK.\n\nTable View, Board View, Gantt View\nArchitecture View, Gallery View, Calendar View\nUse our SDK to extend more views\n\nInfinite Cross Link\nUnlike other Low Code Softwares, Apitable is not a \"Base/App\" structure. You can link unlimited and infinite tables in one space.\n\nLink 1000+ tables together\nOne-direction or Bi-direction Link\nCross Space Shortcuts\n\nRow Permissions\nActivate Rows permissions with a single click through our function called \"Mirror\"\n\nSimple & Powerful row permission\nRows private to only you\nUse a View as an App\n\nOne-Click API Panel\nAPI is the first-class citizen in APITable.\nYou can summon the API power everywhere.\n\nJava/JavaScript/C#/Python... SDK\nCRUD like Database with API\nJSON column, JavaScript column\n\nAutomation\nWith all different kinds of tools connected, you can optimize your workflow solely based on your actual needs.\n\nZapier/Tray.io integration\nScheduled time automation trigger\nExecute code\n\nBI Dashboard\nFreedom \"Dashboard\" interface. You can easily create a BI system.\n\nUse a Dashboard as Standalone App\nCustomize unlimited charts\nDevelop widgets with SDKs",
-    "screenshots": [
-      {
-        "id": "160674cb-8ebf-4e9f-8141-7f162fb844a2",
-        "key": "apitable",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/apitable/apitable-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "a6008421-6a17-4ed7-8da9-6e3bc35e318d",
-        "key": "Community",
-        "value": "0.20.0"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 8,
-    "storage": 2,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/apitable-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "低代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
-              },
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              }
-            ]
-          }
-        },
-        {
-          "key": "software-platform",
-          "title": "软件与平台",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "industry",
-                "title": "行业"
-              }
-            ]
-          }
-        },
-        {
-          "key": "nocode",
-          "title": "零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "create",
-                "title": "设计创作"
               }
             ]
           }
@@ -3251,8 +3732,8 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "data-storage-and-search",
-          "title": "数据存储与搜索",
+          "key": "storage-and-search",
+          "title": "存储/搜索",
           "catalogCollection": {
             "items": [
               {
@@ -3340,8 +3821,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }
@@ -3503,8 +3984,8 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "data-storage-and-search",
-          "title": "数据存储与搜索",
+          "key": "storage-and-search",
+          "title": "存储/搜索",
           "catalogCollection": {
             "items": [
               {
@@ -3636,7 +4117,7 @@
         },
         {
           "key": "low-code",
-          "title": "低代码",
+          "title": "低代码/零代码",
           "catalogCollection": {
             "items": [
               {
@@ -3748,7 +4229,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "低代码",
+          "title": "低代码/零代码",
           "catalogCollection": {
             "items": [
               {
@@ -4369,8 +4850,8 @@
     "catalogCollection": {
       "items": [
         {
-          "key": "data-storage-and-search",
-          "title": "数据存储与搜索",
+          "key": "storage-and-search",
+          "title": "存储/搜索",
           "catalogCollection": {
             "items": [
               {
@@ -4442,7 +4923,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "低代码",
+          "title": "低代码/零代码",
           "catalogCollection": {
             "items": [
               {
@@ -4560,54 +5041,6 @@
               {
                 "key": "itdevops",
                 "title": "IT 监控运维"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "3N1q7Xjn6wlgaZ4qPbLtt0"
-    },
-    "key": "mautic",
-    "hot": 10000,
-    "trademark": "Mautic",
-    "summary": "开源营销自动化系统",
-    "overview": "Mautic为 所有人提供免费和开源 的营销自动化软件。免费电子邮件营销软件，潜在客户管理软件等。",
-    "websiteurl": "https://www.mautic.org/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "ec40efc7-139e-4056-aa9a-7b0907b612f4",
-        "key": "控制台",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mautic/mautic-gui-websoft9.jpg"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "1675d02c-0f9e-43ef-84d9-27e0f5a1856f",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mautic-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "email-marketing",
-          "title": "邮件营销",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "marketing",
-                "title": "市场营销"
               }
             ]
           }
@@ -5231,7 +5664,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "低代码",
+          "title": "低代码/零代码",
           "catalogCollection": {
             "items": [
               {
@@ -6078,7 +6511,7 @@
         },
         {
           "key": "low-code",
-          "title": "低代码",
+          "title": "低代码/零代码",
           "catalogCollection": {
             "items": [
               {
@@ -6493,7 +6926,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "低代码",
+          "title": "低代码/零代码",
           "catalogCollection": {
             "items": [
               {
@@ -6838,8 +7271,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }
@@ -6905,71 +7338,6 @@
               {
                 "key": "cms",
                 "title": "内容管理"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "5Z7EV9C7orv0YLKTaOWnCz"
-    },
-    "key": "onlyoffice",
-    "hot": null,
-    "trademark": "ONLYOFFICE",
-    "summary": "是一款开源的团队协作办公套件",
-    "overview": "ONLYOFFICE Workspace是一款集成了文档、电子邮件、事件、任务和客户关系管理工具的团队协作办公套件与生产力工具。",
-    "websiteurl": "https://www.onlyoffice.com/",
-    "description": "ONLYOFFICE Workspace 是一款集成了文档、电子邮件、事件、任务和客户关系管理工具的团队协作办公套件与生产力工具。其文档管理功能可用于替代 Office365。ONLYOFFICE Workspace 为用户提供了多种编辑工具与协作功能，可确保团队实现更优秀的工作流，并在网页端提供无缝的复杂格式化工作协作解决方案。",
-    "screenshots": [
-      {
-        "id": "900adc3e-588c-478b-986d-b05cb9534fc2",
-        "key": "ui",
-        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/zh/onlyoffice/onlyoffice-websoft9-001.png"
-      },
-      {
-        "id": "c99c1c05-4b6a-45e6-8416-c2849c0a3876",
-        "key": "document",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/onlyoffice/onlyoffice-websoft9-002.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "470afc11-23a6-43cc-ae88-69cfeee21954",
-        "key": "Community ",
-        "value": "12.0"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 8,
-    "storage": 20,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/onlyoffice-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "document",
-          "title": "文档协作",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "collaboration",
-                "title": "协作办公"
-              }
-            ]
-          }
-        },
-        {
-          "key": "task",
-          "title": "任务协作",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "collaboration",
-                "title": "协作办公"
               }
             ]
           }
@@ -7130,7 +7498,7 @@
       "items": [
         {
           "key": "low-code",
-          "title": "低代码",
+          "title": "低代码/零代码",
           "catalogCollection": {
             "items": [
               {
@@ -7251,8 +7619,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }
@@ -7810,8 +8178,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }
@@ -7858,8 +8226,8 @@
           "catalogCollection": {
             "items": [
               {
-                "key": "customer",
-                "title": "客户 & 销售"
+                "key": "business-operation",
+                "title": "企业运营"
               }
             ]
           }

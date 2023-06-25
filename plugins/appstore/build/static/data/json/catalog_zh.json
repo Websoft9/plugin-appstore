@@ -7,9 +7,9 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "dataintegration",
-            "title": "数据集成",
-            "position": 12
+            "key": "storage-and-search",
+            "title": "存储/搜索",
+            "position": 10
           },
           {
             "key": "etl",
@@ -20,11 +20,6 @@
             "key": "master-data",
             "title": "主数据管理",
             "position": null
-          },
-          {
-            "key": "data-storage-and-search",
-            "title": "数据存储与搜索",
-            "position": 10
           },
           {
             "key": "web-analytics",
@@ -79,14 +74,14 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "teampassm",
-            "title": "密码管理",
+            "key": "pm-task",
+            "title": "项目/任务",
             "position": 1
           },
           {
-            "key": "pms",
-            "title": "项目管理",
-            "position": 10
+            "key": "teampassm",
+            "title": "密码管理",
+            "position": 1
           },
           {
             "key": "task",
@@ -115,18 +110,18 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "dcreativity",
-            "title": "数字创意",
-            "position": 10
-          },
-          {
             "key": "low-code",
-            "title": "低代码",
+            "title": "低代码/零代码",
             "position": 2
           },
           {
-            "key": "nocode",
-            "title": "零代码",
+            "key": "whiteboard-and-note",
+            "title": "白板/笔记",
+            "position": 10
+          },
+          {
+            "key": "dcreativity",
+            "title": "数字创意",
             "position": 10
           },
           {
@@ -151,24 +146,14 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "dataintegration",
-            "title": "数据集成",
-            "position": 12
-          },
-          {
             "key": "rpa",
-            "title": "RPA",
-            "position": null
+            "title": "流程机器人",
+            "position": 1
           },
           {
-            "key": "microsoft",
-            "title": "Microsoft",
-            "position": 10
-          },
-          {
-            "key": "wechat",
-            "title": "微信",
-            "position": null
+            "key": "workflowauto",
+            "title": "工作流",
+            "position": 12
           }
         ]
       }
@@ -283,6 +268,16 @@
       "catalogCollection": {
         "items": [
           {
+            "key": "life",
+            "title": "生命科学",
+            "position": null
+          },
+          {
+            "key": "construction",
+            "title": "建筑",
+            "position": 10
+          },
+          {
             "key": "automotive",
             "title": "汽车",
             "position": 10
@@ -396,14 +391,14 @@
       "catalogCollection": {
         "items": [
           {
+            "key": "low-code",
+            "title": "低代码/零代码",
+            "position": 2
+          },
+          {
             "key": "artifact-repository",
             "title": "制品仓库",
             "position": 10
-          },
-          {
-            "key": "low-code",
-            "title": "低代码",
-            "position": 2
           },
           {
             "key": "devops",
@@ -538,27 +533,6 @@
     }
   },
   {
-    "key": "marketing",
-    "position": 3,
-    "title": "市场营销",
-    "linkedFrom": {
-      "catalogCollection": {
-        "items": [
-          {
-            "key": "content-marketing",
-            "title": "内容营销",
-            "position": 10
-          },
-          {
-            "key": "email-marketing",
-            "title": "邮件营销",
-            "position": 10
-          }
-        ]
-      }
-    }
-  },
-  {
     "key": "ai",
     "position": 8,
     "title": "人工智能",
@@ -583,32 +557,6 @@
           {
             "key": "aiapps",
             "title": "AI 仿真应用",
-            "position": null
-          }
-        ]
-      }
-    }
-  },
-  {
-    "key": "customer",
-    "position": 2,
-    "title": "客户 & 销售",
-    "linkedFrom": {
-      "catalogCollection": {
-        "items": [
-          {
-            "key": "partner-management",
-            "title": "合作伙伴管理",
-            "position": 10
-          },
-          {
-            "key": "crm",
-            "title": "CRM",
-            "position": null
-          },
-          {
-            "key": "helpdesk",
-            "title": "客服支持",
             "position": null
           }
         ]
@@ -663,6 +611,41 @@
     "linkedFrom": {
       "catalogCollection": {
         "items": [
+          {
+            "key": "srm",
+            "title": "供应商/采购",
+            "position": 10
+          },
+          {
+            "key": "legal",
+            "title": "法务合规",
+            "position": 10
+          },
+          {
+            "key": "marketing",
+            "title": "市场营销",
+            "position": 3
+          },
+          {
+            "key": "strategy",
+            "title": "战略",
+            "position": 10
+          },
+          {
+            "key": "helpdesk",
+            "title": "客服支持",
+            "position": null
+          },
+          {
+            "key": "crm",
+            "title": "CRM",
+            "position": null
+          },
+          {
+            "key": "partner-management",
+            "title": "合作伙伴管理",
+            "position": 10
+          },
           {
             "key": "plm",
             "title": "产品生命周期",

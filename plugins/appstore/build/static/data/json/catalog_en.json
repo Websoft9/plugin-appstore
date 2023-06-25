@@ -7,9 +7,9 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "dataintegration",
-            "title": "Data Integration",
-            "position": 12
+            "key": "storage-and-search",
+            "title": "Storage and Search",
+            "position": 10
           },
           {
             "key": "etl",
@@ -20,11 +20,6 @@
             "key": "master-data",
             "title": "Master Data",
             "position": null
-          },
-          {
-            "key": "data-storage-and-search",
-            "title": "Data storage and search",
-            "position": 10
           },
           {
             "key": "web-analytics",
@@ -79,14 +74,14 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "teampassm",
-            "title": "Password Management",
+            "key": "pm-task",
+            "title": "Project and Task",
             "position": 1
           },
           {
-            "key": "pms",
-            "title": "Project Management",
-            "position": 10
+            "key": "teampassm",
+            "title": "Password Management",
+            "position": 1
           },
           {
             "key": "task",
@@ -115,18 +110,18 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "dcreativity",
-            "title": "Digital creativity",
-            "position": 10
-          },
-          {
             "key": "low-code",
-            "title": "Low Code",
+            "title": "Low Code and No Code",
             "position": 2
           },
           {
-            "key": "nocode",
-            "title": "No Code",
+            "key": "whiteboard-and-note",
+            "title": "Whiteboard and Note",
+            "position": 10
+          },
+          {
+            "key": "dcreativity",
+            "title": "Digital creativity",
             "position": 10
           },
           {
@@ -151,24 +146,14 @@
       "catalogCollection": {
         "items": [
           {
-            "key": "dataintegration",
-            "title": "Data Integration",
-            "position": 12
-          },
-          {
             "key": "rpa",
             "title": "RPA",
-            "position": null
+            "position": 1
           },
           {
-            "key": "microsoft",
-            "title": "Microsoft",
-            "position": 10
-          },
-          {
-            "key": "wechat",
-            "title": "WeChat",
-            "position": null
+            "key": "workflowauto",
+            "title": "Workflow automation",
+            "position": 12
           }
         ]
       }
@@ -283,6 +268,16 @@
       "catalogCollection": {
         "items": [
           {
+            "key": "life",
+            "title": "Life sciences",
+            "position": null
+          },
+          {
+            "key": "construction",
+            "title": "Construction",
+            "position": 10
+          },
+          {
             "key": "automotive",
             "title": "Automotive",
             "position": 10
@@ -396,14 +391,14 @@
       "catalogCollection": {
         "items": [
           {
+            "key": "low-code",
+            "title": "Low Code and No Code",
+            "position": 2
+          },
+          {
             "key": "artifact-repository",
             "title": "Artifact Repository",
             "position": 10
-          },
-          {
-            "key": "low-code",
-            "title": "Low Code",
-            "position": 2
           },
           {
             "key": "devops",
@@ -538,27 +533,6 @@
     }
   },
   {
-    "key": "marketing",
-    "position": 3,
-    "title": "Marketing",
-    "linkedFrom": {
-      "catalogCollection": {
-        "items": [
-          {
-            "key": "content-marketing",
-            "title": "Content Marketing",
-            "position": 10
-          },
-          {
-            "key": "email-marketing",
-            "title": "Email Marketing",
-            "position": 10
-          }
-        ]
-      }
-    }
-  },
-  {
     "key": "ai",
     "position": 8,
     "title": "AI + Machine Learning",
@@ -583,32 +557,6 @@
           {
             "key": "aiapps",
             "title": "AI Simulation",
-            "position": null
-          }
-        ]
-      }
-    }
-  },
-  {
-    "key": "customer",
-    "position": 2,
-    "title": "Customer 360",
-    "linkedFrom": {
-      "catalogCollection": {
-        "items": [
-          {
-            "key": "partner-management",
-            "title": "Partner Management",
-            "position": 10
-          },
-          {
-            "key": "crm",
-            "title": "CRM",
-            "position": null
-          },
-          {
-            "key": "helpdesk",
-            "title": "Customer Service",
             "position": null
           }
         ]
@@ -663,6 +611,41 @@
     "linkedFrom": {
       "catalogCollection": {
         "items": [
+          {
+            "key": "srm",
+            "title": "Supplier management",
+            "position": 10
+          },
+          {
+            "key": "legal",
+            "title": "Legal",
+            "position": 10
+          },
+          {
+            "key": "marketing",
+            "title": "Marketing",
+            "position": 3
+          },
+          {
+            "key": "strategy",
+            "title": "Strategy",
+            "position": 10
+          },
+          {
+            "key": "helpdesk",
+            "title": "Customer Service",
+            "position": null
+          },
+          {
+            "key": "crm",
+            "title": "CRM",
+            "position": null
+          },
+          {
+            "key": "partner-management",
+            "title": "Partner Management",
+            "position": 10
+          },
           {
             "key": "plm",
             "title": "PLM & PDM",
