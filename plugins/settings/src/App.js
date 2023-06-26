@@ -33,6 +33,7 @@ function App() {
   const [alertType, setAlertType] = useState("");  //用于确定弹窗的类型：error\success
   const [showConfirm, setShowConfirm] = useState(false); //用于显示确认更新弹窗
   const [showComplete, setShowComplete] = useState(false); //用于显示更新完成提示弹窗
+  const [autoUpdate, setAutoUpdate] = useState(false); //用于自动更新标识
 
   let credentials;
 
@@ -42,17 +43,15 @@ function App() {
       const response = await fetch('../myapps/config.json');
       const data = await response.json();
       if (data) {
-        const userName = data.APPMANAGE.APPMANAGE_USERNAME;
-        const uerPassword = data.APPMANAGE.APPMANAGE_PASSWORD;
-        credentials = btoa(userName + ":" + uerPassword);
+        const { APPMANAGE_USERNAME: userName, APPMANAGE_PASSWORD: userPassword } = data.APPMANAGE;
+        credentials = btoa(`${userName}:${userPassword}`);
+        axios.defaults.headers.common['Authorization'] = `Basic ${credentials}`; //设置axios的请求头
       }
     }
-    return credentials;
   }
 
   const checkeUpdate = async (init) => {
     try {
-      axios.defaults.headers.common['Authorization'] = 'Basic ' + await getCredentials();
       const response = await axios.get("/AppManage/AppUpdateList"); //调用获取更新内容接口
       if (response.data.Error) {
         setShowAlert(true);
@@ -77,6 +76,30 @@ function App() {
             setDisable(false);
           }
         }
+      }
+    }
+    catch (error) {
+      setShowAlert(true);
+      setAlertType("error")
+      setAlertMessage(error);
+    }
+  };
+
+  const checkeAutoUpdate = async (flag) => {
+    try {
+      const response = await axios.get("/AppManage/AppAutoUpdate", {
+        params: {
+          auto_update: flag
+        }
+      });
+      if (response.data.Error) {
+        setShowAlert(true);
+        setAlertType("error")
+        setAlertMessage(response.data.Error.Message);
+      }
+      else {
+        let autoUpdateState = response.data.ResponseData.auto_update === "true";
+        setAutoUpdate(autoUpdateState);
       }
     }
     catch (error) {
@@ -143,7 +166,12 @@ function App() {
   };
 
   useEffect(() => {
-    checkeUpdate(true);
+    async function init() {
+      await getCredentials();
+      await checkeUpdate(true);
+      await checkeAutoUpdate();
+    }
+    init();
   }, []);
 
   return (
@@ -200,9 +228,11 @@ function App() {
                   <Typography>
                     <Form>
                       <Form.Check
+                        checked={autoUpdate}
                         type="switch"
                         id="store-switch"
                         label={_("Enable automatic updates")}
+                        onChange={(event) => checkeAutoUpdate(event.target.checked)}
                       />
                     </Form>
                   </Typography>
