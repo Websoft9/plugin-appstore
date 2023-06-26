@@ -8,10 +8,9 @@ jobs:
     env:
       ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
       LOCALES: "en-US,zh-CN"
-      DATA_DIR: "plugins/appstore/build/static/data/json"
-      APPSTORE_LOGO_DIR: "plugins/appstore/build/static/data/logos"
-      MYAPPS_LOGO_DIR: "plugins/myapps/build/static/logos"
-      SCREENSHOT_DIR: "plugins/appstore/build/static/data/screenshots"
+      DATA_DIR: "data/json"
+      APPSTORE_LOGO_DIR: "data/logos"
+      SCREENSHOT_DIR: "data/screenshots"
       LIMIT: 100
 
     steps:
@@ -65,7 +64,7 @@ jobs:
         run: ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
       - name: Download logos from oss
-        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $APPSTORE_LOGO_DIR -r --update && ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $MYAPPS_LOGO_DIR -r --update
+        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $APPSTORE_LOGO_DIR -r --update
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
