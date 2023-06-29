@@ -6,7 +6,7 @@
 
 # Websoft9 Plugin - `appstore`
 
-This plugin for listing and install templating application. include WordPress, MySQL, GitLab and other 300+ open source  
+This plugin for listing and install templating application. include WordPress, MySQL, GitLab and other 300+ open source apps. If you want to contribute more apps to AppStore, please fork [docker-library](https://github.com/Websoft9/docker-library)
 
 ![image](https://github.com/Websoft9/plugin-appstore/assets/16741975/74c3919c-9906-448d-aab9-9334d8fb8d60)
 
@@ -23,9 +23,31 @@ wget https://
 2. Exec Script : ```sh /data/test/syncdata.sh```
 ```
 
+## Development
+
+See Developer.md for details about how to efficiently change the code, run, and test it.
+
+### Building
+
+These commands check out the source and build it into the directory:build/
+```
+git clone https://github.com/Websoft9/plugin-appstore
+plugin-appstore
+npm build
+```
+You can also triggers action workflow for building
+
+### Automated release
+
+Two scenarios that trigger automatic publishing:
+
+* Repository Onwer create release at Github
+* [docker-library](https://github.com/Websoft9/docker-library)  triggers action workflow
+
+This creates the official release tarball and publishes as upstream release to GitHub.
+
+### 
+
 ## License
 
 **plugin-appstore** is maintained by [Websoft9](https://www.websoft9.com) and released under the GPL3 license.
-
-
-
