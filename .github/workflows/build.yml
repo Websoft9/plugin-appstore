@@ -35,10 +35,18 @@ jobs:
         run: |
           zip -r appstore-${{ steps.read-version.outputs.version }}.zip build/
 
+      - name: Check if File Exists
+        run: |
+          if [ -f "appstore-${{ steps.read-version.outputs.version }}.zip" ]; then
+            echo "File exists"
+          else
+            echo "File does not exist"
+          fi
+
       - name: Upload To Azure
         uses: bacongobbler/azure-blob-storage-upload@main
         with:
-          source_dir: ./appstore-${{ steps.read-version.outputs.version }}.zip
+          source_dir: appstore-${{ steps.read-version.outputs.version }}.zip
           container_name: relese
           connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
           extra_args: "--destination-path ./websoft9/plugin"
