@@ -23,7 +23,7 @@ jobs:
         run: yarn build
 
       - name: Copy Data、Logos、Screenshots To Plugin
-        run: cp -R /data/*  /build/static/
+        run: cp -R data/*  build/static/
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
