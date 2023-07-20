@@ -5,6 +5,8 @@ on: workflow_dispatch
 jobs:
   fetch-data:
     runs-on: ubuntu-latest
+    env:
+      CI: false
 
     steps:
       - uses: actions/checkout@v2
