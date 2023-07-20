@@ -28,8 +28,14 @@ jobs:
       - name: Read Plugin Version
         id: read-xml
         run: |
-          version=$(xmllint --xpath "string(/Version)" websoft9.xml)
-          echo "::set-output name=version::$version"
+          python - <<EOF
+          import xml.etree.ElementTree as ET
+
+          tree = ET.parse('websoft9.xml')
+          root = tree.getroot()
+          version = root.find('Version').text
+          print(version)
+          EOF
 
       - name: Create Zip Archive
         run: |
