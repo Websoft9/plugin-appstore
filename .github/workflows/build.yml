@@ -32,11 +32,8 @@ jobs:
           echo "::set-output name=version::$version"
 
       - name: Create Zip Archive
-        uses: actions/create-archive@v3
-        with:
-          files: |
-            build/
-          output: appstore-${{ steps.read-xml.outputs.version }}.zip
+        run: |
+          zip -r appstore-${{ steps.read-xml.outputs.version }}.zip build/
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
