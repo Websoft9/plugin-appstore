@@ -26,20 +26,14 @@ jobs:
         run: cp -R data/  build/static/
 
       - name: Read Plugin Version
-        id: read-xml
+        id: read-version
         run: |
-          python - <<EOF
-          import xml.etree.ElementTree as ET
-
-          tree = ET.parse('websoft9.xml')
-          root = tree.getroot()
-          version = root.find('Version').text
-          print(version)
-          EOF
+          version=$(jq -r '.Version' websoft9.json)
+          echo "::set-output name=version::$version"
 
       - name: Create Zip Archive
         run: |
-          zip -r appstore-${{ steps.read-xml.outputs.version }}.zip build/
+          zip -r appstore-${{ steps.read-version.outputs.version }}.zip build/
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
