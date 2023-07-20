@@ -9,7 +9,6 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from "react-router-dom";
 import DefaultImg from '../assets/images/default.png';
 import FormInput from '../components/FormInput';
-import { AppInstall } from '../helpers';
 
 const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
@@ -39,21 +38,40 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 //调用应用安装接口
                 try {
                     setDisable(true);
-                    const response = await AppInstall({ app_name: product.key, app_version: selectedVersion, customer_app_name: customName })
-                    if (response.data.Error) {
-                        setShowAlert(true);
-                        setAlertMessage(response.data.Error.Message);
-                        setDisable(false);
-                    }
-                    else {
-                        setShowAlert(false);
-                        setAlertMessage("");
-                        cockpit.file('/etc/hostname').watch(content => {
-                            console.log(content);
+                    var IP;
+                    const Port = "5000";
+                    cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"])
+                        .then(function (data) {
+                            IP = data.trim();
+                            cockpit.http({ "address": IP, "port": 5000, })
+                                .get("/AppInstall", { "app_name": product.key, "app_version": selectedVersion, "customer_app_name": customName })
+                                .then(function (response) {
+                                    response = JSON.parse(response);
+                                    if (response.Error) {
+                                        setShowAlert(true);
+                                        setAlertMessage(response.Error.Message);
+                                        setDisable(false);
+                                    }
+                                    else {
+                                        setShowAlert(false);
+                                        setAlertMessage("");
+                                        cockpit.file('/etc/hostname').watch(content => {
+                                            console.log(content);
+                                        });
+                                        cockpit.jump("/myapps");
+                                        onClose();
+                                    }
+                                }).catch(function (error) {
+                                    setShowAlert(true);
+                                    setAlertMessage(error.message);
+                                    setDisable(false);
+                                });
+                        })
+                        .catch(function (error) {
+                            setShowAlert(true);
+                            setAlertMessage(error.message);
+                            setDisable(false);
                         });
-                        cockpit.jump("/myapps");
-                        onClose();
-                    }
                 }
                 catch (error) {
                     setShowAlert(false);
@@ -405,7 +423,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                                 <div className='appstore-item-content-icon col-same-height'>
                                     <img
                                         src={`./static/data/logos/${imagName}`}
-                                        alt=""
+                                        alt={imagName}
                                         className="app-icon"
                                         onError={(e) => (e.target.src = DefaultImg)}
                                     />

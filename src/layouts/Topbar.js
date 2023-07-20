@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppStoreUpdate } from '../helpers';
 
 // images
 import Snackbar from '@mui/material/Snackbar';
@@ -60,22 +59,27 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
         setButtonDisable(true);
         setLinkDisable(true);
         try {
-            const response = await AppStoreUpdate();
-            if (response.data.Error) {
-                setShowAlert(true);
-                setAlertType("error")
-                setAlertMessage(response.data.Error.Message);
-            }
-            else {
-                const updateInfo = response.data.ResponseData.Update_content;
-                if (!updateInfo) {
+            let data = await cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"]);
+            let IP = data.trim();
+            if (IP) {
+                let response = await cockpit.http({ "address": IP, "port": 5000 }).get("/AppStoreUpdate");
+                response = JSON.parse(response);
+                if (response.data.Error) {
                     setShowAlert(true);
-                    setAlertType("success")
-                    setAlertMessage(_("The app store is already the latest version"));
+                    setAlertType("error")
+                    setAlertMessage(response.data.Error.Message);
                 }
                 else {
-                    setShowUpdateLog(true);
-                    setAlertMessage(updateInfo);
+                    const updateInfo = response.data.ResponseData.Update_content;
+                    if (!updateInfo) {
+                        setShowAlert(true);
+                        setAlertType("success")
+                        setAlertMessage(_("The app store is already the latest version"));
+                    }
+                    else {
+                        setShowUpdateLog(true);
+                        setAlertMessage(updateInfo);
+                    }
                 }
             }
         }
