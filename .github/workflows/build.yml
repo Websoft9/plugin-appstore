@@ -25,6 +25,19 @@ jobs:
       - name: Copy Data、Logos、Screenshots To Plugin
         run: cp -R data/  build/static/
 
+      - name: Read Plugin Version
+        id: read-xml
+        run: |
+          version=$(xmllint --xpath "string(/Version)" websoft9.xml)
+          echo "::set-output name=version::$version"
+
+      - name: Create Zip Archive
+        uses: actions/create-archive@v3
+        with:
+          files: |
+            build/
+          output: appstore-${{ steps.read-xml.outputs.version }}.zip
+
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
