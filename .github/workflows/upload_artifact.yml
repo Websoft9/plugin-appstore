@@ -10,6 +10,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Run Sub Workflow
+        uses: ./.github/workflows/download_data.yml
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
