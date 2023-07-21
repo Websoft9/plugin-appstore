@@ -33,7 +33,8 @@ jobs:
 
       - name: Create Zip Archive
         run: |
-          zip -r appstore-${{ env.PLUGIN_VERSION }}.zip build/
+          mv build appstore
+          zip -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore/
 
       - name: Upload To Azure Blob
         uses: LanceMcCarthy/Action-AzureBlobUpload@v2
