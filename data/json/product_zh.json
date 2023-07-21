@@ -1,6 +1,54 @@
 [
   {
     "sys": {
+      "id": "1dozRAa6FMuX7KkNueYXfy"
+    },
+    "key": "huginn",
+    "hot": 10000,
+    "trademark": "Huginn",
+    "summary": "工作流与任务自动化",
+    "overview": "Huginn是一个用于构建代理的系统，可以在线为您执行自动化任务。他们可以阅读网络、监视事件并代表您采取行动。",
+    "websiteurl": "https://github.com/huginn/huginn",
+    "description": "Think of it as a hackable version of IFTTT or Zapier on your own server",
+    "screenshots": [
+      {
+        "id": "b8f4c8aa-fa2c-49dd-a7ad-b64e18325736",
+        "key": "Dashboard",
+        "value": "http://libs,websoft9,com/Websoft9/DocsPicture/zh/huginn/huginn-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "cb1193c2-6668-4c37-9f14-309cbf2e616d",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/huginn-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "workflowauto",
+          "title": "工作流",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "automation",
+                "title": "自动化"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "Cxl60TibFHkiD4EQpEjvk"
     },
     "key": "datahub",
@@ -2554,54 +2602,6 @@
               {
                 "key": "collaboration",
                 "title": "协作办公"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "1dozRAa6FMuX7KkNueYXfy"
-    },
-    "key": "huginn",
-    "hot": 10000,
-    "trademark": "Huginn",
-    "summary": "工作流与任务自动化",
-    "overview": "Huginn是一个用于构建代理的系统，可以在线为您执行自动化任务。他们可以阅读网络、监视事件并代表您采取行动。",
-    "websiteurl": "https://github.com/huginn/huginn",
-    "description": "Think of it as a hackable version of IFTTT or Zapier on your own server",
-    "screenshots": [
-      {
-        "id": "b8f4c8aa-fa2c-49dd-a7ad-b64e18325736",
-        "key": "Dashboard",
-        "value": "oss://libs-websoft9-com/Websoft9/DocsPicture/zh/huginn/huginn-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "cb1193c2-6668-4c37-9f14-309cbf2e616d",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/huginn-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "workflowauto",
-          "title": "工作流",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "automation",
-                "title": "自动化"
               }
             ]
           }
