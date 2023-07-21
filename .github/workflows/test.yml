@@ -49,12 +49,9 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             # echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} || echo {} >> $SCREENSHOT_DIR/Error.log
              # echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} || echo {} >> $SCREENSHOT_DIR/Error.log"
-             # echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget --spider -S {} 2>&1 | grep -i 'Content-Length' | awk '{print \$2}' | xargs -I % echo '{\"url\":\"{}\",\"size\":%}' >> $SCREENSHOT_DIR/data.json"
              # echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} 2>&1 || (echo {} >> $SCREENSHOT_DIR/Error.log && echo '{\"url\":\"{}\",\"error\":\"Download failed\"}' >> $SCREENSHOT_DIR/data.json)"
-             echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} 2>&1 || (echo '{\"url\":\"{}\",\"error\":\"Download failed\"}' >> $SCREENSHOT_DIR/Error.json && FILENAME=\$(basename {}); SIZE=\$(wget --spider -S {} 2>&1 | awk '/Content-Length/ {print \$2}'); echo '{\"filename\":\"'\"\$FILENAME\"'\",\"size\":'\"\$SIZE\"'}' >> $SCREENSHOT_DIR/data.json)"
-
+             echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} 2>&1 || (echo '{\"url\":\"{}\",\"error\":\"Download failed\"}' >> $SCREENSHOT_DIR/Error.json); FILENAME=\$(basename {}); SIZE=\$(wget --spider -S {} 2>&1 | awk '/Content-Length/ {print \$2}'); echo '{\"filename\":\"'\"\$FILENAME\"'\",\"size\":'\"\$SIZE\"'}' >> $SCREENSHOT_DIR/data.json"
              # 写入文件
              echo ${ITEMS[@]} | jq -s '.' > $DATA_DIR/product_${LOCALE:0:2}.json
            done
