@@ -3,4 +3,5 @@
 ossutil64
 node_modules
 build
+appstore
 appstore-*.zip
