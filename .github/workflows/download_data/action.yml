@@ -1,0 +1,70 @@
+name: Download Data from Contentful and Oss
+
+on: workflow_dispatch
+
+jobs:
+  fetch-data:
+    runs-on: ubuntu-latest
+    env:
+      ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
+      LOCALES: "en-US,zh-CN"
+      DATA_DIR: "data/json"
+      APPSTORE_LOGO_DIR: "data/logos"
+      SCREENSHOT_DIR: "data/screenshots"
+      LIMIT: 100
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install GNU Parallel
+        run: sudo apt-get install -y parallel
+
+      - name: Fetch catalog data from contentful graphql
+        run: |
+          mkdir -p $DATA_DIR
+          IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
+          for LOCALE in "${LOCALE_ARRAY[@]}"; do
+            curl -X POST \
+              -H "Content-Type: application/json" \
+              -H "Authorization: Bearer $ACCESS_TOKEN" \
+              -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
+              https://graphql.contentful.com/content/v1/spaces/ffrhttfighww | \
+              jq '.data.catalog.linkedFrom.catalogCollection.items' > $DATA_DIR/catalog_${LOCALE:0:2}.json
+          done
+
+      - name: Fetch product data and download screenshots
+        run: |
+          mkdir -p $SCREENSHOT_DIR && IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES" && for LOCALE in "${LOCALE_ARRAY[@]}"; do
+             SKIP=0
+             TOTAL=0
+             ITEMS=()
+             while [ $SKIP -le $TOTAL ]; do
+               RESPONSE=$(curl -X POST \
+                 -H "Content-Type: application/json" \
+                 -H "Authorization: Bearer $ACCESS_TOKEN" \
+                 -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
+                 https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
+               ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items[]'))
+               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
+               SKIP=$((SKIP + LIMIT))
+             done
+             # 下载图片
+             echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} || echo {} >> $SCREENSHOT_DIR/Error.log"
+             # 写入文件
+             echo ${ITEMS[@]} | jq -s '.' > $DATA_DIR/product_${LOCALE:0:2}.json
+           done
+
+      - name: Install ossutil
+        run: |
+          wget http://gosspublic.alicdn.com/ossutil/1.7.6/ossutil64
+          chmod 755 ossutil64
+      - name: Configure ossutil
+        run: ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+
+      - name: Download logos from oss
+        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $APPSTORE_LOGO_DIR -r --update
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update data 、logos、screenshots
