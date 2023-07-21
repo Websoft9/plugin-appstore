@@ -1,4 +1,4 @@
-name: Down Data from Contentful and Oss
+name: Download Data from Contentful and Oss
 
 on: workflow_dispatch
 
