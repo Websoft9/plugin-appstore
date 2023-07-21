@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install GNU Parallel
-        run: apt-get install -y parallel
+        run: sudo apt-get install -y parallel
 
       - name: Fetch catalog data from contentful graphql
         run: |
