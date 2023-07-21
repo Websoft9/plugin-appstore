@@ -49,10 +49,7 @@ jobs:
                SKIP=$((SKIP + LIMIT))
              done
              # 下载图片
-             # echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} || echo {} >> $SCREENSHOT_DIR/Error.log"
-             # echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "URL={}; FILENAME=\$(basename \$URL); SIZE=\$(wget --spider -S \$URL 2>&1 | awk '/Content-Length/ {printf \"%.2f\", \$2/1024}'); echo '{\"url\":\"'\"\$URL\"'\",\"size\":'\"\$SIZE\"'}' >> $SCREENSHOT_DIR/data.json"
-             echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "URL={}; FILENAME=\$(basename \$URL); SIZE=\$(wget --spider -S \$URL 2>&1 | grep -i 'Content-Length' | awk '{print \$2/1024}' | awk '{printf \"%.2f\", \$1}'); echo '{\"url\":\"'\"\$URL\"'\",\"size\":'\"\$SIZE\"'}' >> $SCREENSHOT_DIR/data.json"
-
+             echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 {} -P $SCREENSHOT_DIR/${LOCALE:0:2} || echo {} >> $SCREENSHOT_DIR/Error.log"
              # 写入文件
              echo ${ITEMS[@]} | jq -s '.' > $DATA_DIR/product_${LOCALE:0:2}.json
            done
