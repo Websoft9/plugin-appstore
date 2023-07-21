@@ -1,4 +1,4 @@
-name: Relese Plugin-Appstore To Azure
+name: Upload Artifact To Azure Blob
 
 on: workflow_dispatch
 
@@ -22,25 +22,25 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Copy Data、Logos、Screenshots To Plugin
+      - name: Copy data、logos、screenshots to build
         run: cp -R data/  build/static/
 
-      - name: Read Plugin Version
+      - name: Read plugin version
         id: read-version
         run: |
-          version=$(jq -r '.Version' websoft9.json)
-          echo "::set-output name=version::$version"
+          version=$(jq -r '.Version' appstore.json)
+          echo "PLUGIN_VERSION=$version" >> $GITHUB_ENV
 
       - name: Create Zip Archive
         run: |
-          zip -r appstore-${{ steps.read-version.outputs.version }}.zip build/
+          zip -r appstore-${{ env.PLUGIN_VERSION }}.zip build/
 
       - name: Upload To Azure Blob
         uses: LanceMcCarthy/Action-AzureBlobUpload@v2
         with:
           connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
           container_name: release
-          source_folder: appstore-${{ steps.read-version.outputs.version }}.zip
+          source_folder: appstore-${{ env.PLUGIN_VERSION }}.zip
           destination_folder: ./websoft9/plugin
           delete_if_exists: true
           fail_if_source_empty: true
@@ -48,4 +48,4 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: build plugin
+          commit_message: Build Plugin and Upload Artifact to Azure Blob
