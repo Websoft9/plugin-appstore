@@ -3,7 +3,7 @@ name: Upload Artifact To Azure Blob
 on: workflow_dispatch
 
 jobs:
-  fetch-data:
+  Upload_Artifact_To_Azure_Blob:
     runs-on: ubuntu-latest
     env:
       CI: false
