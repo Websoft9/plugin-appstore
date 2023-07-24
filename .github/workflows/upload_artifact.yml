@@ -64,6 +64,28 @@ jobs:
 
       - name: Download logos from oss
         run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $APPSTORE_LOGO_DIR -r --update
+        
+      - name: Read appstore.json and changelog_latest.md
+        id: read-version
+        run: |
+          version=$(jq -r '.Version' appstore.json)
+          echo "PLUGIN_VERSION=$version" >> $GITHUB_ENV
+          changelog=$(cat changelog_latest.md)
+          echo "CHANGELOG=$changelog" >> $GITHUB_ENV
+        
+      - name: Update CHANGELOG.md
+        run: |
+          current_time=$(date +%s%N)
+          echo "## ${{ env.PLUGIN_VERSION }}  release on $current_time" >> temp.txt
+          echo ${{ env.CHANGELOG }} >> temp.txt
+          cat CHANGELOG.md >> temp.txt
+          mv temp.txt CHANGELOG.md
+          
+      - name: Update manifest.json
+        run: |
+          manifest=$(cat public/manifest.json)
+          modified_content=$(echo "$manifest" | jq '.version = "'"${{ env.PLUGIN_VERSION }}"'"')
+          echo "$modified_content" > public/manifest.json
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -78,12 +100,6 @@ jobs:
 
       - name: Copy data、logos、screenshots to build
         run: cp -R data/  build/static/
-
-      - name: Read plugin version
-        id: read-version
-        run: |
-          version=$(jq -r '.Version' appstore.json)
-          echo "PLUGIN_VERSION=$version" >> $GITHUB_ENV
 
       - name: Create Zip Archive
         run: |
@@ -104,6 +120,17 @@ jobs:
           destination_folder: ./websoft9/plugin
           delete_if_exists: true
           fail_if_source_empty: true
+          
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: appstore/* 
+          tag_name: ${{ env.PLUGIN_VERSION }}  
+          title: Release-${{ env.PLUGIN_VERSION }}
+          body: ${{ env.CHANGELOG }}
+          draft: false
+          prerelease: true
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
