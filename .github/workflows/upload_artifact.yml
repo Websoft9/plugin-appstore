@@ -87,15 +87,18 @@ jobs:
 
       - name: Create Zip Archive
         run: |
+          mkdir artifacts
           mv build appstore
           zip -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore/
+          cp -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip
+          mv appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip artifacts/
 
       - name: Upload To Azure Blob
         uses: LanceMcCarthy/Action-AzureBlobUpload@v2
         with:
           connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
           container_name: release
-          source_folder: appstore-${{ env.PLUGIN_VERSION }}.zip
+          source_folder: artifacts/
           destination_folder: ./websoft9/plugin
           delete_if_exists: true
           fail_if_source_empty: true
