@@ -89,6 +89,8 @@ jobs:
         run: |
           mkdir artifacts
           mv build appstore
+          cp CHANGELOG.md appstore
+          cp appstore.json appstore
           zip -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore/
           cp -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip
           mv appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip artifacts/
