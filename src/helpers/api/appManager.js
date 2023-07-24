@@ -8,7 +8,6 @@ function AppInstall(params: any): Promise<any> {
     return api.get(`${baseUrl}`, params);
 }
 
-
 //更新应用列表
 function AppStoreUpdate(params: any): Promise<any> {
     const baseUrl = '/AppManage/AppStoreUpdate';
