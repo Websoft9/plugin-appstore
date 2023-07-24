@@ -1,11 +1,11 @@
 {
-    "version": "0.0.1",
-    "menu": {
-        "appstore": {
-            "label": "App Store",
-            "path": "index.html",
-            "order": -1
-        }
-    },
-    "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src  http://redhattext http://overpass-webfont *"
+  "version": "0.0.1",
+  "menu": {
+    "appstore": {
+      "label": "App Store",
+      "path": "index.html",
+      "order": -1
+    }
+  },
+  "content-security-policy": "default-src 'unsafe-inline' 'unsafe-eval' *;font-src * data:;style-src 'unsafe-inline' 'unsafe-eval' *;img-src * data:;connect-src  http://redhattext http://overpass-webfont *"
 }
