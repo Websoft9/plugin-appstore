@@ -103,10 +103,10 @@ jobs:
           mv build appstore
           cp CHANGELOG.md appstore
           cp appstore.json appstore
-          zip -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore/
-          cp -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip
+          zip -r appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore/
+          cp -r appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore-latest.zip
           cp appstore.json artifacts/
-          mv appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip artifacts/
+          mv appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore-latest.zip artifacts/
 
       - name: Upload To Azure Blob
         uses: LanceMcCarthy/Action-AzureBlobUpload@v2
@@ -135,15 +135,8 @@ jobs:
       
       - name: Update Version in websoft9/version.json
         run: |
-          jq -r --arg version "${{ env.PLUGIN_VERSION }}" '.PLUGINS.APPSTORE = $version' version.json > version.json.tmp
+          jq -r --arg version "${{ steps.update_data.outputs.PLUGIN_VERSION }}" '.PLUGINS.APPSTORE = $version' version.json > version.json.tmp
           mv version.json.tmp version.json
-
-      - name: Commit changes
-        run: |
-          git config user.name "zhaojing1987"
-          git config user.email "jing.zhao@websoft9.com"
-          git add version.json
-          git commit -m "Update the APPSTORE value in version.json to: ${{ env.PLUGIN_VERSION }}"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
@@ -152,10 +145,9 @@ jobs:
           branch: auto-branch-${{ github.run_number }}
           delete-branch: true
           commit-message: Update report
-          title: "Update the APPSTORE value in version.json to: ${{ env.PLUGIN_VERSION }}"
-          body: "This is my modification, please review and merge it"
+          title: "App Store Releases New Version"
+          body: "Update the APPSTORE value in version.json to: ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
           labels: "Update Appstore Version"
-
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
