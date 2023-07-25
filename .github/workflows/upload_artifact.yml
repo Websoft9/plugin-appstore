@@ -122,8 +122,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: /* 
-          tag_name: v${{ env.PLUGIN_VERSION }}   
-          body: ${{ env.CHANGELOG }}
+          tag_name: v${{ steps.update_data.outputs.PLUGIN_VERSION }}   
+          body: ${{ steps.update_data.outputs.CHANGELOG }}
           draft: false
           prerelease: true
           
@@ -142,12 +142,11 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.ZJ_ADMIN_TOKEN }}
-          branch: auto-branch-${{ github.run_number }}
+          branch: update-appstore-version-${{ github.run_number }}
           delete-branch: true
-          commit-message: Update report
-          title: "App Store Releases New Version"
+          commit-message: Update Appstore Version
+          title: "App Store Releases New Version : ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
           body: "Update the APPSTORE value in version.json to: ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
-          labels: "Update Appstore Version"
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
