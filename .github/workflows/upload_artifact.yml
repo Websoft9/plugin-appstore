@@ -140,6 +140,8 @@ jobs:
 
       - name: Commit changes
         run: |
+          git config user.name "zhaojing1987"
+          git config user.email "jing.zhao@websoft9.com"
           git add version.json
           git commit -m "Update the APPSTORE value in version.json to: ${{ env.PLUGIN_VERSION }}"
 
