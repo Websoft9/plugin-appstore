@@ -66,15 +66,14 @@ jobs:
         run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $APPSTORE_LOGO_DIR -r --update
         
       - name: Read appstore.json and changelog_latest.md
-        id: read-version
         run: |
           version=$(jq -r '.Version' appstore.json)
           echo "PLUGIN_VERSION=$version" >> $GITHUB_ENV
-          echo ${{ env.PLUGIN_VERSION }}
           changelog=$(cat changelog_latest.md)
-          echo "CHANGELOG=$changelog" >> $GITHUB_ENV
-          echo ${{ env.CHANGELOG }}
-        
+          echo "CHANGELOG<<EOF" >> $GITHUB_ENV
+          echo "$changelog" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          
       - name: Update CHANGELOG.md
         run: |
           current_date=$(date +%Y-%m-%d)
