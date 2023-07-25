@@ -141,7 +141,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.MYGITHUB_ADMIN_TOKEN }}
+          token: ${{ secrets.ZJ_ADMIN_TOKEN }}
           branch: auto-branch-${{ github.run_number }}
           delete-branch: true
           commit-message: Update report
