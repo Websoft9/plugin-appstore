@@ -127,6 +127,11 @@ jobs:
           draft: false
           prerelease: true
           
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Build Plugin and Upload Artifact to Azure Blob
+          
       - name: Checkout websoft9
         uses: actions/checkout@v2
         with:
@@ -147,8 +152,3 @@ jobs:
           commit-message: Update Appstore Version
           title: "App Store Releases New Version : ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
           body: "Update the APPSTORE value in version.json to: ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
-
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Build Plugin and Upload Artifact to Azure Blob
