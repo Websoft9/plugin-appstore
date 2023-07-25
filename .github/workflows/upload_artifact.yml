@@ -130,7 +130,7 @@ jobs:
       - name: Checkout websoft9
         uses: actions/checkout@v2
         with:
-          repository: websoft9
+          repository: Websoft9/websoft9
           ref: main    
       
       - name: Update Version in websoft9/version.json
