@@ -77,11 +77,8 @@ jobs:
       - name: Update CHANGELOG.md
         run: |
           current_date=$(date +%Y-%m-%d)
-          echo "## ${{ env.PLUGIN_VERSION }}  release on $current_date" >> temp.txt
-          echo ${{ env.CHANGELOG }} >> temp.txt
-          cat CHANGELOG.md >> temp.txt
-          mv temp.txt CHANGELOG.md
-          
+          sed -i "1i ## ${{ env.PLUGIN_VERSION }}  release on $current_date\n${{ env.CHANGELOG }}\n" CHANGELOG.md
+      
       - name: Update manifest.json
         run: |
           manifest=$(cat public/manifest.json)
