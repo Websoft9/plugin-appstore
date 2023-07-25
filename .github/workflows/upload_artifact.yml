@@ -15,10 +15,7 @@ jobs:
       CI: false
 
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install jq
-        run: sudo apt-get install jq
+      - uses: actions/checkout@v2    
 
       - name: Install GNU Parallel
         run: sudo apt-get install -y parallel
@@ -83,7 +80,8 @@ jobs:
           printf "## $version release on $current_date\n$changelog\n" < CHANGELOG.md > temp.txt
           mv temp.txt CHANGELOG.md
       
-          jq -r --arg version "$version" '.version = $version' -i public/manifest.json
+          jq -r --arg version "$version" '.version = $version' public/manifest.json > manifest.json.tmp
+          mv manifest.json.tmp public/manifest.json
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -137,7 +135,8 @@ jobs:
       
       - name: Update Version in websoft9/version.json
         run: |
-          jq -r --arg version "${{ env.PLUGIN_VERSION }}" '.PLUGINS.APPSTORE = $version' -i version.json
+          jq -r --arg version "${{ env.PLUGIN_VERSION }}" '.PLUGINS.APPSTORE = $version' version.json > version.json.tmp
+          mv version.json.tmp version.json
 
       - name: Commit changes
         run: |
