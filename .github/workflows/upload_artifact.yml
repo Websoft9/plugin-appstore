@@ -16,6 +16,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Install or upgrade jq
+        uses: chrisdickinson/install-jq-action@v1
+        with:
+          version: 1.6
 
       - name: Install GNU Parallel
         run: sudo apt-get install -y parallel
