@@ -1,2 +1,1 @@
-1. update some bugs
-2. update pages
+1. App Store Initial Version
