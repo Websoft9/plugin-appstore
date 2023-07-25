@@ -28,5 +28,5 @@ jobs:
           branch: update-appstore-version-${{ github.run_number }}
           delete-branch: true
           commit-message: Update Appstore Version
-          title: "App Store Releases New Version"
+          title: "App Store Releases New Version : ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
           body: "Update the APPSTORE value in version.json to: ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
