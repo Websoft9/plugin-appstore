@@ -17,23 +17,15 @@ jobs:
         run: |
           version=0.0.2
           echo "PLUGIN_VERSION=$version" >> $GITHUB_OUTPUT
-          jq -r --arg version "${{ env.PLUGIN_VERSION }}" '.PLUGINS.APPSTORE = $version' version.json > version.json.tmp
+          jq -r --arg version "$version" '.PLUGINS.APPSTORE = $version' version.json > version.json.tmp
           mv version.json.tmp version.json
-
-#       - name: Commit changes
-#         run: |
-#           git config user.name "zhaojing1987"
-#           git config user.email "jing.zhao@websoft9.com"
-#           git add version.json
-#           git commit -m "Update the APPSTORE value in version.json to: ${{ env.PLUGIN_VERSION }}"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.ZJ_ADMIN_TOKEN }}
-          branch: auto-branch-${{ github.run_number }}
+          branch: update-appstore-version-${{ github.run_number }}
           delete-branch: true
-          commit-message: Update report
-          title: "Update the appstore version: ${{ env.PLUGIN_VERSION }}"
-          body: "This is my modification, please review and merge it"
-          labels: "Update Appstore Version"
+          commit-message: Update Appstore Version
+          title: "App Store Releases New Version"
+          body: "Update the APPSTORE value in version.json to: ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
