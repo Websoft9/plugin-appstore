@@ -75,8 +75,8 @@ jobs:
         
       - name: Update CHANGELOG.md
         run: |
-          current_time=$(date +%s%N)
-          echo "## ${{ env.PLUGIN_VERSION }}  release on $current_time" >> temp.txt
+          current_date=$(date +%Y-%m-%d)
+          echo "## ${{ env.PLUGIN_VERSION }}  release on $current_date" >> temp.txt
           echo ${{ env.CHANGELOG }} >> temp.txt
           cat CHANGELOG.md >> temp.txt
           mv temp.txt CHANGELOG.md
@@ -109,6 +109,7 @@ jobs:
           cp appstore.json appstore
           zip -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore/
           cp -r appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip
+          cp appstore.json artifacts/
           mv appstore-${{ env.PLUGIN_VERSION }}.zip appstore-latest.zip artifacts/
 
       - name: Upload To Azure Blob
@@ -122,15 +123,41 @@ jobs:
           fail_if_source_empty: true
           
       - name: Create Release
-        id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: appstore/* 
-          tag_name: ${{ env.PLUGIN_VERSION }}  
-          title: Release-${{ env.PLUGIN_VERSION }}
+          files: /* 
+          tag_name: v${{ env.PLUGIN_VERSION }}   
           body: ${{ env.CHANGELOG }}
           draft: false
           prerelease: true
+          
+      - name: Checkout websoft9
+        uses: actions/checkout@v2
+        with:
+          repository: websoft9
+          ref: main    
+      
+      - name: Update Version in websoft9/version.json
+        run: |
+          jq '.PLUGINS.APPSTORE = ${{ env.PLUGIN_VERSION }}' version.json > version.json.tmp
+          mv version.json.tmp version.json
+
+      - name: Commit changes
+        run: |
+          git add version.json
+          git commit -m "Update the APPSTORE value in version.json to: ${{ env.PLUGIN_VERSION }}"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: auto-branch-${{ github.run_number }}
+          delete-branch: true
+          commit-message: Update report
+          title: "Update the APPSTORE value in version.json to: ${{ env.PLUGIN_VERSION }}"
+          body: "This is my modification, please review and merge it"
+          labels: "Update Appstore Version"
+
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
