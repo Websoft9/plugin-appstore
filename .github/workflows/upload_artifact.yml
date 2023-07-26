@@ -3,7 +3,7 @@ name: Build Plugin And Upload Artifact To Azure Blob
 on: workflow_dispatch
 
 jobs:
-  Build_Plugin_Upload_Artifact_To_Azure_Blob:
+  Build_Plugin_And_Upload_Artifact:
     runs-on: ubuntu-latest
     env:
       ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
@@ -131,7 +131,7 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Build Plugin and Upload Artifact to Azure Blob
+          commit_message: Build Plugin and Upload Artifact
           
       - name: Checkout websoft9
         uses: actions/checkout@v2
@@ -152,4 +152,4 @@ jobs:
           delete-branch: true
           commit-message: Update Appstore Version
           title: "App Store Releases New Version : ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
-          body: "Update the APPSTORE value in version.json to: ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
+          body: "Update the Appstore value in version.json to: ${{ steps.update_data.outputs.PLUGIN_VERSION }}"
