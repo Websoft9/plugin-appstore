@@ -1,2 +1,2 @@
-1. App Store Initial Version
-2. All  is ok
+1. Welcome to the App Store
+2. App Store Initial Version
