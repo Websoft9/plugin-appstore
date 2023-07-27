@@ -40,7 +40,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     setDisable(true);
                     var IP;
                     const Port = "5000";
-                    cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"])
+                    cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"], { superuser: "require" })
                         .then(function (data) {
                             IP = data.trim();
                             cockpit.http({ "address": IP, "port": 5000, })

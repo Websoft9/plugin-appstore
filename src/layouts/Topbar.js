@@ -2,7 +2,7 @@
 import MuiAlert from '@mui/material/Alert';
 import classNames from 'classnames';
 import cockpit from 'cockpit';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import { Link, useNavigate } from 'react-router-dom';
@@ -37,6 +37,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
     const [buttonDisable, setButtonDisable] = useState(false); //用于更新按钮禁用
     const [linkDisable, setLinkDisable] = useState(false); //用于超链接禁用
     const [showUpdateLog, setShowUpdateLog] = useState(false); //用于显示更新日志
+    const [updateLog, setUpdateLog] = useState("");//用于存储更新日志
     const navigate = useNavigate(); //用于页面跳转
 
     const updateLogClose = () => {
@@ -52,6 +53,45 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
         setAlertMessage("");
     };
 
+    //查询更新内容
+    const quertUpdateList = async () => {
+        try {
+            let data = await cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"], { superuser: "require" });
+            let IP = data.trim();
+            if (IP) {
+                let response = await cockpit.http({ "address": IP, "port": 5000 }).get("/AppStoreUpdateList");
+                response = JSON.parse(response);
+                if (response.data.Error) {
+                    setShowAlert(true);
+                    setAlertType("error")
+                    setAlertMessage(response.Error.Message);
+                }
+                else {
+                    const updateInfo = response.ResponseData.Compare_content.update;
+                    if (updateInfo) {
+                        setShowAlert(true);
+                        setAlertType("success")
+                        setAlertMessage(_("The app store is already the latest version"));
+                    }
+                    else {
+                        const updateLog = response.ResponseData.Compare_content.content;
+                        setUpdateLog(updateLog);
+                    }
+                }
+            }
+        }
+        catch (error) {
+            setShowAlert(true);
+            setAlertType("error")
+            setAlertMessage(error);
+        }
+    }
+
+    const showChangeLog = () => {
+        setShowUpdateLog(true);
+        setAlertMessage(updateLog);
+    }
+
     //调用更新应用列表接口
     async function handleUpdateClick() {
         setShowMask(true);
@@ -59,26 +99,27 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
         setButtonDisable(true);
         setLinkDisable(true);
         try {
-            let data = await cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"]);
+            let data = await cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"], { superuser: "require" });
             let IP = data.trim();
             if (IP) {
-                let response = await cockpit.http({ "address": IP, "port": 5000 }).get("/AppStoreUpdate");
+                let response = await cockpit.http({ "address": IP, "port": 5000 }).get("/AppStoreUpdateList");
                 response = JSON.parse(response);
                 if (response.data.Error) {
                     setShowAlert(true);
                     setAlertType("error")
-                    setAlertMessage(response.data.Error.Message);
+                    setAlertMessage(response.Error.Message);
                 }
                 else {
-                    const updateInfo = response.data.ResponseData.Update_content;
-                    if (!updateInfo) {
+                    const updateInfo = response.ResponseData.Compare_content.update;
+                    if (updateInfo) {
                         setShowAlert(true);
                         setAlertType("success")
                         setAlertMessage(_("The app store is already the latest version"));
                     }
                     else {
+                        const updateLog = response.ResponseData.Compare_content.content;
                         setShowUpdateLog(true);
-                        setAlertMessage(updateInfo);
+                        setAlertMessage(updateLog);
                     }
                 }
             }
@@ -92,6 +133,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
             setLinkDisable(false);
         }
     }
+
+    useEffect(async () => {
+        await quertUpdateList();
+    }, []);
+
 
     return (
         <>
@@ -121,22 +167,19 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         alignItems: "center", minHeight: "70px", fontSize: "16px", listStyle: "none",
                         marginBottom: "0px"
                     }}>
-                        {/* <li style={{ margin: "0 10px" }}>
-                            <a href='/myapps' style={{ color: "#428bca" }} target="_parent" >
-                                <i className="dripicons-view-apps"></i>{' '}{_("My Apps")}
-                            </a>
-                        </li>
-                        <li style={{ margin: "0 10px" }}>
-                            <a href='/appstore' style={{ color: "#428bca" }} target="_parent">
-                                <i className="dripicons-cloud-download"></i>{' '}{_("App Store")}
-                            </a>
-                        </li> */}
-                        <li>
-                            <button onClick={handleUpdateClick} disabled={buttonDisable}
-                                className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none" style={{ color: "#428bca", fontSize: "16px" }}>
-                                {_("Update Application List")}
-                            </button>
-                        </li>
+                        {
+                            updateLog ? <li>
+                                <button onClick={showChangeLog}
+                                    className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none" style={{ color: "#428bca", fontSize: "16px" }}>
+                                    {_("App Store updates available")}
+                                </button>
+                            </li> : <li>
+                                <button onClick={handleUpdateClick} disabled={buttonDisable}
+                                    className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none" style={{ color: "#428bca", fontSize: "16px" }}>
+                                    {_("Update Application List")}
+                                </button>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -156,10 +199,14 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                     </Modal.Header>
                     <Modal.Body className="row" >
                         {alertMessage.map((item, index) => (
-                            <p key={index}>{index + 1}{" : "}{item}</p>
+                            // <p key={index}>{index + 1}{" : "}{item}</p>
+                            <p key={index}>{item}</p>
                         ))}
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button variant='primary'>
+                            {_("Update")}
+                        </Button>
                         <Button variant='primary' onClick={updateLogClose}>
                             {_("Close")}
                         </Button>

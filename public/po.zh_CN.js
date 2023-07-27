@@ -318,6 +318,10 @@
     "Update Log": [
         null,
         "更新日志"
+    ],
+    "App Store updates available": [
+        null,
+        "应用商店可更新"
     ]
 }));
 
