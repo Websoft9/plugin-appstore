@@ -1,2 +1,1 @@
-1. Welcome to the App Store
-2. App Store Initial Version
+1. AppStore has added an upgrade feature.
