@@ -1,6 +1,442 @@
 [
   {
     "sys": {
+      "id": "6NRX1EysTKa5llN50WiLB8"
+    },
+    "key": "directus",
+    "hot": 18000,
+    "trademark": "Directus",
+    "summary": "数据驱动的低代码与后端即服务平台",
+    "overview": "Directus 是一个实时 API 和应用程序仪表板，用于管理 SQL 数据库内容或创建低代码应用\n\n",
+    "websiteurl": "https://directus.io/",
+    "description": "- 后端即服务\n- 无头内容管理系统\n- 内部工具生成器\n- 数据管理与分析",
+    "screenshots": [
+      {
+        "id": "978cd708-6681-47a5-9de5-155ea2f5a2d8",
+        "key": "architecture",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/directus/directus-arch-websoft9.svg"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/directus-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              },
+              {
+                "key": "create",
+                "title": "设计创作"
+              }
+            ]
+          }
+        },
+        {
+          "key": "master-data",
+          "title": "主数据管理",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "数据 & 分析"
+              }
+            ]
+          }
+        },
+        {
+          "key": "headless-cms",
+          "title": "无头 CMS",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        },
+        {
+          "key": "dbtools",
+          "title": "管理与迁移",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "database",
+                "title": "数据库"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "5bSScAcYvbfXXuyfCSyrOu"
+    },
+    "key": "strapi",
+    "hot": 2000,
+    "trademark": "Strapi",
+    "summary": "开源无头CMS，可以快速构建自己所需的 API",
+    "overview": "Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device.\n",
+    "websiteurl": "https://strapi.io/",
+    "description": "- 后端即服务\n- 无头内容管理系统\n- RESTful or GraphQL",
+    "screenshots": [
+      {
+        "id": "978cd708-6681-47a5-9de5-155ea2f5a2d8",
+        "key": "GUI",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/strapi/strapi-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/strapi-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              },
+              {
+                "key": "create",
+                "title": "设计创作"
+              }
+            ]
+          }
+        },
+        {
+          "key": "master-data",
+          "title": "主数据管理",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "数据 & 分析"
+              }
+            ]
+          }
+        },
+        {
+          "key": "headless-cms",
+          "title": "无头 CMS",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "hPxXCOEisJk1Nx8yMBPtk"
+    },
+    "key": "humhub",
+    "hot": 8000,
+    "trademark": "HumHub",
+    "summary": "企业社交软件，构建内部的 Facebook",
+    "overview": "HumHub是一款直观易用和模块化设计的开源软件，主要用作社交网络，知识数据库，内部网或信息和通信平台。",
+    "websiteurl": "https://www.humhub.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "12ba0ea3-f6ae-497e-b846-d53a74d43e09",
+        "key": "界面",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/humhub/humhub-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/humhub-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "community",
+          "title": "社交/论坛",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2JownpXW4M2rCkMRG2NhlL"
+    },
+    "key": "mastodon",
+    "hot": 8000,
+    "trademark": "Mastodon",
+    "summary": "自托管微博系统",
+    "overview": "Mastodon是一个基于ActivityPub的免费开源社交网络服务器，用户可以在其中关注朋友并发现新朋友。",
+    "websiteurl": "https://joinmastodon.org/",
+    "description": "在Mastodon上，用户可以发布他们想要的任何内容：链接，图片，文本，视频。所有Mastodon服务器都可以作为联合网络进行互操作（一台服务器上的用户可以与另一台服务器上的用户无缝通信，包括实现ActivityPub的非Mastodon软件",
+    "screenshots": [
+      {
+        "id": "12ba0ea3-f6ae-497e-b846-d53a74d43e09",
+        "key": "界面",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mastodon/mastodon-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
+        "key": "Community",
+        "value": "4.1.5"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 2,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mastodon-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "community",
+          "title": "社交/论坛",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "DEOp8ynxuO4rMELqtrNRl"
+    },
+    "key": "wordpress",
+    "hot": 200,
+    "trademark": "WordPress",
+    "summary": "全球 42% 的网页基于 WordPress 构建",
+    "overview": "WordPress 是一个流行的开源建站平台，市场占有率极高。它以其易用性、易扩展性（ 插件 、模板 、二次开发）、功能强大、美观、搜索引擎友好等特征而广泛流行。",
+    "websiteurl": "https://wordpress.com/",
+    "description": "按你的方式设计\n\n设计您想象的任何东西。从一张空白的画布开始，或者从各种各样的主题和图案中进行选择。自定义每个细节，从颜色和字体到布局和功能。\n\n插入和扩展\n\n让 WordPress 做任何你需要它做的事。添加商店、邮寄列表、投资组合、社交提要、分析；您可以控制超过 55,000 个插件。\n\n拥有你所做的 \n\n您的内容、设计和数据始终属于您。使用 WordPress，您可以自由地讲述您的故事、发展您的品牌，或者只是做您自己。\n\n充满信心地创造\n\n由拥有数十年经验的开源社区构建，其热情的贡献者致力于保持 WordPress 尽可能稳定和安全。",
+    "screenshots": [
+      {
+        "id": "94655745-52ac-419b-bb06-02aa15e0b923",
+        "key": "登录界面",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-add-site-websoft9.png"
+      },
+      {
+        "id": "18f86757-dff9-4e88-94de-e3af48eef29c",
+        "key": "2",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addplugins-websoft9.png"
+      },
+      {
+        "id": "e5fcd98b-c8d9-4e32-b9a3-d8b6e2e75276",
+        "key": "3",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addthemes-websoft9.png"
+      },
+      {
+        "id": "0b86adb5-5be4-418a-8e13-bd5693b21e74",
+        "key": "4",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-createmenu-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
+        "key": "Community",
+        "value": "6.2"
+      },
+      {
+        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
+        "key": "Multisites",
+        "value": "latest"
+      },
+      {
+        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
+        "key": "Solution",
+        "value": "MinIO,Matomo"
+      },
+      {
+        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
+        "key": "Free themes",
+        "value": "latest"
+      },
+      {
+        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
+        "key": "Basic services",
+        "value": "latest"
+      },
+      {
+        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
+        "key": "Senior services",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "website",
+          "title": "企业建站",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              },
+              {
+                "key": "create",
+                "title": "设计创作"
+              }
+            ]
+          }
+        },
+        {
+          "key": "ecommerce",
+          "title": "电子商务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        },
+        {
+          "key": "marketing",
+          "title": "市场营销",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "企业运营"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "4qwLRAce3CVSUPbI08JmTR"
+    },
+    "key": "chat2db",
+    "hot": 9000,
+    "trademark": "chat2DB",
+    "summary": "AI SQL 多数据库管理工具",
+    "overview": "智能的通用数据库SQL客户端和报表工具",
+    "websiteurl": "https://chat2db.ai/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "655168da-56fa-449b-a48e-9b8a00cdc621",
+        "key": "Connect DB",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/chat2db/chat2db-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "fd254ee7-ab78-4eec-a159-01aea39553be",
+        "key": "Community",
+        "value": "2.0.6"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/chat2db-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "dbtools",
+          "title": "管理与迁移",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "database",
+                "title": "数据库"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "1dozRAa6FMuX7KkNueYXfy"
     },
     "key": "huginn",
@@ -904,134 +1340,6 @@
   },
   {
     "sys": {
-      "id": "DEOp8ynxuO4rMELqtrNRl"
-    },
-    "key": "wordpress",
-    "hot": 200,
-    "trademark": "WordPress",
-    "summary": "全球 42% 的网页基于 WordPress 构建",
-    "overview": "WordPress 是一个流行的开源建站平台，市场占有率极高。它以其易用性、易扩展性（ 插件 、模板 、二次开发）、功能强大、美观、搜索引擎友好等特征而广泛流行。",
-    "websiteurl": "https://wordpress.com/",
-    "description": "按你的方式设计\n\n设计您想象的任何东西。从一张空白的画布开始，或者从各种各样的主题和图案中进行选择。自定义每个细节，从颜色和字体到布局和功能。\n\n插入和扩展\n\n让 WordPress 做任何你需要它做的事。添加商店、邮寄列表、投资组合、社交提要、分析；您可以控制超过 55,000 个插件。\n\n拥有你所做的 \n\n您的内容、设计和数据始终属于您。使用 WordPress，您可以自由地讲述您的故事、发展您的品牌，或者只是做您自己。\n\n充满信心地创造\n\n由拥有数十年经验的开源社区构建，其热情的贡献者致力于保持 WordPress 尽可能稳定和安全。",
-    "screenshots": [
-      {
-        "id": "94655745-52ac-419b-bb06-02aa15e0b923",
-        "key": "登录界面",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-add-site-websoft9.png"
-      },
-      {
-        "id": "18f86757-dff9-4e88-94de-e3af48eef29c",
-        "key": "2",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addplugins-websoft9.png"
-      },
-      {
-        "id": "e5fcd98b-c8d9-4e32-b9a3-d8b6e2e75276",
-        "key": "3",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-addthemes-websoft9.png"
-      },
-      {
-        "id": "0b86adb5-5be4-418a-8e13-bd5693b21e74",
-        "key": "4",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/wordpress/wordpress-createmenu-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
-        "key": "Community",
-        "value": "6.2"
-      },
-      {
-        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
-        "key": "Multisites",
-        "value": "latest"
-      },
-      {
-        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
-        "key": "Solution",
-        "value": "MinIO,Matomo"
-      },
-      {
-        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
-        "key": "Free themes",
-        "value": "latest"
-      },
-      {
-        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
-        "key": "Basic services",
-        "value": "latest"
-      },
-      {
-        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
-        "key": "Senior services",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "website",
-          "title": "企业建站",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "低代码/零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              },
-              {
-                "key": "create",
-                "title": "设计创作"
-              }
-            ]
-          }
-        },
-        {
-          "key": "ecommerce",
-          "title": "电子商务",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
-              }
-            ]
-          }
-        },
-        {
-          "key": "marketing",
-          "title": "市场营销",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "business-operation",
-                "title": "企业运营"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "73sQK2CIMnbgqrHvgucgGb"
     },
     "key": "airflow",
@@ -1589,54 +1897,6 @@
               {
                 "key": "itdevops",
                 "title": "IT 监控运维"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "2JownpXW4M2rCkMRG2NhlL"
-    },
-    "key": "mastodon",
-    "hot": 8000,
-    "trademark": "Mastodon",
-    "summary": "自托管微博系统",
-    "overview": "Mastodon是一个基于ActivityPub的免费开源社交网络服务器，用户可以在其中关注朋友并发现新朋友。",
-    "websiteurl": "https://joinmastodon.org/",
-    "description": "在Mastodon上，用户可以发布他们想要的任何内容：链接，图片，文本，视频。所有Mastodon服务器都可以作为联合网络进行互操作（一台服务器上的用户可以与另一台服务器上的用户无缝通信，包括实现ActivityPub的非Mastodon软件",
-    "screenshots": [
-      {
-        "id": "12ba0ea3-f6ae-497e-b846-d53a74d43e09",
-        "key": "界面",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mastodon/mastodon-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mastodon-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "community",
-          "title": "社交/论坛",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
               }
             ]
           }
@@ -2314,54 +2574,6 @@
               {
                 "key": "collaboration",
                 "title": "协作办公"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "hPxXCOEisJk1Nx8yMBPtk"
-    },
-    "key": "humhub",
-    "hot": 8000,
-    "trademark": "HumHub",
-    "summary": "企业社交软件，构建内部的 Facebook",
-    "overview": "HumHub是一款直观易用和模块化设计的开源软件，主要用作社交网络，知识数据库，内部网或信息和通信平台。",
-    "websiteurl": "https://www.humhub.com/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "12ba0ea3-f6ae-497e-b846-d53a74d43e09",
-        "key": "界面",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/humhub/humhub-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/humhub-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "community",
-          "title": "社交/论坛",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
               }
             ]
           }
@@ -4522,82 +4734,6 @@
   },
   {
     "sys": {
-      "id": "5bSScAcYvbfXXuyfCSyrOu"
-    },
-    "key": "strapi",
-    "hot": 2000,
-    "trademark": "Strapi",
-    "summary": "开源无头CMS，可以快速构建自己所需的 API",
-    "overview": "Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device.\n",
-    "websiteurl": "https://strapi.io/",
-    "description": "- 后端即服务\n- 无头内容管理系统\n- RESTful or GraphQL",
-    "screenshots": [
-      {
-        "id": "978cd708-6681-47a5-9de5-155ea2f5a2d8",
-        "key": "GUI",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/strapi/strapi-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/strapi-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "低代码/零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              },
-              {
-                "key": "create",
-                "title": "设计创作"
-              }
-            ]
-          }
-        },
-        {
-          "key": "master-data",
-          "title": "主数据管理",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              }
-            ]
-          }
-        },
-        {
-          "key": "headless-cms",
-          "title": "无头 CMS",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "1Pqh5WnA1nv8Q6UI67H8Y0"
     },
     "key": "sscms",
@@ -5952,82 +6088,6 @@
               {
                 "key": "analytics",
                 "title": "数据 & 分析"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "6NRX1EysTKa5llN50WiLB8"
-    },
-    "key": "directus",
-    "hot": 18000,
-    "trademark": "Directus",
-    "summary": "数据驱动的低代码与后端即服务平台",
-    "overview": "Directus 是一个实时 API 和应用程序仪表板，用于管理 SQL 数据库内容或创建低代码应用\n\n",
-    "websiteurl": "https://directus.io/",
-    "description": "- 后端即服务\n- 无头内容管理系统\n- 内部工具生成器\n- 数据管理与分析",
-    "screenshots": [
-      {
-        "id": "978cd708-6681-47a5-9de5-155ea2f5a2d8",
-        "key": "architecture",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/directus/directus-arch-websoft9.svg"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/directus-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "低代码/零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              },
-              {
-                "key": "create",
-                "title": "设计创作"
-              }
-            ]
-          }
-        },
-        {
-          "key": "master-data",
-          "title": "主数据管理",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              }
-            ]
-          }
-        },
-        {
-          "key": "headless-cms",
-          "title": "无头 CMS",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
               }
             ]
           }

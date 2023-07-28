@@ -1,6 +1,421 @@
 [
   {
     "sys": {
+      "id": "6NRX1EysTKa5llN50WiLB8"
+    },
+    "key": "directus",
+    "hot": 18000,
+    "trademark": "Directus",
+    "summary": "Created application based on many Database",
+    "overview": "Directus is a real-time API and App dashboard for managing SQL database content or create low-code application",
+    "websiteurl": "https://directus.io/",
+    "description": "- Backend-as-a-Service\n- Headless CMS\n- Internal Tool Builder\n- Data Management & Analytics",
+    "screenshots": [
+      {
+        "id": "92237fd2-0a40-4742-9c6a-23fa0553497c",
+        "key": "architecture",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/directus/directus-arch-websoft9.svg"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/directus-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              },
+              {
+                "key": "create",
+                "title": "Design & Create"
+              }
+            ]
+          }
+        },
+        {
+          "key": "master-data",
+          "title": "Master Data",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "Data Analytics"
+              }
+            ]
+          }
+        },
+        {
+          "key": "headless-cms",
+          "title": "Headless CMS",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        },
+        {
+          "key": "dbtools",
+          "title": "Management and Migration",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "database",
+                "title": "Databases"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "5bSScAcYvbfXXuyfCSyrOu"
+    },
+    "key": "strapi",
+    "hot": 2000,
+    "trademark": "Strapi",
+    "summary": "Open source Node.js Headless CMS",
+    "overview": "Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device.",
+    "websiteurl": "https://strapi.io/",
+    "description": "- Backend-as-a-Service\n- Headless CMS\n- RESTful or GraphQL",
+    "screenshots": [
+      {
+        "id": "92237fd2-0a40-4742-9c6a-23fa0553497c",
+        "key": "GUI",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/strapi/strapi-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/strapi-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              },
+              {
+                "key": "create",
+                "title": "Design & Create"
+              }
+            ]
+          }
+        },
+        {
+          "key": "master-data",
+          "title": "Master Data",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "Data Analytics"
+              }
+            ]
+          }
+        },
+        {
+          "key": "headless-cms",
+          "title": "Headless CMS",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "hPxXCOEisJk1Nx8yMBPtk"
+    },
+    "key": "humhub",
+    "hot": 8000,
+    "trademark": "HumHub",
+    "summary": "Open Source Enterprise Social Network",
+    "overview": "HumHub is an intuitive to use and modular designed open-source software, used primarily as social network, knowledge database, intranet or information and communication platform.",
+    "websiteurl": "https://www.humhub.com/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "d06d6030-d645-474f-9af9-b2bae308b46c",
+        "key": "Interface",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/humhub/humhub-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/humhub-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "community",
+          "title": "Online Community",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "2JownpXW4M2rCkMRG2NhlL"
+    },
+    "key": "mastodon",
+    "hot": 8000,
+    "trademark": "Mastodon",
+    "summary": "Your self-hosted and globally interconnected microblogging community",
+    "overview": "Mastodon is a free, open-source social network server based on ActivityPub where users can follow friends and discover new ones. ",
+    "websiteurl": "https://joinmastodon.org/",
+    "description": "On Mastodon, users can publish anything they want: links, pictures, text, video. All Mastodon servers are interoperable as a federated network (users on one server can seamlessly communicate with users from another one, including non-Mastodon software that implements ActivityPub!)",
+    "screenshots": [
+      {
+        "id": "d06d6030-d645-474f-9af9-b2bae308b46c",
+        "key": "Interface",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mastodon/mastodon-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
+        "key": "Community",
+        "value": "4.1.5"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 2,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mastodon-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "community",
+          "title": "Online Community",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "DEOp8ynxuO4rMELqtrNRl"
+    },
+    "key": "wordpress",
+    "hot": 200,
+    "trademark": "WordPress",
+    "summary": "WordPress is open source software you can use to create a beautiful website, blog, or app",
+    "overview": "42% of the web is built on WordPress. More bloggers, small businesses, and Fortune 500 companies use WordPress than all other options combined. Join the millions of people that call WordPress.com home.",
+    "websiteurl": "https://wordpress.com/",
+    "description": "Style it your way\n\nDesign anything you imagine. Start with a blank canvas or choose from a wide variety of themes and patterns. Customize every detail, from color and fonts to layouts and functionality.\n\nPlug in and extend\n\nMake WordPress do whatever you need it to. Add a store, mailing list, portfolio, social feed, analytics; you’re in control with over 55,000 plugins.\n\nOwn what you make \n\nYour content, your design, and your data always belong to you. With WordPress you’re free to tell your story, grow your brand, or simply be yourself.\n\nCreate with confidence\n\nBuilt by an open source community with decades of experience, its passionate contributors are committed to keeping WordPress as stable and secure as possible.",
+    "screenshots": [],
+    "distribution": [
+      {
+        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
+        "key": "Community",
+        "value": "6.2"
+      },
+      {
+        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
+        "key": "Multisites",
+        "value": "latest"
+      },
+      {
+        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
+        "key": "Solution",
+        "value": "MinIO,Matomo"
+      },
+      {
+        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
+        "key": "Free themes",
+        "value": "latest"
+      },
+      {
+        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
+        "key": "Basic services",
+        "value": "latest"
+      },
+      {
+        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
+        "key": "Senior services",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "website",
+          "title": "Website Builder",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        },
+        {
+          "key": "low-code",
+          "title": "Low Code and No Code",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT Developer"
+              },
+              {
+                "key": "create",
+                "title": "Design & Create"
+              }
+            ]
+          }
+        },
+        {
+          "key": "ecommerce",
+          "title": "eCommerce",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        },
+        {
+          "key": "marketing",
+          "title": "Marketing",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "business-operation",
+                "title": "Business Operation"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
+      "id": "4qwLRAce3CVSUPbI08JmTR"
+    },
+    "key": "chat2db",
+    "hot": 9000,
+    "trademark": "chat2DB",
+    "summary": "Multi-database client with AI SQL",
+    "overview": "An intelligent and versatile general-purpose SQL client and reporting tool for databases which integrates ChatGPT capabilities",
+    "websiteurl": "https://chat2db.ai/",
+    "description": null,
+    "screenshots": [
+      {
+        "id": "8e24e01a-02db-4ade-bc37-58abc35b3d00",
+        "key": "Connect DB",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/chat2db/chat2db-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "fd254ee7-ab78-4eec-a159-01aea39553be",
+        "key": "Community",
+        "value": "2.0.6"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/chat2db-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "dbtools",
+          "title": "Management and Migration",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "database",
+                "title": "Databases"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "1dozRAa6FMuX7KkNueYXfy"
     },
     "key": "huginn",
@@ -904,113 +1319,6 @@
   },
   {
     "sys": {
-      "id": "DEOp8ynxuO4rMELqtrNRl"
-    },
-    "key": "wordpress",
-    "hot": 200,
-    "trademark": "WordPress",
-    "summary": "WordPress is open source software you can use to create a beautiful website, blog, or app",
-    "overview": "42% of the web is built on WordPress. More bloggers, small businesses, and Fortune 500 companies use WordPress than all other options combined. Join the millions of people that call WordPress.com home.",
-    "websiteurl": "https://wordpress.com/",
-    "description": "Style it your way\n\nDesign anything you imagine. Start with a blank canvas or choose from a wide variety of themes and patterns. Customize every detail, from color and fonts to layouts and functionality.\n\nPlug in and extend\n\nMake WordPress do whatever you need it to. Add a store, mailing list, portfolio, social feed, analytics; you’re in control with over 55,000 plugins.\n\nOwn what you make \n\nYour content, your design, and your data always belong to you. With WordPress you’re free to tell your story, grow your brand, or simply be yourself.\n\nCreate with confidence\n\nBuilt by an open source community with decades of experience, its passionate contributors are committed to keeping WordPress as stable and secure as possible.",
-    "screenshots": [],
-    "distribution": [
-      {
-        "id": "f6ee7f47-e0eb-4616-aaa4-71015737c29a",
-        "key": "Community",
-        "value": "6.2"
-      },
-      {
-        "id": "2edce2f3-adae-40ff-b578-aaf01125ca5f",
-        "key": "Multisites",
-        "value": "latest"
-      },
-      {
-        "id": "828bfbbd-97bf-4fe6-b6ac-8a76e594b06c",
-        "key": "Solution",
-        "value": "MinIO,Matomo"
-      },
-      {
-        "id": "dac3dbb6-254c-4192-96fb-e33f14ba2925",
-        "key": "Free themes",
-        "value": "latest"
-      },
-      {
-        "id": "559e2a70-0949-44fa-8a78-dc59308086dd",
-        "key": "Basic services",
-        "value": "latest"
-      },
-      {
-        "id": "ce6ea7a9-7a8b-4fd0-ac6d-58393b83d475",
-        "key": "Senior services",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/wordpress-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "website",
-          "title": "Website Builder",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
-              }
-            ]
-          }
-        },
-        {
-          "key": "low-code",
-          "title": "Low Code and No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              },
-              {
-                "key": "create",
-                "title": "Design & Create"
-              }
-            ]
-          }
-        },
-        {
-          "key": "ecommerce",
-          "title": "eCommerce",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
-              }
-            ]
-          }
-        },
-        {
-          "key": "marketing",
-          "title": "Marketing",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "business-operation",
-                "title": "Business Operation"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "73sQK2CIMnbgqrHvgucgGb"
     },
     "key": "airflow",
@@ -1568,54 +1876,6 @@
               {
                 "key": "itdevops",
                 "title": "IT Monitor"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "2JownpXW4M2rCkMRG2NhlL"
-    },
-    "key": "mastodon",
-    "hot": 8000,
-    "trademark": "Mastodon",
-    "summary": "Your self-hosted and globally interconnected microblogging community",
-    "overview": "Mastodon is a free, open-source social network server based on ActivityPub where users can follow friends and discover new ones. ",
-    "websiteurl": "https://joinmastodon.org/",
-    "description": "On Mastodon, users can publish anything they want: links, pictures, text, video. All Mastodon servers are interoperable as a federated network (users on one server can seamlessly communicate with users from another one, including non-Mastodon software that implements ActivityPub!)",
-    "screenshots": [
-      {
-        "id": "d06d6030-d645-474f-9af9-b2bae308b46c",
-        "key": "Interface",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mastodon/mastodon-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mastodon-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "community",
-          "title": "Online Community",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
               }
             ]
           }
@@ -2293,54 +2553,6 @@
               {
                 "key": "collaboration",
                 "title": "Collaboration & Office"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "hPxXCOEisJk1Nx8yMBPtk"
-    },
-    "key": "humhub",
-    "hot": 8000,
-    "trademark": "HumHub",
-    "summary": "Open Source Enterprise Social Network",
-    "overview": "HumHub is an intuitive to use and modular designed open-source software, used primarily as social network, knowledge database, intranet or information and communication platform.",
-    "websiteurl": "https://www.humhub.com/",
-    "description": null,
-    "screenshots": [
-      {
-        "id": "d06d6030-d645-474f-9af9-b2bae308b46c",
-        "key": "Interface",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/humhub/humhub-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "a744765d-5fb9-419e-a6ff-17f1ef183e5f",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/humhub-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "community",
-          "title": "Online Community",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
               }
             ]
           }
@@ -4506,82 +4718,6 @@
   },
   {
     "sys": {
-      "id": "5bSScAcYvbfXXuyfCSyrOu"
-    },
-    "key": "strapi",
-    "hot": 2000,
-    "trademark": "Strapi",
-    "summary": "Open source Node.js Headless CMS",
-    "overview": "Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device.",
-    "websiteurl": "https://strapi.io/",
-    "description": "- Backend-as-a-Service\n- Headless CMS\n- RESTful or GraphQL",
-    "screenshots": [
-      {
-        "id": "92237fd2-0a40-4742-9c6a-23fa0553497c",
-        "key": "GUI",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/strapi/strapi-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/strapi-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "Low Code and No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              },
-              {
-                "key": "create",
-                "title": "Design & Create"
-              }
-            ]
-          }
-        },
-        {
-          "key": "master-data",
-          "title": "Master Data",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "Data Analytics"
-              }
-            ]
-          }
-        },
-        {
-          "key": "headless-cms",
-          "title": "Headless CMS",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
       "id": "1Pqh5WnA1nv8Q6UI67H8Y0"
     },
     "key": "sscms",
@@ -5941,82 +6077,6 @@
               {
                 "key": "analytics",
                 "title": "Data Analytics"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "6NRX1EysTKa5llN50WiLB8"
-    },
-    "key": "directus",
-    "hot": 18000,
-    "trademark": "Directus",
-    "summary": "Created application based on many Database",
-    "overview": "Directus is a real-time API and App dashboard for managing SQL database content or create low-code application",
-    "websiteurl": "https://directus.io/",
-    "description": "- Backend-as-a-Service\n- Headless CMS\n- Internal Tool Builder\n- Data Management & Analytics",
-    "screenshots": [
-      {
-        "id": "92237fd2-0a40-4742-9c6a-23fa0553497c",
-        "key": "architecture",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/directus/directus-arch-websoft9.svg"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/directus-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "Low Code and No Code",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "itdeveloper",
-                "title": "IT Developer"
-              },
-              {
-                "key": "create",
-                "title": "Design & Create"
-              }
-            ]
-          }
-        },
-        {
-          "key": "master-data",
-          "title": "Master Data",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "Data Analytics"
-              }
-            ]
-          }
-        },
-        {
-          "key": "headless-cms",
-          "title": "Headless CMS",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
               }
             ]
           }
