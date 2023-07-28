@@ -15,15 +15,18 @@
         font-size: $font-size-base;
         margin-top: 0;
     }
+
     .card-drop {
         font-size: 20px;
         // line-height: 0;
         color: inherit;
     }
+
     .card-widgets {
         float: right;
         height: 16px;
-        > a {
+
+        >a {
             color: inherit;
             font-size: 18px;
             display: inline-block;
@@ -56,7 +59,7 @@
     top: 0;
     bottom: 0;
     border-radius: $card-border-radius;
-    background: #{rgba(map-get($grays, "100"), 0.8)};
+    background: #{rgba(map-get($grays, "100"), 0.9)};
     cursor: progress;
 
     .card-portlets-loader {
@@ -76,9 +79,11 @@
     0% {
         transform: perspective(120px) rotateX(0deg) rotateY(0deg);
     }
+
     50% {
         transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
     }
+
     100% {
         transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
@@ -88,7 +93,7 @@
 
 .card-pricing {
     position: relative;
-    
+
     .card-pricing-plan-name {
         padding-bottom: 20px;
     }
@@ -113,6 +118,7 @@
             text-transform: uppercase;
         }
     }
+
     .card-pricing-features {
         color: #{map-get($grays, "600")};
         list-style: none;
@@ -132,7 +138,7 @@
     }
 
     .card-pricing-plan-tag {
-        background-color: rgba($danger,0.2);
+        background-color: rgba($danger, 0.2);
         color: $danger;
         padding: 5px 0;
         font-weight: 700;
@@ -152,12 +158,16 @@
 // Dark mode
 body[data-layout-color="dark"] {
     .card-pricing {
-        .card-pricing-price span, .card-pricing-features {
+
+        .card-pricing-price span,
+        .card-pricing-features {
             color: map-get($dark-grays, "600");
         }
     }
+
     .card-disabled {
         background: #{rgba(map-get($dark-grays, "100"), 0.8)};
+
         .card-portlets-loader {
             background-color: #{map-get($dark-grays, "900")};
         }

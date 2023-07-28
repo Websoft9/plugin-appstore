@@ -321,7 +321,39 @@
     ],
     "App Store updates available": [
         null,
-        "应用商店可更新"
+        "应用商店可升级"
+    ],
+    "Update succeeded": [
+        null,
+        "应用商店更新成功"
+    ],
+    "Update failed": [
+        null,
+        "应用商店更新失败"
+    ],
+    "App Store is upgrading……": [
+        null,
+        "应用商店正在升级中……"
+    ],
+    "The kernel version is too low,Please upgrade the kernel first.To upgrade the kernel, please go to": [
+        null,
+        "内核版本过低，请先升级内核。升级内核前往"
+    ],
+    "Due to unknown reasons, the upgrade is not possible.": [
+        null,
+        "由于未知原因，无法进行升级."
+    ],
+    "Ignore": [
+        null,
+        "忽略"
+    ],
+    "Settings": [
+        null,
+        "设置"
+    ],
+    "Querying for updates, please wait……": [
+        null,
+        "正在查询更新，请稍后……"
     ]
 }));
 
