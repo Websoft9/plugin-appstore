@@ -6,3 +6,4 @@ build
 appstore
 appstore-*.zip
 artifacts
+mk.sh
