@@ -311,9 +311,9 @@
         null,
         "应用商店已是最新版本"
     ],
-    "Update Application List": [
+    "Update App Store": [
         null,
-        "更新应用列表"
+        "更新应用商店"
     ],
     "Update Log": [
         null,

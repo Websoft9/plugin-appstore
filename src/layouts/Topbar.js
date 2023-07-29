@@ -37,9 +37,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
     const [buttonDisable, setButtonDisable] = useState(false); //用于更新按钮禁用
     const [linkDisable, setLinkDisable] = useState(false); //用于超链接禁用
     const [showUpdateLog, setShowUpdateLog] = useState(false); //用于显示更新日志
-    const [updateLog, setUpdateLog] = useState("");//用于存储更新日志
-    const [updateFlag, setUpdateFlag] = useState(false); //可升级标识
-    const [updateStatus, setUpdateStatus] = useState(0); //是否支持升级
+    const [updateContent, setUpdateContent] = useState({}); //用于存储更新内容
     const [showMaskForQuery, setShowMaskForQuery] = useState(false); //用于查询更新时候的遮罩层
     const navigate = useNavigate(); //用于页面跳转
 
@@ -69,19 +67,12 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                     setAlertMessage(response.Error.Message);
                 }
                 else {
-                    const update = response.ResponseData.Compare_content.update; //获取 是否有升级 标识
+                    setUpdateContent(response.ResponseData.Compare_content); //获取更新内容
 
-                    if (update) { //如果有升级
-                        setUpdateFlag(true);//设置为 有升级
-                        setUpdateLog(response.ResponseData.Compare_content.content); //设置更新日志
-                        setUpdateStatus(response.ResponseData.Compare_content.core_compare); //设置升级状态
-                    }
-                    else {
-                        if (!init) { //如果不是第一次加载
-                            setShowAlert(true);
-                            setAlertType("success")
-                            setAlertMessage(_("The app store is already the latest version"));
-                        }
+                    if (!init) { //如果不是第一次加载
+                        setShowAlert(true);
+                        setAlertType("success")
+                        setAlertMessage(_("The app store is already the latest version"));
                     }
                 }
             }
@@ -100,7 +91,6 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
         setButtonDisable(true);
         setLinkDisable(true);
         setShowUpdateLog(false);
-        setUpdateLog("");
         try {
             let data = await cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"], { superuser: "require" });
             let IP = data.trim();
@@ -118,8 +108,6 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         setShowAlert(true);
                         setAlertType("success")
                         setAlertMessage(_("Update succeeded"));
-                        setUpdateLog("");
-                        setUpdateFlag(false);
                         setTimeout(() => {
                             window.location.reload(true);
                         }, 3000);
@@ -146,7 +134,6 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
 
     const showChangeLog = () => {
         setShowUpdateLog(true);
-        setAlertMessage(updateLog);
     }
 
     const jumpToSettings = () => {
@@ -170,11 +157,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                 showMask && (
                     <div className="card-disabled" style={{ zIndex: 999 }}>
                         <Spinner className='dis_mid' style={{ marginTop: "200px" }} />
-                        <h1 style={{ textAlign: "center", color: "#ffc31a", marginTop: "50px" }}>
+                        <h3 style={{ textAlign: "center", color: "#6169d0", marginTop: "50px" }}>
                             <strong>
                                 {_("App Store is upgrading……")}
                             </strong>
-                        </h1>
+                        </h3>
                     </div>
                 )
             }
@@ -182,11 +169,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                 showMaskForQuery && (
                     <div className="card-disabled" style={{ zIndex: 999 }}>
                         <Spinner className='dis_mid' style={{ marginTop: "200px" }} />
-                        <h1 style={{ textAlign: "center", color: "#ffc31a", marginTop: "50px" }}>
+                        <h3 style={{ textAlign: "center", color: "#6169d0", marginTop: "50px" }}>
                             <strong>
                                 {_("Querying for updates, please wait……")}
                             </strong>
-                        </h1>
+                        </h3>
                     </div>
                 )
             }
@@ -210,17 +197,19 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         marginBottom: "0px"
                     }}>
                         {
-                            updateFlag ? <li>
-                                <Button variant="primary" className="position-relative" onClick={showChangeLog}>
+                            updateContent.update ? <li>
+                                <button className="position-relative nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none"
+                                    style={{ color: "#428bca", fontSize: "16px" }}
+                                    onClick={showChangeLog}>
                                     {_("App Store updates available")}
                                     <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
                                         <span className="visually-hidden">New alerts</span>
                                     </span>
-                                </Button>
+                                </button>
                             </li> : <li>
-                                    <button onClick={async () => { setShowMaskForQuery(true); await queryUpdateList(false); setShowMaskForQuery(false);}} disabled={buttonDisable}
+                                <button onClick={async () => { setShowMaskForQuery(true); await queryUpdateList(false); setShowMaskForQuery(false); }} disabled={buttonDisable}
                                     className="nav-link dropdown-toggle end-bar-toggle arrow-none btn btn-link shadow-none" style={{ color: "#428bca", fontSize: "16px" }}>
-                                    {_("Update Application List")}
+                                    {_("Update App Store")}
                                 </button>
                             </li>
                         }
@@ -239,11 +228,11 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                 showUpdateLog && <Modal show={showUpdateLog} onHide={updateLogClose} size="lg"
                     scrollable="true" backdrop="static" >
                     <Modal.Header onHide={updateLogClose} closeButton className={classNames('modal-colored-header', 'bg-primary')}>
-                        <h4>{_("App Store")}{" "}{_("Update Log")}</h4>
+                        <h4>{_("App Store")}{"(v"}{updateContent?.target_version}{")"}{_("Update Log")}</h4>
                     </Modal.Header>
                     <Modal.Body className="row" >
                         {(() => {
-                            switch (updateStatus) {
+                            switch (updateContent.core_compare) {
                                 case "-1":
                                     return (
                                         <>
@@ -262,7 +251,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                                         </>
                                     );
                                 case "0":
-                                    return alertMessage.map((item, index) => (
+                                    return updateContent.content?.map((item, index) => (
                                         <p key={index}>{item}</p>
                                     ));
                                 case "1":
@@ -274,7 +263,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                     </Modal.Body>
                     <Modal.Footer>
                         {(() => {
-                            switch (updateStatus) {
+                            switch (updateContent.core_compare) {
                                 case "-1":
                                     return (
                                         <>

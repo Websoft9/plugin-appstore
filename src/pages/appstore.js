@@ -249,8 +249,24 @@ const AppStore = (): React$Element<React$FragmentType> => {
         setLoading(true);
         try {
             const [catalogResponse, productResponse] = await Promise.all([
-                axios.get(`./static/data/json/catalog_${language === "zh_CN" ? "zh" : "en"}.json`),
-                axios.get(`./static/data/json/product_${language === "zh_CN" ? "zh" : "en"}.json`)
+                // axios.get(`./static/data/json/catalog_${language === "zh_CN" ? "zh" : "en"}.json?timestamp=${Date.now()}`),
+                // axios.get(`./static/data/json/product_${language === "zh_CN" ? "zh" : "en"}.json?timestamp=${Date.now()}`)
+                axios.get(`./static/data/json/catalog_${language === "zh_CN" ? "zh" : "en"}.json`, {
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0',
+                        'x-random-header': Math.random().toString()
+                    }
+                }),
+                axios.get(`./static/data/json/product_${language === "zh_CN" ? "zh" : "en"}.json`, {
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0',
+                        'x-random-header': Math.random().toString()
+                    }
+                })
             ]);
             if (catalogResponse.status === 200) {
                 const catalogSort = catalogResponse.data.sort(function (a, b) {
