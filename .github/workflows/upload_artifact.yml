@@ -77,7 +77,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
           
           current_date=$(date +%Y-%m-%d)
-          printf "## $version release on $current_date\n$changelog\n" < CHANGELOG.md > temp.txt
+          printf "## $version release on $current_date\n$changelog\n$(cat CHANGELOG.md)" > temp.txt
           mv temp.txt CHANGELOG.md
       
           jq -r --arg version "$version" '.version = $version' public/manifest.json > manifest.json.tmp

@@ -1,1 +1,1 @@
-1. AppStore has added an upgrade feature.
+1. Fix Appstore upgrade feature
