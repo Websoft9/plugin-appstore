@@ -1,6 +1,82 @@
 [
   {
     "sys": {
+      "id": "5bSScAcYvbfXXuyfCSyrOu"
+    },
+    "key": "strapi",
+    "hot": 2000,
+    "trademark": "Strapi",
+    "summary": "开源无头CMS，可以快速构建自己所需的 API",
+    "overview": "Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device.\n",
+    "websiteurl": "https://strapi.io/",
+    "description": "- 后端即服务\n- 无头内容管理系统\n- RESTful or GraphQL",
+    "screenshots": [
+      {
+        "id": "978cd708-6681-47a5-9de5-155ea2f5a2d8",
+        "key": "GUI",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/strapi/strapi-gui-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
+        "key": "Community",
+        "value": "latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 1,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/strapi-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "low-code",
+          "title": "低代码/零代码",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "itdeveloper",
+                "title": "IT 开发者"
+              },
+              {
+                "key": "create",
+                "title": "设计创作"
+              }
+            ]
+          }
+        },
+        {
+          "key": "master-data",
+          "title": "主数据管理",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "数据 & 分析"
+              }
+            ]
+          }
+        },
+        {
+          "key": "headless-cms",
+          "title": "无头 CMS",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "6NRX1EysTKa5llN50WiLB8"
     },
     "key": "directus",
@@ -80,82 +156,6 @@
               {
                 "key": "database",
                 "title": "数据库"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "5bSScAcYvbfXXuyfCSyrOu"
-    },
-    "key": "strapi",
-    "hot": 2000,
-    "trademark": "Strapi",
-    "summary": "开源无头CMS，可以快速构建自己所需的 API",
-    "overview": "Strapi is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device.\n",
-    "websiteurl": "https://strapi.io/",
-    "description": "- 后端即服务\n- 无头内容管理系统\n- RESTful or GraphQL",
-    "screenshots": [
-      {
-        "id": "978cd708-6681-47a5-9de5-155ea2f5a2d8",
-        "key": "GUI",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/strapi/strapi-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "85f6b39b-f47f-44d0-8823-0646ebf17fd8",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 1,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/strapi-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "low-code",
-          "title": "低代码/零代码",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "itdeveloper",
-                "title": "IT 开发者"
-              },
-              {
-                "key": "create",
-                "title": "设计创作"
-              }
-            ]
-          }
-        },
-        {
-          "key": "master-data",
-          "title": "主数据管理",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              }
-            ]
-          }
-        },
-        {
-          "key": "headless-cms",
-          "title": "无头 CMS",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
               }
             ]
           }
