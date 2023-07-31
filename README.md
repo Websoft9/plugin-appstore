@@ -16,7 +16,7 @@ Your server must be have [Websoft9](https://github.com/Websoft9) installed.
 
 ```
 cd /usr/share/cockpit
-wget https://
+wget https://artifact.azureedge.net/release/websoft9/plugin/appstore/appstore-latest.zip
 
 # Appstore data and image localization deployment
 1. Execute Action：```Fetch Contentful Data and Oss Images```
