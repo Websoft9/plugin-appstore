@@ -56,24 +56,20 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
     //查询更新
     const queryUpdateList = async (init) => {
         try {
-            let data = await cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"], { superuser: "require" });
-            let IP = data.trim();
-            if (IP) {
-                let response = await cockpit.http({ "address": IP, "port": 5000 }).get("/AppStoreUpdateList");
-                response = JSON.parse(response);
-                if (response.Error) {
-                    setShowAlert(true);
-                    setAlertType("error")
-                    setAlertMessage(response.Error.Message);
-                }
-                else {
-                    setUpdateContent(response.ResponseData.Compare_content); //获取更新内容
+            let response = await cockpit.http({ "address": "websoft9-appmanage", "port": 5000 }).get("/AppStoreUpdateList");
+            response = JSON.parse(response);
+            if (response.Error) {
+                setShowAlert(true);
+                setAlertType("error")
+                setAlertMessage(response.Error.Message);
+            }
+            else {
+                setUpdateContent(response.ResponseData.Compare_content); //获取更新内容
 
-                    if (!init) { //如果不是第一次加载
-                        setShowAlert(true);
-                        setAlertType("success")
-                        setAlertMessage(_("The app store is already the latest version"));
-                    }
+                if (!init) { //如果不是第一次加载
+                    setShowAlert(true);
+                    setAlertType("success")
+                    setAlertMessage(_("The app store is already the latest version"));
                 }
             }
         }
@@ -92,31 +88,27 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
         setLinkDisable(true);
         setShowUpdateLog(false);
         try {
-            let data = await cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"], { superuser: "require" });
-            let IP = data.trim();
-            if (IP) {
-                let response = await cockpit.http({ "address": IP, "port": 5000 }).get("/AppStoreUpdate");
-                response = JSON.parse(response);
-                if (response.Error) {
+            let response = await cockpit.http({ "address": "websoft9-appmanage", "port": 5000 }).get("/AppStoreUpdate");
+            response = JSON.parse(response);
+            if (response.Error) {
+                setShowAlert(true);
+                setAlertType("error")
+                setAlertMessage(response.Error.Message);
+            }
+            else {
+                const flag = response.ResponseData.Update_flag;
+                if (flag) {
                     setShowAlert(true);
-                    setAlertType("error")
-                    setAlertMessage(response.Error.Message);
+                    setAlertType("success")
+                    setAlertMessage(_("Update succeeded"));
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 3000);
                 }
                 else {
-                    const flag = response.ResponseData.Update_flag;
-                    if (flag) {
-                        setShowAlert(true);
-                        setAlertType("success")
-                        setAlertMessage(_("Update succeeded"));
-                        setTimeout(() => {
-                            window.location.reload(true);
-                        }, 3000);
-                    }
-                    else {
-                        setShowAlert(true);
-                        setAlertType("error")
-                        setAlertMessage(_("Update failed"));
-                    }
+                    setShowAlert(true);
+                    setAlertType("error")
+                    setAlertMessage(_("Update failed"));
                 }
             }
         }

@@ -35,39 +35,27 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 setAlertMessage(_("Please enter a custom application name between 2 and 20 characters."))
             }
             else {
-                //调用应用安装接口
                 try {
                     setDisable(true);
-                    var IP;
-                    const Port = "5000";
-                    cockpit.spawn(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "websoft9-appmanage"], { superuser: "require" })
-                        .then(function (data) {
-                            IP = data.trim();
-                            cockpit.http({ "address": IP, "port": 5000, })
-                                .get("/AppInstall", { "app_name": product.key, "app_version": selectedVersion, "customer_app_name": customName })
-                                .then(function (response) {
-                                    response = JSON.parse(response);
-                                    if (response.Error) {
-                                        setShowAlert(true);
-                                        setAlertMessage(response.Error.Message);
-                                        setDisable(false);
-                                    }
-                                    else {
-                                        setShowAlert(false);
-                                        setAlertMessage("");
-                                        cockpit.file('/etc/hostname').watch(content => {
-                                            console.log(content);
-                                        });
-                                        cockpit.jump("/myapps");
-                                        onClose();
-                                    }
-                                }).catch(function (error) {
-                                    setShowAlert(true);
-                                    setAlertMessage(error.message);
-                                    setDisable(false);
+                    cockpit.http({ "address": "websoft9-appmanage", "port": 5000, })
+                        .get("/AppInstall", { "app_name": product.key, "app_version": selectedVersion, "customer_app_name": customName })
+                        .then(function (response) {
+                            response = JSON.parse(response);
+                            if (response.Error) {
+                                setShowAlert(true);
+                                setAlertMessage(response.Error.Message);
+                                setDisable(false);
+                            }
+                            else {
+                                setShowAlert(false);
+                                setAlertMessage("");
+                                cockpit.file('/etc/hostname').watch(content => {
+                                    console.log(content);
                                 });
-                        })
-                        .catch(function (error) {
+                                cockpit.jump("/myapps");
+                                onClose();
+                            }
+                        }).catch(function (error) {
                             setShowAlert(true);
                             setAlertMessage(error.message);
                             setDisable(false);

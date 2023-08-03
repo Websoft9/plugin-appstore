@@ -103,6 +103,8 @@ jobs:
           mv build appstore
           cp CHANGELOG.md appstore
           cp appstore.json appstore
+          cp -r docs appstore
+          rsync -av --exclude='changelog_latest.md' *.md appstore/
           zip -r appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore/
           cp -r appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore-latest.zip
           cp CHANGELOG.md artifacts/
