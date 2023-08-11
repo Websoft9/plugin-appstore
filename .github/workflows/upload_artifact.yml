@@ -1,9 +1,9 @@
-name: Build Plugin And Upload Artifact To Azure Blob
+name: Build New Version For Release
 
 on: workflow_dispatch
 
 jobs:
-  Build_Plugin_And_Upload_Artifact:
+  Build_New_Version_For_Release:
     runs-on: ubuntu-latest
     env:
       ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
