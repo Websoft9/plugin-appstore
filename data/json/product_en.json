@@ -1,6 +1,59 @@
 [
   {
     "sys": {
+      "id": "3vDdQaaw37Be1wnTOdVdbA"
+    },
+    "key": "magento",
+    "hot": null,
+    "trademark": "Magento",
+    "summary": "one of the world's most popular ecommerce platforms",
+    "overview": "Magento delivers the features you need to build and grow a unique online store from the ground up.",
+    "websiteurl": "https://business.adobe.com/products/magento/open-source.html",
+    "description": "This is a repackaged Magento with professional support for your business. Magento is the leading platform for open commerce innovation. Magento Open Source eCommerce software delivers the features you need to build and grow a unique online store from the ground up. For those who need an all-in-one cloud solution that is optimized for Magento, consider Magento Commerce edition.",
+    "screenshots": [
+      {
+        "id": "7c9ad7cf-950c-4021-8b77-b854121fc3fb",
+        "key": "mall",
+        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/en/magento/magento-mall-websoft9.png"
+      },
+      {
+        "id": "18797a5a-fad4-4eb6-bb3c-61a0dc1c6f66",
+        "key": "backend",
+        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/en/magento/magento-backend-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "ef21e5a5-2c46-42a1-ab55-8b12f2405914",
+        "key": "Community",
+        "value": "2.4.6,latest"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 8,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/magento-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "ecommerce",
+          "title": "eCommerce",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "Content Management"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "DEOp8ynxuO4rMELqtrNRl"
     },
     "key": "wordpress",
@@ -260,59 +313,6 @@
               {
                 "key": "architecture",
                 "title": "IT Architecture"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "3vDdQaaw37Be1wnTOdVdbA"
-    },
-    "key": "magento",
-    "hot": null,
-    "trademark": "Magento",
-    "summary": "one of the world's most popular ecommerce platforms",
-    "overview": "Magento delivers the features you need to build and grow a unique online store from the ground up.",
-    "websiteurl": "https://business.adobe.com/products/magento/open-source.html",
-    "description": "This is a repackaged Magento with professional support for your business. Magento is the leading platform for open commerce innovation. Magento Open Source eCommerce software delivers the features you need to build and grow a unique online store from the ground up. For those who need an all-in-one cloud solution that is optimized for Magento, consider Magento Commerce edition.",
-    "screenshots": [
-      {
-        "id": "7c9ad7cf-950c-4021-8b77-b854121fc3fb",
-        "key": "mall",
-        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/en/magento/magento-mall-websoft9.png"
-      },
-      {
-        "id": "18797a5a-fad4-4eb6-bb3c-61a0dc1c6f66",
-        "key": "backend",
-        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/en/magento/magento-backend-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "ef21e5a5-2c46-42a1-ab55-8b12f2405914",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 8,
-    "storage": 2,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/magento-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "ecommerce",
-          "title": "eCommerce",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "Content Management"
               }
             ]
           }
@@ -3547,58 +3547,6 @@
               {
                 "key": "communication",
                 "title": "Communication"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "4342W5VJTQHjyVwv5GVgT5"
-    },
-    "key": "mailu",
-    "hot": 10000,
-    "trademark": "Mailu",
-    "summary": "Full-featured mail server",
-    "overview": "Mailu is a simple yet full-featured mail server, it is free software, open to suggestions and external contributions. support IMAP and IMAP+, SMTP",
-    "websiteurl": "https://mailu.io/",
-    "description": "- Standard email server, IMAP and IMAP+, SMTP and Submission with autoconfiguration profiles for clients\n- Advanced email features, aliases, domain aliases, custom routing\n- Web access, multiple Webmails and administration interface\n- User features, aliases, auto-reply, auto-forward, fetched accounts, managesieve\n- Admin features, global admins, announcements, per-domain delegation, quotas\n- Security, enforced TLS, DANE, MTA-STS, Letsencrypt!, outgoing DKIM, anti-virus scanner, Snuffleupagus, block malicious attachments\n- Antispam, auto-learn, greylisting, DMARC and SPF, anti-spoofing\n- Freedom, all FOSS components, no tracker included",
-    "screenshots": [
-      {
-        "id": "f618bffe-b689-42fe-9344-3121ef605450",
-        "key": "Dashboard",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mailu/mailu-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 2,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mailu-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "email",
-          "title": "Email Server",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "communication",
-                "title": "Communication"
-              },
-              {
-                "key": "architecture",
-                "title": "IT Architecture"
               }
             ]
           }

@@ -1,6 +1,59 @@
 [
   {
     "sys": {
+      "id": "3vDdQaaw37Be1wnTOdVdbA"
+    },
+    "key": "magento",
+    "hot": null,
+    "trademark": "Magento",
+    "summary": "面向全球用户的开源电商系统",
+    "overview": "面向全球的企业级开源电商系统，支持B2C、B2B等应用场景，广泛应用于企业电商、独立站建站。",
+    "websiteurl": "https://business.adobe.com/products/magento/open-source.html",
+    "description": "Magento是面向全球用户的开源电商系统，采用PHP开发，使用Zend Framwork框架，支持B2C、B2B等应用场景。设计灵活、健壮，具有模块化架构体系和丰富的功能组件，广泛应用于企业电商、独立站建站。Magento易与第三方应用系统无缝集成，可处理海量并发请求，方便通过配置和二次化开发建设一个多种用途、多渠道的电子商务门户。",
+    "screenshots": [
+      {
+        "id": "df6ff705-b696-4110-99ad-701e58835364",
+        "key": "mall",
+        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/zh/magento/magento-mall-websoft9.png"
+      },
+      {
+        "id": "0efc568f-1567-4436-ae35-1ca73404bdb6",
+        "key": "backend",
+        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/zh/magento/magento-backend-websoft9.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "ef21e5a5-2c46-42a1-ab55-8b12f2405914",
+        "key": "Community",
+        "value": "2.4.6,latest"
+      }
+    ],
+    "vcpu": 2,
+    "memory": 8,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/magento-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "ecommerce",
+          "title": "电子商务",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "cms",
+                "title": "内容管理"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "DEOp8ynxuO4rMELqtrNRl"
     },
     "key": "wordpress",
@@ -281,59 +334,6 @@
               {
                 "key": "architecture",
                 "title": "IT 应用架构"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "3vDdQaaw37Be1wnTOdVdbA"
-    },
-    "key": "magento",
-    "hot": null,
-    "trademark": "Magento",
-    "summary": "面向全球用户的开源电商系统",
-    "overview": "面向全球的企业级开源电商系统，支持B2C、B2B等应用场景，广泛应用于企业电商、独立站建站。",
-    "websiteurl": "https://business.adobe.com/products/magento/open-source.html",
-    "description": "Magento是面向全球用户的开源电商系统，采用PHP开发，使用Zend Framwork框架，支持B2C、B2B等应用场景。设计灵活、健壮，具有模块化架构体系和丰富的功能组件，广泛应用于企业电商、独立站建站。Magento易与第三方应用系统无缝集成，可处理海量并发请求，方便通过配置和二次化开发建设一个多种用途、多渠道的电子商务门户。",
-    "screenshots": [
-      {
-        "id": "df6ff705-b696-4110-99ad-701e58835364",
-        "key": "mall",
-        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/zh/magento/magento-mall-websoft9.png"
-      },
-      {
-        "id": "0efc568f-1567-4436-ae35-1ca73404bdb6",
-        "key": "backend",
-        "value": "http://libs.websoft9.com/Websoft9/DocsPicture/zh/magento/magento-backend-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "ef21e5a5-2c46-42a1-ab55-8b12f2405914",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 2,
-    "memory": 8,
-    "storage": 2,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/magento-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "ecommerce",
-          "title": "电子商务",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "cms",
-                "title": "内容管理"
               }
             ]
           }
@@ -3563,58 +3563,6 @@
               {
                 "key": "communication",
                 "title": "通信"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "4342W5VJTQHjyVwv5GVgT5"
-    },
-    "key": "mailu",
-    "hot": 10000,
-    "trademark": "Mailu",
-    "summary": "自建邮件服务器",
-    "overview": "Mailu是一个简单但功能齐全的邮件服务器，它完全开源免费。支持 IMAP, IMAP+, SMTP 等邮件协议",
-    "websiteurl": "https://mailu.io/",
-    "description": "- Standard email server, IMAP and IMAP+, SMTP and Submission with autoconfiguration profiles for clients\n- Advanced email features, aliases, domain aliases, custom routing\n- Web access, multiple Webmails and administration interface\n- User features, aliases, auto-reply, auto-forward, fetched accounts, managesieve\n- Admin features, global admins, announcements, per-domain delegation, quotas\n- Security, enforced TLS, DANE, MTA-STS, Letsencrypt!, outgoing DKIM, anti-virus scanner, Snuffleupagus, block malicious attachments\n- Antispam, auto-learn, greylisting, DMARC and SPF, anti-spoofing\n- Freedom, all FOSS components, no tracker included",
-    "screenshots": [
-      {
-        "id": "3e66b007-9fe2-439c-9a74-63e2e7b23322",
-        "key": "管理面板",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/zh/mailu/mailu-gui-websoft9.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "55c787cf-0625-45af-8ca1-6b4d8e3aef9e",
-        "key": "Community",
-        "value": "latest"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 2,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/mailu-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "email",
-          "title": "企业邮箱",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "communication",
-                "title": "通信"
-              },
-              {
-                "key": "architecture",
-                "title": "IT 应用架构"
               }
             ]
           }
