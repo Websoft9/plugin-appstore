@@ -357,6 +357,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     //当搜索框的内容发生改变时，进行app的过滤搜索
     const handleInputChange = (searchString) => {
         setSearchValue(searchString);
+        searchString = searchString.toLowerCase();
         let updatedData = null;
         updatedData =
             searchString === ""

@@ -354,6 +354,14 @@
     "Querying for updates, please wait……": [
         null,
         "正在查询更新，请稍后……"
+    ],
+    "Overview": [
+        null,
+        "概览"
+    ],
+    "Description": [
+        null,
+        "详情"
     ]
 }));
 
