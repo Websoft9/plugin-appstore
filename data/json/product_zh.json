@@ -1,6 +1,71 @@
 [
   {
     "sys": {
+      "id": "1qjlphna9bZr2UIJuPimXG"
+    },
+    "key": "grafana",
+    "hot": null,
+    "trademark": "Grafana",
+    "summary": "开源的度量分析与可视化套件",
+    "overview": "开源的度量分析与可视化套件，常用于时间序列数据及应用程序分析的可视化展示",
+    "websiteurl": "https://grafana.com/",
+    "description": "Grafana是一个开源的度量分析与可视化展示应用。多被用作基础设施的时间序列数据和应用程序的可视化分析，在工业传感器、家庭自动化、天气和过程控制等其他领域也被广泛的使用。",
+    "screenshots": [
+      {
+        "id": "4d394b47-b1ca-4624-b183-b9bd235098c9",
+        "key": "dashboard",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/grafana/grafana-dashboard-websoft9.png"
+      },
+      {
+        "id": "74cef588-177f-404d-8a09-f56cf284eae5",
+        "key": "ui",
+        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/grafana/grafana-dashboardui.png"
+      }
+    ],
+    "distribution": [
+      {
+        "id": "92c09f2d-c27f-4514-9963-055f21501e7c",
+        "key": "Community",
+        "value": "10.0.3,latest"
+      }
+    ],
+    "vcpu": 1,
+    "memory": 2,
+    "storage": 1,
+    "logo": {
+      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/grafana-websoft9.png"
+    },
+    "catalogCollection": {
+      "items": [
+        {
+          "key": "business-intelligence",
+          "title": "商业智能",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "数据 & 分析"
+              }
+            ]
+          }
+        },
+        {
+          "key": "data-integration",
+          "title": "数据集成",
+          "catalogCollection": {
+            "items": [
+              {
+                "key": "analytics",
+                "title": "数据 & 分析"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "sys": {
       "id": "3vDdQaaw37Be1wnTOdVdbA"
     },
     "key": "magento",
@@ -4852,71 +4917,6 @@
               {
                 "key": "itdevops",
                 "title": "IT 监控运维"
-              }
-            ]
-          }
-        }
-      ]
-    }
-  },
-  {
-    "sys": {
-      "id": "1qjlphna9bZr2UIJuPimXG"
-    },
-    "key": "grafana",
-    "hot": null,
-    "trademark": "Grafana",
-    "summary": "开源的度量分析与可视化套件",
-    "overview": "开源的度量分析与可视化套件，常用于时间序列数据及应用程序分析的可视化展示",
-    "websiteurl": "https://grafana.com/",
-    "description": "Grafana是一个开源的度量分析与可视化展示应用。多被用作基础设施的时间序列数据和应用程序的可视化分析，在工业传感器、家庭自动化、天气和过程控制等其他领域也被广泛的使用。",
-    "screenshots": [
-      {
-        "id": "4d394b47-b1ca-4624-b183-b9bd235098c9",
-        "key": "dashboard",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/grafana/grafana-dashboard-websoft9.png"
-      },
-      {
-        "id": "74cef588-177f-404d-8a09-f56cf284eae5",
-        "key": "ui",
-        "value": "https://libs.websoft9.com/Websoft9/DocsPicture/en/grafana/grafana-dashboardui.png"
-      }
-    ],
-    "distribution": [
-      {
-        "id": "92c09f2d-c27f-4514-9963-055f21501e7c",
-        "key": "Community",
-        "value": "9.5.1"
-      }
-    ],
-    "vcpu": 1,
-    "memory": 2,
-    "storage": 1,
-    "logo": {
-      "imageurl": "https://libs.websoft9.com/Websoft9/logo/product/grafana-websoft9.png"
-    },
-    "catalogCollection": {
-      "items": [
-        {
-          "key": "business-intelligence",
-          "title": "商业智能",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
-              }
-            ]
-          }
-        },
-        {
-          "key": "data-integration",
-          "title": "数据集成",
-          "catalogCollection": {
-            "items": [
-              {
-                "key": "analytics",
-                "title": "数据 & 分析"
               }
             ]
           }
