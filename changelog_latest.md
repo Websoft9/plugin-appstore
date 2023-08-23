@@ -1,1 +1,1 @@
-1. Optimize multilingual and web interfaces
+1. Fix some known bugs
