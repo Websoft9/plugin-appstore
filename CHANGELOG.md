@@ -1,5 +1,7 @@
 ## 0.0.7 release on 2023-08-23
 1. Fix some known bugs
+## 0.0.7 release on 2023-08-23
+1. Fix some known bugs
 ## 0.0.6 release on 2023-08-15
 1. Optimize multilingual and web interfaces
 ## 0.0.5 release on 2023-08-11
