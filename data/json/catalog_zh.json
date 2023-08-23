@@ -488,6 +488,11 @@
       "catalogCollection": {
         "items": [
           {
+            "key": "mqtt",
+            "title": "MQTT",
+            "position": 10
+          },
+          {
             "key": "device-management",
             "title": "设备管理",
             "position": 10
