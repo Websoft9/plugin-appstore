@@ -32,7 +32,7 @@ See Developer.md for details about how to efficiently change the code, run, and 
 These commands check out the source and build it into the directory:build/
 ```
 git clone https://github.com/Websoft9/plugin-appstore
-plugin-appstore
+cd plugin-appstore
 npm build
 ```
 You can also triggers action workflow for building
