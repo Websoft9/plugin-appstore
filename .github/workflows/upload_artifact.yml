@@ -1,85 +1,19 @@
-name: Build New Version For Release
+name: appstore Release
 
-on: workflow_dispatch
+on:
+  push:
+    branches: [main]
+    paths:
+      - "appstore.json"
 
 jobs:
   Build_New_Version_For_Release:
     runs-on: ubuntu-latest
     env:
-      ACCESS_TOKEN: ${{ secrets.CONTENTFUL_GRAPHQLTOKEN }}
-      LOCALES: "en-US,zh-CN"
-      DATA_DIR: "data/json"
-      APPSTORE_LOGO_DIR: "data/logos"
-      SCREENSHOT_DIR: "data/screenshots"
-      LIMIT: 100
       CI: false
 
     steps:
-      - uses: actions/checkout@v2    
-
-      - name: Install GNU Parallel
-        run: sudo apt-get install -y parallel
-
-      - name: Fetch catalog data from contentful graphql
-        run: |
-          mkdir -p $DATA_DIR
-          IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES"
-          for LOCALE in "${LOCALE_ARRAY[@]}"; do
-            curl -X POST \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer $ACCESS_TOKEN" \
-              -d '{"query":"query($locale: String){catalog(id: \"2Yp0TY3kBHgG6VDjsHZNpK\",locale:$locale) {linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key position title linkedFrom(allowedLocales:[\"en-US\"]) {catalogCollection(limit:20) {items {key title position}}}}}}}}","variables":{"locale":"'$LOCALE'"}}' \
-              https://graphql.contentful.com/content/v1/spaces/ffrhttfighww | \
-              jq '.data.catalog.linkedFrom.catalogCollection.items' > $DATA_DIR/catalog_${LOCALE:0:2}.json
-          done
-
-      - name: Fetch product data and download screenshots
-        run: |
-          mkdir -p $SCREENSHOT_DIR && IFS=',' read -ra LOCALE_ARRAY <<< "$LOCALES" && for LOCALE in "${LOCALE_ARRAY[@]}"; do
-             SKIP=0
-             TOTAL=0
-             ITEMS=()
-             while [ $SKIP -le $TOTAL ]; do
-               RESPONSE=$(curl -X POST \
-                 -H "Content-Type: application/json" \
-                 -H "Authorization: Bearer $ACCESS_TOKEN" \
-                 -d '{"query":"query($locale: String,$skip: Int){productCollection(locale:$locale,where:{appStore:true,production:true},limit: '$LIMIT', skip: $skip) {total items {sys {id} key hot trademark summary overview websiteurl description screenshots distribution vcpu memory storage logo {imageurl} catalogCollection(limit:15) {items {key title catalogCollection(limit:5){items{key title}}}}}}}", "variables":{"locale":"'$LOCALE'", "skip":'$SKIP'}}' \
-                 https://graphql.contentful.com/content/v1/spaces/ffrhttfighww)
-               ITEMS+=($(echo $RESPONSE | jq '.data.productCollection.items[]'))
-               TOTAL=$(echo $RESPONSE | jq '.data.productCollection.total')
-               SKIP=$((SKIP + LIMIT))
-             done
-             echo ${ITEMS[@]} | jq -r '.screenshots[]?.value' | sed 's/"//g' | parallel -j 10 "wget -t 0 -N {} -P $SCREENSHOT_DIR/${LOCALE:0:2} || echo {} >> $SCREENSHOT_DIR/Error.log"
-             echo ${ITEMS[@]} | jq -s '.' > $DATA_DIR/product_${LOCALE:0:2}.json
-           done
-
-      - name: Install ossutil
-        run: |
-          wget http://gosspublic.alicdn.com/ossutil/1.7.6/ossutil64
-          chmod 755 ossutil64
-      - name: Configure ossutil
-        run: ./ossutil64 config -e ${{ secrets.OSS_ENDPOINT }} -i ${{ secrets.OSS_ACCESS_KEY_ID }} -k ${{ secrets.OSS_ACCESS_KEY_SECRET }}
-
-      - name: Download logos from oss
-        run: ./ossutil64 cp oss://libs-websoft9-com/Websoft9/logo/product/ $APPSTORE_LOGO_DIR -r --update
-        
-      - name: Update CHANGELOG.md and public/manifest.json
-        id: update_data
-        run: |
-          version=$(jq -r '.Version' appstore.json)
-          echo "PLUGIN_VERSION=$version" >> $GITHUB_OUTPUT
-          
-          changelog=$(cat changelog_latest.md)
-          echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT 
-          echo "$changelog" >> $GITHUB_OUTPUT 
-          echo "EOF" >> $GITHUB_OUTPUT
-          
-          current_date=$(date +%Y-%m-%d)
-          printf "## $version release on $current_date\n$changelog\n$(cat CHANGELOG.md)" > temp.txt
-          mv temp.txt CHANGELOG.md
-      
-          jq -r --arg version "$version" '.version = $version' public/manifest.json > manifest.json.tmp
-          mv manifest.json.tmp public/manifest.json
+      - uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -92,9 +26,38 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Copy data、logos、screenshots to build
-        run: cp -R data/  build/static/
-
+      - name: Update CHANGELOG.md and public/manifest.json
+        id: update_data
+        run: |
+          version=$(jq -r '.Version' appstore.json)
+          echo "PLUGIN_VERSION=$version" >> $GITHUB_OUTPUT
+          real_version=${version%%-*}
+          echo "VERSION=$real_version" >> $GITHUB_ENV
+          echo "RC_VERSION=$version" >> $GITHUB_ENV
+          if [[ $version == *-* ]]; then
+            echo "release version"
+            echo "::set-output name=release::false"
+          else
+            echo "rc release version"
+            echo "::set-output name=release::true"
+          fi                    
+          changelog=$(cat changelog_latest.md)
+          echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT 
+          echo "$changelog" >> $GITHUB_OUTPUT 
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          current_date=$(date +%Y-%m-%d)
+          printf "## $version release on $current_date\n$changelog\n$(cat CHANGELOG.md)" > temp.txt
+          mv temp.txt CHANGELOG.md
+      
+          jq -r --arg version "$version" '.version = $version' public/manifest.json > manifest.json.tmp
+          mv manifest.json.tmp public/manifest.json
+          
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Build Plugin For Release
+          
       - name: Create Zip Archive
         run: |
           mkdir artifacts
@@ -103,14 +66,37 @@ jobs:
           cp appstore.json appstore
           cp -r docs appstore
           rsync -av --exclude='changelog_latest.md' *.md appstore/
-          zip -r appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore/
-          cp -r appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore-latest.zip
+          zip -r appstore-${{ env.VERSION }}.zip appstore/
           cp CHANGELOG.md artifacts/
           cp appstore.json artifacts/
-          mv appstore-${{ steps.update_data.outputs.PLUGIN_VERSION }}.zip appstore-latest.zip artifacts/
+          mv appstore-${{ env.VERSION }}.zip artifacts/
+          cp artifacts/appstore-${{ env.VERSION }}.zip artifacts/appstore-latest.zip
 
       - name: Upload To Azure Blob
         uses: LanceMcCarthy/Action-AzureBlobUpload@v2
+        if: ${{ steps.update_data.outputs.release == 'false' }}
+        with:
+          connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
+          container_name: dev
+          source_folder: artifacts/
+          destination_folder: ./websoft9/plugin/appstore
+          delete_if_exists: true
+          fail_if_source_empty: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ steps.update_data.outputs.release == 'false' }}
+        with:
+          files: /*
+          tag_name: v${{ env.RC_VERSION }}
+          title: Release-v${{ env.RC_VERSION }}
+          body: ${{ steps.update_data.outputs.CHANGELOG }}
+          draft: false
+          prerelease: false
+
+      - name: Upload To Azure Blob
+        uses: LanceMcCarthy/Action-AzureBlobUpload@v2
+        if: ${{ steps.update_data.outputs.release == 'true' }}
         with:
           connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
           container_name: release
@@ -118,17 +104,15 @@ jobs:
           destination_folder: ./websoft9/plugin/appstore
           delete_if_exists: true
           fail_if_source_empty: true
-          
+
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
+        if: ${{ steps.update_data.outputs.release == 'true' }}
         with:
-          files: /* 
-          tag_name: v${{ steps.update_data.outputs.PLUGIN_VERSION }}   
+          files: /*
+          tag_name: v${{ env.VERSION }}
+          title: Release-v${{ env.VERSION }}
           body: ${{ steps.update_data.outputs.CHANGELOG }}
           draft: false
-          prerelease: true
-          
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Build Plugin For Release
+          prerelease: false
