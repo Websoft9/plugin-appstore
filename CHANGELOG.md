@@ -1,3 +1,5 @@
+## 0.0.7-rc1 release on 2023-10-24
+1. Fix some known bugs
 ## 0.0.7 release on 2023-08-23
 1. Fix some known bugs
 ## 0.0.7 release on 2023-08-23
