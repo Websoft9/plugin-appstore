@@ -1,7 +1,10 @@
 // @flow
+import AddIcon from '@mui/icons-material/Add';
 import MuiAlert from '@mui/material/Alert';
+import MuiButton from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
 import Snackbar from '@mui/material/Snackbar';
-import axios from 'axios';
+import Stack from '@mui/material/Stack';
 import cockpit from 'cockpit';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
@@ -12,6 +15,25 @@ import FormInput from '../components/FormInput';
 
 const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
+let protocol = window.location.protocol;
+let host = window.location.host;
+const baseURL = protocol + "//" + (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
+const rootURL = (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
+
+// 获取Api Key
+const getApiKey = async () => {
+    try {
+        var script = "docker exec -i websoft9-apphub apphub getconfig --section api_key --key key";
+        const api_key = (await cockpit.spawn(["/bin/bash", "-c", script])).trim();
+        if (!api_key) {
+            return <p>Error: Api key is empty </p>;
+        }
+        return api_key
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,40 +48,110 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [showAlert, setShowAlert] = useState(false); //用于是否显示错误提示
     const [alertMessage, setAlertMessage] = useState("");//用于显示错误提示消息
     const [disable, setDisable] = useState(false);//用于按钮禁用
+    const [domain, setDomain] = useState("");//用于存储泛域名
+    const [enabled, setEnabled] = useState(true);// 使用 useState 钩子来定义一个 state，表示文本框是否启用
+    const [hasCreacteDomain, setHasCreacteDomain] = useState(false);//是否创建自定义域名
+    const [customDomain, setCustomDomain] = useState("");//自定义域名
+    const [installing, setInstalling] = useState(false);//是否正在安装
+    const [installSuccess, setInstallSuccess] = useState(false);//是否安装成功
 
+    // 定义一个函数，当用户点击开关时，改变 state 的值
+    const handleToggle = () => {
+        setEnabled(!enabled);
+    };
+
+    const handleAddClick = () => {
+        // 如果没有创建 FormInput 组件，就设置 state 变量为 true，并创建 FormInput 组件
+        if (!hasCreacteDomain) {
+            setHasCreacteDomain(true);
+        }
+    };
+
+    const handleDelClick = () => {  // 删除 FormInput 组件
+        setHasCreacteDomain(false);
+        setCustomDomain("");
+    }
+
+    const handleSetClick = () => {
+        let url = `settings`;
+        cockpit.file('/etc/hostname').watch(content => {
+            console.log(content);
+        });
+        cockpit.jump(url);
+    }
+
+    // 获取泛域名
+    const getWildcardDomain = async () => {
+        try {
+            var script = "docker exec -i websoft9-apphub apphub getconfig --section domain --key wildcard_domain";
+            const wildcard_domain = (await cockpit.spawn(["/bin/bash", "-c", script])).trim();
+            return wildcard_domain;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
     //用户单击“安装”按钮
     async function handleInstallClick() {
         if (!visible) {
-            if (!customName || customName.length < 2 || customName.length > 20) { //判断用户是否输入应用名称
+            setInstalling(true);
+            if (!customName || customName.length < 2 || customName.length > 20 || /^\d/.test(customName)) { //判断用户是否输入应用名称
                 setShowAlert(true);
-                setAlertMessage(_("Please enter a custom application name between 2 and 20 characters."))
+                setAlertMessage(_("Please enter a custom application name between 2 and 20 characters.Cannot start with a number."))
+                setInstalling(false);
+            }
+            else if (hasCreacteDomain && !customDomain) {
+                setShowAlert(true);
+                setAlertMessage(_("Please enter a custom domain name."))
+                setInstalling(false);
             }
             else {
                 try {
                     setDisable(true);
-                    cockpit.http({ "address": "websoft9-appmanage", "port": 5000, })
-                        .get("/AppInstall", { "app_name": product.key, "app_version": selectedVersion, "customer_app_name": customName })
-                        .then(function (response) {
-                            response = JSON.parse(response);
-                            if (response.Error) {
-                                setShowAlert(true);
-                                setAlertMessage(response.Error.Message);
-                                setDisable(false);
+
+                    let req_body = {
+                        "app_name": product.key,
+                        "edition": {
+                            "dist": "community",
+                            "version": selectedVersion
+                        },
+                        "app_id": customName.trim(),
+                        "proxy_enabled": ((domain && enabled) || hasCreacteDomain) ? true : false,
+                        "domain_names": (hasCreacteDomain && enabled && domain) ? [customDomain.trim(), customName.trim() + "." + domain] :
+                            hasCreacteDomain ? [customDomain.trim()] : (domain && enabled) ? [customName.trim() + "." + domain] : [rootURL],
+                    };
+
+                    cockpit.http({
+                        "address": "websoft9-apphub",
+                        "port": 8080,
+                        "headers": {
+                            'api_key': await getApiKey()
+                        }
+                    }).request({
+                        path: `/apps/install`,
+                        method: "POST",
+                        body: JSON.stringify(req_body)
+                    }).then(function (response) {
+                        setDisable(false);
+                        setInstalling(false);
+                        setInstallSuccess(true);
+                    }).catch(function (error, data) {
+                        setDisable(false);
+                        setInstalling(false);
+                        setShowAlert(true);
+                        if (data) {
+                            try {
+                                data = JSON.parse(data);
+                                setAlertMessage(data?.details);
                             }
-                            else {
-                                setShowAlert(false);
-                                setAlertMessage("");
-                                cockpit.file('/etc/hostname').watch(content => {
-                                    console.log(content);
-                                });
-                                cockpit.jump("/myapps");
-                                onClose();
+                            catch (error) {
+                                setAlertMessage(data);
                             }
-                        }).catch(function (error) {
-                            setShowAlert(true);
+                        }
+                        else {
                             setAlertMessage(error.message);
-                            setDisable(false);
-                        });
+                        }
+                    });
                 }
                 catch (error) {
                     setShowAlert(false);
@@ -92,11 +184,24 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
         setCustomName(inputValue);
         if (!inputValue) { //验证输入应用名称
             setShowAlert(true);
-            setAlertMessage(_("Please enter a custom application name between 2 and 20 characters."))
+            setAlertMessage(_("Please enter a custom application name between 2 and 20 characters.Cannot start with a number."))
         }
         else {
             const newValue = inputValue.replace(/[^a-z0-9]/gi, '').toLowerCase(); //先替换输入值
             setCustomName(newValue);
+            setShowAlert(false);
+            setAlertMessage("");
+        }
+    }
+
+    const handleDomainInputChange = (inputValue) => {
+        setCustomDomain(inputValue);
+        if (!inputValue) {
+            setShowAlert(true);
+            setAlertMessage(_("Please enter a custom domain name."));
+        }
+        else {
+            setCustomDomain(inputValue);
             setShowAlert(false);
             setAlertMessage("");
         }
@@ -110,14 +215,60 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
         setAlertMessage("");
     };
 
+    const handleDialogClose = () => {
+        setInstallSuccess(false);
+    };
+
+    useEffect(() => {
+        async function fetchDomain() {
+            const result = await getWildcardDomain();
+            setDomain(result);
+        }
+
+        fetchDomain();
+    }, []);
+
     return (
         <>
             <Modal show={showFlag} onHide={onClose} size="lg" scrollable="true" backdrop="static">
+                {
+                    installSuccess &&
+                    <div className="card-disabled" style={{ zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Stack sx={{ width: '50%' }} spacing={2}>
+                            <MuiAlert variant="filled" severity="success" action={
+                                <MuiButton color="inherit" size="small" onClick={() => {
+                                    let url = `myapps`;
+                                    cockpit.file('/etc/hostname').watch(content => {
+                                        console.log(content);
+                                    });
+                                    cockpit.jump(url);
+                                    onClose();
+                                }
+                                }>
+                                    {_("Done")}
+                                </MuiButton>
+                            }>
+                                {/* <AlertTitle>{_("Success")}</AlertTitle> */}
+                                {_("Installation succeeded")}
+                            </MuiAlert>
+                        </Stack>
+                    </div >
+                }
+                {
+                    installing && (
+                        <div className="card-disabled" style={{ zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                            <Spinner className='dis_mid' />
+                            <div style={{ marginTop: '10px' }}>
+                                <span className="sr-only" style={{ fontSize: "18px" }}>{_("Installing...")}</span>
+                            </div>
+                        </div>
+                    )
+                }
                 <Modal.Header onHide={onClose} closeButton>
                     <div style={{ padding: "10px" }}>
                         <div className='appstore-item-content-icon col-same-height'>
                             <img
-                                src={`./static/data/logos/${imagName}`}
+                                src={`${baseURL}/media/logos/${imagName}`}
                                 alt=""
                                 className="app-icon"
                                 onError={(e) => (e.target.src = DefaultImg)}
@@ -149,7 +300,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                                         <Carousel.Item key={item?.id} >
                                             <img
                                                 className="d-block"
-                                                src={`./static/data/screenshots/${language === "zh_CN" ? "zh" : "en"}/${filename}`}
+                                                src={`${baseURL}/media/screenshots/${language === "zh_CN" ? "zh" : "en"}/${filename}`}
                                                 alt={item?.key}
                                                 width="100%"
                                                 height="300px"
@@ -188,10 +339,82 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                                 }
                             </div>
                             <div style={{ marginTop: "5px" }}>
-                                <span style={{ marginRight: "5px" }}>{_("Name")} :</span>
-                                <FormInput type="text" value={customName} name="app_Name"
-                                    placeholder={_("Only letters and numbers from 2 to 20 are allowed. No special characters.")}
-                                    onChange={(e) => { handleInputChange(e.target.value) }} />
+                                <Form.Group as={Row}>
+                                    <span style={{ marginRight: "5px" }}>{_("Name")} :</span>
+                                    <Col sm={8} style={{ paddingRight: 0 }}>
+                                        <FormInput type="text" value={customName} name="app_Name"
+                                            placeholder={_("Only letters and numbers from 2 to 20 are allowed. No special characters.")}
+                                            onChange={(e) => { handleInputChange(e.target.value) }} />
+                                    </Col>
+                                    {
+                                        domain ?
+                                            <Col sm={4} style={{ paddingLeft: 0 }}>
+                                                <Form>
+                                                    <Form.Group controlId="formBasicEmail">
+                                                        <div className="input-with-button">
+                                                            <Form.Control
+                                                                type="text"
+                                                                placeholder={"." + domain}
+                                                                disabled={!enabled}
+                                                                value={"." + domain}
+                                                                className={enabled ? "" : "deleted"}
+                                                            />
+                                                            <Button
+                                                                variant={enabled ? "danger" : "success"}
+                                                                onClick={handleToggle}
+                                                            >
+                                                                {enabled ? _("Disable") : _("Enable")}
+                                                            </Button>
+                                                        </div>
+                                                    </Form.Group>
+                                                </Form>
+                                            </Col>
+                                            :
+                                            <Col sm={4} className="d-flex justify-content-center">
+                                                <Fab size="small" color="primary" aria-label="add" onClick={handleSetClick} variant="extended" >
+                                                    <AddIcon />
+                                                    <span>{_("Set global domain name")}</span>
+                                                </Fab>
+                                            </Col>
+                                    }
+                                </Form.Group>
+                                <div style={{ marginTop: '5px' }}>
+                                    <Form.Group as={Row}>
+                                        {
+                                            !hasCreacteDomain &&
+                                            <Col sm={2} style={{ paddingRight: 0 }}>
+                                                <Fab size="small" color="primary" aria-label="add" onClick={handleAddClick} variant="extended">
+                                                    <AddIcon />
+                                                    <span>{_("Add Domain")}</span>
+                                                </Fab>
+                                            </Col>
+                                        }
+                                        <Col sm={12}>
+                                            {
+                                                hasCreacteDomain &&
+                                                <>
+                                                    <span style={{ marginRight: "5px" }}>{_("Domain")} :</span>
+                                                    <Form>
+                                                        <Form.Group controlId="formBasicEmail">
+                                                            <div className="input-with-button">
+                                                                <FormInput type="text" name="custom_domain"
+                                                                    placeholder={_("Please enter a custom domain name.")}
+                                                                    value={customDomain}
+                                                                    onChange={(e) => { handleDomainInputChange(e.target.value) }} />
+                                                                <Button
+                                                                    variant="danger"
+                                                                    onClick={handleDelClick}
+                                                                >
+                                                                    {_("Delete")}
+                                                                </Button>
+                                                            </div>
+                                                        </Form.Group>
+                                                    </Form>
+                                                </>
+                                            }
+                                        </Col>
+                                    </Form.Group>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -207,12 +430,13 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
             </Modal >
             {
                 showAlert &&
-                <Snackbar open={showAlert} autoHideDuration={5000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <Snackbar open={showAlert} /*autoHideDuration={5000}*/ onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                     <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                         {alertMessage}
                     </Alert>
                 </Snackbar>
             }
+
         </>
     );
 }
@@ -231,62 +455,49 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); //用于页面跳转
 
-
-    //读取数据文件
     const getData = useCallback(async () => {
         setLoading(true);
-        try {
-            const [catalogResponse, productResponse] = await Promise.all([
-                // axios.get(`./static/data/json/catalog_${language === "zh_CN" ? "zh" : "en"}.json?timestamp=${Date.now()}`),
-                // axios.get(`./static/data/json/product_${language === "zh_CN" ? "zh" : "en"}.json?timestamp=${Date.now()}`)
-                axios.get(`./static/data/json/catalog_${language === "zh_CN" ? "zh" : "en"}.json`, {
-                    headers: {
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                        'Expires': '0',
-                        'x-random-header': Math.random().toString()
-                    }
-                }),
-                axios.get(`./static/data/json/product_${language === "zh_CN" ? "zh" : "en"}.json`, {
-                    headers: {
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                        'Expires': '0',
-                        'x-random-header': Math.random().toString()
-                    }
-                })
-            ]);
-            if (catalogResponse.status === 200) {
-                const catalogSort = catalogResponse.data.sort(function (a, b) {
-                    if (a.position === null && b.position === null) {
-                        return 0;
-                    } else if (a.position === null) {
-                        return 1;
-                    } else if (b.position === null) {
-                        return -1;
-                    } else {
-                        return a.position - b.position;
-                    }
-                });
-                setMainCatalogs(catalogSort);
+        cockpit.http({
+            "address": "websoft9-apphub",
+            "port": 8080,
+            "headers": {
+                'api_key': await getApiKey()
             }
-            else {
-                return <p>Error: Failed to fetch directory data </p>;
-            }
+        }).request({ path: `/apps/catalog/${language === "zh_CN" ? "zh" : "en"}`, method: "GET", body: "" }).then((response) => {
+            response = JSON.parse(response);
+            const catalogSort = response.sort(function (a, b) {
+                if (a.position === null && b.position === null) {
+                    return 0;
+                } else if (a.position === null) {
+                    return 1;
+                } else if (b.position === null) {
+                    return -1;
+                } else {
+                    return a.position - b.position;
+                }
+            });
+            setMainCatalogs(catalogSort);
+        }).catch((error) => {
+            console.log(error);
+            return <p>Error: Failed to fetch directory data </p>;
+        });
 
-            if (productResponse.status === 200) {
-                setApps(productResponse.data);
-                setAppList(productResponse.data);
+        cockpit.http({
+            "address": "websoft9-apphub",
+            "port": 8080,
+            "headers": {
+                'api_key': await getApiKey()
             }
-            else {
-                return <p>Error: Failed to fetch product data </p>;
-            }
-        }
-        catch {
-            navigate("/error-500");
-        }
+        }).request({ path: `/apps/available/${language === "zh_CN" ? "zh" : "en"}`, method: "GET", body: "" }).then((response) => {
+            response = JSON.parse(response);
+            setApps(response);
+            setAppList(response);
+        }).catch((error) => {
+            console.log(error);
+            return <p>Error: Failed to fetch product data </p>;
+        });
         setLoading(false);
-    }, [language, setMainCatalogs, setApps, setAppList]);
+    }, [language, getApiKey]);
 
     useEffect(() => {
         getData();
@@ -427,7 +638,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                             <div className='appstore-item-content highlight' onClick={() => { handleClick(app) }}>
                                 <div className='appstore-item-content-icon col-same-height'>
                                     <img
-                                        src={`./static/data/logos/${imagName}`}
+                                        src={`${baseURL}/media/logos/${imagName}`}
                                         alt={imagName}
                                         className="app-icon"
                                         onError={(e) => (e.target.src = DefaultImg)}

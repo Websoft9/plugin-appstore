@@ -2,13 +2,10 @@
 import MuiAlert from '@mui/material/Alert';
 import classNames from 'classnames';
 import cockpit from 'cockpit';
-import React, { useEffect, useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
-import Spinner from 'react-bootstrap/Spinner';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 // images
-import Snackbar from '@mui/material/Snackbar';
 import logoSM from '../assets/images/logo-sm.svg';
 import logo from '../assets/images/logo.svg';
 import logoEn from '../assets/images/websoft9.svg';
@@ -54,75 +51,75 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
     };
 
     //查询更新
-    const queryUpdateList = async (init) => {
-        try {
-            let response = await cockpit.http({ "address": "websoft9-appmanage", "port": 5000 }).get("/AppStoreUpdateList");
-            response = JSON.parse(response);
-            if (response.Error) {
-                setShowAlert(true);
-                setAlertType("error")
-                setAlertMessage(response.Error.Message);
-            }
-            else {
-                setUpdateContent(response.ResponseData.Compare_content); //获取更新内容
+    // const queryUpdateList = async (init) => {
+    //     try {
+    //         let response = await cockpit.http({ "address": "websoft9-appmanage", "port": 5000 }).get("/AppStoreUpdateList");
+    //         response = JSON.parse(response);
+    //         if (response.Error) {
+    //             setShowAlert(true);
+    //             setAlertType("error")
+    //             setAlertMessage(response.Error.Message);
+    //         }
+    //         else {
+    //             setUpdateContent(response.ResponseData.Compare_content); //获取更新内容
 
-                if (!init) { //如果不是第一次加载
-                    setShowAlert(true);
-                    setAlertType("success")
-                    setAlertMessage(_("The app store is already the latest version"));
-                }
-            }
-        }
-        catch (error) {
-            setShowAlert(true);
-            setAlertType("error")
-            setAlertMessage(error);
-        }
-    }
+    //             if (!init) { //如果不是第一次加载
+    //                 setShowAlert(true);
+    //                 setAlertType("success")
+    //                 setAlertMessage(_("The app store is already the latest version"));
+    //             }
+    //         }
+    //     }
+    //     catch (error) {
+    //         setShowAlert(true);
+    //         setAlertType("error")
+    //         setAlertMessage(error);
+    //     }
+    // }
 
     //更新应用商店
-    const appStoreUpdate = async () => {
-        setShowMask(true);
-        setShowAlert(false);
-        setButtonDisable(true);
-        setLinkDisable(true);
-        setShowUpdateLog(false);
-        try {
-            let response = await cockpit.http({ "address": "websoft9-appmanage", "port": 5000 }).get("/AppStoreUpdate");
-            response = JSON.parse(response);
-            if (response.Error) {
-                setShowAlert(true);
-                setAlertType("error")
-                setAlertMessage(response.Error.Message);
-            }
-            else {
-                const flag = response.ResponseData.Update_flag;
-                if (flag) {
-                    setShowAlert(true);
-                    setAlertType("success")
-                    setAlertMessage(_("Update succeeded"));
-                    setTimeout(() => {
-                        window.location.reload(true);
-                    }, 3000);
-                }
-                else {
-                    setShowAlert(true);
-                    setAlertType("error")
-                    setAlertMessage(_("Update failed"));
-                }
-            }
-        }
-        catch (error) {
-            setShowAlert(true);
-            setAlertType("error")
-            setAlertMessage(error);
-        }
-        finally {
-            setButtonDisable(false);
-            setShowMask(false);
-            setLinkDisable(false);
-        }
-    }
+    // const appStoreUpdate = async () => {
+    //     setShowMask(true);
+    //     setShowAlert(false);
+    //     setButtonDisable(true);
+    //     setLinkDisable(true);
+    //     setShowUpdateLog(false);
+    //     try {
+    //         let response = await cockpit.http({ "address": "websoft9-appmanage", "port": 5000 }).get("/AppStoreUpdate");
+    //         response = JSON.parse(response);
+    //         if (response.Error) {
+    //             setShowAlert(true);
+    //             setAlertType("error")
+    //             setAlertMessage(response.Error.Message);
+    //         }
+    //         else {
+    //             const flag = response.ResponseData.Update_flag;
+    //             if (flag) {
+    //                 setShowAlert(true);
+    //                 setAlertType("success")
+    //                 setAlertMessage(_("Update succeeded"));
+    //                 setTimeout(() => {
+    //                     window.location.reload(true);
+    //                 }, 3000);
+    //             }
+    //             else {
+    //                 setShowAlert(true);
+    //                 setAlertType("error")
+    //                 setAlertMessage(_("Update failed"));
+    //             }
+    //         }
+    //     }
+    //     catch (error) {
+    //         setShowAlert(true);
+    //         setAlertType("error")
+    //         setAlertMessage(error);
+    //     }
+    //     finally {
+    //         setButtonDisable(false);
+    //         setShowMask(false);
+    //         setLinkDisable(false);
+    //     }
+    // }
 
     const showChangeLog = () => {
         setShowUpdateLog(true);
@@ -136,16 +133,16 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
         cockpit.jump(url);
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await queryUpdateList(true);
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         await queryUpdateList(true);
+    //     };
+    //     fetchData();
+    // }, []);
 
     return (
         <>
-            {
+            {/* {
                 showMask && (
                     <div className="card-disabled" style={{ zIndex: 999 }}>
                         <Spinner className='dis_mid' style={{ marginTop: "200px" }} />
@@ -168,7 +165,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         </h3>
                     </div>
                 )
-            }
+            } */}
             <div className={classNames('navbar-custom', navbarCssClasses)} style={{ pointerEvents: linkDisable ? 'none' : 'auto' }}>
                 <div className={containerCssClasses}>
                     {!hideLogo && (
@@ -183,7 +180,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                             </span>
                         </Link>
                     )}
-                    <ul style={{
+                    {/* <ul style={{
                         display: "flex", justifyContent: "flex-end", flexDirection: "row",
                         alignItems: "center", minHeight: "70px", fontSize: "16px", listStyle: "none",
                         marginBottom: "0px"
@@ -205,10 +202,10 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                                 </button>
                             </li>
                         }
-                    </ul>
+                    </ul> */}
                 </div>
             </div >
-            {
+            {/* {
                 showAlert &&
                 <Snackbar open={showAlert} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                     <Alert onClose={handleClose} severity={alertType} sx={{ width: '100%' }}>
@@ -279,7 +276,7 @@ const Topbar = ({ hideLogo, navCssClasses, openLeftMenuCallBack, topbarDark }: T
                         </Button>
                     </Modal.Footer>
                 </Modal >
-            }
+            } */}
         </>
     );
 };

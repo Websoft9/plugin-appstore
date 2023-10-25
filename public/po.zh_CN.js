@@ -139,9 +139,9 @@
         null,
         "更新"
     ],
-    "Please enter a custom application name between 2 and 20 characters.": [
+    "Please enter a custom application name between 2 and 20 characters.Cannot start with a number.": [
         null,
-        "请输入一个2-20位的自定义应用名称."
+        "请输入一个2-20位的自定义应用名称.不允许以数字开头."
     ],
     "Only letters and numbers from 2 to 20 are allowed. No special characters.": [
         null,
@@ -366,6 +366,38 @@
     "Description": [
         null,
         "详情"
+    ],
+    "Please enter a custom domain name.": [
+        null,
+        "请输入自定义域名"
+    ],
+    "Set global domain name": [
+        null,
+        "设置全局域名"
+    ],
+    "Disable": [
+        null,
+        "禁用"
+    ],
+    "Enable": [
+        null,
+        "启用"
+    ],
+    "Add Domain": [
+        null,
+        "添加域名"
+    ],
+    "Installing...": [
+        null,
+        "安装中..."
+    ],
+    "Installation succeeded": [
+        null,
+        "安装成功"
+    ],
+    "Done": [
+        null,
+        "确定"
     ]
 }));
 
