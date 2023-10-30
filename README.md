@@ -15,12 +15,7 @@ This plugin for listing and install templating application. include WordPress, M
 Your server must be have [Websoft9](https://github.com/Websoft9) installed.  
 
 ```
-cd /usr/share/cockpit
-wget https://artifact.azureedge.net/release/websoft9/plugin/appstore/appstore-latest.zip && unzip appstore-latest.zip && rm -f appstore-latest.zip
-
-# Appstore data and image localization deployment
-1. Execute Action：```Fetch Contentful Data and Oss Images```
-2. Exec Script : ```sh /data/test/syncdata.sh```
+wget https://websoft9.github.io/websoft9/scripts/update_zip.sh && bash ./update_zip.sh --channel release --package_name "appstore-latest.zip" --sync_to "/usr/share/cockpit/appstore"
 ```
 
 ## Development
