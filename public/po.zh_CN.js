@@ -215,10 +215,6 @@
         null,
         "删除"
     ],
-    "This will immediately remove": [
-        null,
-        "这将立马删除"
-    ],
     "Domain Binding": [
         null,
         "域名绑定"
