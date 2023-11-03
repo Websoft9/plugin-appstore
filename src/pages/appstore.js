@@ -489,6 +489,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                 'api_key': await getApiKey()
             }
         }).request({ path: `/apps/available/${language === "zh_CN" ? "zh" : "en"}`, method: "GET", body: "" }).then((response) => {
+            console.log(response);
             response = JSON.parse(response);
             setApps(response);
             setAppList(response);
