@@ -1,1 +1,1 @@
-1. Fix some known bugs
+1. improve appstore json
