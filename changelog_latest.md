@@ -1,1 +1,1 @@
-1. improve appstore json
+1. update nginx config
