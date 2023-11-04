@@ -125,7 +125,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                         "address": "websoft9-apphub",
                         "port": 8080,
                         "headers": {
-                            'api_key': await getApiKey()
+                            'x-api-key': await getApiKey()
                         }
                     }).request({
                         path: `/apps/install`,
@@ -461,7 +461,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
             "address": "websoft9-apphub",
             "port": 8080,
             "headers": {
-                'api_key': await getApiKey()
+                'x-api-key': await getApiKey()
             }
         }).request({ path: `/apps/catalog/${language === "zh_CN" ? "zh" : "en"}`, method: "GET", body: "" }).then((response) => {
             response = JSON.parse(response);
@@ -486,7 +486,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
             "address": "websoft9-apphub",
             "port": 8080,
             "headers": {
-                'api_key': await getApiKey()
+                'x-api-key': await getApiKey()
             }
         }).request({ path: `/apps/available/${language === "zh_CN" ? "zh" : "en"}`, method: "GET", body: "" }).then((response) => {
             console.log(response);
