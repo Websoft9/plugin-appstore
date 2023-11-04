@@ -1,3 +1,5 @@
+## 0.0.8-rc1 release on 2023-11-04
+1. improve appstore json
 ## 0.0.7 release on 2023-10-31
 1. Fix some known bugs
 ## 0.0.7-rc2 release on 2023-10-31
