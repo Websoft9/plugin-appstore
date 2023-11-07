@@ -17,8 +17,11 @@ const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
 let protocol = window.location.protocol;
 let host = window.location.host;
-const baseURL = protocol + "//" + (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
-const rootURL = (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
+//const baseURL = protocol + "//" + (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
+//const rootURL = (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
+
+const baseURL = `${window.location.protocol}//${window.location.hostname}`;
+const rootURL = `${window.location.hostname}`;
 
 // 获取Api Key
 const getApiKey = async () => {
@@ -106,58 +109,43 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 setInstalling(false);
             }
             else {
-                try {
-                    setDisable(true);
+                setDisable(true);
 
-                    let req_body = {
-                        "app_name": product.key,
-                        "edition": {
-                            "dist": "community",
-                            "version": selectedVersion
-                        },
-                        "app_id": customName.trim(),
-                        "proxy_enabled": ((domain && enabled) || hasCreacteDomain) ? true : false,
-                        "domain_names": (hasCreacteDomain && enabled && domain) ? [customDomain.trim(), customName.trim() + "." + domain] :
-                            hasCreacteDomain ? [customDomain.trim()] : (domain && enabled) ? [customName.trim() + "." + domain] : [rootURL],
-                    };
+                let req_body = {
+                    "app_name": product.key,
+                    "edition": {
+                        "dist": "community",
+                        "version": selectedVersion
+                    },
+                    "app_id": customName.trim(),
+                    "proxy_enabled": ((domain && enabled) || hasCreacteDomain) ? true : false,
+                    "domain_names": (hasCreacteDomain && enabled && domain) ? [customDomain.trim(), customName.trim() + "." + domain] :
+                        hasCreacteDomain ? [customDomain.trim()] : (domain && enabled) ? [customName.trim() + "." + domain] : [rootURL],
+                };
 
-                    cockpit.http({
-                        "address": "websoft9-apphub",
-                        "port": 8080,
-                        "headers": {
-                            'x-api-key': await getApiKey()
-                        }
-                    }).request({
-                        path: `/apps/install`,
-                        method: "POST",
-                        body: JSON.stringify(req_body)
-                    }).then(function (response) {
+                fetch(`${baseURL}/api/apps/install`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'x-api-key': await getApiKey()
+                    },
+                    body: JSON.stringify(req_body)
+                }).then(async response => {
+                    const data = await response.json();
+                    if (response.status === 200) {
                         setDisable(false);
                         setInstalling(false);
                         setInstallSuccess(true);
-                    }).catch(function (error, data) {
-                        setDisable(false);
-                        setInstalling(false);
-                        setShowAlert(true);
-                        if (data) {
-                            try {
-                                data = JSON.parse(data);
-                                setAlertMessage(data?.details);
-                            }
-                            catch (error) {
-                                setAlertMessage(data);
-                            }
-                        }
-                        else {
-                            setAlertMessage(error.message);
-                        }
-                    });
-                }
-                catch (error) {
-                    setShowAlert(false);
-                    setAlertMessage("");
-                    navigate("/error-500");
-                }
+                    }
+                    else {
+                        throw new Error(data.details);
+                    }
+                }).catch((error) => {
+                    setDisable(false);
+                    setInstalling(false);
+                    setShowAlert(true);
+                    setAlertMessage(error.message);
+                });
             }
             return;
         }
@@ -453,19 +441,32 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [apps, setApps] = useState([]); //用于存储通过目录筛选出来的数据
     const [appList, setAppList] = useState([]); //用于存储通过目录筛选出来的数据
     const [loading, setLoading] = useState(false);
+    const [dataError, setDataError] = useState(false);
     const navigate = useNavigate(); //用于页面跳转
 
     const getData = useCallback(async () => {
         setLoading(true);
-        cockpit.http({
-            "address": "websoft9-apphub",
-            "port": 8080,
-            "headers": {
-                'x-api-key': await getApiKey()
-            }
-        }).request({ path: `/apps/catalog/${language === "zh_CN" ? "zh" : "en"}`, method: "GET", body: "" }).then((response) => {
-            response = JSON.parse(response);
-            const catalogSort = response.sort(function (a, b) {
+
+        let url1 = `${baseURL}/api/apps/catalog/${language === "zh_CN" ? "zh" : "en"}`;
+        let url2 = `${baseURL}/api/apps/available/${language === "zh_CN" ? "zh" : "en"}`;
+
+        Promise.all([
+            fetch(url1, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'x-api-key': await getApiKey()
+                }
+            }).then(response => response.json()),
+            fetch(url2, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'x-api-key': await getApiKey()
+                }
+            }).then(response => response.json())
+        ]).then(([catalogResponse, productResponse]) => {
+            const catalogSort = catalogResponse.sort(function (a, b) {
                 if (a.position === null && b.position === null) {
                     return 0;
                 } else if (a.position === null) {
@@ -477,26 +478,13 @@ const AppStore = (): React$Element<React$FragmentType> => {
                 }
             });
             setMainCatalogs(catalogSort);
+            setApps(productResponse);
+            setAppList(productResponse);
         }).catch((error) => {
-            console.log(error);
-            return <p>Error: Failed to fetch directory data </p>;
+            setDataError(true);
         });
 
-        cockpit.http({
-            "address": "websoft9-apphub",
-            "port": 8080,
-            "headers": {
-                'x-api-key': await getApiKey()
-            }
-        }).request({ path: `/apps/available/${language === "zh_CN" ? "zh" : "en"}`, method: "GET", body: "" }).then((response) => {
-            console.log(response);
-            response = JSON.parse(response);
-            setApps(response);
-            setAppList(response);
-        }).catch((error) => {
-            console.log(error);
-            return <p>Error: Failed to fetch product data </p>;
-        });
+
         setLoading(false);
     }, [language, getApiKey]);
 
@@ -505,7 +493,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     }, [getData]);
 
     if (loading) return <Spinner className='dis_mid' />
-    // if (dataError) return <p>Error : ${dataError.message} </p>;
+    if (dataError) return <p>Error : {dataError?.message || "Fetch Data Error"} </p>;
 
     //用于显示应用详情的弹窗
     const handleClick = (product) => {
