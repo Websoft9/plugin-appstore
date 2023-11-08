@@ -370,7 +370,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                                     <Form.Group as={Row}>
                                         {
                                             !hasCreacteDomain &&
-                                            <Col sm={2} style={{ paddingRight: 0 }}>
+                                            <Col sm={3} style={{ paddingRight: 0 }}>
                                                 <Fab size="small" color="primary" aria-label="add" onClick={handleAddClick} variant="extended">
                                                     <AddIcon />
                                                     <span>{_("Add Domain")}</span>
