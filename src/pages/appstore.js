@@ -17,8 +17,6 @@ const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
 let protocol = window.location.protocol;
 let host = window.location.host;
-//const baseURL = protocol + "//" + (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
-//const rootURL = (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/.test(host) ? host.split(":")[0] : host);
 
 const baseURL = `${window.location.protocol}//${window.location.hostname}`;
 const rootURL = `${window.location.hostname}`;
@@ -27,14 +25,11 @@ const rootURL = `${window.location.hostname}`;
 const getApiKey = async () => {
     try {
         var script = "docker exec -i websoft9-apphub apphub getconfig --section api_key --key key";
-        const api_key = (await cockpit.spawn(["/bin/bash", "-c", script])).trim();
-        if (!api_key) {
-            return <p>Error: Api key is empty </p>;
-        }
-        return api_key
+        const api_key = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
+        return api_key;
     }
     catch (error) {
-        console.log(error);
+        throw new Error(error.problem || error.reason || error.message || "Get Api Key Error");
     }
 }
 
@@ -77,21 +72,20 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
 
     const handleSetClick = () => {
         let url = `settings`;
-        cockpit.file('/etc/hostname').watch(content => {
-            console.log(content);
+        cockpit.file('/etc/hosts').watch(content => {
+            cockpit.jump(url);
         });
-        cockpit.jump(url);
     }
 
     // 获取泛域名
     const getWildcardDomain = async () => {
         try {
             var script = "docker exec -i websoft9-apphub apphub getconfig --section domain --key wildcard_domain";
-            const wildcard_domain = (await cockpit.spawn(["/bin/bash", "-c", script])).trim();
+            const wildcard_domain = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
             return wildcard_domain;
         }
         catch (error) {
-            console.log(error);
+            throw new Error(error.problem || error.reason || error.message || "Get Wildcard Domain Error");
         }
     }
     //用户单击“安装”按钮
@@ -123,11 +117,35 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                         hasCreacteDomain ? [customDomain.trim()] : (domain && enabled) ? [customName.trim() + "." + domain] : [rootURL],
                 };
 
+                let api_key = null;
+                try {
+                    let api_key = await getApiKey();
+                    if (!api_key) {
+                        setDisable(false);
+                        setInstalling(false);
+                        setShowAlert(true);
+                        setAlertMessage(_("Api Key Not Set"));
+                        return;
+                    }
+                }
+                catch (error) {
+                    setDisable(false);
+                    setInstalling(false);
+                    setShowAlert(true);
+                    if (error.message.includes("permission denied")) {
+                        setAlertMessage("Permission denied");
+                    } else {
+                        setAlertMessage(error.message);
+                    }
+                    return;
+                }
+
+
                 fetch(`${baseURL}/api/apps/install`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
-                        'x-api-key': await getApiKey()
+                        'x-api-key': api_key
                     },
                     body: JSON.stringify(req_body)
                 }).then(async response => {
@@ -209,10 +227,19 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
 
     useEffect(() => {
         async function fetchDomain() {
-            const result = await getWildcardDomain();
-            setDomain(result);
+            try {
+                const result = await getWildcardDomain();
+                setDomain(result);
+            }
+            catch (error) {
+                setShowAlert(true);
+                if (error.message.includes("permission denied")) {
+                    setAlertMessage("Permission denied");
+                } else {
+                    setAlertMessage(error.message);
+                }
+            }
         }
-
         fetchDomain();
     }, []);
 
@@ -226,10 +253,9 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                             <MuiAlert variant="filled" severity="success" action={
                                 <MuiButton color="inherit" size="small" onClick={() => {
                                     let url = `myapps`;
-                                    cockpit.file('/etc/hostname').watch(content => {
-                                        console.log(content);
+                                    cockpit.file('/etc/hosts').watch(content => {
+                                        cockpit.jump(url);
                                     });
-                                    cockpit.jump(url);
                                     onClose();
                                 }
                                 }>
@@ -442,6 +468,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [appList, setAppList] = useState([]); //用于存储通过目录筛选出来的数据
     const [loading, setLoading] = useState(false);
     const [dataError, setDataError] = useState(false);
+    const [errorMesage, setErrorMessage] = useState("");//用于显示错误提示消息
     const navigate = useNavigate(); //用于页面跳转
 
     const getData = useCallback(async () => {
@@ -450,19 +477,40 @@ const AppStore = (): React$Element<React$FragmentType> => {
         let url1 = `${baseURL}/api/apps/catalog/${language === "zh_CN" ? "zh" : "en"}`;
         let url2 = `${baseURL}/api/apps/available/${language === "zh_CN" ? "zh" : "en"}`;
 
+        let api_key = null;
+        try {
+            api_key = await getApiKey();
+            if (!api_key) {
+                setLoading(false);
+                setDataError(true);
+                setErrorMessage(_("Api Key Not Set"));
+                return;
+            }
+        }
+        catch (error) {
+            setLoading(false);
+            setDataError(true);
+            if (error.message.includes("permission denied")) {
+                setErrorMessage("Permission denied");
+            } else {
+                setErrorMessage(error.message);
+            }
+            return;
+        }
+
         Promise.all([
             fetch(url1, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
-                    'x-api-key': await getApiKey()
+                    'x-api-key': api_key
                 }
             }).then(response => response.json()),
             fetch(url2, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
-                    'x-api-key': await getApiKey()
+                    'x-api-key': api_key
                 }
             }).then(response => response.json())
         ]).then(([catalogResponse, productResponse]) => {
@@ -482,8 +530,8 @@ const AppStore = (): React$Element<React$FragmentType> => {
             setAppList(productResponse);
         }).catch((error) => {
             setDataError(true);
+            setErrorMessage(error.message);
         });
-
 
         setLoading(false);
     }, [language, getApiKey]);
@@ -493,7 +541,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     }, [getData]);
 
     if (loading) return <Spinner className='dis_mid' />
-    if (dataError) return <p>Error : {dataError?.message || "Fetch Data Error"} </p>;
+    if (dataError) return <p>Error : {errorMesage || "Fetch Data Error"} </p>;
 
     //用于显示应用详情的弹窗
     const handleClick = (product) => {
