@@ -1,77 +1,69 @@
 import axios from 'axios';
-import { Navigate } from "react-router-dom";
+import cockpit from 'cockpit';
 
-// 定义一个全局变量来存储 config.json 的内容
-let credentials;
+// content type
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.baseURL = `${window.location.protocol}//${window.location.hostname}/api`;
 
-async function getCredentials() {
-    // 如果 credentials 不存在，就从 config.json 中获取它
-    if (!credentials) {
-        const response = await fetch('../myapps/config.json');
-        const data = await response.json();
-        const userName = data.APPMANAGE.APPMANAGE_USERNAME;
-        const uerPassword = data.APPMANAGE.APPMANAGE_PASSWORD;
-        credentials = btoa(userName + ":" + uerPassword);
+const getApiKey = async () => {
+    try {
+        var script = "docker exec -i websoft9-apphub apphub getconfig --section api_key --key key";
+        const api_key = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
+        if (!api_key) {
+            throw new Error(" Api Key Not Set");
+        }
+        return api_key
     }
-    // 返回 credentials
-    return credentials;
+    catch (error) {
+        const errorText = [error.problem, error.reason, error.message]
+            .filter(item => typeof item === 'string')
+            .join(' ');
+
+        if (errorText.includes("permission denied")) {
+            throw new Error("Permission denied");
+        }
+        else {
+            throw new Error(errorText || "Get The Apphub's Api Key Error");
+        }
+    }
 }
 
-// 设置 axios 的默认配置
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.get['Content-Type'] = 'application/json';
-axios.defaults.headers.common['Cache-Control'] = 'no-cache';
-axios.defaults.headers.common['Pragma'] = 'no-cache';
-axios.defaults.headers.common['Expires'] = '0';
-
-// 拦截响应以捕获错误
+// intercepting to capture errors
 axios.interceptors.response.use(
     (response) => {
-        return response;
+        if (response.status === 200) {
+            return response.data;
+        }
+        // else if (response.status === 204) {
+        //     return null;
+        // }
     },
     (error) => {
-        // 任何不在 2xx 范围内的状态码都会触发这个函数
-        let message;
-
-        if (error && error.response && error.response.status === 404) {
-            <Navigate to="/error-404" />
-        } else if (error && error.response && error.response.status === 500) {
-            <Navigate to="/error-500" />
-        } else {
-            message = error.response && error.response.data ? error.response.data['message'] : error.message || error;
-            return Promise.reject(message);
-        }
+        error.message = error.response?.data?.details || error.message || "Unknown Error";
+        return Promise.reject(error);
     }
 );
 
 class APICore {
-    /**
-    * Fetches data from given url
-    */
+
     get = async (url, params) => {
-        // 等待获取凭证并设置授权头
-        axios.defaults.headers.common['Authorization'] = 'Basic ' + await getCredentials();
-        let response;
-        if (params) {
-            var queryString = params
-                ? Object.keys(params)
-                    .map((key) => key + '=' + params[key])
-                    .join('&')
-                : '';
-            response = axios.get(`${url}?${queryString}`, params);
-        } else {
-            response = axios.get(`${url}`, params);
-        }
-        return response;
+        axios.defaults.headers.common['x-api-key'] = await getApiKey();
+        return axios.get(url, { params });
     };
 
-    /**
-    * post given data to url
-    */
-    create = async (url, data) => {
-        // 等待获取凭证并设置授权头
-        axios.defaults.headers.common['Authorization'] = 'Basic ' + await getCredentials();
-        return axios.post(url, data);
+    post = async (url, params, data) => {
+        axios.defaults.headers.common['x-api-key'] = await getApiKey();
+        return axios.post(url, data, { params });
+    };
+
+    put = async (url, params, data) => {
+        axios.defaults.headers.common['x-api-key'] = await getApiKey();
+        return axios.put(url, data, { params });
+    };
+
+    delete = async (url, params) => {
+        axios.defaults.headers.common['x-api-key'] = await getApiKey();
+        return axios.delete(url, { params });
     };
 }
 

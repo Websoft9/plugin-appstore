@@ -1,9 +1,6 @@
 // @flow
-import {
-    AppInstall, AppStoreUpdate
-} from './appManager';
+import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection } from './appHub';
 
 export {
-    AppInstall, AppStoreUpdate
+    AppAvailable, AppCatalog, AppInstall, GetSettingsBySection
 };
-

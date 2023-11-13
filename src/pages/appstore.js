@@ -12,6 +12,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from "react-router-dom";
 import DefaultImg from '../assets/images/default.png';
 import FormInput from '../components/FormInput';
+import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection } from '../helpers';
 
 const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
@@ -21,17 +22,6 @@ let host = window.location.host;
 const baseURL = `${window.location.protocol}//${window.location.hostname}`;
 const rootURL = `${window.location.hostname}`;
 
-// 获取Api Key
-const getApiKey = async () => {
-    try {
-        var script = "docker exec -i websoft9-apphub apphub getconfig --section api_key --key key";
-        const api_key = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
-        return api_key;
-    }
-    catch (error) {
-        throw new Error(error.problem || error.reason || error.message || "Get Api Key Error");
-    }
-}
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -80,14 +70,15 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     // 获取泛域名
     const getWildcardDomain = async () => {
         try {
-            var script = "docker exec -i websoft9-apphub apphub getconfig --section domain --key wildcard_domain";
-            const wildcard_domain = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
+            const domainResponse = await GetSettingsBySection("domain");
+            const wildcard_domain = domainResponse?.wildcard_domain;
             return wildcard_domain;
         }
         catch (error) {
-            throw new Error(error.problem || error.reason || error.message || "Get Wildcard Domain Error");
+            throw new Error(error.message || "Get Wildcard Domain Error");
         }
     }
+
     //用户单击“安装”按钮
     async function handleInstallClick() {
         if (!visible) {
@@ -117,53 +108,18 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                         hasCreacteDomain ? [customDomain.trim()] : (domain && enabled) ? [customName.trim() + "." + domain] : [rootURL],
                 };
 
-                let api_key = null;
                 try {
-                    let api_key = await getApiKey();
-                    if (!api_key) {
-                        setDisable(false);
-                        setInstalling(false);
-                        setShowAlert(true);
-                        setAlertMessage(_("Api Key Not Set"));
-                        return;
-                    }
+                    await AppInstall({}, req_body);
+                    setDisable(false);
+                    setInstalling(false);
+                    setInstallSuccess(true);
                 }
                 catch (error) {
                     setDisable(false);
                     setInstalling(false);
                     setShowAlert(true);
-                    if (error.message.includes("permission denied")) {
-                        setAlertMessage("Permission denied");
-                    } else {
-                        setAlertMessage(error.message);
-                    }
-                    return;
-                }
-
-
-                fetch(`${baseURL}/api/apps/install`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf-8',
-                        'x-api-key': api_key
-                    },
-                    body: JSON.stringify(req_body)
-                }).then(async response => {
-                    const data = await response.json();
-                    if (response.status === 200) {
-                        setDisable(false);
-                        setInstalling(false);
-                        setInstallSuccess(true);
-                    }
-                    else {
-                        throw new Error(data.details);
-                    }
-                }).catch((error) => {
-                    setDisable(false);
-                    setInstalling(false);
-                    setShowAlert(true);
                     setAlertMessage(error.message);
-                });
+                }
             }
             return;
         }
@@ -233,11 +189,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
             }
             catch (error) {
                 setShowAlert(true);
-                if (error.message.includes("permission denied")) {
-                    setAlertMessage("Permission denied");
-                } else {
-                    setAlertMessage(error.message);
-                }
+                setAlertMessage(error.message);
             }
         }
         fetchDomain();
@@ -474,45 +426,9 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const getData = useCallback(async () => {
         setLoading(true);
 
-        let url1 = `${baseURL}/api/apps/catalog/${language === "zh_CN" ? "zh" : "en"}`;
-        let url2 = `${baseURL}/api/apps/available/${language === "zh_CN" ? "zh" : "en"}`;
-
-        let api_key = null;
-        try {
-            api_key = await getApiKey();
-            if (!api_key) {
-                setLoading(false);
-                setDataError(true);
-                setErrorMessage(_("Api Key Not Set"));
-                return;
-            }
-        }
-        catch (error) {
-            setLoading(false);
-            setDataError(true);
-            if (error.message.includes("permission denied")) {
-                setErrorMessage("Permission denied");
-            } else {
-                setErrorMessage(error.message);
-            }
-            return;
-        }
-
         Promise.all([
-            fetch(url1, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'x-api-key': api_key
-                }
-            }).then(response => response.json()),
-            fetch(url2, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'x-api-key': api_key
-                }
-            }).then(response => response.json())
+            AppCatalog(language === "zh_CN" ? "zh" : "en"),
+            AppAvailable(language === "zh_CN" ? "zh" : "en")
         ]).then(([catalogResponse, productResponse]) => {
             const catalogSort = catalogResponse.sort(function (a, b) {
                 if (a.position === null && b.position === null) {
@@ -534,7 +450,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
         });
 
         setLoading(false);
-    }, [language, getApiKey]);
+    }, [language]);
 
     useEffect(() => {
         getData();
