@@ -1,3 +1,5 @@
+## 0.0.8 release on 2023-11-13
+1. update nginx config
 ## 0.0.8 release on 2023-11-08
 1. update nginx config
 ## 0.0.8 release on 2023-11-08
