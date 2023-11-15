@@ -1,1 +1,1 @@
-1. update nginx config
+1. improve githubaction
