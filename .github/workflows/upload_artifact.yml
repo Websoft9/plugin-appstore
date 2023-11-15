@@ -87,7 +87,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-         files: |
+          files: |
             appstore.json
           tag_name: ${{ steps.convert_version.outputs.VERSION }}
           title: Release-${{ steps.convert_version.outputs.VERSION }}
