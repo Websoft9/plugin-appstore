@@ -5,7 +5,7 @@
 **Frontend**  
 
 - ui: ?
-- js framework: React ***
+- js framework: Create React App
 - template: ?
 
 **Backend API**  
