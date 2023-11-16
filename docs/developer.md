@@ -4,9 +4,9 @@
 
 **Frontend**  
 
-- ui: ?
-- js framework: Create React App
-- template: ?
+- ui: react-bootstrap, mui
+- js framework: [Create React App](https://create-react-app.dev/docs/documentation-intro)
+- template: no use
 
 **Backend API**  
 
