@@ -19,7 +19,7 @@ wget https://websoft9.github.io/websoft9/scripts/update_zip.sh && bash ./update_
 
 ## Development
 
-See Developer.md for details about how to efficiently change the code, run, and test it.
+See [Developer.md](docs/developer.md) for details about how to efficiently change the code, run, and test it.
 
 ### Building
 
@@ -33,12 +33,18 @@ You can also triggers action workflow for building
 
 ### Release
 
+#### When
+
 Two scenarios that trigger this plugin release:
 
 * Add new functions for this plugin
 * [Websoft9](https://github.com/Websoft9/websoft9) release
 
-This creates the official release zipball and publishes as upstream release to GitHub.
+#### How
+
+You should following the standard [release process](https://github.com/Websoft9/websoft9/blob/main/docs/plugin-developer.md#release).   
+
+Every release will creates the official release zipball and publishes as upstream release to GitHub
 
 ## License
 
