@@ -4,8 +4,9 @@
 
 **Frontend**  
 
-- ui: 
-- js framework: 
+- ui: ?
+- js framework: React ***
+- template: ?
 
 **Backend API**  
 
