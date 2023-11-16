@@ -32,16 +32,14 @@ npm build
 ```
 You can also triggers action workflow for building
 
-### Automated release
+### Release
 
-Two scenarios that trigger automatic publishing:
+Two scenarios that trigger this plugin release:
 
-* Repository Onwer create release at Github
-* [docker-library](https://github.com/Websoft9/docker-library)  triggers action workflow
+* Add new functions for this plugin
+* [Websoft9](https://github.com/Websoft9/websoft9) release
 
-This creates the official release tarball and publishes as upstream release to GitHub.
-
-### 
+This creates the official release zipball and publishes as upstream release to GitHub.
 
 ## License
 
