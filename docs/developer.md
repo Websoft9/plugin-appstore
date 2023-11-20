@@ -4,7 +4,7 @@
 
 **Frontend**  
 
-- ui: react-bootstrap, mui, classnames
+- ui: [react-bootstrap](https://react-bootstrap.github.io/), [mui](https://v4.mui.com)
 - js framework: [Create React App](https://create-react-app.dev/docs/documentation-intro)
 - template: no use
 
@@ -12,6 +12,11 @@
 
 - apphub: this is for application deployment and storage application master data
 - cockpit: this is for running command at host machine
+
+related classes:
+
+- src/helpers/api/apiCore.js (connect cockpit)
+- src/helpers/api/appHub.js
 
 
 ## Build and Test
