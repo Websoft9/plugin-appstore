@@ -6,6 +6,10 @@ cockpit.locale({
     },
     "W9_HTTP_PORT_SET": [
         null,
-        "Http Port"
+        "Application HTTP Port"
+    ],
+    "W9_DB_PORT_SET": [
+        null,
+        "Database Port"
     ]
 });
