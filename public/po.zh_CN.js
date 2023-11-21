@@ -331,6 +331,14 @@ cockpit.locale({
     "Done": [
         null,
         "确定"
+    ],
+    "W9_HTTP_PORT_SET": [
+        null,
+        "应用 HTTP 端口"
+    ],
+    "W9_DB_PORT_SET": [
+        null,
+        "数据库端口"
     ]
 });
 
