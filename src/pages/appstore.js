@@ -6,9 +6,10 @@ import Fab from '@mui/material/Fab';
 import Snackbar from '@mui/material/Snackbar';
 import Stack from '@mui/material/Stack';
 import cockpit from 'cockpit';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
+import LazyLoad from 'react-lazyload';
 import { useNavigate } from "react-router-dom";
 import DefaultImg from '../assets/images/default.png';
 import FormInput from '../components/FormInput';
@@ -82,16 +83,16 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     //用户单击“安装”按钮
     async function handleInstallClick() {
         if (!visible) {
-            setInstalling(true);
+            //setInstalling(true);
             if (!customName || customName.length < 2 || customName.length > 20 || /^\d/.test(customName)) { //判断用户是否输入应用名称
                 setShowAlert(true);
                 setAlertMessage(_("Please enter a custom application name between 2 and 20 characters.Cannot start with a number."))
-                setInstalling(false);
+                //setInstalling(false);
             }
             else if (hasCreacteDomain && !customDomain) {
                 setShowAlert(true);
                 setAlertMessage(_("Please enter a custom domain name."))
-                setInstalling(false);
+                //setInstalling(false);
             }
             else {
                 setDisable(true);
@@ -110,9 +111,11 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
 
                 try {
                     await AppInstall({}, req_body);
-                    setDisable(false);
-                    setInstalling(false);
-                    setInstallSuccess(true);
+                    onClose();
+                    cockpit.file('/etc/hosts').watch(content => {
+                        let url = `myapps`;
+                        cockpit.jump(url);
+                    });
                 }
                 catch (error) {
                     setDisable(false);
@@ -423,9 +426,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [errorMesage, setErrorMessage] = useState("");//用于显示错误提示消息
     const navigate = useNavigate(); //用于页面跳转
 
-    const getData = useCallback(async () => {
-        setLoading(true);
-
+    const getData = async () => {
         Promise.all([
             AppCatalog(language === "zh_CN" ? "zh" : "en"),
             AppAvailable(language === "zh_CN" ? "zh" : "en")
@@ -448,16 +449,21 @@ const AppStore = (): React$Element<React$FragmentType> => {
             setDataError(true);
             setErrorMessage(error.message);
         });
-
-        setLoading(false);
-    }, [language]);
+    }
 
     useEffect(() => {
-        getData();
-    }, [getData]);
+        const fetchData = async () => {
+            setLoading(true);
+            await getData();
+            setLoading(false);
+        };
 
-    if (loading) return <Spinner className='dis_mid' />
-    if (dataError) return <p>Error : {errorMesage || "Fetch Data Error"} </p>;
+        fetchData();
+    }, []);
+
+
+    //if (loading) return <Spinner className='dis_mid' />
+    // if (dataError) return <p>Error : {errorMesage || "Fetch Data Error"} </p>;
 
     //用于显示应用详情的弹窗
     const handleClick = (product) => {
@@ -534,84 +540,88 @@ const AppStore = (): React$Element<React$FragmentType> => {
     }
 
     return (
-        <>
-            <Row className="mb-2">
-                <Col sm={6}>
-                    <Form.Group as={Row}>
+        loading ? <Spinner className='dis_mid' /> :
+            dataError ? <p>Error : {errorMesage || "Fetch Data Error"} </p> :
+                <>
+                    <Row className="mb-2">
                         <Col sm={6}>
-                            <FormInput
-                                name="select1"
-                                type="select"
-                                className="form-select"
-                                key="select1"
-                                onChange={(e) => changeMainCatalog(e.target.value)}>
-                                <option value="All" selected={isAllSelected}>{_("All")}</option>
-                                {
-                                    (mainCatalogs || []).map((item, i) => {
-                                        return (
-                                            <option value={item?.key} key={item?.key + i}>{item?.title}</option>
-                                        );
-                                    })
-                                }
-                            </FormInput>
+                            <Form.Group as={Row}>
+                                <Col sm={6}>
+                                    <FormInput
+                                        name="select1"
+                                        type="select"
+                                        className="form-select"
+                                        key="select1"
+                                        onChange={(e) => changeMainCatalog(e.target.value)}>
+                                        <option value="All" selected={isAllSelected}>{_("All")}</option>
+                                        {
+                                            (mainCatalogs || []).map((item, i) => {
+                                                return (
+                                                    <option value={item?.key} key={item?.key + i}>{item?.title}</option>
+                                                );
+                                            })
+                                        }
+                                    </FormInput>
+                                </Col>
+                                <Col sm={6}>
+                                    <FormInput
+                                        name="select2"
+                                        type="select"
+                                        className="form-select"
+                                        key="select2"
+                                        onChange={(e) => changeSubCatalog(e.target.value)}>
+                                        <option value="All">{_("All")}</option>
+                                        {
+                                            (subCatalogs || []).map((item, i) => {
+                                                return (
+                                                    <option value={item?.key} key={item?.key + i}>{item?.title}</option>
+                                                );
+                                            })
+                                        }
+                                    </FormInput>
+                                </Col>
+                            </Form.Group>
                         </Col>
                         <Col sm={6}>
-                            <FormInput
-                                name="select2"
-                                type="select"
-                                className="form-select"
-                                key="select2"
-                                onChange={(e) => changeSubCatalog(e.target.value)}>
-                                <option value="All">{_("All")}</option>
-                                {
-                                    (subCatalogs || []).map((item, i) => {
-                                        return (
-                                            <option value={item?.key} key={item?.key + i}>{item?.title}</option>
-                                        );
-                                    })
-                                }
-                            </FormInput>
+                            <Col xs="auto">
+                                <FormInput type="text" name="search"
+                                    placeholder={_("Search for apps like WordPress, MySQL, GitLab, …")}
+                                    value={searchValue}
+                                    onChange={(e) => handleInputChange(e.target.value)} />
+                            </Col>
                         </Col>
-                    </Form.Group>
-                </Col>
-                <Col sm={6}>
-                    <Col xs="auto">
-                        <FormInput type="text" name="search"
-                            placeholder={_("Search for apps like WordPress, MySQL, GitLab, …")}
-                            value={searchValue}
-                            onChange={(e) => handleInputChange(e.target.value)} />
-                    </Col>
-                </Col>
-            </Row>
-            <Row>
-                {(appList || []).map((app, i) => {
-                    const imagName = app?.logo?.imageurl?.split("/").pop();
-                    return (
-                        <Col xxl={3} sm={6} md={4} key={"app-" + i} className="appstore-item">
-                            <div className='appstore-item-content highlight' onClick={() => { handleClick(app) }}>
-                                <div className='appstore-item-content-icon col-same-height'>
-                                    <img
-                                        src={`${baseURL}/media/logos/${imagName}`}
-                                        alt={imagName}
-                                        className="app-icon"
-                                        onError={(e) => (e.target.src = DefaultImg)}
-                                    />
-                                </div>
-                                <div className='col-same-height' style={{ textAlign: "initial" }}>
-                                    <h4 className="appstore-item-content-title">
-                                        {app?.trademark}
-                                    </h4>
-                                    <div className='appstore-item-content-tagline text-muted'>
-                                        {app?.summary}
+                    </Row>
+                    <Row>
+                        {(appList || []).map((app, i) => {
+                            const imagName = app?.logo?.imageurl?.split("/").pop();
+                            return (
+                                <Col xxl={3} sm={6} md={4} key={"app-" + i} className="appstore-item">
+                                    <div className='appstore-item-content highlight' onClick={() => { handleClick(app) }}>
+                                        <div className='appstore-item-content-icon col-same-height'>
+                                            <LazyLoad>
+                                                <img
+                                                    src={`${baseURL}/media/logos/${imagName}`}
+                                                    alt={imagName}
+                                                    className="app-icon"
+                                                    onError={(e) => (e.target.src = DefaultImg)}
+                                                />
+                                            </LazyLoad>
+                                        </div>
+                                        <div className='col-same-height' style={{ textAlign: "initial" }}>
+                                            <h4 className="appstore-item-content-title">
+                                                {app?.trademark}
+                                            </h4>
+                                            <div className='appstore-item-content-tagline text-muted'>
+                                                {app?.summary}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </Col>
-                    );
-                })}
-            </Row>
-            {showModal && <AppDetailModal product={selectedProduct} showFlag={showModal} onClose={handleClose} />}
-        </>
+                                </Col>
+                            );
+                        })}
+                    </Row>
+                    {showModal && <AppDetailModal product={selectedProduct} showFlag={showModal} onClose={handleClose} />}
+                </>
     );
 };
 
