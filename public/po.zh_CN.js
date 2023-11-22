@@ -346,7 +346,7 @@ cockpit.locale({
     ],
     "W9_DB_PORT_SET": [
         null,
-        "数据库端口"
+        "应用数据库端口"
     ]
 });
 
