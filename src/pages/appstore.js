@@ -1,10 +1,8 @@
 // @flow
 import AddIcon from '@mui/icons-material/Add';
 import MuiAlert from '@mui/material/Alert';
-import MuiButton from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import Snackbar from '@mui/material/Snackbar';
-import Stack from '@mui/material/Stack';
 import cockpit from 'cockpit';
 import React, { useEffect, useState } from 'react';
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
@@ -31,7 +29,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 //应用详情弹窗
 const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [index, setIndex] = useState(0); //用户图片浏览
-    const navigate = useNavigate(); //用于页面跳转
     const [visible, setVisible] = useState(true); //用于显示安装选项：版本和应用名称
     const [customName, setCustomName] = useState(""); //用户存储用户输入的应用名称
     const [showAlert, setShowAlert] = useState(false); //用于是否显示错误提示
@@ -41,8 +38,15 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [enabled, setEnabled] = useState(true);// 使用 useState 钩子来定义一个 state，表示文本框是否启用
     const [hasCreacteDomain, setHasCreacteDomain] = useState(false);//是否创建自定义域名
     const [customDomain, setCustomDomain] = useState("");//自定义域名
-    const [installing, setInstalling] = useState(false);//是否正在安装
-    const [installSuccess, setInstallSuccess] = useState(false);//是否安装成功
+    const [showSetting, setShowSetting] = useState(false); //是否显示设置
+    const [inputValues, setInputValues] = useState(product?.settings || {});
+
+    const handleSettingsInputChange = (key, newValue) => {
+        setInputValues({
+            ...inputValues,
+            [key]: newValue,
+        });
+    };
 
     // 定义一个函数，当用户点击开关时，改变 state 的值
     const handleToggle = () => {
@@ -83,18 +87,57 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     //用户单击“安装”按钮
     async function handleInstallClick() {
         if (!visible) {
-            //setInstalling(true);
+            let isValid = true;
+
             if (!customName || customName.length < 2 || customName.length > 20 || /^\d/.test(customName)) { //判断用户是否输入应用名称
                 setShowAlert(true);
                 setAlertMessage(_("Please enter a custom application name between 2 and 20 characters.Cannot start with a number."))
-                //setInstalling(false);
+                isValid = false;
             }
             else if (hasCreacteDomain && !customDomain) {
                 setShowAlert(true);
                 setAlertMessage(_("Please enter a custom domain name."))
-                //setInstalling(false);
+                isValid = false;
             }
-            else {
+            else if (Object.keys(inputValues).length > 0) {
+                const portValues = Object.keys(inputValues)
+                    .filter(key => key.includes('PORT'))
+                    .map(key => inputValues[key]);
+
+                for (const value of portValues) {
+                    if (isNaN(value) || value < 1024 || value > 65535) {
+                        setShowAlert(true);
+                        setAlertMessage(_("Port must between 1024 and 65535."));
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                if (isValid) {
+                    var script = "bash /data/websoft9/scripts/check_ports.sh --port " + portValues.join(",");
+                    try {
+                        const no_validate_ports = await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
+                        if (no_validate_ports != 0) {
+                            setShowAlert(true);
+                            setAlertMessage(cockpit.format(_("Port: $0 is already in use."), no_validate_ports));
+                            isValid = false;
+                        }
+                    }
+                    catch (error) {
+                        const errorText = [error.problem, error.reason, error.message]
+                            .filter(item => typeof item === 'string')
+                            .join(' ');
+                        let exception = errorText || "Validation Port Error";
+                        if (errorText.includes("permission denied")) {
+                            exception = "Permission denied";
+                        }
+                        setShowAlert(true);
+                        setAlertMessage(exception);
+                        isValid = false;
+                    }
+                }
+            }
+            if (isValid) {
                 setDisable(true);
 
                 let req_body = {
@@ -107,6 +150,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     "proxy_enabled": ((domain && enabled) || hasCreacteDomain) ? true : false,
                     "domain_names": (hasCreacteDomain && enabled && domain) ? [customDomain.trim(), customName.trim() + "." + domain] :
                         hasCreacteDomain ? [customDomain.trim()] : (domain && enabled) ? [customName.trim() + "." + domain] : [rootURL],
+                    "settings": inputValues
                 };
 
                 try {
@@ -119,7 +163,6 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 }
                 catch (error) {
                     setDisable(false);
-                    setInstalling(false);
                     setShowAlert(true);
                     setAlertMessage(error.message);
                 }
@@ -140,6 +183,8 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [selectedVersion, setselectedVersion] = useState(versionList[0]); //存储用户选择的安装版本
 
     const imagName = product?.logo?.imageurl?.split("/").pop(); //获取图片名称
+
+    const is_web_app = product?.is_web_app //判断是否是web应用
 
     const changeVersion = (version) => {
         setselectedVersion(version);
@@ -180,10 +225,6 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
         setAlertMessage("");
     };
 
-    const handleDialogClose = () => {
-        setInstallSuccess(false);
-    };
-
     useEffect(() => {
         async function fetchDomain() {
             try {
@@ -198,41 +239,13 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
         fetchDomain();
     }, []);
 
+    useEffect(() => {
+        setInputValues(product?.settings || {});
+    }, [product?.settings]);
+
     return (
         <>
             <Modal show={showFlag} onHide={onClose} size="lg" scrollable="true" backdrop="static">
-                {
-                    installSuccess &&
-                    <div className="card-disabled" style={{ zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                        <Stack sx={{ width: '50%' }} spacing={2}>
-                            <MuiAlert variant="filled" severity="success" action={
-                                <MuiButton color="inherit" size="small" onClick={() => {
-                                    let url = `myapps`;
-                                    cockpit.file('/etc/hosts').watch(content => {
-                                        cockpit.jump(url);
-                                    });
-                                    onClose();
-                                }
-                                }>
-                                    {_("Done")}
-                                </MuiButton>
-                            }>
-                                {/* <AlertTitle>{_("Success")}</AlertTitle> */}
-                                {_("Installation succeeded")}
-                            </MuiAlert>
-                        </Stack>
-                    </div >
-                }
-                {
-                    installing && (
-                        <div className="card-disabled" style={{ zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                            <Spinner className='dis_mid' />
-                            <div style={{ marginTop: '10px' }}>
-                                <span className="sr-only" style={{ fontSize: "18px" }}>{_("Installing...")}</span>
-                            </div>
-                        </div>
-                    )
-                }
                 <Modal.Header onHide={onClose} closeButton>
                     <div style={{ padding: "10px" }}>
                         <div className='appstore-item-content-icon col-same-height'>
@@ -290,8 +303,92 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     </div>
                     <div style={{ display: visible ? "none" : "block" }}>
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                            <div>
-                                <span style={{ marginRight: "5px" }}>{_("Version")} :</span>
+                            <div style={{ marginTop: "5px" }}>
+                                <Form.Group as={Row}>
+                                    <span style={{ marginRight: "5px" }}>{_("App Name")} :</span>
+                                    <Col sm={is_web_app ? 8 : 12} style={is_web_app ? { paddingRight: 0 } : {}}>
+                                        <FormInput type="text" value={customName} name="app_Name"
+                                            placeholder={_("Only letters and numbers from 2 to 20 are allowed. No special characters.")}
+                                            onChange={(e) => { handleInputChange(e.target.value) }} />
+                                    </Col>
+                                    {
+                                        is_web_app && (
+                                            domain ?
+                                                <Col sm={4} style={{ paddingLeft: 0 }}>
+                                                    <Form>
+                                                        <Form.Group controlId="formBasicEmail">
+                                                            <div className="input-with-button">
+                                                                <Form.Control
+                                                                    type="text"
+                                                                    placeholder={"." + domain}
+                                                                    disabled={!enabled}
+                                                                    value={"." + domain}
+                                                                    className={enabled ? "" : "deleted"}
+                                                                />
+                                                                <Button
+                                                                    variant={enabled ? "danger" : "success"}
+                                                                    onClick={handleToggle}
+                                                                >
+                                                                    {enabled ? _("Disable") : _("Enable")}
+                                                                </Button>
+                                                            </div>
+                                                        </Form.Group>
+                                                    </Form>
+                                                </Col>
+                                                :
+                                                <Col sm={4} className="d-flex justify-content-center">
+                                                    <Fab size="small" color="primary" aria-label="add" onClick={handleSetClick} variant="extended" >
+                                                        <AddIcon />
+                                                        <span>{_("Set global domain name")}</span>
+                                                    </Fab>
+                                                </Col>
+                                        )
+                                    }
+                                </Form.Group>
+                                {
+                                    is_web_app &&
+                                    <div style={{ marginTop: '5px' }}>
+                                        <Form.Group as={Row}>
+                                            {
+                                                !hasCreacteDomain &&
+                                                <Col sm={3} style={{ paddingRight: 0 }}>
+                                                    <Fab size="small" color="primary" aria-label="add" onClick={handleAddClick} variant="extended">
+                                                        <AddIcon />
+                                                        <span>{_("Add Domain")}</span>
+                                                    </Fab>
+                                                </Col>
+                                            }
+                                            <Col sm={12}>
+                                                {
+                                                    hasCreacteDomain &&
+                                                    <>
+                                                        <span style={{ marginRight: "5px" }}>{_("Domain")} :</span>
+                                                        <Form>
+                                                            <Form.Group controlId="formBasicEmail">
+                                                                <div className="input-with-button">
+                                                                    <FormInput type="text" name="custom_domain"
+                                                                        placeholder={_("Please enter a custom domain name.")}
+                                                                        value={customDomain}
+                                                                        onChange={(e) => { handleDomainInputChange(e.target.value) }} />
+                                                                    <Button
+                                                                        variant="danger"
+                                                                        onClick={handleDelClick}
+                                                                    >
+                                                                        {_("Delete")}
+                                                                    </Button>
+                                                                </div>
+                                                            </Form.Group>
+                                                        </Form>
+                                                    </>
+                                                }
+                                            </Col>
+                                        </Form.Group>
+                                    </div>
+                                }
+
+                            </div>
+                            <div style={{ marginTop: "5px" }}>
+                                <span style={{ marginRight: "5px" }}>{_("App Version")} :</span>
                                 {
                                     versionList && <FormInput
                                         name="select"
@@ -307,84 +404,22 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                                     </FormInput>
                                 }
                             </div>
-                            <div style={{ marginTop: "5px" }}>
-                                <Form.Group as={Row}>
-                                    <span style={{ marginRight: "5px" }}>{_("Name")} :</span>
-                                    <Col sm={8} style={{ paddingRight: 0 }}>
-                                        <FormInput type="text" value={customName} name="app_Name"
-                                            placeholder={_("Only letters and numbers from 2 to 20 are allowed. No special characters.")}
-                                            onChange={(e) => { handleInputChange(e.target.value) }} />
-                                    </Col>
-                                    {
-                                        domain ?
-                                            <Col sm={4} style={{ paddingLeft: 0 }}>
-                                                <Form>
-                                                    <Form.Group controlId="formBasicEmail">
-                                                        <div className="input-with-button">
-                                                            <Form.Control
-                                                                type="text"
-                                                                placeholder={"." + domain}
-                                                                disabled={!enabled}
-                                                                value={"." + domain}
-                                                                className={enabled ? "" : "deleted"}
-                                                            />
-                                                            <Button
-                                                                variant={enabled ? "danger" : "success"}
-                                                                onClick={handleToggle}
-                                                            >
-                                                                {enabled ? _("Disable") : _("Enable")}
-                                                            </Button>
-                                                        </div>
-                                                    </Form.Group>
-                                                </Form>
-                                            </Col>
-                                            :
-                                            <Col sm={4} className="d-flex justify-content-center">
-                                                <Fab size="small" color="primary" aria-label="add" onClick={handleSetClick} variant="extended" >
-                                                    <AddIcon />
-                                                    <span>{_("Set global domain name")}</span>
-                                                </Fab>
-                                            </Col>
-                                    }
-                                </Form.Group>
-                                <div style={{ marginTop: '5px' }}>
-                                    <Form.Group as={Row}>
-                                        {
-                                            !hasCreacteDomain &&
-                                            <Col sm={3} style={{ paddingRight: 0 }}>
-                                                <Fab size="small" color="primary" aria-label="add" onClick={handleAddClick} variant="extended">
-                                                    <AddIcon />
-                                                    <span>{_("Add Domain")}</span>
-                                                </Fab>
-                                            </Col>
-                                        }
-                                        <Col sm={12}>
+                            {
+                                Object.keys(product?.settings || {}).map((key, index) => {
+                                    return (
+                                        <div style={{ marginTop: "5px" }}>
+                                            <span style={{ marginRight: "5px" }}>{_(key)} :</span>
                                             {
-                                                hasCreacteDomain &&
-                                                <>
-                                                    <span style={{ marginRight: "5px" }}>{_("Domain")} :</span>
-                                                    <Form>
-                                                        <Form.Group controlId="formBasicEmail">
-                                                            <div className="input-with-button">
-                                                                <FormInput type="text" name="custom_domain"
-                                                                    placeholder={_("Please enter a custom domain name.")}
-                                                                    value={customDomain}
-                                                                    onChange={(e) => { handleDomainInputChange(e.target.value) }} />
-                                                                <Button
-                                                                    variant="danger"
-                                                                    onClick={handleDelClick}
-                                                                >
-                                                                    {_("Delete")}
-                                                                </Button>
-                                                            </div>
-                                                        </Form.Group>
-                                                    </Form>
-                                                </>
+                                                <FormInput name={key} type="text" key={key}
+                                                    value={inputValues[key] ?? product?.settings[key]}
+                                                    onChange={(e) => handleSettingsInputChange(key, e.target.value)}
+                                                >
+                                                </FormInput>
                                             }
-                                        </Col>
-                                    </Form.Group>
-                                </div>
-                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </Modal.Body>
@@ -427,10 +462,14 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const navigate = useNavigate(); //用于页面跳转
 
     const getData = async () => {
-        Promise.all([
-            AppCatalog(language === "zh_CN" ? "zh" : "en"),
-            AppAvailable(language === "zh_CN" ? "zh" : "en")
-        ]).then(([catalogResponse, productResponse]) => {
+        try {
+            const responses = await Promise.all([
+                AppCatalog(language === "zh_CN" ? "zh" : "en"),
+                AppAvailable(language === "zh_CN" ? "zh" : "en")
+            ]);
+
+            const [catalogResponse, productResponse] = responses;
+
             const catalogSort = catalogResponse.sort(function (a, b) {
                 if (a.position === null && b.position === null) {
                     return 0;
@@ -442,13 +481,14 @@ const AppStore = (): React$Element<React$FragmentType> => {
                     return a.position - b.position;
                 }
             });
+
             setMainCatalogs(catalogSort);
             setApps(productResponse);
             setAppList(productResponse);
-        }).catch((error) => {
+        } catch (error) {
             setDataError(true);
             setErrorMessage(error.message);
-        });
+        }
     }
 
     useEffect(() => {

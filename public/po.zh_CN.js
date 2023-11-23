@@ -20,17 +20,17 @@ cockpit.locale({
         null,
         "文档"
     ],
-    "Version": [
+    "App Version": [
         null,
-        "版本"
+        "应用版本"
     ],
     "Requires at least": [
         null,
         "最低配置要求"
     ],
-    "Name": [
+    "App Name": [
         null,
-        "名称"
+        "应用名称"
     ],
     "Close": [
         null,
@@ -328,9 +328,17 @@ cockpit.locale({
         null,
         "安装成功"
     ],
+    "Port must between 1024 and 65535.": [
+        null,
+        "端口必须在1024-65535之间"
+    ],
     "Done": [
         null,
         "确定"
+    ],
+    "Port: $0 is already in use.": [
+        null,
+        "端口: $0 已被占用"
     ],
     "W9_HTTP_PORT_SET": [
         null,
