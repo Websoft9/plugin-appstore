@@ -344,9 +344,17 @@ cockpit.locale({
         null,
         "应用 HTTP 端口"
     ],
+    "W9_AGENT_PORT_SET": [
+        null,
+        "应用代理端口"
+    ],
+    "W9_SSH_PORT_SET": [
+        null,
+        "应用SSH端口"
+    ],
     "W9_DB_PORT_SET": [
         null,
-        "数据库端口"
+        "应用数据库端口"
     ]
 });
 
