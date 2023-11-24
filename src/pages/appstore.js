@@ -114,10 +114,10 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 }
 
                 if (isValid) {
-                    var script = "bash /data/websoft9/scripts/check_ports.sh --port " + portValues.join(",");
+                    var script = "bash /usr/share/cockpit/appstore/validate_ports.sh " + portValues.join(" ");
                     try {
                         const no_validate_ports = await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
-                        if (no_validate_ports != 0) {
+                        if (no_validate_ports.toString().trim() != "ok") {
                             setShowAlert(true);
                             setAlertMessage(cockpit.format(_("Port: $0 is already in use."), no_validate_ports));
                             isValid = false;
