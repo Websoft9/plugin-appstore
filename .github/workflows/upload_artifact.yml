@@ -22,7 +22,7 @@ jobs:
           node-version: 20.2.0
 
       - name: Install dependencies
-        run: yarn
+        run: yarn install
 
       - name: Build
         run: yarn build
