@@ -7,3 +7,5 @@ appstore
 appstore-*.zip
 artifacts
 mk.sh
+yarn.lock
+package-lock.json
