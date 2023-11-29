@@ -304,7 +304,7 @@ cockpit.locale({
         null,
         "请输入自定义域名"
     ],
-    "Set global domain name": [
+    "Set global domain": [
         null,
         "设置全局域名"
     ],

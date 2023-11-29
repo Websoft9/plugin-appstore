@@ -339,7 +339,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                                                 <Col sm={4} className="d-flex justify-content-center">
                                                     <Fab size="small" color="primary" aria-label="add" onClick={handleSetClick} variant="extended" >
                                                         <AddIcon />
-                                                        <span>{_("Set global domain name")}</span>
+                                                        <span>{_("Set global domain")}</span>
                                                     </Fab>
                                                 </Col>
                                         )
