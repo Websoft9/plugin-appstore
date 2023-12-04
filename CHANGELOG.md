@@ -1,3 +1,5 @@
+## 0.1.1-rc1 release on 2023-12-04
+1. fix version item name Community -> community
 ## 0.1.1 release on 2023-11-30
 1. improve githubaction
 ## 0.1.1-rc1 release on 2023-11-30
