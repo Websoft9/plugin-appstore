@@ -1,1 +1,1 @@
-1. fix version item name Community -> community
+1. fix W9_URL replace method
