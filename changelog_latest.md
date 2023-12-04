@@ -1,1 +1,1 @@
-1. improve githubaction
+1. fix version item name Community -> community
