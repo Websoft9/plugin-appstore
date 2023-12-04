@@ -176,7 +176,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
         setIndex(selectedIndex);
     };
 
-    let versions = (product.distribution?.filter(item => item.key === "Community") || []).map(version => { return version.value });//获取应用的版本
+    let versions = (product.distribution?.filter(item => item.key === "community") || []).map(version => { return version.value });//获取应用的版本
 
     let versionList = (versions && versions.length === 1) ? versions.toString().split(",") : versions;
 
