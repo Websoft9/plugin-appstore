@@ -19,9 +19,9 @@ do
         exit 1
     fi
 
-    # 检查参数是否在1024到65535之间
-    if [ $port -lt 1024 ] || [ $port -gt 65535 ]; then
-        echo "Error: Argument '$port' is not between 1024 and 65535."
+    # 检查参数是否在1到65535之间
+    if [ $port -lt 1 ] || [ $port -gt 65535 ]; then
+        echo "Error: Argument '$port' is not between 1 and 65535."
         exit 1
     fi
 

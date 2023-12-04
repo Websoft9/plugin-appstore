@@ -105,9 +105,9 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     .map(key => inputValues[key]);
 
                 for (const value of portValues) {
-                    if (isNaN(value) || value < 1024 || value > 65535) {
+                    if (isNaN(value) || value < 1 || value > 65535) {
                         setShowAlert(true);
-                        setAlertMessage(_("Port must between 1024 and 65535."));
+                        setAlertMessage(_("Port must between 1 and 65535."));
                         isValid = false;
                         break;
                     }

@@ -328,9 +328,9 @@ cockpit.locale({
         null,
         "安装成功"
     ],
-    "Port must between 1024 and 65535.": [
+    "Port must between 1 and 65535.": [
         null,
-        "端口必须在1024-65535之间"
+        "端口必须在1-65535之间"
     ],
     "Done": [
         null,
