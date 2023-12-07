@@ -176,7 +176,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
         setIndex(selectedIndex);
     };
 
-    let versions = (product.distribution?.filter(item => item.key === "community") || []).map(version => { return version.value });//获取应用的版本
+    let versions = (product.distribution?.filter(item => item.key.toLowerCase() === "community") || []).map(version => { return version.value });//获取应用的版本
 
     let versionList = (versions && versions.length === 1) ? versions.toString().split(",") : versions;
 
@@ -264,7 +264,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                                 <a rel="noreferrer" href={`https://support.websoft9.com/docs/` + product.key} target="_blank" style={{ color: '#2196f3' }} >{product.trademark} {_("developers")}</a>
                             </div>
                             <div style={{ display: "flex", alignItems: "center" }}>
-                                <span style={{ marginRight: "5px" }}>{_("Version")} : </span> {versions}
+                                <span style={{ marginRight: "5px" }}>{_("Version")} : </span> {versions.join(",")}
                             </div>
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <span style={{ marginRight: "5px" }}>{_("Requires at least")} : {product.vcpu} vCPU,  {product.memory}  GB memory, {product.storage} GB storage</span>

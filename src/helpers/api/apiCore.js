@@ -2,7 +2,7 @@ import axios from 'axios';
 import cockpit from 'cockpit';
 
 // content type
-axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
 axios.defaults.baseURL = `${window.location.protocol}//${window.location.hostname}/api`;
 
 const getApiKey = async () => {
