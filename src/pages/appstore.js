@@ -39,7 +39,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [hasCreacteDomain, setHasCreacteDomain] = useState(false);//是否创建自定义域名
     const [customDomain, setCustomDomain] = useState("");//自定义域名
     const [showSetting, setShowSetting] = useState(false); //是否显示设置
-    const [inputValues, setInputValues] = useState(product?.settings || {});
+    const [inputValues, setInputValues] = useState(product?.settings || {}); //用于存储用户输入的应用设置
 
     const handleSettingsInputChange = (key, newValue) => {
         setInputValues({
