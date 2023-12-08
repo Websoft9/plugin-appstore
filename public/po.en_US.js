@@ -10,14 +10,26 @@ cockpit.locale({
     ],
     "W9_AGENT_PORT_SET": [
         null,
-        "Application Agent Port"
+        "App Agent Port"
     ],
     "W9_SSH_PORT_SET": [
         null,
-        "Application SSH Port"
+        "App SSH Port"
     ],
     "W9_DB_PORT_SET": [
         null,
         "Database Port"
+    ],
+    "W9_TCP_PORT_SET": [
+        null,
+        "App TCP Port"
+    ],
+    "W9_API_PORT_SET": [
+        null,
+        "App API Port"
+    ],
+    "W9_DB_KAFKA_PORT_SET": [
+        null,
+        "KAFKA PORT"
     ]
 });
