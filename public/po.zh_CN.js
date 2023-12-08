@@ -350,10 +350,22 @@ cockpit.locale({
     ],
     "W9_SSH_PORT_SET": [
         null,
-        "应用SSH端口"
+        "应用 SSH 端口"
     ],
     "W9_DB_PORT_SET": [
         null,
         "应用数据库端口"
+    ],
+    "W9_TCP_PORT_SET": [
+        null,
+        "应用 TCP 端口"
+    ],
+    "W9_API_PORT_SET": [
+        null,
+        "应用 API 端口"
+    ],
+    "W9_DB_KAFKA_PORT_SET": [
+        null,
+        "KAFKA 端口"
     ]
 });
