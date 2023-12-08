@@ -1,7 +1,7 @@
 cockpit.locale({
     "": {
         "plural-forms": (n) => 0,
-        "language": "en-US",
+        "language": "en_US",
         "language-direction": "ltr"
     },
     "W9_HTTP_PORT_SET": [

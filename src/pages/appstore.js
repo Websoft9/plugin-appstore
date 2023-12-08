@@ -9,12 +9,14 @@ import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import LazyLoad from 'react-lazyload';
 import { useNavigate } from "react-router-dom";
-import DefaultImg from '../assets/images/default.png';
+import DefaultImgEn from '../assets/images/default_en.png';
+import DefaultImgzh from '../assets/images/default_zh.png';
 import FormInput from '../components/FormInput';
 import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection } from '../helpers';
 
 const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
+const DefaultImg = language === "zh_CN" ? DefaultImgzh : DefaultImgEn;
 let protocol = window.location.protocol;
 let host = window.location.host;
 
