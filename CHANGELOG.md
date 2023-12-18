@@ -1,3 +1,5 @@
+## 0.1.2 release on 2023-12-18
+1. fix W9_URL replace method
 ## 0.1.2-rc6 release on 2023-12-18
 1. fix W9_URL replace method
 ## 0.1.2 release on 2023-12-14
