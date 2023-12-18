@@ -31,5 +31,17 @@ cockpit.locale({
     "W9_DB_KAFKA_PORT_SET": [
         null,
         "KAFKA PORT"
+    ],
+    "W9_LOGIN_USER": [
+        null,
+        "Administrator UserName"
+    ],
+    "W9_LOGIN_PASSWORD": [
+        null,
+        "Administrator Password"
+    ],
+    "W9_LOGIN_WORKSPACE": [
+        null,
+        "Login Workspace"
     ]
 });

@@ -367,5 +367,17 @@ cockpit.locale({
     "W9_DB_KAFKA_PORT_SET": [
         null,
         "KAFKA 端口"
+    ],
+    "W9_LOGIN_USER": [
+        null,
+        "管理员用户名"
+    ],
+    "W9_LOGIN_PASSWORD": [
+        null,
+        "管理员密码"
+    ],
+    "W9_LOGIN_WORKSPACE": [
+        null,
+        "Workspace"
     ]
 });
