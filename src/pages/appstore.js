@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import LazyLoad from 'react-lazyload';
+import ReactMarkdown from 'react-markdown';
 import { useNavigate } from "react-router-dom";
 import DefaultImgEn from '../assets/images/default_en.png';
 import DefaultImgzh from '../assets/images/default_zh.png';
@@ -300,7 +301,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                         </div>
                         <div style={{ padding: "10px" }}>
                             <h4>{_("Description")}</h4>
-                            {product.description}
+                            <ReactMarkdown>{product.description}</ReactMarkdown>
                         </div>
                     </div>
                     <div style={{ display: visible ? "none" : "block" }}>
