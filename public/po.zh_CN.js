@@ -379,5 +379,17 @@ cockpit.locale({
     "W9_LOGIN_WORKSPACE": [
         null,
         "Workspace"
+    ],
+    "W9_OPENAI_API_KEY_SET": [
+        null,
+        "OPENAI API KEY"
+    ],
+    "W9_LOGIN_OPENAI_API_KEY": [
+        null,
+        "OPENAI API KEY"
+    ],
+    "W9_LOGIN_GET_PASSWORD": [
+        null,
+        "获取管理员密码"
     ]
 });
