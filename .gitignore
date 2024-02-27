@@ -6,6 +6,6 @@ build
 appstore
 appstore-*.zip
 artifacts
-mk.sh
+build.sh
 yarn.lock
 package-lock.json
