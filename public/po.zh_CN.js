@@ -138,14 +138,286 @@ cockpit.locale({
     ],
     "W9_OPENAI_API_KEY_SET": [
         null,
-        "OPENAI API KEY"
+        "OPENAI API 密钥"
     ],
     "W9_LOGIN_OPENAI_API_KEY": [
         null,
-        "OPENAI API KEY"
+        "OPENAI 登陆密码"
     ],
     "W9_LOGIN_GET_PASSWORD": [
         null,
         "获取管理员密码"
+    ],
+    "W9_EM_PORT_SET": [
+        null,
+        "邮件端口"
+    ],
+    "W9_SYSLOG_TCP_PORT_SET": [
+        null,
+        "系统日志 TCP 端口"
+    ],
+    "W9_SYSLOG_UDP_PORT_SET": [
+        null,
+        "系统日志 UDP 端口"
+    ],
+    "W9_GELE_TCP_PORT_SET": [
+        null,
+        "GELE TCP 端口"
+    ],
+    "W9_GELE_UDP_PORT_SET": [
+        null,
+        "GELE UDP 端口"
+    ],
+    "W9_TRANSFORM_PORT_SET": [
+        null,
+        "转换端口"
+    ],
+    "W9_SOLR_PORT_SET": [
+        null,
+        "APACHE SOLR 端口"
+    ],
+    "W9_AMQP_PORT_SET": [
+        null,
+        "消息队列服务端口"
+    ],
+    "W9_OPENWIRE_PORT_SET": [
+        null,
+        "消息队列 OPENWIRE 端口"
+    ],
+    "W9_STOMP_PORT_SET": [
+        null,
+        "消息队列 STOMP 端口"
+    ],
+    "W9_HTTPS_PORT_SET": [
+        null,
+        "应用 HTTPS 端口"
+    ],
+    "W9_ZOOMKEEPER_PORT_SET": [
+        null,
+        "ZOOMKEEPER 端口"
+    ],
+    "W9_GUI_PORT_SET": [
+        null,
+        "WEB页面端口"
+    ],
+    "W9_MQ_PORT_SET": [
+        null,
+        "消息队列端口"
+    ],
+    "W9_ER_PORT_SET": [
+        null,
+        "消息队列 ER 端口"
+    ],
+    "W9_DASHBOARD_PORT_SET": [
+        null,
+        "面板页面端口"
+    ],
+    "W9_DB_POSTGRES_PORT_SET": [
+        null,
+        "POSTGRES 数据库端口"
+    ],
+    "W9_CLIENT_PORT_SET": [
+        null,
+        "客户端端口"
+    ],
+    "W9_CLUSTER_PORT_SET": [
+        null,
+        "集群端口"
+    ],
+    "W9_MQTT_PORT_SET": [
+        null,
+        "MQTT 端口"
+    ],
+    "W9_RPC_PORT_SET": [
+        null,
+        "RPC 端口"
+    ],
+    "W9_UDP2_PORT_SET": [
+        null,
+        "UDP2 端口"
+    ],
+    "W9_LOGIN_PASSWORD_INIT": [
+        null,
+        "初始化密码"
+    ],
+    "W9_SCAN_PATH_SET": [
+        null,
+        "扫描路径"
+    ],
+    "W9_Alpha_HTTP_PORT_SET": [
+        null,
+        "Alpha 应用 HTTP 端口"
+    ],
+    "W9_Zero_HTTP_PORT_SET": [
+        null,
+        "Zero 应用 HTTP 端口"
+    ],
+    "W9_Alpha_gRPC_PORT_SET": [
+        null,
+        "Alpha gRPC 端口"
+    ],
+    "W9_Zero_gRPC_PORT_SET": [
+        null,
+        "Zero gRPC 端口"
+    ],
+    "W9_LOGIN_ServerURL": [
+        null,
+        "登陆服务端地址"
+    ],
+    "W9_LOGIN_Auth_Token": [
+        null,
+        "登陆认证令牌"
+    ],
+    "W9_GELF_TCP_PORT_SET": [
+        null,
+        "GELF TCP 端口"
+    ],
+    "W9_GELF_UDP_PORT_SET": [
+        null,
+        "GELF UDP 端口"
+    ],
+    "W9_Kong_Manager_PORT_SET": [
+        null,
+        "Kong 管理端口"
+    ],
+    "W9_LOGIN_APP_SECRET_TOKEN": [
+        null,
+        "应用密钥 TOKEN"
+    ],
+    "W9_LOGIN_JWT_SECRET": [
+        null,
+        "JWT 密钥"
+    ],
+    "W9_LOGIN_Oracle_SID": [
+        null,
+        "Oracle SID"
+    ],
+    "W9_LOGIN_Oracle_PDB": [
+        null,
+        "Oracle PDB"
+    ],
+    "W9_RTMP_PORT_SET": [
+        null,
+        "RTMP 端口"
+    ],
+    "W9_REMOTE_PORT_SET": [
+        null,
+        "远程端口"
+    ],
+    "W9_FLV_PORT_SET": [
+        null,
+        "FLV 端口"
+    ],
+    "W9_LOGIN_API_KEY": [
+        null,
+        "API 密钥"
+    ],
+    "W9_LOGIN_GET_TOKEN": [
+        null,
+        "获取 TOKEN 方法"
+    ],
+    "W9_LOGIN_GET_Credential": [
+        null,
+        "获取密码方法"
+    ],
+    "W9_LOGIN_SHOW_PASSWORD": [
+        null,
+        "展示登陆密码方法"
+    ],
+    "W9_UDP_PORT_SET": [
+        null,
+        "UDP 端口"
+    ],
+    "W9_KONG_ADMIN_LISTEN_PORT_SET": [
+        null,
+        "KONG 后台监听端口"
+    ],
+    "W9_KONG_MANAGER_LISTEN_PORT_SET": [
+        null,
+        "KONG 管理监听端口"
+    ],
+    "W9_ADMIN_API_PORT_SET": [
+        null,
+        "管理 API 端口"
+    ],
+    "W9_ADMIN_GUI_PORT_SET": [
+        null,
+        "管理页面端口"
+    ],
+    "W9_URI_SET": [
+        null,
+        "连接URI"
+    ],
+    "W9_TURN_PORT_SET": [
+        null,
+        "TURN 端口"
+    ],
+    "W9_TURN_PORT_RANGE_SET": [
+        null,
+        "TURN 端口范围"
+    ],
+    "W9_POSTGRESQL_URI_SET": [
+        null,
+        "POSTGRESQL 连接URI"
+    ],
+    "W9_LOGIN_RPC_PASSWORD": [
+        null,
+        "RPC 密码"
+    ],
+    "W9_LOGIN_RPC_HOST": [
+        null,
+        "RPC 主机"
+    ],
+    "W9_LOGIN_RPC_DownloadPath": [
+        null,
+        "RPC 下载路径"
+    ],
+    "W9_TURN_PORT_RANGE1_SET": [
+        null,
+        "TURN 端口范围1"
+    ],
+    "W9_TURN_PORT_RANGE2_SET": [
+        null,
+        "TURN 端口范围2"
+    ],
+    "W9_TURN_PORT_RANGE3_SET": [
+        null,
+        "TURN 端口范围3"
+    ],
+    "W9_KEY_SET": [
+        null,
+        "键"
+    ],
+    "W9_LOGIN_GET_KIBANA_TOKEN": [
+        null,
+        "KIBANA 令牌"
+    ],
+    "W9_DHT_PORT_SET": [
+        null,
+        "BT 端口"
+    ],
+    "W9_LOGIN_RPC_SECRET_PASSWORD": [
+        null,
+        "RPC 密钥"
+    ],
+    "W9_LOGIN_GET_USER": [
+        null,
+        "获取登陆用户方法"
+    ],
+    "W9_LOGIN_aria2_RPC_URL": [
+        null,
+        "ARIA2 RPC 地址"
+    ],
+    "W9_LOGIN_aria2_RPC_PORT": [
+        null,
+        "ARIA2 RPC 端口"
+    ],
+    "W9_LOGIN_aria2_RPC_SECRET_PASSWORD": [
+        null,
+        "ARIA2 RPC 密钥"
+    ],
+    "W9_KAFKA_BROKERS_SET": [
+        null,
+        "KAFKA BROKERS"
     ]
 });
