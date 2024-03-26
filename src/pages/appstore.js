@@ -107,36 +107,38 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     .filter(key => key.includes('PORT'))
                     .map(key => inputValues[key]);
 
-                for (const value of portValues) {
-                    if (isNaN(value) || value < 1 || value > 65535) {
-                        setShowAlert(true);
-                        setAlertMessage(_("Port must between 1 and 65535."));
-                        isValid = false;
-                        break;
-                    }
-                }
-
-                if (isValid) {
-                    var script = "bash /usr/share/cockpit/appstore/validate_ports.sh " + portValues.join(" ");
-                    try {
-                        const no_validate_ports = await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
-                        if (no_validate_ports.toString().trim() != "ok") {
+                if (portValues.length > 0) {
+                    for (const value of portValues) {
+                        if (isNaN(value) || value < 1 || value > 65535) {
                             setShowAlert(true);
-                            setAlertMessage(cockpit.format(_("Port: $0 is already in use."), no_validate_ports));
+                            setAlertMessage(_("Port must between 1 and 65535."));
+                            isValid = false;
+                            break;
+                        }
+                    }
+
+                    if (isValid) {
+                        var script = "bash /usr/share/cockpit/appstore/validate_ports.sh " + portValues.join(" ");
+                        try {
+                            const no_validate_ports = await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
+                            if (no_validate_ports.toString().trim() != "ok") {
+                                setShowAlert(true);
+                                setAlertMessage(cockpit.format(_("Port: $0 is already in use."), no_validate_ports));
+                                isValid = false;
+                            }
+                        }
+                        catch (error) {
+                            const errorText = [error.problem, error.reason, error.message]
+                                .filter(item => typeof item === 'string')
+                                .join(' ');
+                            let exception = errorText || "Validation Port Error";
+                            if (errorText.includes("permission denied")) {
+                                exception = "Permission denied";
+                            }
+                            setShowAlert(true);
+                            setAlertMessage(exception);
                             isValid = false;
                         }
-                    }
-                    catch (error) {
-                        const errorText = [error.problem, error.reason, error.message]
-                            .filter(item => typeof item === 'string')
-                            .join(' ');
-                        let exception = errorText || "Validation Port Error";
-                        if (errorText.includes("permission denied")) {
-                            exception = "Permission denied";
-                        }
-                        setShowAlert(true);
-                        setAlertMessage(exception);
-                        isValid = false;
                     }
                 }
             }
