@@ -88,6 +88,10 @@ cockpit.locale({
         null,
         "域名"
     ],
+    "Exceed the maximum number of apps": [
+        null,
+        "超过应用程序的最大数量"
+    ],
     "Port must between 1 and 65535.": [
         null,
         "端口必须在1-65535之间"

@@ -169,7 +169,8 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 catch (error) {
                     setDisable(false);
                     setShowAlert(true);
-                    setAlertMessage(error.message);
+                    // setAlertMessage(error.message);
+                    setAlertMessage(_(error.message));
                 }
             }
             return;
