@@ -29,6 +29,10 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+function HtmlContent({ html }) {
+    return <span dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
 //应用详情弹窗
 const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [index, setIndex] = useState(0); //用户图片浏览
@@ -170,7 +174,13 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     setDisable(false);
                     setShowAlert(true);
                     // setAlertMessage(error.message);
-                    setAlertMessage(_(error.message));
+
+                    if (error.message == "Exceed the maximum number of apps") {
+                        setAlertMessage(_("The number of applications running exceeds the free version limit.Please <a target='_blank' href='https://www.websoft9.com/pricing'>upgrade</a> to the commercial version."));
+                    }
+                    else {
+                        setAlertMessage(error.message);
+                    }
                 }
             }
             return;
@@ -442,7 +452,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                 showAlert &&
                 <Snackbar open={showAlert} /*autoHideDuration={5000}*/ onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                     <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-                        {alertMessage}
+                        <HtmlContent html={alertMessage} />
                     </Alert>
                 </Snackbar>
             }
