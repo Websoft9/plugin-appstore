@@ -279,7 +279,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                             <div>
                                 <a rel="noreferrer" href={`https://support.websoft9.com/docs/` + product.key} target="_blank" style={{ color: '#2196f3' }} >{product.trademark} {_("developers")}</a>
                             </div>
-                            <div style={{ display: "flex", alignItems: "center" }}>
+                            <div /*style={{ display: "flex", alignItems: "center" }}*/>
                                 <span style={{ marginRight: "5px" }}>{_("Version")} : </span> {versions.join(",")}
                             </div>
                             <div style={{ display: "flex", alignItems: "center" }}>
