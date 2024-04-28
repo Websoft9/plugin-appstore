@@ -1,1 +1,1 @@
-1. fix app without port
+1. Message prompt for modifying application installation restrictions
