@@ -7,7 +7,6 @@ import cockpit from 'cockpit';
 import React, { useEffect, useState } from 'react';
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
-import LazyLoad from 'react-lazyload';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate } from "react-router-dom";
 import DefaultImgEn from '../assets/images/default_en.png';
@@ -18,12 +17,9 @@ import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection } from '../h
 const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
 const DefaultImg = language === "zh_CN" ? DefaultImgzh : DefaultImgEn;
-let protocol = window.location.protocol;
-let host = window.location.host;
 
-const baseURL = `${window.location.protocol}//${window.location.hostname}`;
+var baseURL = ""
 const rootURL = `${window.location.hostname}`;
-
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -33,8 +29,9 @@ function HtmlContent({ html }) {
     return <span dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
+
 //应用详情弹窗
-const AppDetailModal = ({ product, showFlag, onClose }) => {
+const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpdate }) => {
     const [index, setIndex] = useState(0); //用户图片浏览
     const [visible, setVisible] = useState(true); //用于显示安装选项：版本和应用名称
     const [customName, setCustomName] = useState(""); //用户存储用户输入的应用名称
@@ -47,12 +44,27 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
     const [customDomain, setCustomDomain] = useState("");//自定义域名
     const [showSetting, setShowSetting] = useState(false); //是否显示设置
     const [inputValues, setInputValues] = useState(product?.settings || {}); //用于存储用户输入的应用设置
+    const [isAppFavorite, setIsAppFavorite] = useState(isFavorite); //用于存储用户是否收藏了应用
+    const [showFavoriteButton, setShowFavoriteButton] = useState(true); // 是否显示收藏按钮
 
     const handleSettingsInputChange = (key, newValue) => {
         setInputValues({
             ...inputValues,
             [key]: newValue,
         });
+    };
+
+    const handleAddToFavorites = async () => {
+        // 这里调用父组件传递过来的方法来更新收藏列表
+        await onFavoriteUpdate(product.key, true);
+        onClose();
+    };
+
+    const handleRemoveFromFavorites = async () => {
+        // 这里调用父组件传递过来的方法来更新收藏列表
+        await onFavoriteUpdate(product.key, false);
+        onClose();
+
     };
 
     // 定义一个函数，当用户点击开关时，改变 state 的值
@@ -186,6 +198,7 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
             return;
         }
         setVisible(!visible);
+        setShowFavoriteButton(false);
     }
 
     const handleSelect = (selectedIndex, e) => {
@@ -443,6 +456,16 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
                     <Button variant="light" onClick={onClose}>
                         {_("Close")}
                     </Button>{' '}
+                    {/* <Button variant="light" onClick={isFavorite ? handleRemoveFromFavorites : handleAddToFavorites}>
+                        {isFavorite ? _("Unfavorite") : _("Favorite")}
+                    </Button> */}
+                    {showFavoriteButton && (
+                        <Button variant="light" onClick={isFavorite ? handleRemoveFromFavorites : handleAddToFavorites}>
+                            {isFavorite ? _("Unfavorite") : _("Favorite")}
+                        </Button>
+                    )}
+
+                    {' '}
                     <Button disabled={disable} variant="primary" onClick={handleInstallClick}>
                         {_("Install")}
                     </Button>
@@ -465,18 +488,111 @@ const AppDetailModal = ({ product, showFlag, onClose }) => {
 const AppStore = (): React$Element<React$FragmentType> => {
     const [showModal, setShowModal] = useState(false); //用于显示弹窗的标识
     const [selectedProduct, setSelectedProduct] = useState(null); //用于存储被选中的产品（点击应用详情时使用）
+    const [isAppFavorite, setIsAppFavorite] = useState(false); //用于存储用户是否收藏了应用
     const [subCatalogs, setSubCatalogs] = useState(null); //用于存储二级目录
     const [allMainCatalogApps, setAllMainCatalogApps] = useState(null); //用于存储某个一级子目录下的所有应用
     const [isAllSelected, setIsAllSelected] = useState(true);
     const [searchValue, setSearchValue] = useState("");
     const [mainCatalogs, setMainCatalogs] = useState([]);
-    const [apps, setApps] = useState([]); //用于存储通过目录筛选出来的数据
+    const [apps, setApps] = useState([]); //用于存储所有app数据
     const [appList, setAppList] = useState([]); //用于存储通过目录筛选出来的数据
+    const [favoriteApps, setFavoriteApps] = useState(null); //用于存储用户收藏的app
+    const [filteredFavoriteApps, setFilteredFavoriteApps] = useState([]); //用于存储用户收藏的app（过滤出来的json数据）
+    const [nonFavoriteApps, setNonFavoriteApps] = useState([]); //用于存储非用户收藏的app
     const [loading, setLoading] = useState(false);
     const [dataError, setDataError] = useState(false);
     const [errorMesage, setErrorMessage] = useState("");//用于显示错误提示消息
     const navigate = useNavigate(); //用于页面跳转
+    const [isFavoriteAppsVisible, setFavoriteAppsIsVisible] = useState(true); // 是否显示 我的收藏 ，在收藏的情况下隐藏
 
+    const getNginxConfig = async () => {
+        var script = "docker exec -i websoft9-apphub apphub getconfig --section nginx_proxy_manager";
+        let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
+        content = JSON.parse(content);
+        let listen_port = content.listen_port;
+
+        baseURL = `${window.location.protocol}//${window.location.hostname}:${listen_port}`;
+    }
+
+    //获取用户收藏的apps
+    const getFavoriteApps = async () => {
+        var script = "docker exec -i websoft9-apphub apphub getconfig --section favorite_apps";
+        let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
+        content = JSON.parse(content);
+
+        setFavoriteApps(content.keys);
+    }
+
+    const updateFavoriteApps = async (updatedFavorites) => {
+        // 确保传入的是字符串，如果是数组则转换为字符串，如果数组为空，则传递一个空字符串
+        const favoriteString = Array.isArray(updatedFavorites) ? updatedFavorites.join(',') : updatedFavorites;
+        const valueArgument = favoriteString !== '' ? favoriteString : '""'; // 当为空字符串时，传递一个双引号包围的空字符串
+        const script = `docker exec -i websoft9-apphub apphub setconfig --section favorite_apps --key keys --value ${valueArgument}`;
+        await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
+        // 重新获取收藏列表以确保 UI 是最新的
+        await getFavoriteApps();
+    };
+
+
+    const addToFavorites = async (appKey) => {
+        // 确保 favoriteApps 是一个数组
+        const currentFavorites = favoriteApps ? favoriteApps.split(',') : [];
+
+        // 检查 appKey 是否已经在收藏列表中
+        if (!currentFavorites.includes(appKey)) {
+            // 如果当前收藏列表为空，则直接添加新项，否则添加逗号和新项
+            const updatedFavorites = currentFavorites.length === 0 ? [appKey] : [...currentFavorites, appKey];
+            // 更新收藏列表
+            await updateFavoriteApps(updatedFavorites);
+            setFavoriteApps(updatedFavorites.join(','));
+
+            // 重新计算 nonFavoriteApps
+            const updatedNonFavorites = apps.filter(app => !updatedFavorites.includes(app.key));
+            setNonFavoriteApps(updatedNonFavorites);
+            setAppList(updatedNonFavorites); // 更新 appList
+        }
+
+        setIsAllSelected(true);
+        setSubCatalogs(null);
+        setFavoriteAppsIsVisible(true);
+        setSearchValue("");
+    };
+
+
+    const removeFromFavorites = async (appKey) => {
+        // 确保 favoriteApps 是一个数组
+        let currentFavorites = favoriteApps ? favoriteApps.split(',') : [];
+
+        // 从收藏列表中移除 appKey
+        currentFavorites = currentFavorites.filter(key => key !== appKey);
+
+        // 更新收藏列表
+        await updateFavoriteApps(currentFavorites);
+        setFavoriteApps(currentFavorites.join(','));
+
+        // 重新计算 nonFavoriteApps
+        const updatedNonFavorites = apps.filter(app => !currentFavorites.includes(app.key));
+        setNonFavoriteApps(updatedNonFavorites);
+        setAppList(updatedNonFavorites); // 更新 appList
+
+        setIsAllSelected(true);
+        setSubCatalogs(null);
+        setSearchValue("");
+
+        setFavoriteAppsIsVisible(currentFavorites.length > 0);
+    };
+
+    const onFavoriteUpdate = async (appKey, add) => {
+        if (add) {
+            await addToFavorites(appKey);
+        } else {
+            await removeFromFavorites(appKey);
+        }
+    };
+
+
+
+    //获取所有apps
     const getData = async () => {
         try {
             const responses = await Promise.all([
@@ -511,19 +627,50 @@ const AppStore = (): React$Element<React$FragmentType> => {
         const fetchData = async () => {
             setLoading(true);
             await getData();
+            await getFavoriteApps();
+            await getNginxConfig();
             setLoading(false);
         };
 
         fetchData();
     }, []);
 
+    useEffect(() => {
+        // 如果有 apps 并且 favoriteApps 为空或者存在
+        if (apps && (favoriteApps || favoriteApps === "")) {
+            let favoriteAppsArray = [];
+            let updatedFavoriteApps = [];
+            if (favoriteApps) {
+                favoriteAppsArray = favoriteApps.split(',').reverse();
+                updatedFavoriteApps = favoriteAppsArray
+                    .map(favKey => apps.find(app => app.key === favKey))
+                    .filter(app => app); // 过滤掉未找到的项
+            }
+
+            // 如果 favoriteApps 为空，则所有 apps 都是非收藏的
+            const nonUpdatedFavoriteApps = favoriteApps === ""
+                ? apps
+                : apps.filter(app => !favoriteAppsArray.includes(app.key));
+
+            setFilteredFavoriteApps(updatedFavoriteApps);
+            setNonFavoriteApps(nonUpdatedFavoriteApps);
+
+            // 如果当前没有进行搜索，则更新 appList 为非收藏的应用列表
+            if (searchValue === "") {
+                setAppList(nonUpdatedFavoriteApps);
+            }
+        }
+    }, [apps, favoriteApps, searchValue]);
+
+
 
     //if (loading) return <Spinner className='dis_mid' />
     // if (dataError) return <p>Error : {errorMesage || "Fetch Data Error"} </p>;
 
     //用于显示应用详情的弹窗
-    const handleClick = (product) => {
+    const handleClick = (product, isAppFavorite) => {
         setSelectedProduct(product);
+        setIsAppFavorite(isAppFavorite);
         setShowModal(true);
     };
 
@@ -535,6 +682,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
     //当主目录改变时
     const changeMainCatalog = (selectedMainCatalog) => {
+        setFavoriteAppsIsVisible(selectedMainCatalog === "All" && favoriteApps.length > 0);
         // 查询主目录下的二级目录
         let updatedData = null;
         //  filter
@@ -561,7 +709,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
         mainCatalogAllApps = apps.filter(app => app?.catalogCollection?.items.some(sub => sub?.catalogCollection?.items.some(subsub => subsub.key === selectedMainCatalog)));
         subCatalogApps =
             selectedMainCatalog === "All"
-                ? apps
+                ? /*apps*/ nonFavoriteApps
                 : mainCatalogAllApps;
         setAppList(subCatalogApps);
         setAllMainCatalogApps(mainCatalogAllApps);
@@ -582,18 +730,49 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
     //当搜索框的内容发生改变时，进行app的过滤搜索
     const handleInputChange = (searchString) => {
+        console.log("Non-favorite apps:", nonFavoriteApps);
+        setFavoriteAppsIsVisible(searchString === "" && favoriteApps.length > 0);
         setSearchValue(searchString);
         searchString = searchString.toLowerCase();
         let updatedData = null;
         updatedData =
             searchString === ""
-                ? apps
+                ? /*apps*/ nonFavoriteApps
                 : apps.filter(app => { return app.trademark.toLowerCase().includes(searchString) || app.key.toLowerCase().includes(searchString) || app.summary.toLowerCase().includes(searchString) });
 
         setAppList(updatedData);
         setIsAllSelected(true);
         setSubCatalogs(null);
     }
+
+    const renderAppItem = (app, i, isAppFavorite) => {
+        const imageName = app?.logo?.imageurl?.split("/").pop();
+        return (
+            <Col xxl={3} sm={6} md={4} key={"app-" + i} className="appstore-item">
+                <div className='appstore-item-content highlight' onClick={() => { handleClick(app, isAppFavorite) }}>
+                    <div className='appstore-item-content-icon col-same-height'>
+                        {/* <LazyLoad> */}
+                        <img
+                            src={`${baseURL}/media/logos/${imageName}`}
+                            alt={imageName}
+                            className="app-icon"
+                            onError={(e) => (e.target.src = DefaultImg)}
+                        />
+                        {/* </LazyLoad> */}
+                    </div>
+                    <div className='col-same-height' style={{ textAlign: "initial" }}>
+                        <h4 className="appstore-item-content-title">
+                            {app?.trademark}
+                        </h4>
+                        <div className='appstore-item-content-tagline text-muted'>
+                            {app?.summary}
+                        </div>
+                    </div>
+                </div>
+            </Col >
+        );
+    };
+
 
     return (
         loading ? <Spinner className='dis_mid' /> :
@@ -647,36 +826,27 @@ const AppStore = (): React$Element<React$FragmentType> => {
                             </Col>
                         </Col>
                     </Row>
+
+                    {
+                        isFavoriteAppsVisible && filteredFavoriteApps.length > 0 && (
+                            <Row>
+                                <h4>{_("My favorites")}</h4>
+                                {filteredFavoriteApps.map((app, i) => renderAppItem(app, i, true))}
+                            </Row>
+                        )
+                    }
+
                     <Row>
-                        {(appList || []).map((app, i) => {
-                            const imagName = app?.logo?.imageurl?.split("/").pop();
-                            return (
-                                <Col xxl={3} sm={6} md={4} key={"app-" + i} className="appstore-item">
-                                    <div className='appstore-item-content highlight' onClick={() => { handleClick(app) }}>
-                                        <div className='appstore-item-content-icon col-same-height'>
-                                            <LazyLoad>
-                                                <img
-                                                    src={`${baseURL}/media/logos/${imagName}`}
-                                                    alt={imagName}
-                                                    className="app-icon"
-                                                    onError={(e) => (e.target.src = DefaultImg)}
-                                                />
-                                            </LazyLoad>
-                                        </div>
-                                        <div className='col-same-height' style={{ textAlign: "initial" }}>
-                                            <h4 className="appstore-item-content-title">
-                                                {app?.trademark}
-                                            </h4>
-                                            <div className='appstore-item-content-tagline text-muted'>
-                                                {app?.summary}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Col>
-                            );
-                        })}
+                        <h4>{_("All")}</h4>
+                        {appList.map((app, i) => renderAppItem(app, i, favoriteApps.includes(app.key)))}
                     </Row>
-                    {showModal && <AppDetailModal product={selectedProduct} showFlag={showModal} onClose={handleClose} />}
+
+                    {showModal && <AppDetailModal
+                        product={selectedProduct}
+                        showFlag={showModal}
+                        onClose={handleClose}
+                        isFavorite={isAppFavorite}
+                        onFavoriteUpdate={onFavoriteUpdate} />}
                 </>
     );
 };

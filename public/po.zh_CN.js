@@ -8,6 +8,18 @@ cockpit.locale({
         null,
         "应用商店"
     ],
+    "My favorites": [
+        null,
+        "我的收藏"
+    ],
+    "Favorite": [
+        null,
+        "收藏"
+    ],
+    "Unfavorite": [
+        null,
+        "取消收藏"
+    ],
     "All": [
         null,
         "全部"
