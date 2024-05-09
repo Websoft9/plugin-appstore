@@ -7,6 +7,7 @@ import cockpit from 'cockpit';
 import React, { useEffect, useState } from 'react';
 import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
+import LazyLoad from 'react-lazyload';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate } from "react-router-dom";
 import DefaultImgEn from '../assets/images/default_en.png';
@@ -730,7 +731,6 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
     //当搜索框的内容发生改变时，进行app的过滤搜索
     const handleInputChange = (searchString) => {
-        console.log("Non-favorite apps:", nonFavoriteApps);
         setFavoriteAppsIsVisible(searchString === "" && favoriteApps.length > 0);
         setSearchValue(searchString);
         searchString = searchString.toLowerCase();
@@ -751,14 +751,14 @@ const AppStore = (): React$Element<React$FragmentType> => {
             <Col xxl={3} sm={6} md={4} key={"app-" + i} className="appstore-item">
                 <div className='appstore-item-content highlight' onClick={() => { handleClick(app, isAppFavorite) }}>
                     <div className='appstore-item-content-icon col-same-height'>
-                        {/* <LazyLoad> */}
-                        <img
-                            src={`${baseURL}/media/logos/${imageName}`}
-                            alt={imageName}
-                            className="app-icon"
-                            onError={(e) => (e.target.src = DefaultImg)}
-                        />
-                        {/* </LazyLoad> */}
+                        <LazyLoad>
+                            <img
+                                src={`${baseURL}/media/logos/${imageName}`}
+                                alt={imageName}
+                                className="app-icon"
+                                onError={(e) => (e.target.src = DefaultImg)}
+                            />
+                        </LazyLoad>
                     </div>
                     <div className='col-same-height' style={{ textAlign: "initial" }}>
                         <h4 className="appstore-item-content-title">
@@ -778,7 +778,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
         loading ? <Spinner className='dis_mid' /> :
             dataError ? <p>Error : {errorMesage || "Fetch Data Error"} </p> :
                 <>
-                    <Row className="mb-2">
+                    <Row>
                         <Col sm={6}>
                             <Form.Group as={Row}>
                                 <Col sm={6}>
@@ -830,14 +830,14 @@ const AppStore = (): React$Element<React$FragmentType> => {
                     {
                         isFavoriteAppsVisible && filteredFavoriteApps.length > 0 && (
                             <Row>
-                                <h4>{_("My favorites")}</h4>
+                                <h4 style={{ marginTop: '30px', marginBottom: '20px' }}>{_("My favorites")}</h4>
                                 {filteredFavoriteApps.map((app, i) => renderAppItem(app, i, true))}
                             </Row>
                         )
                     }
 
                     <Row>
-                        <h4>{_("All")}</h4>
+                        <h4 style={{ fontWeight: 'normal', marginTop: '20px', marginBottom: '20px' }}>{_("All")}</h4>
                         {appList.map((app, i) => renderAppItem(app, i, favoriteApps.includes(app.key)))}
                     </Row>
 
