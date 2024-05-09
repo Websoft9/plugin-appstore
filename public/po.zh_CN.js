@@ -24,7 +24,11 @@ cockpit.locale({
         null,
         "全部"
     ],
-    "developers": [
+    "Website": [
+        null,
+        "官网"
+    ],
+    "Documentation": [
         null,
         "文档"
     ],

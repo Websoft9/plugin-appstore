@@ -291,7 +291,9 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                                 {product.trademark}
                             </h4>
                             <div>
-                                <a rel="noreferrer" href={`https://support.websoft9.com/docs/` + product.key} target="_blank" style={{ color: '#2196f3' }} >{product.trademark} {_("developers")}</a>
+                                <a rel="noreferrer" href={product.websiteurl} target="_blank" style={{ color: '#2196f3' }} >{_("Website")}</a>
+                                {' '}
+                                <a rel="noreferrer" href={`https://support.websoft9.com/docs/` + product.key} target="_blank" style={{ color: '#2196f3' }} >{_("Documentation")}</a>
                             </div>
                             <div /*style={{ display: "flex", alignItems: "center" }}*/>
                                 <span style={{ marginRight: "5px" }}>{_("Version")} : </span> {versions.join(",")}
