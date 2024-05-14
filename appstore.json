@@ -4,7 +4,7 @@
     "Update URI": "https://example.com/my-plugin/",
     "Description": "200 application template for you installation.",
     "Version": "0.1.7",
-    "Requires at most": "0.8.20",
+    "Requires at most": "0.8.21",
     "Requires at least": "0.0.2",
     "Author": "Websoft9 Inc",
     "Author URI": "https://www.websoft9.com/",
