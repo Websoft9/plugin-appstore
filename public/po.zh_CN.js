@@ -478,10 +478,10 @@ cockpit.locale({
     ],
     "W9_PROXY_PORT_SET": [
         null,
-        "PROXY PORT"
+        "代理端口"
     ],
     "W9_LOGIN_ConnectURL": [
         null,
-        "LOGIN OONNECT URL"
+        "登陆连接地址"
     ]
 });
