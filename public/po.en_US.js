@@ -154,19 +154,19 @@ cockpit.locale({
     ],
     "W9_Alpha_HTTP_PORT_SET": [
         null,
-        "Alpha HTTP PORT"
+        "Dgraph Alpha（Database） HTTP PORT"
     ],
     "W9_Zero_HTTP_PORT_SET": [
         null,
-        "Zero HTTP PORT"
+        "Dgraph Zero(cluster) HTTP PORT"
     ],
     "W9_Alpha_gRPC_PORT_SET": [
         null,
-        "Alpha gRPC PORT"
+        "Dgraph Alpha（Database） gRPC PORT"
     ],
     "W9_Zero_gRPC_PORT_SET": [
         null,
-        "Zero gRPC PORT"
+        "Dgraph Zero(cluster) gRPC PORT"
     ],
     "W9_LOGIN_ServerURL": [
         null,
@@ -327,5 +327,49 @@ cockpit.locale({
     "W9_KAFKA_BROKERS_SET": [
         null,
         "KAFKA BROKERS"
+    ],
+    "W9_LOGIN_GET_Kibaba_TOKEN": [
+        null,
+        "ES 获取 KIBANA TOKEN 方法"
+    ],
+    "W9_WS_PORT_SET": [
+        null,
+        "WEB SOCKET PORT"
+    ],
+    "W9_BW_INSTALLATION_ID_SET": [
+        null,
+        "INSTALLATION ID"
+    ],
+    "W9_BW_INSTALLATION_KEY_SET": [
+        null,
+        "INSTALLATION KEY"
+    ],
+    "W9_SEARCH_PORT_SET": [
+        null,
+        "SEARCH PORT"
+    ],
+    "W9_LOGIN_ADMIN_PASSWORD": [
+        null,
+        "ADMIN PASSWORD"
+    ],
+    "W9_GIT_URL_SET": [
+        null,
+        "GIT URL"
+    ],
+    "W9_GEMINI_API_KEY_SET": [
+        null,
+        "GEMINI API KEY"
+    ],
+    "W9_LOGIN_GEMINI_API_KEY": [
+        null,
+        "GEMINI LOGIN KEY"
+    ],
+    "W9_PROXY_PORT_SET": [
+        null,
+        "代理端口"
+    ],
+    "W9_LOGIN_ConnectURL": [
+        null,
+        "登陆连接地址"
     ]
 });
