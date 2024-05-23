@@ -366,10 +366,10 @@ cockpit.locale({
     ],
     "W9_PROXY_PORT_SET": [
         null,
-        "代理端口"
+        "PROXY PORT"
     ],
     "W9_LOGIN_ConnectURL": [
         null,
-        "登陆连接地址"
+        "LOGIN OONNECT URL"
     ]
 });
