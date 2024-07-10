@@ -371,5 +371,9 @@ cockpit.locale({
     "W9_LOGIN_ConnectURL": [
         null,
         "LOGIN OONNECT URL"
+    ],
+    "W9_BROKER_PORT_SET": [
+        null,
+        "BROKER PORT"
     ]
 });
