@@ -330,7 +330,7 @@ cockpit.locale({
     ],
     "W9_LOGIN_GET_Kibaba_TOKEN": [
         null,
-        "ES 获取 KIBANA TOKEN 方法"
+        "ES GET KIBANA TOKEN METHOD"
     ],
     "W9_WS_PORT_SET": [
         null,
