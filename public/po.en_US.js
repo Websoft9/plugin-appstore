@@ -379,5 +379,9 @@ cockpit.locale({
     "W9_CONTAINER_PORT_INIT_SET": [
         null,
         "CONTAINER PORT NEED EXPOSED"
+    ],
+    "W9_CONTAINER_PT_INIT_SET": [
+        null,
+        "CONTAINER PORT NEED EXPOSED"
     ]
 });
