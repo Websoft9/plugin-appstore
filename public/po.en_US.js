@@ -375,5 +375,9 @@ cockpit.locale({
     "W9_BROKER_PORT_SET": [
         null,
         "BROKER PORT"
+    ],
+    "W9_CONTAINER_PORT_INIT_SET": [
+        null,
+        "CONTAINER PORT NEED EXPOSED"
     ]
 });

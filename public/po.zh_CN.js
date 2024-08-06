@@ -487,5 +487,9 @@ cockpit.locale({
     "W9_BROKER_PORT_SET": [
         null,
         "代理监听端口"
+    ],
+    "W9_CONTAINER_PORT_INIT_SET": [
+        null,
+        "容器需暴露的端口"
     ]
 });
