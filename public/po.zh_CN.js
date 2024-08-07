@@ -104,6 +104,10 @@ cockpit.locale({
         null,
         "域名"
     ],
+    "Categories": [
+        null,
+        "类别"
+    ],
     "The number of applications running exceeds the free version limit.Please <a target='_blank' href='https://www.websoft9.com/pricing'>upgrade</a> to the commercial version.": [
         null,
         "运行的应用程序数量超过了免费版本的限制。请<a target='_blank' href='https://www.websoft9.com/pricing'>升级</a>到商业版本。"
