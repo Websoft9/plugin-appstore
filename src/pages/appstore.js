@@ -1,6 +1,8 @@
 // @flow
 import AddIcon from '@mui/icons-material/Add';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import MuiAlert from '@mui/material/Alert';
+import Chip from '@mui/material/Chip';
 import Fab from '@mui/material/Fab';
 import Snackbar from '@mui/material/Snackbar';
 import cockpit from 'cockpit';
@@ -32,7 +34,7 @@ function HtmlContent({ html }) {
 
 
 //应用详情弹窗
-const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpdate }) => {
+const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpdate, catalogClick }) => {
     const [index, setIndex] = useState(0); //用户图片浏览
     const [visible, setVisible] = useState(true); //用于显示安装选项：版本和应用名称
     const [customName, setCustomName] = useState(""); //用户存储用户输入的应用名称
@@ -255,6 +257,12 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
         setAlertMessage("");
     };
 
+    const handleCatalogClick = (subCatalog, mainCatalog) => {
+        //关闭当前弹窗
+        onClose();
+        catalogClick(subCatalog, mainCatalog);
+    }
+
     useEffect(() => {
         async function fetchDomain() {
             try {
@@ -279,27 +287,72 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                 <Modal.Header onHide={onClose} closeButton>
                     <div style={{ padding: "10px" }}>
                         <div className='appstore-item-content-icon col-same-height'>
-                            <img
-                                src={`${baseURL}/media/logos/${imagName}`}
-                                alt=""
-                                className="app-icon"
-                                onError={(e) => (e.target.src = DefaultImg)}
-                            />
+                            <a rel="noreferrer" href={product.websiteurl} target="_blank">
+                                <img
+                                    src={`${baseURL}/media/logos/${imagName}`}
+                                    alt=""
+                                    className="app-icon"
+                                    onError={(e) => (e.target.src = DefaultImg)} />
+                            </a>
                         </div>
                         <div className='col-same-height'>
-                            <h4 className="appstore-item-content-title" style={{ marginTop: "5px" }}>
-                                {product.trademark}
-                            </h4>
-                            <div>
-                                <a rel="noreferrer" href={product.websiteurl} target="_blank" style={{ color: '#2196f3' }} >{_("Website")}</a>
-                                {' '}
-                                <a rel="noreferrer" href={`https://support.websoft9.com/${language === "zh_CN" ? '' : 'en/'}docs/next/${product.key || ''}`} target="_blank" style={{ color: '#2196f3' }} >{_("Documentation")}</a>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <h3 className="appstore-item-content-title" style={{ marginTop: "5px", marginRight: '10px' }}>
+                                    {product.trademark}
+                                </h3>
+                                <a
+                                    rel="noreferrer"
+                                    href={`https://support.websoft9.com/${language === "zh_CN" ? '' : 'en/'}docs/next/${product.key || ''}`}
+                                    target="_blank"
+                                    style={{ marginRight: '10px' }}
+                                >
+                                    <Chip label="Documentation" color="primary" size="small" />
+                                </a>
+                                <a
+                                    href={`https://github.com/Websoft9/docker-library/tree/main/apps/${product.key}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <GitHubIcon style={{ fontSize: 25, color: '#000000' }} />
+                                </a>
                             </div>
-                            <div /*style={{ display: "flex", alignItems: "center" }}*/>
-                                <span style={{ marginRight: "5px" }}>{_("Version")} : </span> {versions.join(",")}
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <span style={{ marginRight: "5px" }}>{_("Version")} : </span>
+                                <span
+                                    title={versions.join(",")}
+                                    style={{
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                        maxWidth: "500px",
+                                        display: "inline-block",
+                                        verticalAlign: "middle"
+                                    }}
+                                >
+                                    {versions.join(",")}
+                                </span>
                             </div>
                             <div style={{ display: "flex", alignItems: "center" }}>
                                 <span style={{ marginRight: "5px" }}>{_("Requires at least")} : {product.vcpu} vCPU,  {product.memory}  GB memory, {product.storage} GB storage</span>
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+                                <span style={{ marginRight: "5px" }}>{_("Categories")}: </span>
+                                {
+                                    product?.catalogCollection?.items.map((item, i) => (
+                                        <React.Fragment key={item?.key + i}>
+                                            <span
+                                                style={{
+                                                    color: "rgb(25, 118, 210)",
+                                                    cursor: "pointer"
+                                                }}
+                                                onClick={() => handleCatalogClick(item, item?.catalogCollection?.items[0])}
+                                            >
+                                                {item?.title}
+                                            </span>
+                                            {i !== product?.catalogCollection?.items.length - 1 && <span style={{ margin: "0 5px" }}>|</span>}
+                                        </React.Fragment>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
@@ -507,6 +560,10 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [errorMesage, setErrorMessage] = useState("");//用于显示错误提示消息
     const navigate = useNavigate(); //用于页面跳转
     const [isFavoriteAppsVisible, setFavoriteAppsIsVisible] = useState(true); // 是否显示 我的收藏 ，在收藏的情况下隐藏
+    const [selectedMainCatalogKey, setSelectedMainCatalogKey] = useState("All"); //用于存储被选中的主目录
+    const [selectedSubCatalogKey, setSelectedSubCatalogKey] = useState("All");   //用于存储被选中的子目录
+
+
 
     const getNginxConfig = async () => {
         var script = "docker exec -i websoft9-apphub apphub getconfig --section nginx_proxy_manager";
@@ -684,55 +741,111 @@ const AppStore = (): React$Element<React$FragmentType> => {
     };
 
     //当主目录改变时
-    const changeMainCatalog = (selectedMainCatalog) => {
-        setFavoriteAppsIsVisible(selectedMainCatalog === "All" && favoriteApps.length > 0);
-        // 查询主目录下的二级目录
-        let updatedData = null;
-        //  filter
-        updatedData =
-            selectedMainCatalog === 'All'
-                ? []
-                : mainCatalogs.filter(c => c.key === selectedMainCatalog)?.[0]?.linkedFrom?.catalogCollection?.items;
-        const data = updatedData.sort(function (a, b) {
-            if (a.position === null && b.position === null) {
-                return 0;
-            } else if (a.position === null) {
-                return 1;
-            } else if (b.position === null) {
-                return -1;
-            } else {
-                return a.position - b.position;
-            }
-        });
-        setSubCatalogs(data);
+    // const changeMainCatalog = (selectedMainCatalog) => {
+    //     setSelectedMainCatalogKey(selectedMainCatalog);
+    //     // setSelectedSubCatalog("All");
+    //     setFavoriteAppsIsVisible(selectedMainCatalog === "All" && favoriteApps.length > 0);
+    //     // 查询主目录下的二级目录
+    //     let updatedData = null;
+    //     //  filter
+    //     updatedData =
+    //         selectedMainCatalog === 'All'
+    //             ? []
+    //             : mainCatalogs.filter(c => c.key === selectedMainCatalog)?.[0]?.linkedFrom?.catalogCollection?.items;
+    //     const data = updatedData.sort(function (a, b) {
+    //         if (a.position === null && b.position === null) {
+    //             return 0;
+    //         } else if (a.position === null) {
+    //             return 1;
+    //         } else if (b.position === null) {
+    //             return -1;
+    //         } else {
+    //             return a.position - b.position;
+    //         }
+    //     });
+    //     setSubCatalogs(data);
 
-        //根据主目录过滤app数据
-        let subCatalogApps = null;
-        let mainCatalogAllApps = null;
-        mainCatalogAllApps = apps.filter(app => app?.catalogCollection?.items.some(sub => sub?.catalogCollection?.items.some(subsub => subsub.key === selectedMainCatalog)));
-        subCatalogApps =
-            selectedMainCatalog === "All"
-                ? /*apps*/ nonFavoriteApps
-                : mainCatalogAllApps;
-        setAppList(subCatalogApps);
-        setAllMainCatalogApps(mainCatalogAllApps);
-        setIsAllSelected(false);
-        setSearchValue("");
+    //     //根据主目录过滤app数据
+    //     let subCatalogApps = null;
+    //     let mainCatalogAllApps = null;
+    //     mainCatalogAllApps = apps.filter(app => app?.catalogCollection?.items.some(sub => sub?.catalogCollection?.items.some(subsub => subsub.key === selectedMainCatalog)));
+    //     subCatalogApps =
+    //         selectedMainCatalog === "All"
+    //             ? /*apps*/ nonFavoriteApps
+    //             : mainCatalogAllApps;
+    //     setAppList(subCatalogApps);
+    //     setAllMainCatalogApps(mainCatalogAllApps);
+    //     setIsAllSelected(false);
+    //     setSearchValue("");
+    // };
+
+    // //当子目录改变时，过滤应用数据
+    // const changeSubCatalog = (selectedSubCatalog) => {
+    //     setSelectedSubCatalogKey(selectedSubCatalog);
+    //     let updatedData = null;
+    //     updatedData =
+    //         selectedSubCatalog === "All"
+    //             ? allMainCatalogApps
+    //             : apps.filter(app => app?.catalogCollection?.items.some(c => c.key === selectedSubCatalog));
+    //     setAppList(updatedData);
+    //     setSearchValue("");
+
+    //     console.log("subCatalogAllApps", updatedData);
+    // };
+
+    const changeMainCatalog = (selectedMainCatalog) => {
+        return new Promise((resolve) => {
+            setSelectedMainCatalogKey(selectedMainCatalog);
+            setFavoriteAppsIsVisible(selectedMainCatalog === "All" && favoriteApps.length > 0);
+
+            let updatedData = null;
+            updatedData =
+                selectedMainCatalog === 'All'
+                    ? []
+                    : mainCatalogs.filter(c => c.key === selectedMainCatalog)?.[0]?.linkedFrom?.catalogCollection?.items;
+
+            const data = updatedData.sort((a, b) => {
+                if (a.position === null && b.position === null) return 0;
+                if (a.position === null) return 1;
+                if (b.position === null) return -1;
+                return a.position - b.position;
+            });
+
+            setSubCatalogs(data);
+
+            let subCatalogApps = null;
+            let mainCatalogAllApps = apps.filter(app => app?.catalogCollection?.items.some(sub => sub?.catalogCollection?.items.some(subsub => subsub.key === selectedMainCatalog)));
+            subCatalogApps = selectedMainCatalog === "All" ? nonFavoriteApps : mainCatalogAllApps;
+
+            setAppList(subCatalogApps);
+            setAllMainCatalogApps(mainCatalogAllApps);
+            setIsAllSelected(false);
+            setSearchValue("");
+            resolve();
+        });
     };
 
-    //当子目录改变时，过滤应用数据
     const changeSubCatalog = (selectedSubCatalog) => {
-        let updatedData = null;
-        updatedData =
-            selectedSubCatalog === "All"
+        return new Promise((resolve) => {
+            setSelectedSubCatalogKey(selectedSubCatalog);
+            let updatedData = selectedSubCatalog === "All"
                 ? allMainCatalogApps
                 : apps.filter(app => app?.catalogCollection?.items.some(c => c.key === selectedSubCatalog));
-        setAppList(updatedData);
-        setSearchValue("");
+
+            setAppList(updatedData);
+            setSearchValue("");
+
+            console.log("subCatalogAllApps", updatedData);
+            resolve();
+        });
     };
+
 
     //当搜索框的内容发生改变时，进行app的过滤搜索
     const handleInputChange = (searchString) => {
+        setSelectedMainCatalogKey("All");
+        setSelectedSubCatalogKey("All");
+
         setFavoriteAppsIsVisible(searchString === "" && favoriteApps.length > 0);
         setSearchValue(searchString);
         searchString = searchString.toLowerCase();
@@ -745,6 +858,15 @@ const AppStore = (): React$Element<React$FragmentType> => {
         setAppList(updatedData);
         setIsAllSelected(true);
         setSubCatalogs(null);
+    }
+
+    // 处理Model中单击 类别 的事件
+    const handleCatalogClickForModal = (subCatalog, mainCatalog) => {
+        setSelectedProduct(null);
+
+        changeMainCatalog(mainCatalog.key).then(() => {
+            changeSubCatalog(subCatalog.key);
+        });
     }
 
     const renderAppItem = (app, i, isAppFavorite) => {
@@ -775,7 +897,6 @@ const AppStore = (): React$Element<React$FragmentType> => {
         );
     };
 
-
     return (
         loading ? <Spinner className='dis_mid' /> :
             dataError ? <p>Error : {errorMesage || "Fetch Data Error"} </p> :
@@ -789,8 +910,9 @@ const AppStore = (): React$Element<React$FragmentType> => {
                                         type="select"
                                         className="form-select"
                                         key="select1"
+                                        value={selectedMainCatalogKey}
                                         onChange={(e) => changeMainCatalog(e.target.value)}>
-                                        <option value="All" selected={isAllSelected}>{_("All")}</option>
+                                        <option value="All" /*selected={isAllSelected}*/>{_("All")}</option>
                                         {
                                             (mainCatalogs || []).map((item, i) => {
                                                 return (
@@ -806,6 +928,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                                         type="select"
                                         className="form-select"
                                         key="select2"
+                                        value={selectedSubCatalogKey}
                                         onChange={(e) => changeSubCatalog(e.target.value)}>
                                         <option value="All">{_("All")}</option>
                                         {
@@ -848,7 +971,8 @@ const AppStore = (): React$Element<React$FragmentType> => {
                         showFlag={showModal}
                         onClose={handleClose}
                         isFavorite={isAppFavorite}
-                        onFavoriteUpdate={onFavoriteUpdate} />}
+                        onFavoriteUpdate={onFavoriteUpdate}
+                        catalogClick={handleCatalogClickForModal} />}
                 </>
     );
 };

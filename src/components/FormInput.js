@@ -128,6 +128,7 @@ const FormInput = ({
                                             className={className}
                                             isInvalid={errors && errors[name] ? true : false}
                                             {...(register ? register(name) : {})}
+                                            value={value}
                                             {...otherProps}>
                                             {children}
                                         </Form.Select>
