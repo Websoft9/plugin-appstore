@@ -446,7 +446,7 @@ cockpit.locale({
     ],
     "W9_LOGIN_GET_Kibaba_TOKEN": [
         null,
-        "ES GET KIBANA TOKEN METHOD"
+        "ES 获取 KIBANA TOKEN 方法"
     ],
     "W9_WS_PORT_SET": [
         null,
@@ -491,5 +491,13 @@ cockpit.locale({
     "W9_BROKER_PORT_SET": [
         null,
         "代理监听端口"
+    ],
+    "W9_CONTAINER_PORT_INIT_SET": [
+        null,
+        "容器需暴露的端口"
+    ],
+    "W9_CONTAINER_PT_INIT_SET": [
+        null,
+        "容器需暴露的端口"
     ]
 });
