@@ -74,15 +74,24 @@ jobs:
           mv ${{ env.appname }}-${{ steps.convert_version.outputs.VERSION_CORE }}.zip artifacts/
           cp artifacts/${{ env.appname }}-${{ steps.convert_version.outputs.VERSION_CORE }}.zip artifacts/${{ env.appname }}-latest.zip
 
-      - name: Upload To Azure Blob
-        uses: LanceMcCarthy/Action-AzureBlobUpload@v2
+      - name: Upload To cloudflare r2
+        uses: ryand56/r2-upload-action@latest
         with:
-          connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
-          container_name: ${{ steps.convert_version.outputs.CHANNEL }}
-          source_folder: artifacts/
-          destination_folder: ./websoft9/plugin/${{ env.appname }}
-          delete_if_exists: true
-          fail_if_source_empty: true
+          r2-account-id: eb79f13320db531d8cf1f3720966b695
+          r2-access-key-id: ef8a4a11488ae26f49c0984e804ec637
+          r2-secret-access-key: 8acb8da0beb04b711fcef58c377fc522fa59ab0a22a60862729f5c9afe1f00b4
+          r2-bucket: artifact
+          source-dir: artifacts
+          destination-dir: ./${{ steps.convert_version.outputs.CHANNEL }}/websoft9/plugin/${{ env.appname }}
+      # - name: Upload To Azure Blob
+      #   uses: LanceMcCarthy/Action-AzureBlobUpload@v2
+      #   with:
+      #     connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
+      #     container_name: ${{ steps.convert_version.outputs.CHANNEL }}
+      #     source_folder: artifacts/
+      #     destination_folder: ./websoft9/plugin/${{ env.appname }}
+      #     delete_if_exists: true
+      #     fail_if_source_empty: true
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
