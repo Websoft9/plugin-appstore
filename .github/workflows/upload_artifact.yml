@@ -77,9 +77,9 @@ jobs:
       - name: Upload To cloudflare r2
         uses: ryand56/r2-upload-action@latest
         with:
-          r2-account-id: eb79f13320db531d8cf1f3720966b695
-          r2-access-key-id: ef8a4a11488ae26f49c0984e804ec637
-          r2-secret-access-key: 8acb8da0beb04b711fcef58c377fc522fa59ab0a22a60862729f5c9afe1f00b4
+          r2-account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          r2-access-key-id: ${{ secrets.CLOUDFLARE_SECRET_ID }}
+          r2-secret-access-key: ${{ secrets.CLOUDFLARE_SECRET_KEY }}
           r2-bucket: artifact
           source-dir: artifacts
           destination-dir: ./${{ steps.convert_version.outputs.CHANNEL }}/websoft9/plugin/${{ env.appname }}
