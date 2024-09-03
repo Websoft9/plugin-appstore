@@ -83,15 +83,6 @@ jobs:
           r2-bucket: artifact
           source-dir: artifacts
           destination-dir: ./${{ steps.convert_version.outputs.CHANNEL }}/websoft9/plugin/${{ env.appname }}
-      # - name: Upload To Azure Blob
-      #   uses: LanceMcCarthy/Action-AzureBlobUpload@v2
-      #   with:
-      #     connection_string: ${{ secrets.AZURE_STORAGE_ARTIFACT }}
-      #     container_name: ${{ steps.convert_version.outputs.CHANNEL }}
-      #     source_folder: artifacts/
-      #     destination_folder: ./websoft9/plugin/${{ env.appname }}
-      #     delete_if_exists: true
-      #     fail_if_source_empty: true
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
