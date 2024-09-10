@@ -23,7 +23,7 @@ const getNginxConfig = async () => {
             .join(' ');
 
         if (errorText.includes("permission denied")) {
-            throw new Error("Permission denied");
+            throw new Error("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>");
         }
         else {
             throw new Error(errorText || "Get Nginx Listen Port Error");
@@ -46,7 +46,7 @@ const getApiKey = async () => {
             .join(' ');
 
         if (errorText.includes("permission denied")) {
-            throw new Error("Permission denied");
+            throw new Error("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>");
         }
         else {
             throw new Error(errorText || "Get The Apphub's Api Key Error");

@@ -7,7 +7,7 @@ import Fab from '@mui/material/Fab';
 import Snackbar from '@mui/material/Snackbar';
 import cockpit from 'cockpit';
 import React, { useEffect, useState } from 'react';
-import { Button, Carousel, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Carousel, Col, Form, Modal, Alert as ReactAlert, Row } from 'react-bootstrap';
 import Spinner from 'react-bootstrap/Spinner';
 import LazyLoad from 'react-lazyload';
 import ReactMarkdown from 'react-markdown';
@@ -152,7 +152,7 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                                 .join(' ');
                             let exception = errorText || "Validation Port Error";
                             if (errorText.includes("permission denied")) {
-                                exception = "Permission denied";
+                                exception = _("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>");
                             }
                             setShowAlert(true);
                             setAlertMessage(exception);
@@ -564,31 +564,75 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [selectedSubCatalogKey, setSelectedSubCatalogKey] = useState("All");   //用于存储被选中的子目录
 
 
-
     const getNginxConfig = async () => {
-        var script = "docker exec -i websoft9-apphub apphub getconfig --section nginx_proxy_manager";
-        let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
-        content = JSON.parse(content);
-        let listen_port = content.listen_port;
+        try {
+            var script = "docker exec -i websoft9-apphub apphub getconfig --section nginx_proxy_manager";
+            let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
+            content = JSON.parse(content);
+            let listen_port = content.listen_port;
 
-        baseURL = `${window.location.protocol}//${window.location.hostname}:${listen_port}`;
+            baseURL = `${window.location.protocol}//${window.location.hostname}:${listen_port}`;
+        } catch (error) {
+            setDataError(true);
+            const errorText = [error.problem, error.reason, error.message]
+                .filter(item => typeof item === 'string')
+                .join(' ');
+
+            if (errorText.includes("permission denied")) {
+                setErrorMessage(_("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>"));
+            }
+            else {
+                setErrorMessage(errorText || "Get Nginx Listen Port Error");
+            }
+        }
     }
 
     //获取用户收藏的apps
     const getFavoriteApps = async () => {
-        var script = "docker exec -i websoft9-apphub apphub getconfig --section favorite_apps";
-        let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
-        content = JSON.parse(content);
+        try {
+            var script = "docker exec -i websoft9-apphub apphub getconfig --section favorite_apps";
+            let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
+            content = JSON.parse(content);
 
-        setFavoriteApps(content.keys);
+            setFavoriteApps(content.keys);
+        } catch (error) {
+            setDataError(true);
+            const errorText = [error.problem, error.reason, error.message]
+                .filter(item => typeof item === 'string')
+                .join(' ');
+
+            if (errorText.includes("permission denied")) {
+                setErrorMessage(_("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>"));
+            }
+            else {
+                setErrorMessage(errorText || "Get Favorite Apps Error");
+            }
+        }
+
     }
 
     const updateFavoriteApps = async (updatedFavorites) => {
-        // 确保传入的是字符串，如果是数组则转换为字符串，如果数组为空，则传递一个空字符串
-        const favoriteString = Array.isArray(updatedFavorites) ? updatedFavorites.join(',') : updatedFavorites;
-        const valueArgument = favoriteString !== '' ? favoriteString : '""'; // 当为空字符串时，传递一个双引号包围的空字符串
-        const script = `docker exec -i websoft9-apphub apphub setconfig --section favorite_apps --key keys --value ${valueArgument}`;
-        await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
+        try {
+            // 确保传入的是字符串，如果是数组则转换为字符串，如果数组为空，则传递一个空字符串
+            const favoriteString = Array.isArray(updatedFavorites) ? updatedFavorites.join(',') : updatedFavorites;
+            const valueArgument = favoriteString !== '' ? favoriteString : '""'; // 当为空字符串时，传递一个双引号包围的空字符串
+            const script = `docker exec -i websoft9-apphub apphub setconfig --section favorite_apps --key keys --value ${valueArgument}`;
+            await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
+        }
+        catch (error) {
+            setDataError(true);
+            const errorText = [error.problem, error.reason, error.message]
+                .filter(item => typeof item === 'string')
+                .join(' ');
+
+            if (errorText.includes("permission denied")) {
+                setErrorMessage(_("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>"));
+            }
+            else {
+                setErrorMessage(errorText || "Update Favorite Apps Error");
+            }
+        }
+
         // 重新获取收藏列表以确保 UI 是最新的
         await getFavoriteApps();
     };
@@ -898,8 +942,14 @@ const AppStore = (): React$Element<React$FragmentType> => {
     };
 
     return (
-        loading ? <Spinner className='dis_mid' /> :
-            dataError ? <p>Error : {errorMesage || "Fetch Data Error"} </p> :
+        loading ? /*<Spinner className='dis_mid' />*/ <Spinner animation="border" variant="secondary" className='dis_mid mb-5' /> :
+            dataError ? <div className="d-flex align-items-center justify-content-center m-5" style={{ flexDirection: "column" }}>
+                <Spinner animation="border" variant="secondary" className='mb-5' />
+                <ReactAlert variant="danger" className="my-2">
+                    {errorMesage}
+                </ReactAlert>
+            </div> :
+                // dataError ? <p>Error : {errorMesage || "Fetch Data Error"} </p> :
                 <>
                     <Row>
                         <Col sm={6}>

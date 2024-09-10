@@ -108,6 +108,10 @@ cockpit.locale({
         null,
         "类别"
     ],
+    "Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>": [
+        null,
+        "您的用户没有Docker权限。通过命令授予此用户Docker权限：sudo usermod-aG Docker<username>"
+    ],
     "The number of applications running exceeds the free version limit.Please <a target='_blank' href='https://www.websoft9.com/pricing'>upgrade</a> to the commercial version.": [
         null,
         "运行的应用程序数量超过了免费版本的限制。请<a target='_blank' href='https://www.websoft9.com/pricing'>升级</a>到商业版本。"
