@@ -915,9 +915,17 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
     const renderAppItem = (app, i, isAppFavorite) => {
         const imageName = app?.logo?.imageurl?.split("/").pop();
+        const isProduction = app?.production !== false; // 检查production属性
+
         return (
             <Col xxl={3} sm={6} md={4} key={"app-" + i} className="appstore-item">
                 <div className='appstore-item-content highlight' onClick={() => { handleClick(app, isAppFavorite) }}>
+                    {/* 添加标签容器 */}
+                    {!isProduction && (
+                        <div className="app-todo-label">
+                            To do
+                        </div>
+                    )}
                     <div className='appstore-item-content-icon col-same-height'>
                         <LazyLoad>
                             <img
@@ -937,7 +945,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
                         </div>
                     </div>
                 </div>
-            </Col >
+            </Col>
         );
     };
 

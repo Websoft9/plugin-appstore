@@ -138,3 +138,23 @@ File: Main Css File
     /* 改变颜色 */
     color: gray;
 }
+
+
+.appstore-item-content {
+    position: relative;
+    /* 为绝对定位标签添加参照 */
+}
+
+.app-todo-label {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #ffd700;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
