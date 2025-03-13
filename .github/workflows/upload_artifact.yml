@@ -36,7 +36,7 @@ jobs:
           echo "VERSION_CORE=$version_core" >> $GITHUB_OUTPUT
           if [[ $version == *-* ]]; then
             echo "rc release version"
-            echo "CHANNEL=dev" >> $GITHUB_OUTPUT
+            echo "CHANNEL=rc" >> $GITHUB_OUTPUT
           else
             echo "release version"
             echo "CHANNEL=release" >> $GITHUB_OUTPUT
