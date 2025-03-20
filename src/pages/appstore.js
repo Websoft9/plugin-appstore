@@ -302,7 +302,7 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                                 </h3>
                                 <a
                                     rel="noreferrer"
-                                    href={`https://support.websoft9.com/${language === "zh_CN" ? '' : 'en/'}docs/next/${product.key || ''}`}
+                                    href={`https://support.websoft9.com/${language === "zh_CN" ? '' : 'en/'}docs/${product.key || ''}`}
                                     target="_blank"
                                     style={{ marginRight: '10px' }}
                                 >
