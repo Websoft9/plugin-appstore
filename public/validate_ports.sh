@@ -6,59 +6,65 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-
-# 存储被占用的端口
 occupied_ports=""
 
-# 遍历所有参数
-for port in "$@"
-do
-    # 检查参数是否是数字
-    if ! [[ $port =~ ^[0-9]+$ ]]; then
-        echo "Error: Argument '$port' is not a number."
-        exit 1
-    fi
+check_port() {
+    local port=$1
+    local hex_port=$(printf "%04x" "$port")
 
-    # 检查参数是否在1到65535之间
-    if [ $port -lt 1 ] || [ $port -gt 65535 ]; then
-        echo "Error: Argument '$port' is not between 1 and 65535."
-        exit 1
-    fi
-
-    # 尝试使用netstat检查端口是否被占用
-    if command -v netstat >/dev/null 2>&1; then # 检查netstat是否存在
-        if netstat -tuln 2>/dev/null | grep -q ":$port "; then
-            occupied_ports="$occupied_ports $port"
+    # 方法1：ss 命令检测
+    if command -v ss &>/dev/null; then
+        if ss -tuln | grep -q ":${port} "; then
+            return 0
         fi
-    else
-        # 如果netstat不可用，尝试使用lsof
-        if command -v lsof >/dev/null 2>&1; then # 检查lsof是否存在
-            if lsof -i :$port > /dev/null 2>&1; then
-                occupied_ports="$occupied_ports $port"
-            fi
+    fi
+
+    # 方法2：Bash TCP 连接测试
+    if timeout 1 bash -c "echo >/dev/tcp/127.0.0.1/$port" 2>/dev/null; then
+        return 0
+    fi
+
+    # 方法3：/proc 文件检测
+    if grep -q -E ":[[:space:]]*${hex_port}[[:space:]]+0A " /proc/net/tcp 2>/dev/null ||
+       grep -q -E ":[[:space:]]*${hex_port}[[:space:]]+0A " /proc/net/tcp6 2>/dev/null; then
+        return 0
+    fi
+
+    # 方法4：netstat 检测
+    if command -v netstat &>/dev/null; then
+        if netstat -tuln 2>/dev/null | awk '{print $4}' | grep -q ":${port}$"; then
+            return 0
+        fi
+    fi
+
+    # 方法5：Docker 检测
+    if command -v docker >/dev/null 2>&1; then
+        if docker run --rm -p "$port":80 alpine true &>/dev/null; then
+            return 1
         else
-            # 如果netstat和lsof都不可用，尝试使用/proc/net/tcp和/proc/net/tcp6文件
-            if command -v awk >/dev/null 2>&1 && command -v grep >/dev/null 2>&1; then # 检查awk和grep是否存在
-                if awk -v port=$port 'BEGIN{printf "%x\n", port}' | xargs -I {} grep -q {} /proc/net/tcp /proc/net/tcp6 2>/dev/null; then
-                    occupied_ports="$occupied_ports $port"
-                fi
-            else
-                # 如果上述所有方法都不可用，尝试使用Docker
-                if command -v docker >/dev/null 2>&1; then # 检查docker是否存在
-                    if docker run -it --rm -p $port:80 alpine true 2>/dev/null; then               
-                        :
-                    else
-                        occupied_ports="$occupied_ports $port"
-                    fi
-                fi
-            fi
+            return 0
         fi
+    fi
+
+    # 默认返回未占用
+    return 1
+}
+
+# 主循环
+for port in "$@"; do
+    if ! [[ $port =~ ^[0-9]+$ ]] || [ $port -lt 1 ] || [ $port -gt 65535 ]; then
+        echo "Error: Invalid port $port" >&2
+        exit 1
+    fi
+
+    if check_port "$port"; then
+        occupied_ports="$occupied_ports $port"
     fi
 done
 
-# 如果有被占用的端口，打印出来
+# 结果输出
 if [ -n "$occupied_ports" ]; then
-    echo "$occupied_ports"
+    echo "$occupied_ports" | sed 's/^ //'
 else
     echo "ok"
 fi
