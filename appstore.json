@@ -3,7 +3,7 @@
     "Repository": "https://github.com/Websoft9/plugin-appstore",
     "Update URI": "https://example.com/my-plugin/",
     "Description": "200 application template for you installation.",
-    "Version": "0.2.11-rc1",
+    "Version": "0.2.11",
     "Requires at most": "0.9.21",
     "Requires at least": "0.0.8",
     "Author": "Websoft9 Inc",
