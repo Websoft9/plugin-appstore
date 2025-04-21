@@ -15,38 +15,43 @@ check_port() {
     # 方法1：ss 命令检测
     if command -v ss &>/dev/null; then
         if ss -tuln | grep -q ":${port} "; then
+            echo "ss 命令检测"
             return 0
         fi
     fi
 
     # 方法2：Bash TCP 连接测试
     if timeout 1 bash -c "echo >/dev/tcp/127.0.0.1/$port" 2>/dev/null; then
+        echo "Bash TCP 连接测试"
         return 0
     fi
 
     # 方法3：/proc 文件检测
     if grep -q -E ":[[:space:]]*${hex_port}[[:space:]]+0A " /proc/net/tcp 2>/dev/null ||
        grep -q -E ":[[:space:]]*${hex_port}[[:space:]]+0A " /proc/net/tcp6 2>/dev/null; then
+       echo "/proc 文件检测"
         return 0
     fi
 
     # 方法4：netstat 检测
     if command -v netstat &>/dev/null; then
         if netstat -tuln 2>/dev/null | awk '{print $4}' | grep -q ":${port}$"; then
+            echo "netstat 检测"
             return 0
         fi
     fi
 
     # 方法5：Docker 检测
     if command -v docker >/dev/null 2>&1; then
-        if docker run --rm -p "$port":80 alpine true &>/dev/null; then
-            return 1
-        else
+        if docker ps --format '{{.Ports}}' | grep -q ":${port}->"; then
+            echo "Docker 检测"
             return 0
         fi
     fi
 
+
     # 默认返回未占用
+    echo "检测失败，默认所有端口可安装"
     return 1
 }
 
