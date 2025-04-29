@@ -1,3 +1,5 @@
+## 0.2.12 release on 2025-04-29
+1. Message prompt for modifying application installation restrictions
 ## 0.2.12-rc1 release on 2025-04-29
 1. Message prompt for modifying application installation restrictions
 ## 0.2.11 release on 2025-04-21
