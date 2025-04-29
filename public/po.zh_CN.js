@@ -503,5 +503,49 @@ cockpit.locale({
     "W9_CONTAINER_PT_INIT_SET": [
         null,
         "容器需暴露的端口"
+    ],
+    "W9_BEATS_TCP_PORT_SET": [
+        null,
+        "BEATS TCP 端口"
+    ],
+    "W9_RAW_TCP_PORT_SET": [
+        null,
+        "原始 TCP 端口"
+    ],
+    "W9_RAW_UDP_PORT_SET": [
+        null,
+        "原始 UDP 端口"
+    ],
+    "W9_FORWARDER_DATA_TCP_PORT_SET": [
+        null,
+        "数据 TCP 端口"
+    ],
+    "W9_FORWARDER_CONFIG_TCP_PORT_SET": [
+        null,
+        "配置 TCP 端口"
+    ],
+    "W9_LOGIN_TOKEN": [
+        null,
+        "登陆 TOKEN"
+    ],
+    "W9_SERVER_PORT_SET": [
+        null,
+        "服务端口"
+    ],
+    "W9_HTTP_VNC_SET": [
+        null,
+        "网络 VNC"
+    ],
+    "W9_APP_KEY_SET": [
+        null,
+        "应用密钥"
+    ],
+    "W9_INNERIP_SET": [
+        null,
+        "内网 IP"
+    ],
+    "W9_NETWORKID_SET": [
+        null,
+        "网络 ID"
     ]
 });
