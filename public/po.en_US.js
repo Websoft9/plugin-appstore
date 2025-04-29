@@ -383,5 +383,49 @@ cockpit.locale({
     "W9_CONTAINER_PT_INIT_SET": [
         null,
         "CONTAINER PORT NEED EXPOSED"
+    ],
+    "W9_BEATS_TCP_PORT_SET": [
+        null,
+        "BEATS TCP PORT"
+    ],
+    "W9_RAW_TCP_PORT_SET": [
+        null,
+        "RAW TCP PORT"
+    ],
+    "W9_RAW_UDP_PORT_SET": [
+        null,
+        "RAW UDP PORT"
+    ],
+    "W9_FORWARDER_DATA_TCP_PORT_SET": [
+        null,
+        "DATA TCP PORT"
+    ],
+    "W9_FORWARDER_CONFIG_TCP_PORT_SET": [
+        null,
+        "CONFIG TCP PORT"
+    ],
+    "W9_LOGIN_TOKEN": [
+        null,
+        "LOGIN TOKEN"
+    ],
+    "W9_SERVER_PORT_SET": [
+        null,
+        "SERVER PORT"
+    ],
+    "W9_HTTP_VNC_SET": [
+        null,
+        "HTTP VNC"
+    ],
+    "W9_APP_KEY_SET": [
+        null,
+        "APP KEY"
+    ],
+    "W9_INNERIP_SET": [
+        null,
+        "INNER IP"
+    ],
+    "W9_NETWORKID_SET": [
+        null,
+        "NETWORK ID"
     ]
 });
