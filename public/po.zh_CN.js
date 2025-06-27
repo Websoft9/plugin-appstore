@@ -547,5 +547,13 @@ cockpit.locale({
     "W9_NETWORKID_SET": [
         null,
         "网络 ID"
+    ],
+    "W9_DNS_TCP_PORT_SET": [
+        null,
+        "DNS TCP 端口"
+    ],
+    "W9_DNS_UDP_PORT_SET": [
+        null,
+        "DNS UDP 端口"
     ]
 });
