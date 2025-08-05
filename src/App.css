@@ -1,0 +1,67 @@
+/* 骨架屏脉动动画 */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        background-color: #f0f0f0;
+    }
+
+    50% {
+        opacity: 0.4;
+        background-color: #e0e0e0;
+    }
+
+    100% {
+        opacity: 1;
+        background-color: #f0f0f0;
+    }
+}
+
+/* 应用图标样式优化 */
+.app-icon {
+    transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.app-icon:hover {
+    transform: scale(1.05);
+}
+
+/* 图片加载渐变效果 */
+.app-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.app-image-loading {
+    opacity: 0;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* 骨架屏容器 */
+.skeleton-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}

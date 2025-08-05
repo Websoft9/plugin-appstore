@@ -26,5 +26,11 @@ function GetSettingsBySection(section, params) {
     return api.get(`${baseUrl}`, params);
 }
 
-export { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection };
+// 更新设置
+function UpdateSettingsBySection(section, key, value, params) {
+    const baseUrl = `/settings/${section}`;
+    return api.put(`${baseUrl}`, null, { ...params, key, value });
+}
+
+export { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection, UpdateSettingsBySection };
 

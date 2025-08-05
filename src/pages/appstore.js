@@ -13,9 +13,11 @@ import LazyLoad from 'react-lazyload';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate } from "react-router-dom";
 import DefaultImgEn from '../assets/images/default_en.png';
+import '../App.css';
 import DefaultImgzh from '../assets/images/default_zh.png';
 import FormInput from '../components/FormInput';
-import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection } from '../helpers';
+import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection, UpdateSettingsBySection } from '../helpers';
+import configManager from '../helpers/api/configManager';
 
 const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
@@ -32,6 +34,89 @@ function HtmlContent({ html }) {
     return <span dangerouslySetInnerHTML={{ __html: html }} />;
 }
 
+// 带骨架屏的图片组件
+const AppImage = ({ src, alt, className, onError, isFirstScreen, width, height }) => {
+    const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
+
+    const handleLoad = () => {
+        setLoaded(true);
+    };
+
+    const handleError = (e) => {
+        setError(true);
+        if (onError) onError(e);
+    };
+
+    // 骨架屏样式
+    const skeletonStyle = {
+        width: width || '100%',
+        height: height || '80px',
+        backgroundColor: '#f0f0f0',
+        borderRadius: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        opacity: loaded ? 0 : 1,
+        transition: 'opacity 0.3s ease',
+        zIndex: 1
+    };
+
+    const imgStyle = {
+        opacity: loaded ? 1 : 0,
+        transition: 'opacity 0.3s ease',
+        display: error ? 'none' : 'block',
+        width: width,
+        height: height,
+        position: 'relative',
+        zIndex: 2
+    };
+
+    return (
+        <div className="app-image-container" style={{ position: 'relative', minHeight: height || '80px', width: width || '100%' }}>
+            {/* 骨架屏 */}
+            {!loaded && !error && (
+                <div className="skeleton-container" style={skeletonStyle}>
+                    <div style={{
+                        width: '40px',
+                        height: '40px',
+                        backgroundColor: '#d0d0d0',
+                        borderRadius: '6px',
+                        animation: 'pulse 1.5s ease-in-out infinite'
+                    }}></div>
+                </div>
+            )}
+
+            {/* 实际图片 */}
+            {isFirstScreen ? (
+                <img
+                    src={src}
+                    alt={alt}
+                    className={className}
+                    onLoad={handleLoad}
+                    onError={handleError}
+                    loading="eager"
+                    style={imgStyle}
+                />
+            ) : (
+                <LazyLoad height={parseInt(height) || 80} offset={300} once>
+                    <img
+                        src={src}
+                        alt={alt}
+                        className={className}
+                        onLoad={handleLoad}
+                        onError={handleError}
+                        loading="lazy"
+                        style={imgStyle}
+                    />
+                </LazyLoad>
+            )}
+        </div>
+    );
+};
 
 //应用详情弹窗
 const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpdate, catalogClick }) => {
@@ -288,11 +373,13 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                     <div style={{ padding: "10px" }}>
                         <div className='appstore-item-content-icon col-same-height'>
                             <a rel="noreferrer" href={product.websiteurl} target="_blank">
-                                <img
+                                <AppImage
                                     src={`${baseURL}/media/logos/${imagName}`}
                                     alt=""
                                     className="app-icon"
-                                    onError={(e) => (e.target.src = DefaultImg)} />
+                                    onError={(e) => (e.target.src = DefaultImg)}
+                                    isFirstScreen={true}
+                                />
                             </a>
                         </div>
                         <div className='col-same-height'>
@@ -365,12 +452,13 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                                     const filename = item.value.split("/").pop();
                                     return (
                                         <Carousel.Item key={item?.id} >
-                                            <img
+                                            <AppImage
                                                 className="d-block"
                                                 src={`${baseURL}/media/screenshots/${language === "zh_CN" ? "zh" : "en"}/${filename}`}
                                                 alt={item?.key}
                                                 width="100%"
                                                 height="300px"
+                                                isFirstScreen={true}
                                             />
                                         </Carousel.Item>
                                     );
@@ -538,10 +626,9 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
 
         </>
     );
-}
+};
 
-
-const AppStore = (): React$Element<React$FragmentType> => {
+const AppStore = () => {
     const [showModal, setShowModal] = useState(false); //用于显示弹窗的标识
     const [selectedProduct, setSelectedProduct] = useState(null); //用于存储被选中的产品（点击应用详情时使用）
     const [isAppFavorite, setIsAppFavorite] = useState(false); //用于存储用户是否收藏了应用
@@ -552,7 +639,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [mainCatalogs, setMainCatalogs] = useState([]);
     const [apps, setApps] = useState([]); //用于存储所有app数据
     const [appList, setAppList] = useState([]); //用于存储通过目录筛选出来的数据
-    const [favoriteApps, setFavoriteApps] = useState(null); //用于存储用户收藏的app
+    const [favoriteApps, setFavoriteApps] = useState(""); //用于存储用户收藏的app（初始化为空字符串）
     const [filteredFavoriteApps, setFilteredFavoriteApps] = useState([]); //用于存储用户收藏的app（过滤出来的json数据）
     const [nonFavoriteApps, setNonFavoriteApps] = useState([]); //用于存储非用户收藏的app
     const [loading, setLoading] = useState(false);
@@ -564,15 +651,19 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const [selectedSubCatalogKey, setSelectedSubCatalogKey] = useState("All");   //用于存储被选中的子目录
 
 
-    const getNginxConfig = async () => {
+    const initializeConfig = async () => {
         try {
-            var script = "docker exec -i websoft9-apphub apphub getconfig --section nginx_proxy_manager";
-            let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
-            content = JSON.parse(content);
-            let listen_port = content.listen_port;
+            // 清理过期的本地缓存
+            cleanupExpiredCache();
 
-            baseURL = `${window.location.protocol}//${window.location.hostname}:${listen_port}`;
+            // 使用统一的配置管理器，一次性获取所有配置
+            console.time('[AppStore] Config initialization');
+            const config = await configManager.initialize();
+            baseURL = config.baseURL;
+            console.timeEnd('[AppStore] Config initialization');
+            console.log('[AppStore] BaseURL configured:', baseURL);
         } catch (error) {
+            console.error('[AppStore] 配置初始化失败:', error);
             setDataError(true);
             const errorText = [error.problem, error.reason, error.message]
                 .filter(item => typeof item === 'string')
@@ -580,57 +671,112 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
             if (errorText.includes("permission denied")) {
                 setErrorMessage(_("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>"));
+            } else {
+                setErrorMessage(errorText || "Configuration Initialization Error");
             }
-            else {
-                setErrorMessage(errorText || "Get Nginx Listen Port Error");
-            }
+            throw error; // 重新抛出错误，阻止后续API调用
         }
     }
 
-    //获取用户收藏的apps
+    // 清理过期的本地缓存
+    const cleanupExpiredCache = () => {
+        try {
+            const cacheKeys = ['appstore_data', 'favorite_apps_cache'];
+            cacheKeys.forEach(key => {
+                const timestamp = localStorage.getItem(key + '_timestamp');
+                if (timestamp) {
+                    const age = Date.now() - parseInt(timestamp);
+                    // 如果缓存超过1小时，清理掉
+                    if (age > 60 * 60 * 1000) {
+                        localStorage.removeItem(key);
+                        localStorage.removeItem(key + '_timestamp');
+                        console.log(`[AppStore] Cleaned expired cache: ${key}`);
+                    }
+                }
+            });
+        } catch (e) {
+            console.warn('[AppStore] Failed to cleanup cache:', e);
+        }
+    };
+
+    //获取用户收藏的apps (优化：API优先+本地缓存)
     const getFavoriteApps = async () => {
         try {
-            var script = "docker exec -i websoft9-apphub apphub getconfig --section favorite_apps";
-            let content = (await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" })).trim();
-            content = JSON.parse(content);
+            console.time('[AppStore] Get favorite apps');
 
-            setFavoriteApps(content.keys);
+            // 先尝试本地缓存（1分钟有效期，收藏数据变化较频繁）
+            const cacheKey = 'favorite_apps_cache';
+            const cacheTimeout = 60 * 1000; // 1分钟
+            const cachedFavorites = localStorage.getItem(cacheKey);
+            const cacheTimestamp = localStorage.getItem(cacheKey + '_timestamp');
+
+            if (cachedFavorites && cacheTimestamp) {
+                const age = Date.now() - parseInt(cacheTimestamp);
+                if (age < cacheTimeout) {
+                    console.log('[AppStore] Using cached favorite apps');
+                    setFavoriteApps(cachedFavorites);
+                    console.timeEnd('[AppStore] Get favorite apps');
+                    return;
+                }
+            }
+
+            // 使用 API 方式获取收藏应用
+            const content = await GetSettingsBySection("favorite_apps");
+            const favoriteKeys = content.keys || "";
+            setFavoriteApps(favoriteKeys);
+
+            // 缓存收藏数据
+            try {
+                localStorage.setItem(cacheKey, favoriteKeys);
+                localStorage.setItem(cacheKey + '_timestamp', Date.now().toString());
+            } catch (e) {
+                console.warn('[AppStore] Failed to cache favorite apps:', e);
+            }
+
+            console.timeEnd('[AppStore] Get favorite apps');
+            console.log('[AppStore] Favorite apps loaded via API:', favoriteKeys);
         } catch (error) {
-            setDataError(true);
-            const errorText = [error.problem, error.reason, error.message]
-                .filter(item => typeof item === 'string')
-                .join(' ');
+            console.timeEnd('[AppStore] Get favorite apps');
+            console.warn('[AppStore] Failed to load favorite apps via API:', error);
 
-            if (errorText.includes("permission denied")) {
-                setErrorMessage(_("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>"));
+            // 尝试使用缓存的数据作为备选
+            const cachedFavorites = localStorage.getItem('favorite_apps_cache');
+            if (cachedFavorites) {
+                console.log('[AppStore] Using stale cache as fallback');
+                setFavoriteApps(cachedFavorites);
+            } else {
+                // 设置为空字符串，不影响主要功能
+                setFavoriteApps("");
             }
-            else {
-                setErrorMessage(errorText || "Get Favorite Apps Error");
-            }
+
+            // 不设置错误状态，收藏功能失败不应阻塞整个页面
+            console.log('[AppStore] Page will continue to work without favorites');
         }
+    };
 
-    }
-
+    // 使用API更新收藏应用列表（清除缓存）
     const updateFavoriteApps = async (updatedFavorites) => {
         try {
-            // 确保传入的是字符串，如果是数组则转换为字符串，如果数组为空，则传递一个空字符串
+            // 确保传入的是字符串，如果是数组则转换为字符串
             const favoriteString = Array.isArray(updatedFavorites) ? updatedFavorites.join(',') : updatedFavorites;
-            const valueArgument = favoriteString !== '' ? favoriteString : '""'; // 当为空字符串时，传递一个双引号包围的空字符串
-            const script = `docker exec -i websoft9-apphub apphub setconfig --section favorite_apps --key keys --value ${valueArgument}`;
-            await cockpit.spawn(["/bin/bash", "-c", script], { superuser: "try" });
-        }
-        catch (error) {
-            setDataError(true);
-            const errorText = [error.problem, error.reason, error.message]
-                .filter(item => typeof item === 'string')
-                .join(' ');
+            const finalValue = favoriteString || ""; // 如果为空，传递空字符串
 
-            if (errorText.includes("permission denied")) {
-                setErrorMessage(_("Your user does not have Docker permissions. Grant Docker permissions to this user by command: sudo usermod -aG docker <username>"));
-            }
-            else {
-                setErrorMessage(errorText || "Update Favorite Apps Error");
-            }
+            console.log('[AppStore] Updating favorite apps via API:', finalValue);
+
+            // 使用API helper更新收藏列表
+            const result = await UpdateSettingsBySection("favorite_apps", "keys", finalValue);
+            console.log('[AppStore] Favorite apps updated successfully via API:', result);
+
+            // 更新成功后，清除收藏数据缓存，确保下次获取最新数据
+            localStorage.removeItem('favorite_apps_cache');
+            localStorage.removeItem('favorite_apps_cache_timestamp');
+
+        } catch (error) {
+            console.error('[AppStore] Failed to update favorite apps via API:', error);
+
+            // API失败时的处理，可以选择显示错误或忽略
+            setDataError(true);
+            setErrorMessage(`Failed to update favorites: ${error.message}`);
         }
 
         // 重新获取收藏列表以确保 UI 是最新的
@@ -696,9 +842,32 @@ const AppStore = (): React$Element<React$FragmentType> => {
 
 
 
-    //获取所有apps
+    //获取所有apps（增强缓存机制）
     const getData = async () => {
         try {
+            console.time('[AppStore] Apps data fetching');
+
+            // 检查是否有缓存的应用数据（5分钟有效期）
+            const cacheKey = 'appstore_data';
+            const cacheTimeout = 5 * 60 * 1000; // 5分钟
+            const cachedData = localStorage.getItem(cacheKey);
+            const cacheTimestamp = localStorage.getItem(cacheKey + '_timestamp');
+
+            if (cachedData && cacheTimestamp) {
+                const age = Date.now() - parseInt(cacheTimestamp);
+                if (age < cacheTimeout) {
+                    console.log('[AppStore] Using cached apps data');
+                    const { catalogs, apps: cachedApps } = JSON.parse(cachedData);
+                    setMainCatalogs(catalogs);
+                    setApps(cachedApps);
+                    setAppList(cachedApps);
+                    console.timeEnd('[AppStore] Apps data fetching');
+                    return;
+                }
+            }
+
+            // 缓存失效或不存在，重新获取数据
+            console.log('[AppStore] Fetching fresh apps data');
             const responses = await Promise.all([
                 AppCatalog(language === "zh_CN" ? "zh" : "en"),
                 AppAvailable(language === "zh_CN" ? "zh" : "en")
@@ -721,7 +890,22 @@ const AppStore = (): React$Element<React$FragmentType> => {
             setMainCatalogs(catalogSort);
             setApps(productResponse);
             setAppList(productResponse);
+
+            // 缓存数据
+            try {
+                localStorage.setItem(cacheKey, JSON.stringify({
+                    catalogs: catalogSort,
+                    apps: productResponse
+                }));
+                localStorage.setItem(cacheKey + '_timestamp', Date.now().toString());
+                console.log('[AppStore] Apps data cached successfully');
+            } catch (e) {
+                console.warn('[AppStore] Failed to cache apps data:', e);
+            }
+
+            console.timeEnd('[AppStore] Apps data fetching');
         } catch (error) {
+            console.timeEnd('[AppStore] Apps data fetching');
             setDataError(true);
             setErrorMessage(error.message);
         }
@@ -730,10 +914,34 @@ const AppStore = (): React$Element<React$FragmentType> => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            await getData();
-            await getFavoriteApps();
-            await getNginxConfig();
-            setLoading(false);
+
+            try {
+                console.time('[AppStore] Total page load time');
+
+                // 第一阶段：预热配置缓存（快速执行）
+                await initializeConfig();
+
+                // 第二阶段：优先获取应用数据，让用户快速看到内容
+                console.time('[AppStore] Core data fetching');
+                await getData(); // 优先加载应用列表，让页面快速显示
+                console.timeEnd('[AppStore] Core data fetching');
+
+                setLoading(false); // 主要数据加载完成，立即显示页面
+                console.timeEnd('[AppStore] Total page load time');
+
+                // 第三阶段：异步加载收藏数据，不阻塞页面显示
+                console.time('[AppStore] Favorite apps loading');
+                getFavoriteApps().finally(() => {
+                    console.timeEnd('[AppStore] Favorite apps loading');
+                    console.log('[AppStore] Favorite apps loaded asynchronously');
+                });
+
+            } catch (error) {
+                console.error("[AppStore] Error loading core data:", error);
+                setDataError(true);
+                setErrorMessage(error.message || "Fetch Data Error");
+                setLoading(false);
+            }
         };
 
         fetchData();
@@ -840,7 +1048,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
     const changeMainCatalog = (selectedMainCatalog) => {
         return new Promise((resolve) => {
             setSelectedMainCatalogKey(selectedMainCatalog);
-            setFavoriteAppsIsVisible(selectedMainCatalog === "All" && favoriteApps.length > 0);
+            setFavoriteAppsIsVisible(selectedMainCatalog === "All" && favoriteApps && favoriteApps.length > 0);
 
             let updatedData = null;
             updatedData =
@@ -890,7 +1098,7 @@ const AppStore = (): React$Element<React$FragmentType> => {
         setSelectedMainCatalogKey("All");
         setSelectedSubCatalogKey("All");
 
-        setFavoriteAppsIsVisible(searchString === "" && favoriteApps.length > 0);
+        setFavoriteAppsIsVisible(searchString === "" && favoriteApps && favoriteApps.length > 0);
         setSearchValue(searchString);
         searchString = searchString.toLowerCase();
         let updatedData = null;
@@ -917,6 +1125,9 @@ const AppStore = (): React$Element<React$FragmentType> => {
         const imageName = app?.logo?.imageurl?.split("/").pop();
         const isProduction = app?.production !== false; // 检查production属性
 
+        // 对于前20个应用（首屏+部分第二屏），直接加载图片，其余使用懒加载
+        const isFirstScreen = i < 20;
+
         return (
             <Col xxl={3} sm={6} md={4} key={"app-" + i} className="appstore-item">
                 <div className='appstore-item-content highlight' onClick={() => { handleClick(app, isAppFavorite) }}>
@@ -927,14 +1138,13 @@ const AppStore = (): React$Element<React$FragmentType> => {
                         </div>
                     )}
                     <div className='appstore-item-content-icon col-same-height'>
-                        <LazyLoad>
-                            <img
-                                src={`${baseURL}/media/logos/${imageName}`}
-                                alt={imageName}
-                                className="app-icon"
-                                onError={(e) => (e.target.src = DefaultImg)}
-                            />
-                        </LazyLoad>
+                        <AppImage
+                            src={`${baseURL}/media/logos/${imageName}`}
+                            alt={imageName}
+                            className="app-icon"
+                            onError={(e) => (e.target.src = DefaultImg)}
+                            isFirstScreen={isFirstScreen}
+                        />
                     </div>
                     <div className='col-same-height' style={{ textAlign: "initial" }}>
                         <h4 className="appstore-item-content-title">
@@ -949,89 +1159,142 @@ const AppStore = (): React$Element<React$FragmentType> => {
         );
     };
 
+    // 创建骨架屏占位应用项
+    const renderSkeletonAppItem = (index) => {
+        return (
+            <Col xxl={3} sm={6} md={4} key={"skeleton-" + index} className="appstore-item">
+                <div className='appstore-item-content highlight'>
+                    <div className='appstore-item-content-icon col-same-height'>
+                        <div className="skeleton-container" style={{
+                            width: '80px',
+                            height: '80px',
+                            backgroundColor: '#f0f0f0',
+                            borderRadius: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <div style={{
+                                width: '40px',
+                                height: '40px',
+                                backgroundColor: '#d0d0d0',
+                                borderRadius: '6px',
+                                animation: 'pulse 1.5s ease-in-out infinite'
+                            }}></div>
+                        </div>
+                    </div>
+                    <div className='col-same-height' style={{ textAlign: "initial" }}>
+                        <div className="skeleton-container" style={{
+                            width: '60%',
+                            height: '20px',
+                            backgroundColor: '#f0f0f0',
+                            borderRadius: '4px',
+                            marginBottom: '8px'
+                        }}></div>
+                        <div className="skeleton-container" style={{
+                            width: '80%',
+                            height: '16px',
+                            backgroundColor: '#f0f0f0',
+                            borderRadius: '4px'
+                        }}></div>
+                    </div>
+                </div>
+            </Col>
+        );
+    };
+
     return (
-        loading ? /*<Spinner className='dis_mid' />*/ <Spinner animation="border" variant="secondary" className='dis_mid mb-5' /> :
-            dataError ? <div className="d-flex align-items-center justify-content-center m-5" style={{ flexDirection: "column" }}>
-                <Spinner animation="border" variant="secondary" className='mb-5' />
-                <ReactAlert variant="danger" className="my-2">
-                    {errorMesage}
-                </ReactAlert>
-            </div> :
-                // dataError ? <p>Error : {errorMesage || "Fetch Data Error"} </p> :
-                <>
-                    <Row>
-                        <Col sm={6}>
-                            <Form.Group as={Row}>
-                                <Col sm={6}>
-                                    <FormInput
-                                        name="select1"
-                                        type="select"
-                                        className="form-select"
-                                        key="select1"
-                                        value={selectedMainCatalogKey}
-                                        onChange={(e) => changeMainCatalog(e.target.value)}>
-                                        <option value="All" /*selected={isAllSelected}*/>{_("All")}</option>
-                                        {
-                                            (mainCatalogs || []).map((item, i) => {
-                                                return (
-                                                    <option value={item?.key} key={item?.key + i}>{item?.title}</option>
-                                                );
-                                            })
-                                        }
-                                    </FormInput>
-                                </Col>
-                                <Col sm={6}>
-                                    <FormInput
-                                        name="select2"
-                                        type="select"
-                                        className="form-select"
-                                        key="select2"
-                                        value={selectedSubCatalogKey}
-                                        onChange={(e) => changeSubCatalog(e.target.value)}>
-                                        <option value="All">{_("All")}</option>
-                                        {
-                                            (subCatalogs || []).map((item, i) => {
-                                                return (
-                                                    <option value={item?.key} key={item?.key + i}>{item?.title}</option>
-                                                );
-                                            })
-                                        }
-                                    </FormInput>
-                                </Col>
-                            </Form.Group>
-                        </Col>
-                        <Col sm={6}>
-                            <Col xs="auto">
-                                <FormInput type="text" name="search"
-                                    placeholder={_("Search for apps like WordPress, MySQL, GitLab, …")}
-                                    value={searchValue}
-                                    onChange={(e) => handleInputChange(e.target.value)} />
+        dataError ? <div className="d-flex align-items-center justify-content-center m-5" style={{ flexDirection: "column" }}>
+            <Spinner animation="border" variant="secondary" className='mb-5' />
+            <ReactAlert variant="danger" className="my-2">
+                {errorMesage}
+            </ReactAlert>
+        </div> :
+            <>
+                <Row>
+                    <Col sm={6}>
+                        <Form.Group as={Row}>
+                            <Col sm={6}>
+                                <FormInput
+                                    name="select1"
+                                    type="select"
+                                    className="form-select"
+                                    key="select1"
+                                    value={selectedMainCatalogKey}
+                                    onChange={(e) => changeMainCatalog(e.target.value)}
+                                    disabled={loading}>
+                                    <option value="All">{_("All")}</option>
+                                    {
+                                        (mainCatalogs || []).map((item, i) => {
+                                            return (
+                                                <option value={item?.key} key={item?.key + i}>{item?.title}</option>
+                                            );
+                                        })
+                                    }
+                                </FormInput>
                             </Col>
+                            <Col sm={6}>
+                                <FormInput
+                                    name="select2"
+                                    type="select"
+                                    className="form-select"
+                                    key="select2"
+                                    value={selectedSubCatalogKey}
+                                    onChange={(e) => changeSubCatalog(e.target.value)}
+                                    disabled={loading}>
+                                    <option value="All">{_("All")}</option>
+                                    {
+                                        (subCatalogs || []).map((item, i) => {
+                                            return (
+                                                <option value={item?.key} key={item?.key + i}>{item?.title}</option>
+                                            );
+                                        })
+                                    }
+                                </FormInput>
+                            </Col>
+                        </Form.Group>
+                    </Col>
+                    <Col sm={6}>
+                        <Col xs="auto">
+                            <FormInput type="text" name="search"
+                                placeholder={_("Search for apps like WordPress, MySQL, GitLab, …")}
+                                value={searchValue}
+                                onChange={(e) => handleInputChange(e.target.value)}
+                                disabled={loading} />
                         </Col>
-                    </Row>
+                    </Col>
+                </Row>
 
-                    {
-                        isFavoriteAppsVisible && filteredFavoriteApps.length > 0 && (
-                            <Row>
-                                <h4 style={{ marginTop: '30px', marginBottom: '20px' }}>{_("My favorites")}</h4>
-                                {filteredFavoriteApps.map((app, i) => renderAppItem(app, i, true))}
-                            </Row>
-                        )
-                    }
-
+                {/* 收藏应用区域 */}
+                {isFavoriteAppsVisible && filteredFavoriteApps.length > 0 && (
                     <Row>
-                        <h4 style={{ fontWeight: 'normal', marginTop: '20px', marginBottom: '20px' }}>{_("All")}</h4>
-                        {appList.map((app, i) => renderAppItem(app, i, favoriteApps.includes(app.key)))}
+                        <h4 style={{ marginTop: '30px', marginBottom: '20px' }}>{_("My favorites")}</h4>
+                        {filteredFavoriteApps.map((app, i) => renderAppItem(app, i, true))}
                     </Row>
+                )}
 
-                    {showModal && <AppDetailModal
-                        product={selectedProduct}
-                        showFlag={showModal}
-                        onClose={handleClose}
-                        isFavorite={isAppFavorite}
-                        onFavoriteUpdate={onFavoriteUpdate}
-                        catalogClick={handleCatalogClickForModal} />}
-                </>
+                {/* 所有应用区域 */}
+                <Row>
+                    <h4 style={{ fontWeight: 'normal', marginTop: '20px', marginBottom: '20px' }}>
+                        {_("All")} {loading && <Spinner animation="border" size="sm" className="ms-2" />}
+                    </h4>
+                    {loading && appList.length === 0 ? (
+                        // 显示骨架屏占位符
+                        Array(12).fill(0).map((_, i) => renderSkeletonAppItem(i))
+                    ) : (
+                        // 显示实际应用列表
+                        appList.map((app, i) => renderAppItem(app, i, favoriteApps && favoriteApps.includes(app.key)))
+                    )}
+                </Row>
+
+                {showModal && <AppDetailModal
+                    product={selectedProduct}
+                    showFlag={showModal}
+                    onClose={handleClose}
+                    isFavorite={isAppFavorite}
+                    onFavoriteUpdate={onFavoriteUpdate}
+                    catalogClick={handleCatalogClickForModal} />}
+            </>
     );
 };
 

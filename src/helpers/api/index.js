@@ -1,6 +1,6 @@
 // @flow
-import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection } from './appHub';
+import { AppAvailable, AppCatalog, AppInstall, GetSettingsBySection, UpdateSettingsBySection } from './appHub';
 
 export {
-    AppAvailable, AppCatalog, AppInstall, GetSettingsBySection
+    AppAvailable, AppCatalog, AppInstall, GetSettingsBySection, UpdateSettingsBySection
 };

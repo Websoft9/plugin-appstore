@@ -260,4 +260,4 @@ class APICore {
     };
 }
 
-export { APICore };
+export { APICore, getNginxConfig, getApiKey };
