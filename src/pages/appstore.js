@@ -655,15 +655,10 @@ const AppStore = () => {
         try {
             // 清理过期的本地缓存
             cleanupExpiredCache();
-
             // 使用统一的配置管理器，一次性获取所有配置
-            console.time('[AppStore] Config initialization');
             const config = await configManager.initialize();
             baseURL = config.baseURL;
-            console.timeEnd('[AppStore] Config initialization');
-            console.log('[AppStore] BaseURL configured:', baseURL);
         } catch (error) {
-            console.error('[AppStore] 配置初始化失败:', error);
             setDataError(true);
             const errorText = [error.problem, error.reason, error.message]
                 .filter(item => typeof item === 'string')
@@ -690,7 +685,6 @@ const AppStore = () => {
                     if (age > 60 * 60 * 1000) {
                         localStorage.removeItem(key);
                         localStorage.removeItem(key + '_timestamp');
-                        console.log(`[AppStore] Cleaned expired cache: ${key}`);
                     }
                 }
             });
@@ -702,7 +696,6 @@ const AppStore = () => {
     //获取用户收藏的apps (优化：API优先+本地缓存)
     const getFavoriteApps = async () => {
         try {
-            console.time('[AppStore] Get favorite apps');
 
             // 先尝试本地缓存（1分钟有效期，收藏数据变化较频繁）
             const cacheKey = 'favorite_apps_cache';
@@ -713,9 +706,7 @@ const AppStore = () => {
             if (cachedFavorites && cacheTimestamp) {
                 const age = Date.now() - parseInt(cacheTimestamp);
                 if (age < cacheTimeout) {
-                    console.log('[AppStore] Using cached favorite apps');
                     setFavoriteApps(cachedFavorites);
-                    console.timeEnd('[AppStore] Get favorite apps');
                     return;
                 }
             }
@@ -732,25 +723,15 @@ const AppStore = () => {
             } catch (e) {
                 console.warn('[AppStore] Failed to cache favorite apps:', e);
             }
-
-            console.timeEnd('[AppStore] Get favorite apps');
-            console.log('[AppStore] Favorite apps loaded via API:', favoriteKeys);
         } catch (error) {
-            console.timeEnd('[AppStore] Get favorite apps');
-            console.warn('[AppStore] Failed to load favorite apps via API:', error);
-
             // 尝试使用缓存的数据作为备选
             const cachedFavorites = localStorage.getItem('favorite_apps_cache');
             if (cachedFavorites) {
-                console.log('[AppStore] Using stale cache as fallback');
                 setFavoriteApps(cachedFavorites);
             } else {
                 // 设置为空字符串，不影响主要功能
                 setFavoriteApps("");
             }
-
-            // 不设置错误状态，收藏功能失败不应阻塞整个页面
-            console.log('[AppStore] Page will continue to work without favorites');
         }
     };
 
@@ -761,19 +742,13 @@ const AppStore = () => {
             const favoriteString = Array.isArray(updatedFavorites) ? updatedFavorites.join(',') : updatedFavorites;
             const finalValue = favoriteString || ""; // 如果为空，传递空字符串
 
-            console.log('[AppStore] Updating favorite apps via API:', finalValue);
-
             // 使用API helper更新收藏列表
             const result = await UpdateSettingsBySection("favorite_apps", "keys", finalValue);
-            console.log('[AppStore] Favorite apps updated successfully via API:', result);
-
             // 更新成功后，清除收藏数据缓存，确保下次获取最新数据
             localStorage.removeItem('favorite_apps_cache');
             localStorage.removeItem('favorite_apps_cache_timestamp');
 
         } catch (error) {
-            console.error('[AppStore] Failed to update favorite apps via API:', error);
-
             // API失败时的处理，可以选择显示错误或忽略
             setDataError(true);
             setErrorMessage(`Failed to update favorites: ${error.message}`);
@@ -845,7 +820,6 @@ const AppStore = () => {
     //获取所有apps（增强缓存机制）
     const getData = async () => {
         try {
-            console.time('[AppStore] Apps data fetching');
 
             // 检查是否有缓存的应用数据（5分钟有效期）
             const cacheKey = 'appstore_data';
@@ -856,18 +830,15 @@ const AppStore = () => {
             if (cachedData && cacheTimestamp) {
                 const age = Date.now() - parseInt(cacheTimestamp);
                 if (age < cacheTimeout) {
-                    console.log('[AppStore] Using cached apps data');
                     const { catalogs, apps: cachedApps } = JSON.parse(cachedData);
                     setMainCatalogs(catalogs);
                     setApps(cachedApps);
                     setAppList(cachedApps);
-                    console.timeEnd('[AppStore] Apps data fetching');
                     return;
                 }
             }
 
             // 缓存失效或不存在，重新获取数据
-            console.log('[AppStore] Fetching fresh apps data');
             const responses = await Promise.all([
                 AppCatalog(language === "zh_CN" ? "zh" : "en"),
                 AppAvailable(language === "zh_CN" ? "zh" : "en")
@@ -898,14 +869,11 @@ const AppStore = () => {
                     apps: productResponse
                 }));
                 localStorage.setItem(cacheKey + '_timestamp', Date.now().toString());
-                console.log('[AppStore] Apps data cached successfully');
             } catch (e) {
                 console.warn('[AppStore] Failed to cache apps data:', e);
             }
 
-            console.timeEnd('[AppStore] Apps data fetching');
         } catch (error) {
-            console.timeEnd('[AppStore] Apps data fetching');
             setDataError(true);
             setErrorMessage(error.message);
         }
@@ -916,28 +884,20 @@ const AppStore = () => {
             setLoading(true);
 
             try {
-                console.time('[AppStore] Total page load time');
-
                 // 第一阶段：预热配置缓存（快速执行）
                 await initializeConfig();
 
                 // 第二阶段：优先获取应用数据，让用户快速看到内容
-                console.time('[AppStore] Core data fetching');
                 await getData(); // 优先加载应用列表，让页面快速显示
-                console.timeEnd('[AppStore] Core data fetching');
 
                 setLoading(false); // 主要数据加载完成，立即显示页面
-                console.timeEnd('[AppStore] Total page load time');
 
                 // 第三阶段：异步加载收藏数据，不阻塞页面显示
-                console.time('[AppStore] Favorite apps loading');
                 getFavoriteApps().finally(() => {
-                    console.timeEnd('[AppStore] Favorite apps loading');
-                    console.log('[AppStore] Favorite apps loaded asynchronously');
+
                 });
 
             } catch (error) {
-                console.error("[AppStore] Error loading core data:", error);
                 setDataError(true);
                 setErrorMessage(error.message || "Fetch Data Error");
                 setLoading(false);
@@ -974,11 +934,6 @@ const AppStore = () => {
         }
     }, [apps, favoriteApps, searchValue]);
 
-
-
-    //if (loading) return <Spinner className='dis_mid' />
-    // if (dataError) return <p>Error : {errorMesage || "Fetch Data Error"} </p>;
-
     //用于显示应用详情的弹窗
     const handleClick = (product, isAppFavorite) => {
         setSelectedProduct(product);
@@ -991,59 +946,6 @@ const AppStore = () => {
         setShowModal(false);
         setSelectedProduct(null);
     };
-
-    //当主目录改变时
-    // const changeMainCatalog = (selectedMainCatalog) => {
-    //     setSelectedMainCatalogKey(selectedMainCatalog);
-    //     // setSelectedSubCatalog("All");
-    //     setFavoriteAppsIsVisible(selectedMainCatalog === "All" && favoriteApps.length > 0);
-    //     // 查询主目录下的二级目录
-    //     let updatedData = null;
-    //     //  filter
-    //     updatedData =
-    //         selectedMainCatalog === 'All'
-    //             ? []
-    //             : mainCatalogs.filter(c => c.key === selectedMainCatalog)?.[0]?.linkedFrom?.catalogCollection?.items;
-    //     const data = updatedData.sort(function (a, b) {
-    //         if (a.position === null && b.position === null) {
-    //             return 0;
-    //         } else if (a.position === null) {
-    //             return 1;
-    //         } else if (b.position === null) {
-    //             return -1;
-    //         } else {
-    //             return a.position - b.position;
-    //         }
-    //     });
-    //     setSubCatalogs(data);
-
-    //     //根据主目录过滤app数据
-    //     let subCatalogApps = null;
-    //     let mainCatalogAllApps = null;
-    //     mainCatalogAllApps = apps.filter(app => app?.catalogCollection?.items.some(sub => sub?.catalogCollection?.items.some(subsub => subsub.key === selectedMainCatalog)));
-    //     subCatalogApps =
-    //         selectedMainCatalog === "All"
-    //             ? /*apps*/ nonFavoriteApps
-    //             : mainCatalogAllApps;
-    //     setAppList(subCatalogApps);
-    //     setAllMainCatalogApps(mainCatalogAllApps);
-    //     setIsAllSelected(false);
-    //     setSearchValue("");
-    // };
-
-    // //当子目录改变时，过滤应用数据
-    // const changeSubCatalog = (selectedSubCatalog) => {
-    //     setSelectedSubCatalogKey(selectedSubCatalog);
-    //     let updatedData = null;
-    //     updatedData =
-    //         selectedSubCatalog === "All"
-    //             ? allMainCatalogApps
-    //             : apps.filter(app => app?.catalogCollection?.items.some(c => c.key === selectedSubCatalog));
-    //     setAppList(updatedData);
-    //     setSearchValue("");
-
-    //     console.log("subCatalogAllApps", updatedData);
-    // };
 
     const changeMainCatalog = (selectedMainCatalog) => {
         return new Promise((resolve) => {
