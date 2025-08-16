@@ -1,1 +1,5 @@
-1. Message prompt for modifying application installation restrictions
+- [【Websoft9 优化】-- 服务状态监控](https://github.com/Websoft9/websoft9/issues/626)
+- [【Websoft9 优化】-- PHP 版本管理](https://github.com/Websoft9/websoft9/issues/627)
+- [【Websoft9 优化】-- 系统指标 ](https://github.com/Websoft9/websoft9/issues/628)
+- [【Websoft9 优化】-- 网关集成 WAF 能力](https://github.com/Websoft9/websoft9/issues/629)
+- [【Websoft9 优化】-- 备份与恢复](https://github.com/Websoft9/websoft9/issues/630)
