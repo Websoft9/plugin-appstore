@@ -21,7 +21,11 @@ import configManager from '../helpers/api/configManager';
 
 const _ = cockpit.gettext;
 const language = cockpit.language;//获取cockpit的当前语言环境
-const DefaultImg = language === "zh_CN" ? DefaultImgzh : DefaultImgEn;
+
+// 创建函数来获取默认图片，而不是常量
+const getDefaultImg = (currentLang) => {
+    return currentLang === "zh_CN" ? DefaultImgzh : DefaultImgEn;
+};
 
 var baseURL = ""
 const rootURL = `${window.location.hostname}`;
@@ -119,7 +123,7 @@ const AppImage = ({ src, alt, className, onError, isFirstScreen, width, height }
 };
 
 //应用详情弹窗
-const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpdate, catalogClick }) => {
+const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpdate, catalogClick, currentLanguage }) => {
     const [index, setIndex] = useState(0); //用户图片浏览
     const [visible, setVisible] = useState(true); //用于显示安装选项：版本和应用名称
     const [customName, setCustomName] = useState(""); //用户存储用户输入的应用名称
@@ -377,7 +381,7 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                                     src={`${baseURL}/media/logos/${imagName}`}
                                     alt=""
                                     className="app-icon"
-                                    onError={(e) => (e.target.src = DefaultImg)}
+                                    onError={(e) => (e.target.src = getDefaultImg(currentLanguage))}
                                     isFirstScreen={true}
                                 />
                             </a>
@@ -389,7 +393,7 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                                 </h3>
                                 <a
                                     rel="noreferrer"
-                                    href={`https://support.websoft9.com/${language === "zh_CN" ? '' : 'en/'}docs/${product.key || ''}`}
+                                    href={`https://support.websoft9.com/${currentLanguage === "zh_CN" ? '' : 'en/'}docs/${product.key || ''}`}
                                     target="_blank"
                                     style={{ marginRight: '10px' }}
                                 >
@@ -454,7 +458,7 @@ const AppDetailModal = ({ product, showFlag, onClose, isFavorite, onFavoriteUpda
                                         <Carousel.Item key={item?.id} >
                                             <AppImage
                                                 className="d-block"
-                                                src={`${baseURL}/media/screenshots/${language === "zh_CN" ? "zh" : "en"}/${filename}`}
+                                                src={`${baseURL}/media/screenshots/${currentLanguage === "zh_CN" ? "zh" : "en"}/${filename}`}
                                                 alt={item?.key}
                                                 width="100%"
                                                 height="300px"
@@ -649,6 +653,7 @@ const AppStore = () => {
     const [isFavoriteAppsVisible, setFavoriteAppsIsVisible] = useState(true); // 是否显示 我的收藏 ，在收藏的情况下隐藏
     const [selectedMainCatalogKey, setSelectedMainCatalogKey] = useState("All"); //用于存储被选中的主目录
     const [selectedSubCatalogKey, setSelectedSubCatalogKey] = useState("All");   //用于存储被选中的子目录
+    const [currentLanguage, setCurrentLanguage] = useState(cockpit.language); // 跟踪当前语言
 
 
     const initializeConfig = async () => {
@@ -676,7 +681,12 @@ const AppStore = () => {
     // 清理过期的本地缓存
     const cleanupExpiredCache = () => {
         try {
-            const cacheKeys = ['appstore_data', 'favorite_apps_cache'];
+            // 清理所有语言版本的缓存
+            const cacheKeys = [
+                'appstore_data_zh',
+                'appstore_data_en',
+                'favorite_apps_cache'
+            ];
             cacheKeys.forEach(key => {
                 const timestamp = localStorage.getItem(key + '_timestamp');
                 if (timestamp) {
@@ -820,9 +830,12 @@ const AppStore = () => {
     //获取所有apps（增强缓存机制）
     const getData = async () => {
         try {
+            // 获取当前语言，确保使用最新的语言设置
+            const currentLanguage = cockpit.language;
+            const apiLanguage = currentLanguage === "zh_CN" ? "zh" : "en";
 
-            // 检查是否有缓存的应用数据（5分钟有效期）
-            const cacheKey = 'appstore_data';
+            // 检查是否有缓存的应用数据（5分钟有效期）- 包含语言信息的缓存键
+            const cacheKey = `appstore_data_${apiLanguage}`;
             const cacheTimeout = 5 * 60 * 1000; // 5分钟
             const cachedData = localStorage.getItem(cacheKey);
             const cacheTimestamp = localStorage.getItem(cacheKey + '_timestamp');
@@ -840,8 +853,8 @@ const AppStore = () => {
 
             // 缓存失效或不存在，重新获取数据
             const responses = await Promise.all([
-                AppCatalog(language === "zh_CN" ? "zh" : "en"),
-                AppAvailable(language === "zh_CN" ? "zh" : "en")
+                AppCatalog(apiLanguage),
+                AppAvailable(apiLanguage)
             ]);
 
             const [catalogResponse, productResponse] = responses;
@@ -862,7 +875,7 @@ const AppStore = () => {
             setApps(productResponse);
             setAppList(productResponse);
 
-            // 缓存数据
+            // 缓存数据 - 使用包含语言信息的缓存键
             try {
                 localStorage.setItem(cacheKey, JSON.stringify({
                     catalogs: catalogSort,
@@ -906,6 +919,44 @@ const AppStore = () => {
 
         fetchData();
     }, []);
+
+    // 添加语言变化监听，当语言切换时清理缓存并重新获取数据
+    useEffect(() => {
+        const handleLanguageChange = async () => {
+            const newLanguage = cockpit.language;
+
+            // 如果语言发生了变化
+            if (newLanguage !== currentLanguage) {
+                console.log('[AppStore] Language changed from', currentLanguage, 'to', newLanguage);
+                setCurrentLanguage(newLanguage);
+
+                // 清理所有语言的缓存，确保获取正确语言的数据
+                const cacheKeysToClean = ['appstore_data_zh', 'appstore_data_en'];
+                cacheKeysToClean.forEach(key => {
+                    localStorage.removeItem(key);
+                    localStorage.removeItem(key + '_timestamp');
+                });
+
+                // 重新获取数据
+                setLoading(true);
+                try {
+                    await getData();
+                } catch (error) {
+                    setDataError(true);
+                    setErrorMessage(error.message || "Language change reload error");
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        // 创建一个定时器来检测语言变化
+        const languageCheckTimer = setInterval(handleLanguageChange, 1000);
+
+        return () => {
+            clearInterval(languageCheckTimer);
+        };
+    }, [currentLanguage]);
 
     useEffect(() => {
         // 如果有 apps 并且 favoriteApps 为空或者存在
@@ -1044,7 +1095,7 @@ const AppStore = () => {
                             src={`${baseURL}/media/logos/${imageName}`}
                             alt={imageName}
                             className="app-icon"
-                            onError={(e) => (e.target.src = DefaultImg)}
+                            onError={(e) => (e.target.src = getDefaultImg(currentLanguage))}
                             isFirstScreen={isFirstScreen}
                         />
                     </div>
@@ -1195,7 +1246,8 @@ const AppStore = () => {
                     onClose={handleClose}
                     isFavorite={isAppFavorite}
                     onFavoriteUpdate={onFavoriteUpdate}
-                    catalogClick={handleCatalogClickForModal} />}
+                    catalogClick={handleCatalogClickForModal}
+                    currentLanguage={currentLanguage} />}
             </>
     );
 };
