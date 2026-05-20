@@ -435,5 +435,9 @@ cockpit.locale({
     "W9_DNS_UDP_PORT_SET": [
         null,
         "DNS UDP PORT"
+    ],
+    "W9_SMTP_PORT_SET": [
+        null,
+        "SMTP PORT"
     ]
 });
