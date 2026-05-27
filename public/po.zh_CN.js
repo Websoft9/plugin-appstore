@@ -494,7 +494,7 @@ cockpit.locale({
     ],
     "W9_BROKER_PORT_SET": [
         null,
-        "代理监听端口"
+        "RocketMQ Broker 主端口"
     ],
     "W9_CONTAINER_PORT_INIT_SET": [
         null,
@@ -555,5 +555,33 @@ cockpit.locale({
     "W9_DNS_UDP_PORT_SET": [
         null,
         "DNS UDP 端口"
+    ],
+    "W9_PROXY_REMOTING_PORT_SET": [
+        null,
+        "RocketMQ Proxy Remoting 端口"
+    ],
+    "W9_PROXY_GRPC_PORT_SET": [
+        null,
+        "RocketMQ Proxy gRPC 端口"
+    ],
+    "W9_SMTP_PORT_SET": [
+        null,
+        "SMTP 端口"
+    ],
+    "W9_BRIDGE_PORT_SET": [
+        null,
+        "桥接控制端口"
+    ],
+    "W9_NAMESRV_PORT_SET": [
+        null,
+        "RocketMQ NameServer 端口"
+    ],
+    "W9_BROKER_VIP_PORT_SET": [
+        null,
+        "RocketMQ Broker VIP 端口"
+    ],
+    "W9_BROKER_HA_PORT_SET": [
+        null,
+        "RocketMQ Broker HA 端口"
     ]
 });
