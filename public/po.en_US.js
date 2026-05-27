@@ -435,5 +435,17 @@ cockpit.locale({
     "W9_DNS_UDP_PORT_SET": [
         null,
         "DNS UDP PORT"
+    ],
+    "W9_PROXY_REMOTING_PORT_SET": [
+        null,
+        "RocketMQ Proxy Remoting Port"
+    ],
+    "W9_PROXY_GRPC_PORT_SET": [
+        null,
+        "RocketMQ Proxy gRPC Port"
+    ],
+    "W9_SMTP_PORT_SET": [
+        null,
+        "SMTP PORT"
     ]
 });
